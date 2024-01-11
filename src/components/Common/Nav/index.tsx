@@ -9,7 +9,7 @@ const Nav = () => {
       <StNav>
         <StLogoDiv>
           <StLogoSpan>
-            AIdol
+            AIdol _create dev
           </StLogoSpan>
         </StLogoDiv>
 
