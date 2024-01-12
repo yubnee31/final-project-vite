@@ -3,6 +3,20 @@ import { supabase } from "../../api/supabase";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { loginState } from "../../shared/recoil/authAtom";
+import {
+  StCreateAccountBtn,
+  StDivisionDiv,
+  StFormDiv,
+  StFormWrapper,
+  StInfoP,
+  StInput,
+  StLoginForm,
+  StSigninBtn,
+  StSignupBtnDiv,
+  StSocialLoginBtn,
+  StSpan,
+  StTitleP,
+} from "./style";
 
 const Signin = () => {
   const [email, setEmail] = useState<string>("");
@@ -83,36 +97,46 @@ const Signin = () => {
   };
 
   return (
-    <>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <p>이메일</p>
-        <input
-          placeholder="이메일 형식으로 입력해주세요"
-          value={email}
-          onChange={handleEmailInput}
-        ></input>
-        <p>비밀번호</p>
-        <input
-          type="password"
-          placeholder="비밀번호를 6자 이상으로 입력해주세요"
-          value={password}
-          onChange={handlePasswordInput}
-          minLength={6}
-        ></input>
-        <div>
-          <button
+    <StFormWrapper>
+      <StLoginForm onSubmit={(e) => e.preventDefault()}>
+        <StFormDiv>
+          <StTitleP>AIdol inc.</StTitleP>
+          <StInfoP>Sign in to your account.</StInfoP>
+          <StInput
+            placeholder="이메일 형식으로 입력해주세요"
+            value={email}
+            onChange={handleEmailInput}
+          ></StInput>
+          <StInput
+            type="password"
+            placeholder="비밀번호를 6자 이상으로 입력해주세요"
+            value={password}
+            onChange={handlePasswordInput}
+            minLength={6}
+          ></StInput>
+          <StSigninBtn
             type="submit"
             disabled={!isValid}
             onClick={handleLoginButtonClick}
           >
-            로그인
-          </button>
-          <button onClick={googleLogin}>Google로 로그인하기</button>
-          <button onClick={kakaoLogin}>kakao로 로그인하기</button>
-          <button>회원가입</button>
-        </div>
-      </form>
-    </>
+            Sign in
+          </StSigninBtn>
+          <StDivisionDiv>Or</StDivisionDiv>
+          <StSocialLoginBtn onClick={googleLogin}>
+            Google로 로그인하기
+          </StSocialLoginBtn>
+          <StSocialLoginBtn onClick={kakaoLogin}>
+            kakao로 로그인하기
+          </StSocialLoginBtn>
+          <StSignupBtnDiv>
+            <StSpan>Need an account?</StSpan>
+            <StCreateAccountBtn onClick={() => navigate("/signup")}>
+              Create account
+            </StCreateAccountBtn>
+          </StSignupBtnDiv>
+        </StFormDiv>
+      </StLoginForm>
+    </StFormWrapper>
   );
 };
 
