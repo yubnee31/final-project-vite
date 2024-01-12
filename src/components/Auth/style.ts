@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // 로그인페이지 css
 export const StFormWrapper = styled.div`
@@ -10,7 +10,7 @@ export const StFormWrapper = styled.div`
   margin-top: 100px;
 `;
 
-export const StLoginForm = styled.form`
+export const StForm = styled.form`
   background-color: #63636670;
   width: 400px;
   height: 500px;
@@ -68,7 +68,7 @@ export const StDivisionDiv = styled.div`
   background-color: transparent;
   &::before,
   &::after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: #636366;
     height: 1px;

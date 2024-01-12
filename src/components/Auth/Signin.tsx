@@ -6,11 +6,11 @@ import {loginState} from '../../shared/recoil/authAtom';
 import {
   StCreateAccountBtn,
   StDivisionDiv,
+  StForm,
   StFormDiv,
   StFormWrapper,
   StInfoP,
   StInput,
-  StLoginForm,
   StSigninBtn,
   StSignupBtnDiv,
   StSocialLoginBtn,
@@ -94,7 +94,7 @@ const Signin = () => {
 
   return (
     <StFormWrapper>
-      <StLoginForm onSubmit={e => e.preventDefault()}>
+      <StForm onSubmit={e => e.preventDefault()}>
         <StFormDiv>
           <StTitleP>AIdol inc.</StTitleP>
           <StInfoP>Sign in to your account.</StInfoP>
@@ -117,7 +117,7 @@ const Signin = () => {
             <StCreateAccountBtn onClick={() => navigate('/signup')}>Create account</StCreateAccountBtn>
           </StSignupBtnDiv>
         </StFormDiv>
-      </StLoginForm>
+      </StForm>
     </StFormWrapper>
   );
 };
