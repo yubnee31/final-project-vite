@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
-import {useRecoilState} from 'recoil';
+import React from 'react'
+import { useRecoilState } from 'recoil'
+import { followState } from '../../shared/recoilAtoms'
 
-const Follow = () => {
-  const [isFollowing, setIsFollowwing] = useState();
+interface FollowButtonProps {
+  userId: string
+}
+const Follow = ({ userId }: FollowButtonProps) => {
+  const [followList, setFollowList] = useRecoilState(followState)
+  const handleFollowClick = () => {
+    // 팔로우 상태를 업데이트
+    setFollowList(prevFollowList => [...prevFollowList, userId])
+  }
 
-  return <div>Follow</div>;
-};
+  return <button onClick={handleFollowClick}>팔로우</button>
+}
 
-export default Follow;
+export default Follow
