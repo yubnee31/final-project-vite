@@ -1,8 +1,15 @@
 import React from 'react'
+import PostList from '../components/Post/PostList'
+import AddPost from '../components/Post/AddPost'
+
 
 const Community = () => {
+
   return (
-    <div>Community</div>
+    <>
+      <AddPost />
+      <PostList />
+    </>
   )
 }
 
