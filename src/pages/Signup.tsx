@@ -1,8 +1,8 @@
-import React from 'react';
-import Join from '../components/Auth/Join';
+import React from "react";
+import Join from "../components/Auth/Join";
 const Signup = () => {
   return (
-    <div style={{marginTop: '80px'}}>
+    <div>
       <Join />
     </div>
   );
