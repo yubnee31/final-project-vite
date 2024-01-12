@@ -1,25 +1,28 @@
-import React, {useState} from 'react';
-import {signUp} from '../../api/auth';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from "react";
+import { signUp } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 const Join = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordAgain, setPasswordAgain] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordAgain, setPasswordAgain] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSignupButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signUp(email, password, nickname);
-    navigate('/');
+    navigate("/");
   };
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
     setEmail(email);
-    email.includes('@') && password.length >= 6 && password === passwordAgain && nickname.length >= 2
+    email.includes("@") &&
+    password.length >= 6 &&
+    password === passwordAgain &&
+    nickname.length >= 2
       ? setIsValid(true)
       : setIsValid(false);
   };
@@ -27,7 +30,10 @@ const Join = () => {
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const password = e.target.value;
     setPassword(password);
-    email.includes('@') && password.length >= 6 && password === passwordAgain && nickname.length >= 2
+    email.includes("@") &&
+    password.length >= 6 &&
+    password === passwordAgain &&
+    nickname.length >= 2
       ? setIsValid(true)
       : setIsValid(false);
   };
@@ -35,7 +41,10 @@ const Join = () => {
   const handlePasswordAgainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const passwordAgain = e.target.value;
     setPasswordAgain(passwordAgain);
-    email.includes('@') && password.length >= 6 && password === passwordAgain && nickname.length >= 2
+    email.includes("@") &&
+    password.length >= 6 &&
+    password === passwordAgain &&
+    nickname.length >= 2
       ? setIsValid(true)
       : setIsValid(false);
   };
@@ -43,7 +52,10 @@ const Join = () => {
   const handleNicknameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nickname = e.target.value;
     setNickname(nickname);
-    email.includes('@') && password.length >= 6 && password === passwordAgain && nickname.length >= 2
+    email.includes("@") &&
+    password.length >= 6 &&
+    password === passwordAgain &&
+    nickname.length >= 2
       ? setIsValid(true)
       : setIsValid(false);
   };
@@ -52,7 +64,11 @@ const Join = () => {
     <>
       <form onSubmit={handleSignupButtonClick}>
         <p>이메일</p>
-        <input placeholder="이메일 형식으로 입력해주세요" value={email} onChange={handleEmailInput}></input>
+        <input
+          placeholder="이메일 형식으로 입력해주세요"
+          value={email}
+          onChange={handleEmailInput}
+        ></input>
         <p>비밀번호</p>
         <input
           type="password"
@@ -68,7 +84,11 @@ const Join = () => {
           onChange={handlePasswordAgainInput}
         ></input>
         <p>닉네임</p>
-        <input placeholder="닉네임을 2자 이상으로 입력해주세요" value={nickname} onChange={handleNicknameInput}></input>
+        <input
+          placeholder="닉네임을 2자 이상으로 입력해주세요"
+          value={nickname}
+          onChange={handleNicknameInput}
+        ></input>
         <div>
           <button type="submit" disabled={!isValid}>
             회원가입

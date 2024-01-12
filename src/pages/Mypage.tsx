@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Mypage = () => {
-  return (
-    <div>Mypage</div>
-  )
-}
+  return <div>Mypage</div>;
+};
 
-export default Mypage
+export default Mypage;

@@ -1,28 +1,65 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import { loginState } from "../../../shared/recoil/authAtom";
+import { supabase } from "../../../api/supabase";
 
 const Nav = () => {
+  const navigate = useNavigate();
+
+  // 리코일
+  const [login, setLogin] = useRecoilState(loginState);
+
+  // 로그아웃
+  const logOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    alert("로그아웃 되었습니다");
+    setLogin(null);
+    navigate("/");
+    if (error) console.log("error", error);
+  };
 
   return (
     <>
       <StNav>
         <StLogoDiv>
-          <StLogoSpan>
-            AIdol _create dev
-          </StLogoSpan>
+          <StLogoSpan>AIdol _create dev</StLogoSpan>
         </StLogoDiv>
 
         <StBtnDiv>
           <StButton>
-            <StImg src={import.meta.env.PUBLIC_URL + '/images/search-icon-white.png'}></StImg>
+            <StImg
+              src={import.meta.env.PUBLIC_URL + "/images/search-icon-white.png"}
+            ></StImg>
           </StButton>
           <StButton>
-            <StImg src={import.meta.env.PUBLIC_URL + '/images/alarm-icon-white.png'}></StImg>
+            <StImg
+              src={import.meta.env.PUBLIC_URL + "/images/alarm-icon-white.png"}
+            ></StImg>
           </StButton>
-          <StSignInBtn>
-            <StBtnP>Sign In</StBtnP>
-          </StSignInBtn>
+          {login ? (
+            <>
+              <button onClick={logOut}>
+                <p>Logout</p>
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                <p>Mypage</p>
+              </button>
+            </>
+          ) : (
+            <StSignInBtn
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              <StBtnP>Sign In</StBtnP>
+            </StSignInBtn>
+          )}
         </StBtnDiv>
       </StNav>
 
@@ -35,24 +72,24 @@ const Nav = () => {
         />
       </DropDownDiv> */}
     </>
-  )
-}
+  );
+};
 
 // Dropdown
 const DropDownDiv = styled.div`
-width: 100vw;
-height: 300px;
-background-color: #3a3a3a;
-padding-top: 80px;
+  width: 100vw;
+  height: 300px;
+  background-color: #3a3a3a;
+  padding-top: 80px;
 
-display: flex;
-align-items: center;
-justify-content: center;
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const DropDownImgDiv = styled.div`
   width: 50px;
   height: 50px;
-`
+`;
 const DropDownInput = styled.input`
   width: 40vw;
   height: 50px;
@@ -66,39 +103,36 @@ const DropDownInput = styled.input`
   font-weight: bold;
 
   margin-left: 20px;
-`
-
-
+`;
 
 // TODO : 최소 사이즈 1000px 잡기
 // Layout
 const StNav = styled.nav`
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
 
-background-color: #000000;
+  background-color: #000000;
 
-z-index: 100;
+  z-index: 100;
 
-display: flex;
-justify-content: center;
-align-items: center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 // Logo
 const StLogoDiv = styled.div`
-    width: 75%;
-
-`
+  width: 75%;
+`;
 const StLogoSpan = styled.span`
   color: white;
   font-size: 25px;
   font-weight: bold;
   margin-left: 30px;
-`
+`;
 
 // Button
 const StBtnDiv = styled.div`
@@ -106,7 +140,7 @@ const StBtnDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const StButton = styled.button`
   width: 30px;
   height: 30px;
@@ -120,27 +154,24 @@ const StButton = styled.button`
     opacity: 0.5;
     transition: 0.5s;
   }
-`
+`;
 const StSignInBtn = styled.button`
   background-color: #693a8d;
   border: none;
   width: 100px;
   height: 35px;
   border-radius: 5px;
-`
+`;
 const StBtnP = styled.p`
   color: white;
   font-size: 15px;
   text-align: center;
   font-weight: bold;
-`
+`;
 
 const StImg = styled.img`
   width: inherit;
   height: inherit;
-`
+`;
 
-
-
-
-export default Nav
+export default Nav;
