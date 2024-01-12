@@ -7,7 +7,7 @@ const Artistchart = () => {
     data: chartData,
     isLoading,
     isError,
-  } = useQuery({ queryKey: ['chart'], queryFn: getArtist })
+  } = useQuery({ queryKey: ['testTable'], queryFn: getArtist })
 
   if (isLoading) {
     return <div>로딩중...</div>
@@ -22,12 +22,10 @@ const Artistchart = () => {
       <h2>artistchart</h2>
 
       {chartData?.map(item => (
-        <ul key={item.rank}>
-          <li>{item.rank}</li>
-          <li>{item.title}</li>
+        <ul key={item.id}>
           <li>{item.artist}</li>
           <li>{item.like}</li>
-          <Likefunc postId={item.rank} />
+          <Likefunc postId={item.id} />
         </ul>
       ))}
     </div>
