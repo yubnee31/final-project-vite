@@ -1,20 +1,16 @@
-import { useQuery } from '@tanstack/react-query'
-import { getArtist } from '../../api/chartapi'
-import Likefunc from './LikeFunc'
+import {useQuery} from '@tanstack/react-query';
+import {getArtist} from '../../api/chartapi';
+import Likefunc from './LikeFunc';
 
 const Artistchart = () => {
-  const {
-    data: chartData,
-    isLoading,
-    isError,
-  } = useQuery({ queryKey: ['testTable'], queryFn: getArtist })
+  const {data: chartData, isLoading, isError} = useQuery({queryKey: ['testTable'], queryFn: getArtist});
 
   if (isLoading) {
-    return <div>로딩중...</div>
+    return <div>로딩중...</div>;
   }
 
   if (isError) {
-    return <div>에러 발생 </div>
+    return <div>에러 발생 </div>;
   }
 
   return (
@@ -29,7 +25,7 @@ const Artistchart = () => {
         </ul>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Artistchart
+export default Artistchart;

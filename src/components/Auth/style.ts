@@ -1,25 +1,28 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-// 로그인페이지 css
 export const StFormWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  align-items: center;
+  /* align-items: center; 
   justify-content: center;
   flex-direction: column;
-  text-align: center;
-  margin-top: 100px;
+  text-align: center; */
 `;
 
-export const StLoginForm = styled.form`
-  background-color: #63636670;
+export const StForm = styled.form`
+  background-color: #2a2a2a;
   width: 400px;
   height: 500px;
+  border-radius: 10px;
 `;
 
 export const StFormDiv = styled.div`
   width: 300px;
   height: 400px;
-  margin: 40px auto;
+  margin: 35px auto;
   text-align: left;
   background-color: transparent;
 `;
@@ -28,13 +31,13 @@ export const StTitleP = styled.p`
   height: 40px;
   font-size: x-large;
   background-color: transparent;
+  user-select: none;
 `;
 
 export const StInfoP = styled.p`
   height: 30px;
   font-size: small;
   background-color: transparent;
-  margin-bottom: 5px;
 `;
 
 export const StInput = styled.input`
@@ -45,30 +48,60 @@ export const StInput = styled.input`
   background-color: transparent;
 `;
 
+export const StErrorMessage = styled.span`
+  color: red;
+  background-color: transparent;
+  font-size: x-small;
+`;
+
 export const StSigninBtn = styled.button`
   width: 300px;
-  height: 45px;
+  height: 40px;
   font-size: small;
   margin-top: 10px;
   border: none;
-  background-image: linear-gradient(45deg, #d651d6, #5a68e8, #e1b1ff);
+  border-radius: 5px;
+  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
   }
 `;
 
+export const StSignupBtnDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  font-size: x-small;
+  gap: 5px;
+  margin-top: 15px;
+`;
+
+export const StSpan = styled.span`
+  background-color: transparent;
+  color: #aeaeb2;
+`;
+
+export const StCreateAccountSpan = styled.span`
+  border: none;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
 export const StDivisionDiv = styled.div`
   display: flex;
   flex-basis: 100%;
   align-items: center;
   color: #aeaeb2;
-  font-size: small;
-  margin: 15px 0px;
+  font-size: x-small;
+  margin: 25px 0px;
   background-color: transparent;
+  user-select: none;
   &::before,
   &::after {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: #636366;
     height: 1px;
@@ -78,36 +111,44 @@ export const StDivisionDiv = styled.div`
   }
 `;
 
-export const StSocialLoginBtn = styled.button`
+export const StGoogleLoginBtn = styled.button`
   width: 300px;
-  height: 45px;
+  height: 40px;
   font-size: small;
   background-color: white;
   color: black;
   border: none;
   margin-bottom: 10px;
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
     font-weight: bold;
   }
 `;
 
-export const StSignupBtnDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: transparent;
-  margin-top: 10px;
-`;
-
-export const StSpan = styled.span`
+export const StKakaoLoginBtn = styled.button`
+  width: 300px;
+  height: 40px;
   font-size: small;
-  background-color: transparent;
+  background-color: #fee500;
+  color: black;
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
 `;
 
-export const StCreateAccountBtn = styled.button`
+export const StSignupBtn = styled.button`
+  width: 300px;
+  height: 40px;
+  font-size: small;
+  margin-top: 20px;
   border: none;
-  background-color: transparent;
-  color: #cc51d6;
+  border-radius: 5px;
+  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
