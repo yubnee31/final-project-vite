@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {StErrorMessage, StForm, StFormDiv, StFormWrapper, StInfoP, StInput, StSignupBtn, StTitleP} from './style';
 import {toast} from 'react-toastify';
@@ -10,6 +10,7 @@ const Join = () => {
   const [password, setPassword] = useState<string>('');
   const [passwordAgain, setPasswordAgain] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
+  const [isValid, setIsValid] = useState<boolean>(false);
   const navigate = useNavigate();
 
   // 에러
@@ -19,40 +20,45 @@ const Join = () => {
   const [nicknameError, setNicknameError] = useState<string>('');
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const email = e.target.value;
-    setEmail(email);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) setEmailError('이메일 아이디를 입력해주세요.');
-    else if (!emailRegex.test(email)) setEmailError('올바른 이메일 형식이 아닙니다.');
-    else setEmailError('');
-    return email;
+    setEmail(() => {
+      const newEamil = e.target.value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!newEamil) setEmailError('이메일 아이디를 입력해주세요.');
+      else if (!emailRegex.test(newEamil)) setEmailError('올바른 이메일 형식이 아닙니다.');
+      else setEmailError('');
+      return newEamil;
+    });
   };
 
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const password = e.target.value;
-    setPassword(password);
-    if (!password) setPasswordError('비밀번호를 입력해주세요.');
-    else if (password.length < 8) setPasswordError('비밀번호는 8자 이상이어야 합니다.');
-    else setPasswordError('');
-    return password;
+    setPassword(() => {
+      const newPassword = e.target.value;
+      if (!newPassword) setPasswordError('비밀번호를 입력해주세요.');
+      else if (newPassword.length < 8) setPasswordError('비밀번호는 8자 이상이어야 합니다.');
+      else setPasswordError('');
+      return newPassword;
+    });
   };
 
   const handlePasswordAgainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const passwordAgain = e.target.value;
-    setPasswordAgain(passwordAgain);
-    if (!passwordAgain) setPasswordAgainError('비밀번호 확인을 입력해주세요.');
-    else if (password !== passwordAgain) setPasswordAgainError('비밀번호가 동일하지 않습니다.');
-    else setPasswordAgainError('');
-    return passwordAgain;
+    setPasswordAgain(() => {
+      const newPasswordAgain = e.target.value;
+      if (!newPasswordAgain) setPasswordAgainError('비밀번호 확인을 입력해주세요.');
+      else if (password !== newPasswordAgain) setPasswordAgainError('비밀번호를 잘못 입력하셨습니다.');
+      else setPasswordAgainError('');
+      return newPasswordAgain;
+    });
   };
 
   const handleNicknameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nickname = e.target.value;
-    setNickname(nickname);
-    if (!nickname) setNicknameError('닉네임을 입력해주세요.');
-    else if (nickname.length < 2) setNicknameError('닉네임은 2자 이상이어야 합니다.');
-    else setNicknameError('');
-    return nickname;
+    setNickname(() => {
+      const newNickname = e.target.value;
+      if (!newNickname) setNicknameError('닉네임을 입력해주세요.');
+      else if (newNickname.length < 2) setNicknameError('닉네임은 2자 이상이어야 합니다.');
+      else setNicknameError('');
+      setIsValid(true);
+      return newNickname;
+    });
   };
 
   const handleSignupButtonClick = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,6 +80,27 @@ const Join = () => {
       toast.error('회원가입에 실패했습니다');
     }
   };
+
+  useEffect(() => {
+    // 모두 만족할때 isValid를 true로 만드는 조건
+    if (!email.includes('@')) {
+      setIsValid(false);
+      return;
+    }
+    if (password.length < 8) {
+      setIsValid(false);
+      return;
+    }
+    if (password !== passwordAgain) {
+      setIsValid(false);
+      return;
+    }
+    if (nickname.length < 2) {
+      setIsValid(false);
+      return;
+    }
+    setIsValid(true);
+  }, [email, password, passwordAgain, nickname]);
 
   return (
     <StFormWrapper>
@@ -107,7 +134,11 @@ const Join = () => {
             minLength={2}
           ></StInput>
           <StErrorMessage>{nicknameError}</StErrorMessage>
-          <StSignupBtn type="submit" disabled={!email || !password || !passwordAgain || !nickname}>
+          <StSignupBtn
+            type="submit"
+            disabled={isValid ? false : true}
+            style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff)' : '#aeaeb2'}}
+          >
             회원가입
           </StSignupBtn>
         </StFormDiv>

@@ -28,6 +28,7 @@ const Signin = () => {
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
+  const [isValid, setIsValid] = useState<boolean>(false);
   const navigate = useNavigate();
 
   //리코일로 로그인상태관리
@@ -85,6 +86,20 @@ const Signin = () => {
     if (error) toast.error('이메일 혹은 비밀번호를 확인해주세요');
   };
 
+  // 모두 만족할 때 isValid true로
+  useEffect(() => {
+    // 모두 만족할때 isValid를 true로 만드는 조건
+    if (!email.includes('@')) {
+      setIsValid(false);
+      return;
+    }
+    if (password.length < 8) {
+      setIsValid(false);
+      return;
+    }
+    setIsValid(true);
+  }, [email, password]);
+
   // google 로그인
   const googleLogin = async () => {
     const {data, error} = await supabase.auth.signInWithOAuth({
@@ -139,7 +154,12 @@ const Signin = () => {
             minLength={8}
           ></StInput>
           <StErrorMessage>{passwordError}</StErrorMessage>
-          <StSigninBtn type="submit" disabled={!email || !password} onClick={handleLoginButtonClick}>
+          <StSigninBtn
+            type="submit"
+            disabled={isValid ? false : true}
+            style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff)' : '#aeaeb2'}}
+            onClick={handleLoginButtonClick}
+          >
             로그인
           </StSigninBtn>
           <StSignupBtnDiv>
