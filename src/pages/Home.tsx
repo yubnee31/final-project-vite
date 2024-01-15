@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
-import { supabase } from "../api/supabase";
+import React, { useEffect } from "react";
+// import { supabase } from "../api/supabase";
 
 const Home = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data, error } = await supabase.from("testTable").select("*");
-        return data;
-      } catch (error) {
-        console.log("Error", error);
-      }
-    };
-    const artistData = fetchData();
-  });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const { data, error } = await supabase.from("testTable").select("*");
+  //       return data;
+  //     } catch (error) {
+  //       console.log("Error", error);
+  //     }
+  //   };
+  //   const artistData = fetchData();
+  // });
   const myArtistTestData = [
     "나의 아티스트",
     "나의 아티스트",
