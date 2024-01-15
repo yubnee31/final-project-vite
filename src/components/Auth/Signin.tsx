@@ -4,23 +4,30 @@ import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 import {loginState} from '../../shared/recoil/authAtom';
 import {
-  StCreateAccountBtn,
+  StCreateAccountSpan,
   StDivisionDiv,
+  StErrorMessage,
+  StForm,
   StFormDiv,
   StFormWrapper,
+  StGoogleLoginBtn,
   StInfoP,
   StInput,
-  StLoginForm,
+  StKakaoLoginBtn,
   StSigninBtn,
   StSignupBtnDiv,
-  StSocialLoginBtn,
   StSpan,
   StTitleP,
 } from './style';
+import {FcGoogle} from 'react-icons/fc';
+import {RiKakaoTalkFill} from 'react-icons/ri';
+import {toast} from 'react-toastify';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -28,27 +35,70 @@ const Signin = () => {
   const setLogin = useSetRecoilState(loginState);
 
   // user 정보 테스트
-  useEffect(() => {
-    const userInfo = async () => {
-      const {
-        data: {user},
-      } = await supabase.auth.getUser();
-      console.log(user);
-    };
-    userInfo();
-  }, []);
+  // useEffect(() => {
+  //   const userInfo = async () => {
+  //     const {
+  //       data: {user},
+  //     } = await supabase.auth.getUser();
+  //     console.log(user);
+  //   };
+  //   userInfo();
+  // }, []);
+
+  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  // 유효성검사
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) setEmailError('이메일 아이디를 입력해주세요.');
+    else if (!emailRegex.test(email)) setEmailError('올바른 이메일 형식이 아닙니다.');
+    else setEmailError('');
+  };
+
+  const validatePassword = () => {
+    if (!password) setPasswordError('비밀번호를 입력해주세요.');
+    else if (password.length < 8) setPasswordError('비밀번호는 8자 이상이어야 합니다.');
+    else setPasswordError('');
+  };
 
   // 이메일 로그인
   const handleLoginButtonClick = async () => {
+    validateEmail();
+    validatePassword();
     const {data, error} = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
     // 리코일 깊은 복사
     setLogin(JSON.parse(JSON.stringify(data.user)));
-    if (data.user !== null) navigate('/');
-    if (error) alert('로그인에 실패했습니다');
+    if (data.user !== null) {
+      toast.success('로그인이 완료되었습니다');
+      navigate('/');
+    }
+    if (error) toast.error('이메일 혹은 비밀번호를 확인해주세요');
   };
+
+  // 모두 만족할 때 isValid true로
+  useEffect(() => {
+    // 모두 만족할때 isValid를 true로 만드는 조건
+    if (!email.includes('@')) {
+      setIsValid(false);
+      return;
+    }
+    if (password.length < 8) {
+      setIsValid(false);
+      return;
+    }
+    setIsValid(true);
+  }, [email, password]);
 
   // google 로그인
   const googleLogin = async () => {
@@ -80,44 +130,53 @@ const Signin = () => {
     if (error) console.log('error', error);
   };
 
-  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const email = e.target.value;
-    setEmail(email);
-    email.includes('@') && password.length >= 6 ? setIsValid(true) : setIsValid(false);
-  };
-
-  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const password = e.target.value;
-    setPassword(password);
-    email.includes('@') && password.length >= 6 ? setIsValid(true) : setIsValid(false);
-  };
-
   return (
     <StFormWrapper>
-      <StLoginForm onSubmit={e => e.preventDefault()}>
+      <StForm onSubmit={e => e.preventDefault()}>
         <StFormDiv>
           <StTitleP>AIdol inc.</StTitleP>
-          <StInfoP>Sign in to your account.</StInfoP>
-          <StInput placeholder="이메일 형식으로 입력해주세요" value={email} onChange={handleEmailInput}></StInput>
+          <StInfoP>로그인 혹은 회원가입을 해주세요.</StInfoP>
+          <StInput
+            placeholder="이메일 주소"
+            value={email}
+            onChange={handleEmailInput}
+            required
+            onBlur={validateEmail}
+          ></StInput>
+          <StErrorMessage>{emailError}</StErrorMessage>
           <StInput
             type="password"
-            placeholder="비밀번호를 6자 이상으로 입력해주세요"
+            placeholder="비밀번호 입력"
             value={password}
             onChange={handlePasswordInput}
-            minLength={6}
+            required
+            onBlur={validatePassword}
+            minLength={8}
           ></StInput>
-          <StSigninBtn type="submit" disabled={!isValid} onClick={handleLoginButtonClick}>
-            Sign in
+          <StErrorMessage>{passwordError}</StErrorMessage>
+          <StSigninBtn
+            type="submit"
+            disabled={isValid ? false : true}
+            style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff)' : '#aeaeb2'}}
+            onClick={handleLoginButtonClick}
+          >
+            로그인
           </StSigninBtn>
-          <StDivisionDiv>Or</StDivisionDiv>
-          <StSocialLoginBtn onClick={googleLogin}>Google로 로그인하기</StSocialLoginBtn>
-          <StSocialLoginBtn onClick={kakaoLogin}>kakao로 로그인하기</StSocialLoginBtn>
           <StSignupBtnDiv>
-            <StSpan>Need an account?</StSpan>
-            <StCreateAccountBtn onClick={() => navigate('/signup')}>Create account</StCreateAccountBtn>
+            <StSpan>아직 계정이 없다면?</StSpan>
+            <StCreateAccountSpan onClick={() => navigate('/signup')}>이메일 주소로 가입하기</StCreateAccountSpan>
           </StSignupBtnDiv>
+          <StDivisionDiv>Or</StDivisionDiv>
+          <StGoogleLoginBtn onClick={googleLogin}>
+            <FcGoogle style={{backgroundColor: 'transparent'}} />
+            &nbsp; 구글 로그인
+          </StGoogleLoginBtn>
+          <StKakaoLoginBtn onClick={kakaoLogin}>
+            <RiKakaoTalkFill style={{backgroundColor: 'transparent'}} />
+            &nbsp; 카카오 로그인
+          </StKakaoLoginBtn>
         </StFormDiv>
-      </StLoginForm>
+      </StForm>
     </StFormWrapper>
   );
 };
