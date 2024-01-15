@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 
 import {supabase} from '../api/supabase';
 
@@ -14,11 +14,7 @@ const Artist = () => {
     };
     userInfo();
   }, []);
-  return (
-    <>
-      <Artistchart></Artistchart>
-    </>
-  );
+  return <></>;
 };
 
 export default Artist;
