@@ -113,7 +113,9 @@ const Artist = () => {
               width="1200px"
               height="675px"
               playing={true}
+              muted={true}
               controls={true}
+              loop={true}
               />
             </StVideoDiv>
           </StWrapper>
@@ -284,6 +286,14 @@ const StPhotoDiv = styled.div`
 
   overflow: auto;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    background-color: #232323;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #84898c3a;
+    border-radius: 30px;
+  }
 `
 const StPhotoImgDiv = styled.div`
   width: 220px;
