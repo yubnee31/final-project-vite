@@ -68,7 +68,7 @@ const Join = () => {
       password: password,
       options: {
         data: {
-          nickname: nickname,
+          name: nickname,
         },
       },
     });
@@ -137,7 +137,7 @@ const Join = () => {
           <StSignupBtn
             type="submit"
             disabled={isValid ? false : true}
-            style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff)' : '#aeaeb2'}}
+            style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8)' : '#aeaeb2'}}
           >
             회원가입
           </StSignupBtn>
