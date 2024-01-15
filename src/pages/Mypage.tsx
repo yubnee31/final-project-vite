@@ -8,36 +8,44 @@ import {loginState} from '../shared/recoil/authAtom';
 
 const Mypage = () => {
   const [user, setUser] = useState({});
-  const [selectedMenu, setSelectedMenu] = useState(''); // 추가된 부분
+  const [selectedMenu, setSelectedMenu] = useState('');
   const [login, setLogin] = useRecoilState(loginState);
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
-  // 로그아웃
 
   useEffect(() => {
     const userInfo = async () => {
       const {
         data: {user},
       } = await supabase.auth.getUser();
-      console.log(user);
+
       if (user) {
+        // userinfo 테이블의 username 값을 가져오기
+        const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
+
+        if (userinfoData && userinfoData.length > 0) {
+          setUsername(userinfoData[0].username);
+        }
+
         setUser(user);
       }
     };
     userInfo();
-  }, []);
+  }, [user, username]);
 
-  const handleMenuClick = (menu: React.SetStateAction<string>) => {
-    if (menu === '로그아웃') {
-      const logOut = async () => {
-        const {error} = await supabase.auth.signOut();
-        alert('로그아웃 되었습니다');
-        setLogin(null);
-        navigate('/');
-        if (error) console.log('error', error);
-      };
-      logOut();
-    }
+  const handleMenuClick = menu => {
     setSelectedMenu(menu);
+  };
+
+  const handleUpdateNickname = newNickname => {
+    // 업데이트된 닉네임을 사용자 정보에 반영
+    setUser(prevUser => ({
+      ...prevUser,
+      user_metadata: {
+        ...prevUser.user_metadata,
+        nickname: newNickname,
+      },
+    }));
   };
 
   return (
@@ -45,7 +53,7 @@ const Mypage = () => {
       <StFormWrapper>
         {user && user.user_metadata ? (
           <StEmailBox>
-            <h1>{user.user_metadata.nickname || user.user_metadata.name}</h1>
+            <h1>{username || user.user_metadata.name}</h1>
             <h3>Email</h3>
             <p onClick={() => handleMenuClick('계정 정보')}>계정 설정</p>
             <h2>나의 정보</h2>
@@ -54,19 +62,13 @@ const Mypage = () => {
             <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
           </StEmailBox>
         ) : (
-          <p>로딩중</p>
+          <p>로딩 중</p>
         )}
       </StFormWrapper>
       <Staccount>
         {selectedMenu === '계정 정보' && (
           <p>
-            <AccountSettings
-              user={{
-                id: '',
-                user_metadata: [],
-                provider: '',
-              }}
-            />
+            <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />
           </p>
         )}
         {selectedMenu === '스케줄' && <p>스케줄 컨텐츠</p>}
