@@ -38,7 +38,6 @@ export const StInfoP = styled.p`
   height: 30px;
   font-size: small;
   background-color: transparent;
-  margin-bottom: 5px;
 `;
 
 export const StInput = styled.input`
@@ -49,6 +48,12 @@ export const StInput = styled.input`
   background-color: transparent;
 `;
 
+export const StErrorMessage = styled.span`
+  color: red;
+  background-color: transparent;
+  font-size: x-small;
+`;
+
 export const StSigninBtn = styled.button`
   width: 300px;
   height: 40px;
@@ -56,7 +61,7 @@ export const StSigninBtn = styled.button`
   margin-top: 10px;
   border: none;
   border-radius: 5px;
-  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
+  background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff);
   &:hover {
     cursor: pointer;
     font-weight: bold;
@@ -140,7 +145,7 @@ export const StSignupBtn = styled.button`
   width: 300px;
   height: 40px;
   font-size: small;
-  margin-top: 40px;
+  margin-top: 20px;
   border: none;
   border-radius: 5px;
   background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff);
