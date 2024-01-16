@@ -4,8 +4,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { loginState } from "../../../shared/recoil/authAtom";
 import { supabase } from "../../../api/supabase";
-import alarmIcon from '../../../../public/images/alarm-icon-white.png'
-import searchIcon from '../../../../public/images/search-icon-white.png'
+import alarmIcon from '../../../assets/images/alarm-icon-white.png'
+import searchIcon from '../../../assets/images/search-icon-white.png'
 
 
 const Nav = () => {
@@ -27,7 +27,7 @@ const Nav = () => {
     <>
       <StNav>
         <StLogoDiv>
-          <StLogoSpan>AIdol</StLogoSpan>
+          <StLogoSpan onClick={() => {navigate('/')}}>AIdol</StLogoSpan>
         </StLogoDiv>
 
         <StBtnDiv>
@@ -117,7 +117,7 @@ const StNav = styled.nav`
   right: 0;
   height: 80px;
 
-  background-color: #000000;
+  background-color: #000000a8;
 
   z-index: 100;
 
@@ -129,12 +129,16 @@ const StNav = styled.nav`
 // Logo
 const StLogoDiv = styled.div`
   width: 75%;
+  background-color: transparent;
 `;
 const StLogoSpan = styled.span`
   color: white;
   font-size: 25px;
   font-weight: bold;
   margin-left: 30px;
+  background-color: transparent;
+
+  cursor: pointer;
 `;
 
 // Button
@@ -143,6 +147,7 @@ const StBtnDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 `;
 const StButton = styled.button`
   width: 30px;
@@ -164,6 +169,8 @@ const StSignInBtn = styled.button`
   width: 100px;
   height: 35px;
   border-radius: 5px;
+  cursor: pointer;
+
 `;
 const StBtnP = styled.p`
   color: black;
@@ -176,6 +183,8 @@ const StBtnP = styled.p`
 const StImg = styled.img`
   width: inherit;
   height: inherit;
+  background-color: transparent;
+
 `;
 
 export default Nav;

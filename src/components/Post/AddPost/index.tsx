@@ -1,9 +1,12 @@
-import React from 'react'
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
+import React, { useState } from 'react'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { addPost } from '../../../api/post'
+import profileImg from '../../../assets/images/profile-white.png'
+import St from './style'
 
 const AddPost = () => {
   const queryClient = useQueryClient();
+  const [content, setContent] = useState('');
   
   const addMutation = useMutation({
     mutationFn: addPost,
@@ -28,7 +31,20 @@ const AddPost = () => {
     setContent('');
   };
   return (
-    <div>index</div>
+    <>
+      <St.InputDiv onSubmit={handleSubmitAddPost}>
+        <St.InputImg src={profileImg}/>
+        <St.Input
+          type="text"
+          placeholder="당신의 이야기를 공유해주세요"
+          value={content}
+          name="content"
+          onChange={handleChangeAddPost}
+        />
+        <button>추가하기</button>
+      </St.InputDiv>
+    </>
+
   )
 }
 
