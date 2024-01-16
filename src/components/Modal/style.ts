@@ -7,7 +7,7 @@ export const StModalDiv = styled.div`
   // 최상단에 위치
   z-index: 999;
   // 중앙배치
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
