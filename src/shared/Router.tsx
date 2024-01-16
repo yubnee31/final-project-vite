@@ -7,15 +7,17 @@ import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Layout from "../components/Common/Layout";
 import Signup from "../pages/Signup";
+import ScrollToTop from "../components/Common/ScrollToTop";
 
 export default function Router() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/artist" element={<Artist />} />
-          <Route path="/community" element={<Community />} />
+          <Route path="/artist/:artistName" element={<Artist />} />
+          <Route path="/community/:artistName" element={<Community />} />
           <Route path="/mypage" element={<Mypage />} />
         </Route>
         <Route path="/login" element={<Login />} />

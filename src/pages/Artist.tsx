@@ -1,10 +1,14 @@
-import React, {useEffect} from 'react';
-import {supabase} from '../api/supabase';
-import styled from 'styled-components';
-import Artistchart from '../components/like/Artistchart';
-import ReactPlayer from 'react-player';
+import React, { useEffect } from 'react'
+import { supabase } from '../api/supabase'
+import styled from 'styled-components'
+import Artistchart from '../components/like/Artistchart'
+import ReactPlayer from 'react-player'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Artist = () => {
+  const navigate = useNavigate();
+  const param = useParams();
+
   useEffect(() => {
     const userInfo = async () => {
       const {
@@ -45,14 +49,15 @@ const Artist = () => {
       const result = title.slice(0, maxLength) + '···';
       return result;
     }
-  };
+  }
 
   return (
     <>
       <StWrapper>
         {/* Banner Image */}
         <StBannerImgDiv>
-          <StNameSpan>Aespa</StNameSpan>
+          {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
+          <StNameSpan>{param.artistName}</StNameSpan>
         </StBannerImgDiv>
 
         <StContentsWrapper>
@@ -123,7 +128,7 @@ const Artist = () => {
             </StPhotoDiv>
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={() => {navigate(`/community/${param.artistName}`)}}>Go to Community ➜</StFloatBtn>
       </StWrapper>
       <Artistchart></Artistchart>
     </>
@@ -149,17 +154,18 @@ const StTitle = styled.p`
 
 // Banner
 const StBannerImgDiv = styled.div`
-  margin-top: 80px;
+  margin-top: 80px; 
   width: 100vw;
-  height: 500px;
-  background-image: linear-gradient(0deg, black, transparent), url('../../public/images/testImg.jpg');
-  background-size: cover;
-  object-fit: cover;
+  height: 600px;
 
   display: flex;
   align-items: center;
   justify-content: end;
   flex-direction: column;
+
+  background: linear-gradient(0deg, black, transparent), url('../../public/testImg.jpg');
+  background-size: cover;
+  object-fit: cover;
 
   margin-bottom: 30px;
 `;
@@ -198,7 +204,8 @@ const StPfMemberImg = styled.img`
   background-size: cover;
   object-fit: cover;
   border-radius: 15px;
-`;
+
+`
 const StPfSpan = styled.span`
   font-family: Pretendard-Regular;
   letter-spacing: 2px;

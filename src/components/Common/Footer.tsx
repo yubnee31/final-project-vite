@@ -55,6 +55,8 @@ margin-top: 25px;
 margin-bottom: 25px;
 padding-right: 50px;
 cursor: pointer;
+color: #bdbdbd;
+
 `
 // Info
 
@@ -69,6 +71,8 @@ margin-top: 30px;
 `
 
 const StInfoSpan = styled.span`
+color: #bdbdbd;
+
 `
 
 
