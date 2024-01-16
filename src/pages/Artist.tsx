@@ -10,7 +10,7 @@ import Modal from '../components/Modal';
 
 const Artist = () => {
   const [login] = useRecoilState(loginState);
-  const [isModalOpen, SetIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const param = useParams();
 
@@ -57,7 +57,7 @@ const Artist = () => {
   };
 
   const handleFloatBtn = () => {
-    login ? navigate(`/community/${param.artistName}`) : SetIsModalOpen(true);
+    login ? navigate(`/community/${param.artistName}`) : setIsModalOpen(true);
   };
 
   return (
@@ -138,7 +138,7 @@ const Artist = () => {
           </StWrapper>
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
-        {isModalOpen && <Modal />}
+        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
       </StWrapper>
       <Artistchart></Artistchart>
     </>
