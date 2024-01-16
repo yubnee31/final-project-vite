@@ -1,11 +1,11 @@
 import React from 'react'
-import PostQuery from '../components/Post/PostList/index2'
+import PostList from '../components/Post/PostList'
 
 const Community = () => {
 
   return (
     <>
-      <PostQuery />
+      <PostList />
     </>
   )
 }

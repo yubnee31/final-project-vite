@@ -1,167 +1,182 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import {supabase} from '../../../api/supabase';
-import {Posts} from '../../../types/global.d';
-import { useQuery } from '@tanstack/react-query';
-import { getPosts } from '../../../api/post';
-// import {loginState} from '../../../shared/recoil/authAtom';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
+import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import { addPost, getPosts, updatePost, deletePost, updateisEditing } from '../../../api/post'
+import { getCurrentUser } from '../../../api/currentUser'
+
+// 1. Community 레이아웃 - 경욱
+
+// 1. 유저 정보 연동 => 내 게시글에만 수정, 삭제 뜨기 V
+// 2. photo 업로드 기능 추가 
+// 3. useState Edit 오류 수정 위한 Modal 구현
+// ---------------------------------------
+// 4. 댓글(수정, 삭제) 좋아요
+// 5. 커뮤니티별 닉네임 추가, 변경 (선택사항)
+
+// 2024.01.16. 오후 7시 : "경욱 - 레이아웃, 민정 - CRUD" Merge
 
 const PostList = () => {
-  // const [posts, setPosts] = useState<Posts>([]);
-  const [editingPosts, setEditingPosts] = useState([]);
-
+  const queryClient = useQueryClient();
   const [content, setContent] = useState('');
+  
+  // current UserInfo
+  const {data: currentUser} = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser
+  })
+  console.log('post CurrentUser', currentUser);
 
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  // const [currentUser, setCurrentUser] = useState('');
 
-  // const getCurrentUser = async () => {
-  //   const { data: user } = await supabase.auth.getUser();
-  //   console.log('current user', user);
-  //   return user;
-  // }
-
-  // post 목록 불러오기
+  // post list
   const {data: posts} = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts
   })
 
-  console.log(posts);
+  const filteredPosts = posts?.filter(post => post.userid === currentUser!.user_metadata.name)
 
+  console.log('filteredPosts', filteredPosts)
   
-  // post 추가
+  // mutation  
+  const addMutation = useMutation({
+    mutationFn: addPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['posts']})
+    }
+  })
+
+  const editMutation = useMutation({
+    mutationFn: updatePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts']})
+    }
+  })
+
+  const isEditingMutation = useMutation({
+    mutationFn: updateisEditing,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts']})
+    }
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts']})
+    }
+  })
   
 
-  const handleContentInputchange = e => {
+  // handler
+  const handleChangeAddPost: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setContent(e.target.value);
-  };
-
-  const addPosts = async () => {
-    const data = {
-      userid: 'test', // login 값을 가져와서 넣어야함
-      photo_url: posts.photo_url, // 사진 업로드 기능만들어서 input 값 넣어주기
+  }
+  
+  const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const newPost = {
+      userid: currentUser!.user_metadata.name,
+      photo_url: 'posts?.photo_url',
       content: content,
     };
-    await supabase.from('posts').insert(data);
+    addMutation.mutate(newPost);
+    setContent('');
   };
 
-  // post 삭제
-  const deletePost = async (id: number) => {
-    const {data: postData, error} = await supabase.from('posts').delete().eq('id', id);
-    getPosts();
-    if (postData) {
-      console.log('data', postData);
-    } else {
-      console.log('error', error);
-    }
-  };
-
-  // post 수정
-  const onEditingText = (e) => {
+  const [editInputState, setEditInputState] = useState('') // TODO : Modal로 리팩토링
+  const handleChangeEditPost: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
-    setEditingPosts(e.target.value);
-  };
-
-  const editingPost = async (id: number) => {
-    const updatedPosts = posts.map(post => {
-      if (post.id === id) {
-        return {...post, content: editingPosts};
-      }
-    });
-    setEditingPosts(updatedPosts);
-    await supabase.from('posts').update({content: editingPosts}).eq('id', id);
-    setIsEditing(false)
-  };
-
-  // post 수정 취소
-  const editingCancelPost = (id : number) => {
-    const updatePosts = posts.map((post) => {
-      if (post.id === id) {
-        return { ...post, content: content};
-      }
-    })
-    setEditingPosts(updatePosts);
-    setIsEditing(false)
-  }
-  const isEditingHandler = async (id : number, bool: boolean) => {
-    await supabase.from('posts').update({isEditing: bool}).eq('id', id);
+    setEditInputState(e.target.value);
   }
 
+  const handleSubmitEditedPost: React.FormEventHandler<HTMLFormElement> = (id) => {
+    const params = { id: id, content: editInputState };
+    editMutation.mutate(params);
+  }
 
+  
   return (
     <>
-      <StForm onSubmit={addPosts}>
-        <input
-          type="text"
-          placeholder="당신의 이야기를 공유해주세요"
-          value={content}
-          name="content"
-          onChange={handleContentInputchange}
-        />
-        <button>추가하기</button>
-      </StForm>
-      <div>
-        {posts.map((post) => {
-          return (
-            <>
-              <Stul key={post}>
-                <li>{post.userid}</li>
-                <li>{post.content}</li>
-                <li>{post.timestemp}</li>
+    <StForm onSubmit={handleSubmitAddPost}>
+      <input
+        type="text"
+        placeholder="당신의 이야기를 공유해주세요"
+        value={content}
+        name="content"
+        onChange={handleChangeAddPost}
+      />
+      <button>추가하기</button>
+    </StForm>
+      {posts?.sort((a, b) => {
+        const aDate: any = new Date(a.created_at);
+        const bDate: any = new Date(b.created_at);
+        return bDate - aDate;
+      }).map((post) => {
+        return (
+          <>
+            <Stul key={post.id}>
+              <li>{post.userid}</li>
+              <li>{post.content}</li>
+              <li>{post.created_at}</li>
+              {post.userid === currentUser!.user_metadata.name &&
+              <>
                 <button
-                  onClick={() => {
-                    deletePost(post.id);
-                  }}
-                >
-                  삭제
-                </button>
-                <button
-                  onClick={() => {
-                    isEditingHandler(post.id, true);
-                  }}
-                >
-                  수정
-                </button>
-
-                {post.isEditing ? (
+              onClick={() => {
+                deleteMutation.mutate(post.id);
+              }}
+              >
+                삭제
+              </button>
+              <button
+                onClick={() => {
+                  isEditingMutation.mutate(post.id);
+                }}
+              >
+                수정
+              </button>
+              </>}
+              {post.isEditing ? (
                   <form
                     onSubmit={() => {
-                      editingPost(post.id);
+                      handleSubmitEditedPost(post.id);
                     }}
                   >
                     <input
                       type="text"
                       placeholder="내용수정"
-                      value={editingPosts}
+                      value={editInputState}
                       name="editingPosts"
-                      onChange={onEditingText}
+                      onChange={handleChangeEditPost}
                     />
                     <button
-                      onClick={() => {
-                        editingCancelPost(post.id);
-                      }}
+                      // onClick={() => {
+                      //   editingCancelPost(post.id);
+                      // }}
                     >
                       취소
                     </button>
                     <button>저장</button>
                   </form>
                 ) : null}
-              </Stul>
-            </>
-          );
-        })}
-      </div>
-    </>
-  );
-};
+            </Stul>
 
-export default PostList;
+          </>
+        )
+      })}
+    </>
+
+
+
+
+  )
+}
 
 const StForm = styled.form`
   margin-top: 100px;
 `;
-const Stul = styled.ul`
-  margin-top: 100px;
-`;
+
+const Stul = styled.div`
+  
+`
+export default PostList
