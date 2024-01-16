@@ -11,6 +11,7 @@ const Mypage = () => {
   const [selectedMenu, setSelectedMenu] = useState('');
   const [login, setLogin] = useRecoilState(loginState);
   const [username, setUsername] = useState('');
+  const [userInfoData, setUserInfoData] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,20 +19,30 @@ const Mypage = () => {
       const {
         data: {user},
       } = await supabase.auth.getUser();
-
+      console.log(userInfoData);
       if (user) {
-        // userinfo 테이블의 username 값을 가져오기
-        const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
+        try {
+          // userinfo 테이블의 username 값을 가져오기
+          const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
 
-        if (userinfoData && userinfoData.length > 0) {
-          setUsername(userinfoData[0].username);
+          if (error) {
+            console.error('userinfo 데이터 불러오기 에러:', error);
+            return;
+          }
+
+          if (userinfoData && userinfoData.length > 0) {
+            setUsername(userinfoData[0].username);
+            setUserInfoData(userinfoData as {username: string}[]); // userinfoData 상태 업데이트
+          }
+        } catch (error) {
+          console.error('유저 정보 불러오기 에러:', error);
         }
 
         setUser(user);
       }
     };
     userInfo();
-  }, [user, username]);
+  }, []);
 
   const handleMenuClick = menu => {
     setSelectedMenu(menu);
@@ -39,15 +50,27 @@ const Mypage = () => {
 
   const handleUpdateNickname = newNickname => {
     // 업데이트된 닉네임을 사용자 정보에 반영
-    setUser(prevUser => ({
-      ...prevUser,
-      user_metadata: {
-        ...prevUser.user_metadata,
-        nickname: newNickname,
-      },
-    }));
-  };
+    setUser(prevUser => {
+      if (prevUser.user_metadata?.nickname !== newNickname) {
+        // 아직 업데이트 되지 않았다면 업데이트
+        const updatedUser = {
+          ...prevUser,
+          user_metadata: {
+            ...prevUser.user_metadata,
+            nickname: newNickname,
+          },
+        };
 
+        // username 업데이트
+        setUsername(updatedUser.user_metadata.nickname);
+
+        return updatedUser;
+      }
+
+      // 이미 업데이트 된 경우에는 이전 상태 그대로 반환
+      return prevUser;
+    });
+  };
   return (
     <StMypageContainer>
       <StFormWrapper>
