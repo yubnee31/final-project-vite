@@ -4,10 +4,11 @@ import profileImg from '../assets/images/profile-white.png'
 import heartUmg from '../assets/images/heart-white.png'
 import commentImg from '../assets/images/comment-white.png'
 import seeMoreImg from '../assets/images/see-more-white.png'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Community = () => {
   const param = useParams();
+  const navigate = useNavigate();
   
   const postTestData = [
       {user: 'name1', contents: 'contents1'},
@@ -35,7 +36,7 @@ const Community = () => {
           <StInfoFollowP>20</StInfoFollowP>
           <StFollowP>팔로잉</StFollowP>
         </StInfoFollowingDiv>
-        <StInfoArtistDiv>
+        <StInfoArtistDiv onClick={() => {navigate(`/artist/${param.artistName}`)}}>
           {/* <StInfoArtistImg src={toArtistTestImg}/> */}
           <StInfoArtistP>아티스트 보러가기</StInfoArtistP>
         </StInfoArtistDiv>
