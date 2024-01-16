@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react'
-import { supabase } from '../api/supabase'
-import styled from 'styled-components'
-import Artistchart from '../components/like/Artistchart'
-import ReactPlayer from 'react-player'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, {useEffect, useState} from 'react';
+import {supabase} from '../api/supabase';
+import styled from 'styled-components';
+import Artistchart from '../components/like/Artistchart';
+import ReactPlayer from 'react-player';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../shared/recoil/authAtom';
+import Modal from '../components/Modal';
 
 const Artist = () => {
+  const [login] = useRecoilState(loginState);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const param = useParams();
 
@@ -49,7 +54,11 @@ const Artist = () => {
       const result = title.slice(0, maxLength) + '···';
       return result;
     }
-  }
+  };
+
+  const handleFloatBtn = () => {
+    login ? navigate(`/community/${param.artistName}`) : setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -128,7 +137,8 @@ const Artist = () => {
             </StPhotoDiv>
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn onClick={() => {navigate(`/community/${param.artistName}`)}}>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
+        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
       </StWrapper>
       <Artistchart></Artistchart>
     </>
@@ -154,7 +164,7 @@ const StTitle = styled.p`
 
 // Banner
 const StBannerImgDiv = styled.div`
-  margin-top: 80px; 
+  margin-top: 80px;
   width: 100vw;
   height: 600px;
 
@@ -204,8 +214,7 @@ const StPfMemberImg = styled.img`
   background-size: cover;
   object-fit: cover;
   border-radius: 15px;
-
-`
+`;
 const StPfSpan = styled.span`
   font-family: Pretendard-Regular;
   letter-spacing: 2px;
