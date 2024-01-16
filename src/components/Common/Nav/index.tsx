@@ -1,12 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
-import { loginState } from "../../../shared/recoil/authAtom";
-import { supabase } from "../../../api/supabase";
-import alarmIcon from '../../../assets/images/alarm-icon-white.png'
-import searchIcon from '../../../assets/images/search-icon-white.png'
-
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import styled from 'styled-components';
+import {loginState} from '../../../shared/recoil/authAtom';
+import {supabase} from '../../../api/supabase';
+import alarmIcon from '../../../assets/images/alarm-icon-white.png';
+import searchIcon from '../../../assets/images/search-icon-white.png';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -16,48 +15,50 @@ const Nav = () => {
 
   // 로그아웃
   const logOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    alert("로그아웃 되었습니다");
+    const {error} = await supabase.auth.signOut();
+    alert('로그아웃 되었습니다');
     setLogin(null);
-    navigate("/");
-    if (error) console.log("error", error);
+    navigate('/');
+    if (error) console.log('error', error);
   };
 
   return (
     <>
       <StNav>
         <StLogoDiv>
-          <StLogoSpan onClick={() => {navigate('/')}}>AIdol</StLogoSpan>
+          <StLogoSpan
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            AIdol
+          </StLogoSpan>
         </StLogoDiv>
 
         <StBtnDiv>
           <StButton>
-            <StImg
-              src={searchIcon}
-            ></StImg>
+            <StImg src={searchIcon}></StImg>
           </StButton>
           <StButton>
-            <StImg
-              src={alarmIcon}
-            ></StImg>
+            <StImg src={alarmIcon}></StImg>
           </StButton>
           {login ? (
             <>
-              <button onClick={logOut}>
-                <p>Logout</p>
-              </button>
-              <button
+              <StSignInBtn onClick={logOut}>
+                <StBtnP>Logout</StBtnP>
+              </StSignInBtn>
+              <StSignInBtn
                 onClick={() => {
-                  navigate("/mypage");
+                  navigate('/mypage');
                 }}
               >
-                <p>Mypage</p>
-              </button>
+                <StBtnP>Mypage</StBtnP>
+              </StSignInBtn>
             </>
           ) : (
             <StSignInBtn
               onClick={() => {
-                navigate("/login");
+                navigate('/login');
               }}
             >
               <StBtnP>Sign In</StBtnP>
@@ -169,8 +170,8 @@ const StSignInBtn = styled.button`
   width: 100px;
   height: 35px;
   border-radius: 5px;
+  margin-right: 5px;
   cursor: pointer;
-
 `;
 const StBtnP = styled.p`
   color: black;
@@ -184,7 +185,6 @@ const StImg = styled.img`
   width: inherit;
   height: inherit;
   background-color: transparent;
-
 `;
 
 export default Nav;
