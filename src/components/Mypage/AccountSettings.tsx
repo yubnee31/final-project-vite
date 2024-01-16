@@ -14,7 +14,8 @@ interface AccountSettingProps {
 
 const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [nickname, setNickname] = useState(user.user_metadata?.nickname || '');
-
+  const [profileImage, setProfileImage] = useState<string | null>(user.user_metadata?.profile_image || null);
+  const [selectIedmage, setSelectIedmage] = useState<File | null>(null);
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -38,15 +39,20 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     setNickname(e.target.value);
   };
 
+  const updateProfile = async () => {};
+
   return (
     <div>
-      <p>닉네임: {nickname}</p>
+      <p>닉네임</p>
       {user.provider !== 'google' && (
         <>
           <input type="text" placeholder="닉네임을 입력하세요" value={nickname} onChange={handleNicknameChange} />
           <button onClick={updateNickname}>닉네임 수정</button>
         </>
       )}
+      <p>프로필 이미지</p>
+
+      <button onClick={updateProfile}>프로필 수정</button>
     </div>
   );
 };
