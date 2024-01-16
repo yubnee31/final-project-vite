@@ -3,9 +3,10 @@ import { supabase } from '../api/supabase'
 import styled from 'styled-components'
 import Artistchart from '../components/like/Artistchart'
 import ReactPlayer from 'react-player'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Artist = () => {
+  const navigate = useNavigate();
   const param = useParams();
 
   useEffect(() => {
@@ -127,7 +128,7 @@ const Artist = () => {
             </StPhotoDiv>
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={() => {navigate(`/community/${param.artistName}`)}}>Go to Community ➜</StFloatBtn>
       </StWrapper>
       <Artistchart></Artistchart>
     </>
