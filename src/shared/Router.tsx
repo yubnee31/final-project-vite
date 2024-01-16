@@ -14,7 +14,7 @@ export default function Router() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/artist" element={<Artist />} />
+          <Route path="/artist/:artistName" element={<Artist />} />
           <Route path="/community" element={<Community />} />
           <Route path="/mypage" element={<Mypage />} />
         </Route>

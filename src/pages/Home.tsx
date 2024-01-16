@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import bannerImg from '../assets/images/bannerImg.png'
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
@@ -14,6 +16,10 @@ const Home = () => {
   //   };
   //   const artistData = fetchData();
   // });
+  const navigate = useNavigate()
+  const artistNavigateHandler = (artistName: string) => {
+    navigate(`artist/${artistName}`)
+  }
   const myArtistTestData = [
     "나의 아티스트",
     "나의 아티스트",
@@ -47,7 +53,9 @@ const Home = () => {
   return (
     <StMainWrapper>
       {/* // Banner */}
-      <StBannerDiv></StBannerDiv>
+      <StBannerDiv>
+        <StBannerImg src={bannerImg}></StBannerImg>
+      </StBannerDiv>
 
       {/* // My Artist */}
       <StSideWrapper>
@@ -71,7 +79,7 @@ const Home = () => {
           <StListDiv>
             {listTestData.map((el) => {
               return (
-                <StListTargetDiv>
+                <StListTargetDiv onClick={() => {artistNavigateHandler(el)}}>
                   <StListTargetImgDiv></StListTargetImgDiv>
                   <StListTargetP>{el}</StListTargetP>
                 </StListTargetDiv>
@@ -111,9 +119,19 @@ const StSpan = styled.span`
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
+  background-color: #F4EEFC;
 
-  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+const StBannerImg = styled.img`
+  width: 1000px;
+  height: 500px;
+  background-size: cover;
+  background-color: transparent;
+  object-fit: cover;
+`
 
 // My Artist
 const StDiv = styled.div`
