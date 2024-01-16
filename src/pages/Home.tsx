@@ -92,6 +92,7 @@ const Home = () => {
     </StMainWrapper>
   );
 };
+
 // Wrapper
 const StMainWrapper = styled.div`
   background-color: black;
@@ -105,6 +106,7 @@ const StSideWrapper = styled.div`
 
   margin-top: 140px;
 `;
+
 // Common
 const StP = styled.p`
   margin-top: 50px;

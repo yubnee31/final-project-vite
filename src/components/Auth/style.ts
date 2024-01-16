@@ -61,7 +61,7 @@ export const StSigninBtn = styled.button`
   margin-top: 10px;
   border: none;
   border-radius: 5px;
-  background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff);
+  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
@@ -148,7 +148,7 @@ export const StSignupBtn = styled.button`
   margin-top: 20px;
   border: none;
   border-radius: 5px;
-  background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff);
+  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
