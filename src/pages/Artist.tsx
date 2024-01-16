@@ -3,15 +3,16 @@ import {supabase} from '../api/supabase';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
-import {useNavigate} from 'react-router-dom';
 import Modal from '../components/Modal';
 
 const Artist = () => {
   const [login] = useRecoilState(loginState);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, SetIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const param = useParams();
 
   useEffect(() => {
     const userInfo = async () => {
@@ -56,7 +57,7 @@ const Artist = () => {
   };
 
   const handleFloatBtn = () => {
-    login ? navigate('/community') : setIsModalOpen(true);
+    login ? navigate(`/community/${param.artistName}`) : SetIsModalOpen(true);
   };
 
   return (
@@ -64,7 +65,8 @@ const Artist = () => {
       <StWrapper>
         {/* Banner Image */}
         <StBannerImgDiv>
-          <StNameSpan>Aespa</StNameSpan>
+          {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
+          <StNameSpan>{param.artistName}</StNameSpan>
         </StBannerImgDiv>
 
         <StContentsWrapper>
@@ -164,15 +166,16 @@ const StTitle = styled.p`
 const StBannerImgDiv = styled.div`
   margin-top: 80px;
   width: 100vw;
-  height: 500px;
-  background-image: linear-gradient(0deg, black, transparent), url('../../public/images/testImg.jpg');
-  background-size: cover;
-  object-fit: cover;
+  height: 600px;
 
   display: flex;
   align-items: center;
   justify-content: end;
   flex-direction: column;
+
+  background: linear-gradient(0deg, black, transparent), url('../../public/testImg.jpg');
+  background-size: cover;
+  object-fit: cover;
 
   margin-bottom: 30px;
 `;

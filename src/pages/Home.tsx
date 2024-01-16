@@ -1,14 +1,10 @@
-import styled from 'styled-components';
-import React, {useEffect} from 'react';
-import {supabase} from '../api/supabase';
+import styled from "styled-components";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import bannerImg from '../assets/images/bannerImg.png'
+// import { supabase } from "../api/supabase";
 
 const Home = () => {
-  // useEffect(() => {
-  //   supabase.auth.onAuthStateChange((event, session) => {
-  //     console.log(event, session);
-  //   });
-  // }, []);
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -20,41 +16,53 @@ const Home = () => {
   //   };
   //   const artistData = fetchData();
   // });
-  const myArtistTestData = ['나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트'];
+  const navigate = useNavigate()
+  const artistNavigateHandler = (artistName: string) => {
+    navigate(`artist/${artistName}`)
+  }
+  const myArtistTestData = [
+    "나의 아티스트",
+    "나의 아티스트",
+    "나의 아티스트",
+    "나의 아티스트",
+    "나의 아티스트",
+  ];
   const listTestData = [
-    '르세라핌',
-    '태연',
-    '임재현',
-    'aespa',
-    'EXO',
-    '박재정',
-    '범진',
-    '아이브',
-    '정국',
-    '임영웅',
-    '너드커넥션',
-    '이무진',
-    '아이유',
-    '제니',
-    '악뮤',
-    '제니',
-    'RIIZE',
-    '우디',
-    '여자아이들',
-    'QWER',
+    "르세라핌",
+    "태연",
+    "임재현",
+    "aespa",
+    "EXO",
+    "박재정",
+    "범진",
+    "아이브",
+    "정국",
+    "임영웅",
+    "너드커넥션",
+    "이무진",
+    "아이유",
+    "제니",
+    "악뮤",
+    "제니",
+    "RIIZE",
+    "우디",
+    "여자아이들",
+    "QWER",
   ];
 
   return (
     <StMainWrapper>
       {/* // Banner */}
-      <StBannerDiv></StBannerDiv>
+      <StBannerDiv>
+        <StBannerImg src={bannerImg}></StBannerImg>
+      </StBannerDiv>
 
       {/* // My Artist */}
       <StSideWrapper>
         <StDiv>
           <StSpan>나의 아티스트</StSpan>
           <StArtistDiv>
-            {myArtistTestData.map(el => {
+            {myArtistTestData.map((el) => {
               return (
                 <StArtistTargetDiv>
                   <StArtistTargetImgDiv></StArtistTargetImgDiv>
@@ -69,9 +77,9 @@ const Home = () => {
         <StListWrapper>
           <StSpan>아티스트 만나보기</StSpan>
           <StListDiv>
-            {listTestData.map(el => {
+            {listTestData.map((el) => {
               return (
-                <StListTargetDiv>
+                <StListTargetDiv onClick={() => {artistNavigateHandler(el)}}>
                   <StListTargetImgDiv></StListTargetImgDiv>
                   <StListTargetP>{el}</StListTargetP>
                 </StListTargetDiv>
@@ -84,6 +92,7 @@ const Home = () => {
     </StMainWrapper>
   );
 };
+
 // Wrapper
 const StMainWrapper = styled.div`
   background-color: black;
@@ -97,6 +106,7 @@ const StSideWrapper = styled.div`
 
   margin-top: 140px;
 `;
+
 // Common
 const StP = styled.p`
   margin-top: 50px;
@@ -111,9 +121,19 @@ const StSpan = styled.span`
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
+  background-color: #F4EEFC;
 
-  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+const StBannerImg = styled.img`
+  width: 1000px;
+  height: 500px;
+  background-size: cover;
+  background-color: transparent;
+  object-fit: cover;
+`
 
 // My Artist
 const StDiv = styled.div`
