@@ -1,10 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../shared/recoil/authAtom';
+import {useNavigate} from 'react-router-dom';
+import Modal from '../components/Modal';
 
 const Artist = () => {
+  const [login] = useRecoilState(loginState);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const userInfo = async () => {
       const {
@@ -45,6 +53,10 @@ const Artist = () => {
       const result = title.slice(0, maxLength) + '···';
       return result;
     }
+  };
+
+  const handleFloatBtn = () => {
+    login ? navigate('/community') : setIsModalOpen(true);
   };
 
   return (
@@ -123,7 +135,8 @@ const Artist = () => {
             </StPhotoDiv>
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
+        {isModalOpen && <Modal />}
       </StWrapper>
       <Artistchart></Artistchart>
     </>
