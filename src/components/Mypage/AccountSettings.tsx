@@ -19,23 +19,12 @@ interface AccountSettingProps {
 const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [editNickname, setEditNickname] = useState('');
   const [displayNickname, setDisplayNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(user.user_metadata.avatar_url || nomalimage);
+  const [profileImage, setProfileImage] = useState(nomalimage);
   const [showMyAccount, setShowMyAccount] = useState(false);
 
   const handleShowMyAccount = () => {
     setShowMyAccount(true);
   };
-  useEffect(() => {
-    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
-    if (user.provider === 'google' && user.user_metadata?.name) {
-      setEditNickname(user.user_metadata.name);
-      setDisplayNickname(editNickname);
-    } else {
-      fetchData();
-      fetchImageData();
-    }
-  }, [user]);
-
   //유저 닉네임 수파베이스에서 불러오기
   const fetchData = async () => {
     const {data, error} = await supabase.from('userinfo').select('username').eq('id', user.id).single();
@@ -88,10 +77,19 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   };
   const handleCompleteSettings = () => {
     // Handle completion logic here
-
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     setShowMyAccount(false);
   };
+  useEffect(() => {
+    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
+    if (user.provider === 'google' && user.user_metadata?.name) {
+      setEditNickname(user.user_metadata.name);
+      setDisplayNickname(editNickname);
+    } else {
+      fetchData();
+      fetchImageData();
+    }
+  }, [editNickname, fetchData, fetchImageData, user]);
   return (
     <>
       {showMyAccount ? (
@@ -118,6 +116,15 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
               <StFollowingTX>팔로잉 0</StFollowingTX>
             </div>
           </StFollowcontainer>
+
+          <div>
+            <p>FOLLOW ARTIST</p>
+            <div>
+              <div>아티스트 이미지</div>
+              <p>아티스트 네임</p>
+              <p>펜클럽 이름</p>
+            </div>
+          </div>
         </>
       )}
     </>

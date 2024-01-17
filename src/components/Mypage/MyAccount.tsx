@@ -19,7 +19,7 @@ interface AccountSettingProps {
 const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingProps) => {
   const [editNickname, setEditNickname] = useState('');
   const [displayNickname, setDisplayNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(user.user_metadata.avatar_url || nomalimage);
+  const [profileImage, setProfileImage] = useState(nomalimage);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   useEffect(() => {
@@ -159,7 +159,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   };
   const handleCompleteSettings = () => {
     // 여기서 설정 완료 버튼을 눌렀을 때 처리할 로직 추가
-
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     onCompleteSettings();
   };
@@ -177,10 +176,10 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       </StNickName>
       {user.provider !== 'google' && (
         <StUpdateContainer>
-          <p>이메일</p>
-          <h1>{user.email}</h1>
-          <p>핸드폰</p>
-          <h1>010-0000-0000</h1>
+          <h1>이메일</h1>
+          <p>{user.email}</p>
+          <h1>핸드폰</h1>
+          <p>010-0000-0000</p>
           <h2>닉네임 변경하기 </h2>
 
           <input
@@ -245,11 +244,11 @@ const StUpdateContainer = styled.div`
     height: 25px;
   }
   p {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   h1 {
+    font-size: 13px;
     margin-top: 20px;
   }
   h2 {
