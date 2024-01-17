@@ -16,7 +16,6 @@ const Nav = () => {
   // 로그아웃
   const logOut = async () => {
     const {error} = await supabase.auth.signOut();
-    alert('로그아웃 되었습니다');
     setLogin(null);
     navigate('/');
     if (error) console.log('error', error);
