@@ -41,14 +41,14 @@ const Nav = () => {
             AIdol
           </StLogoSpan>
         </StLogoDiv>
-        <form onSubmit={handleSearchBtn}>
-          <input placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></input>
-          <button type="submit">검색</button>
-        </form>
+
         <StBtnDiv>
-          <StButton>
-            <StImg src={searchIcon}></StImg>
-          </StButton>
+          <StForm onSubmit={handleSearchBtn}>
+            <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></StInput>
+            <StSearchButton>
+              <StImg src={searchIcon}></StImg>
+            </StSearchButton>
+          </StForm>
           <StButton>
             <StImg src={alarmIcon}></StImg>
           </StButton>
@@ -127,11 +127,8 @@ const StNav = styled.nav`
   left: 0;
   right: 0;
   height: 80px;
-
   background-color: #000000a8;
-
   z-index: 100;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,6 +147,45 @@ const StLogoSpan = styled.span`
   background-color: transparent;
 
   cursor: pointer;
+`;
+
+// Input
+
+const StForm = styled.form`
+  width: 200px;
+  height: 43px;
+  border: 2px solid white;
+  background-color: transparent;
+  border-radius: 20px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StInput = styled.input`
+  width: 150px;
+  background: none;
+  outline: none;
+  float: left;
+  border: none;
+  font-size: 17px;
+  margin-left: 10px;
+`;
+
+const StSearchButton = styled.button`
+  width: 30px;
+  height: 29px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  :hover {
+    opacity: 0.5;
+    transition: 0.5s;
+  }
 `;
 
 // Button
@@ -195,6 +231,9 @@ const StImg = styled.img`
   width: inherit;
   height: inherit;
   background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Nav;
