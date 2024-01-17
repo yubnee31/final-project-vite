@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-
-// Post
+// PostList
 const PostDiv = styled.div`
   width: 800px;
   height: 1200px;

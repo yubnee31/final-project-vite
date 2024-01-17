@@ -10,11 +10,10 @@ import seeMoreImg from '../../../assets/images/see-more-white.png'
 // 1. Community 레이아웃 - 경욱
 
 // 1. 유저 정보 연동 => 내 게시글에만 수정, 삭제 뜨기 V
-// 2. photo 업로드 기능 추가
-// 3. useState Edit 오류 수정 위한 Modal 구현
+// 2. useState Edit 오류 수정 위한 portal Modal 구현
+// 3. photo 업로드 기능 추가
 // ---------------------------------------
-// 4. 댓글(수정, 삭제) 좋아요
-// 5. 커뮤니티별 닉네임 추가, 변경 (선택사항)
+// 4. 댓글(수정, 삭제), 좋아요
 
 // 2024.01.16. 오후 7시 : "경욱 - 레이아웃, 민정 - CRUD" Merge
 
@@ -68,6 +67,8 @@ const PostList = () => {
     editMutation.mutate(params);
   };
 
+  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = id => {}
+
   return (
     <>
         <St.PostDiv>
@@ -81,54 +82,54 @@ const PostList = () => {
               .map(post => {
                 return (
                   <St.PostLi>
-                      <St.PostNameP>{post.userid}</St.PostNameP>
-                      <St.PostContentsP>{post.content}</St.PostContentsP>
-                      <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
-                      <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
-                      <St.PostImg src={heartUmg} $left={'1%'} />
-                      <St.PostImg src={commentImg} $left={'6.5%'} />
-                      <St.PostImg src={seeMoreImg} $left={'95%'} />
-                      {post.userid === currentUser!.user_metadata.name && (
-                        <>
-                          <button
-                            onClick={() => {
-                              deleteMutation.mutate(post.id);
-                            }}
-                          >
-                            삭제
-                          </button>
-                          <button
-                            onClick={() => {
-                              isEditingMutation.mutate(post.id);
-                            }}
-                          >
-                            수정
-                          </button>
-                        </>
-                      )}
-                      {post.isEditing ? (
-                        <form
-                          onSubmit={() => {
-                            handleSubmitEditedPost(post.id);
+                    <St.PostNameP>{post.userid}</St.PostNameP>
+                    <St.PostContentsP>{post.content}</St.PostContentsP>
+                    <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
+                    <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
+                    <St.PostImg src={heartUmg} $left={'1%'} />
+                    <St.PostImg src={commentImg} $left={'6.5%'} />
+                    <St.PostImg src={seeMoreImg} $left={'95%'} />
+                    {post.userid === currentUser?.user_metadata.name && (
+                      <>
+                        <button
+                          onClick={() => {
+                            deleteMutation.mutate(post.id);
                           }}
                         >
-                          <input
-                            type="text"
-                            placeholder="내용수정"
-                            value={editInputState}
-                            name="editingPosts"
-                            onChange={handleChangeEditPost}
-                          />
-                          <button
-                          // onClick={() => {
-                          //   editingCancelPost(post.id);
-                          // }}
-                          >
-                            취소
-                          </button>
-                          <button>저장</button>
-                        </form>
-                      ) : null}
+                          삭제
+                        </button>
+                        <button
+                          onClick={() => {
+                            isEditingMutation.mutate(post.id);
+                          }}
+                        >
+                          수정
+                        </button>
+                      </>
+                    )}
+                    {post.isEditing ? (
+                      <form
+                        onSubmit={() => {
+                          handleSubmitEditedPost(post.id);
+                        }}
+                      >
+                        <input
+                          type="text"
+                          placeholder="내용수정"
+                          value={editInputState}
+                          name="editingPosts"
+                          onChange={handleChangeEditPost}
+                        />
+                        <button
+                        onClick={() => {
+                          handleClickEditCancelPost
+                        }}
+                        >
+                          취소
+                        </button>
+                        <button>저장</button>
+                      </form>
+                    ) : null}
                   </St.PostLi>
                 );
               })}

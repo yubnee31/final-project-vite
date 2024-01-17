@@ -17,7 +17,7 @@ const Info = () => {
         </St.BannerDiv>
         <St.InfoDiv>
           <St.InfoNameDiv>
-            <St.InfoNameP>{currentUser!.user_metadata.name}</St.InfoNameP>
+            <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
             <St.InfoNameBtn>프로필 변경하기</St.InfoNameBtn>
           </St.InfoNameDiv>
           <St.InfoFollowerDiv>

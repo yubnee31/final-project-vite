@@ -41,6 +41,7 @@ const updatePost = async ({ id, content }: POST) => {
     console.log('Error', error);
   }
 };
+
 const updateisEditing = async (id : number) => {
   try {
     const { error } = await supabase

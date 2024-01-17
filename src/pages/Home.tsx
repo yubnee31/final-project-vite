@@ -30,7 +30,7 @@ const Home = () => {
   const listTestData = [
     "르세라핌",
     "태연",
-    "임재현",
+    "더보이즈",
     "aespa",
     "EXO",
     "박재정",
