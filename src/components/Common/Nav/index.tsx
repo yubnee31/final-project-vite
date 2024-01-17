@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import styled from 'styled-components';
@@ -9,9 +9,17 @@ import searchIcon from '../../../assets/images/search-icon-white.png';
 
 const Nav = () => {
   const navigate = useNavigate();
-
-  // 리코일
   const [login, setLogin] = useRecoilState(loginState);
+  const [searchInput, setSearchInput] = useState<string>('');
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchBtn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate('/', {state: searchInput});
+  };
 
   // 로그아웃
   const logOut = async () => {
@@ -33,7 +41,10 @@ const Nav = () => {
             AIdol
           </StLogoSpan>
         </StLogoDiv>
-
+        <form onSubmit={handleSearchBtn}>
+          <input placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></input>
+          <button type="submit">검색</button>
+        </form>
         <StBtnDiv>
           <StButton>
             <StImg src={searchIcon}></StImg>
