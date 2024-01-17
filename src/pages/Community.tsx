@@ -9,6 +9,7 @@ import Info from '../components/Info'
 
 const Community = () => {
   const param = useParams();
+
   
   return (
     <StWrapper>

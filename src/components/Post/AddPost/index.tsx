@@ -36,7 +36,7 @@ const AddPost = () => {
         <St.InputImg src={profileImg}/>
         <St.Input
           type="text"
-          placeholder="당신의 이야기를 공유해주세요"
+          placeholder="지금 아티스트에게 하고 싶은 말은?"
           value={content}
           name="content"
           onChange={handleChangeAddPost}
