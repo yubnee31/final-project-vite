@@ -4,11 +4,12 @@ import { getCurrentUser } from '../../api/currentUser';
 import { useQuery } from '@tanstack/react-query';
 
 const Info = () => {
-    const {data: currentUser} = useQuery({
-        queryKey: ['getCurrentUser'],
-        queryFn: getCurrentUser,
-      });
-      console.log('post CurrentUser', currentUser);
+  const {data: currentUser} = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser,
+  });
+  console.log('post CurrentUser', currentUser);
+
 
   return (
     <>
@@ -17,7 +18,7 @@ const Info = () => {
         </St.BannerDiv>
         <St.InfoDiv>
           <St.InfoNameDiv>
-            <St.InfoNameP>{currentUser!.user_metadata.name}</St.InfoNameP>
+            <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
             <St.InfoNameBtn>프로필 변경하기</St.InfoNameBtn>
           </St.InfoNameDiv>
           <St.InfoFollowerDiv>
