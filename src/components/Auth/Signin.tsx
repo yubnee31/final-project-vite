@@ -21,7 +21,6 @@ import {
 } from './style';
 import {FcGoogle} from 'react-icons/fc';
 import {RiKakaoTalkFill} from 'react-icons/ri';
-import {toast} from 'react-toastify';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
@@ -80,10 +79,9 @@ const Signin = () => {
     // 리코일 깊은 복사
     setLogin(JSON.parse(JSON.stringify(data.user)));
     if (data.user !== null) {
-      toast.success('로그인이 완료되었습니다');
       navigate('/');
     }
-    if (error) toast.error('이메일 혹은 비밀번호를 확인해주세요');
+    if (error) setPasswordError('이메일 혹은 비밀번호를 확인해주세요');
   };
 
   // 모두 만족할 때 isValid true로

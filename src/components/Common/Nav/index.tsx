@@ -1,63 +1,74 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
-import { loginState } from "../../../shared/recoil/authAtom";
-import { supabase } from "../../../api/supabase";
-import alarmIcon from '../../../assets/images/alarm-icon-white.png'
-import searchIcon from '../../../assets/images/search-icon-white.png'
-
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import styled from 'styled-components';
+import {loginState} from '../../../shared/recoil/authAtom';
+import {supabase} from '../../../api/supabase';
+import alarmIcon from '../../../assets/images/alarm-icon-white.png';
+import searchIcon from '../../../assets/images/search-icon-white.png';
 
 const Nav = () => {
   const navigate = useNavigate();
-
-  // 리코일
   const [login, setLogin] = useRecoilState(loginState);
+  const [searchInput, setSearchInput] = useState<string>('');
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchBtn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate('/', {state: searchInput});
+  };
 
   // 로그아웃
   const logOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    alert("로그아웃 되었습니다");
+    const {error} = await supabase.auth.signOut();
     setLogin(null);
-    navigate("/");
-    if (error) console.log("error", error);
+    navigate('/');
+    if (error) console.log('error', error);
   };
 
   return (
     <>
       <StNav>
         <StLogoDiv>
-          <StLogoSpan onClick={() => {navigate('/')}}>AIdol</StLogoSpan>
+          <StLogoSpan
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            AIdol
+          </StLogoSpan>
         </StLogoDiv>
-
+        <form onSubmit={handleSearchBtn}>
+          <input placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></input>
+          <button type="submit">검색</button>
+        </form>
         <StBtnDiv>
           <StButton>
-            <StImg
-              src={searchIcon}
-            ></StImg>
+            <StImg src={searchIcon}></StImg>
           </StButton>
           <StButton>
-            <StImg
-              src={alarmIcon}
-            ></StImg>
+            <StImg src={alarmIcon}></StImg>
           </StButton>
           {login ? (
             <>
-              <button onClick={logOut}>
-                <p>Logout</p>
-              </button>
-              <button
+              <StSignInBtn onClick={logOut}>
+                <StBtnP>Logout</StBtnP>
+              </StSignInBtn>
+              <StSignInBtn
                 onClick={() => {
-                  navigate("/mypage");
+                  navigate('/mypage');
                 }}
               >
-                <p>Mypage</p>
-              </button>
+                <StBtnP>Mypage</StBtnP>
+              </StSignInBtn>
             </>
           ) : (
             <StSignInBtn
               onClick={() => {
-                navigate("/login");
+                navigate('/login');
               }}
             >
               <StBtnP>Sign In</StBtnP>
@@ -169,8 +180,8 @@ const StSignInBtn = styled.button`
   width: 100px;
   height: 35px;
   border-radius: 5px;
+  margin-right: 5px;
   cursor: pointer;
-
 `;
 const StBtnP = styled.p`
   color: black;
@@ -184,7 +195,6 @@ const StImg = styled.img`
   width: inherit;
   height: inherit;
   background-color: transparent;
-
 `;
 
 export default Nav;
