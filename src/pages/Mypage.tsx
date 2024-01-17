@@ -19,17 +19,15 @@ const Mypage = () => {
       const {
         data: {user},
       } = await supabase.auth.getUser();
-      console.log(userInfoData);
+
       if (user) {
         try {
           // userinfo 테이블의 username 값을 가져오기
           const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
-
           if (error) {
             console.error('userinfo 데이터 불러오기 에러:', error);
             return;
           }
-
           if (userinfoData && userinfoData.length > 0) {
             setUsername(userinfoData[0].username);
             setUserInfoData(userinfoData as {username: string}[]); // userinfoData 상태 업데이트
@@ -77,10 +75,8 @@ const Mypage = () => {
         {user && user.user_metadata ? (
           <>
             <StEmailBox>
-              <h3>Email</h3>
-              <p onClick={() => handleMenuClick('계정 정보')}>계정 설정</p>
-              <h2>나의 정보</h2>
-              <p onClick={() => handleMenuClick('스케줄')}>저장한 스케줄 보기</p>
+              <p onClick={() => handleMenuClick('계정 정보')}>나의 정보</p>
+              <p onClick={() => handleMenuClick('스케줄')}>나의 스케줄 </p>
               <p onClick={() => handleMenuClick('1:1문의 하기')}>1:1문의 하기</p>
               <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
             </StEmailBox>
@@ -90,11 +86,7 @@ const Mypage = () => {
         )}
       </StFormWrapper>
       <Staccount>
-        {selectedMenu === '계정 정보' && (
-          <p>
-            <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />
-          </p>
-        )}
+        {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
         {selectedMenu === '스케줄' && <p>스케줄 컨텐츠</p>}
         {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
       </Staccount>
@@ -114,30 +106,21 @@ export const StFormWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  margin-right: 25%;
+  margin-right: 15%;
 `;
 export const StEmailBox = styled.div`
   /* border: 1px white solid; */
   height: 700px;
-  h1 {
-    margin: 15px;
-    font-size: 32px;
-  }
-  h2 {
-    font-size: 22px;
-    margin-top: 40px;
-    margin-bottom: 30px;
-  }
   p {
     cursor: pointer;
-    margin: 20px;
+    margin: 50px;
     :hover {
       text-decoration: underline;
     }
   }
 `;
 export const Staccount = styled.div`
-  width: 40%;
+  width: 60%;
   height: 10%;
 `;
 
