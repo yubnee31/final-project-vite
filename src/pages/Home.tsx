@@ -1,10 +1,20 @@
-import styled from "styled-components";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import bannerImg from '../assets/images/bannerImg.png'
+import styled from 'styled-components';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import bannerImg from '../assets/images/bannerImg.png';
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
+  const {state: searchInput} = useLocation();
+  const [searchedResults, setSearchedResults] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (searchInput) {
+      const filteredArtists = listTestData.filter(item => item.includes(searchInput));
+      setSearchedResults(filteredArtists);
+    }
+  }, []);
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -16,80 +26,104 @@ const Home = () => {
   //   };
   //   const artistData = fetchData();
   // });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const artistNavigateHandler = (artistName: string) => {
-    navigate(`artist/${artistName}`)
-  }
-  const myArtistTestData = [
-    "나의 아티스트",
-    "나의 아티스트",
-    "나의 아티스트",
-    "나의 아티스트",
-    "나의 아티스트",
-  ];
+    navigate(`artist/${artistName}`);
+  };
+  const myArtistTestData = ['나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트'];
   const listTestData = [
-    "르세라핌",
-    "태연",
-    "임재현",
-    "aespa",
-    "EXO",
-    "박재정",
-    "범진",
-    "아이브",
-    "정국",
-    "임영웅",
-    "너드커넥션",
-    "이무진",
-    "아이유",
-    "제니",
-    "악뮤",
-    "제니",
-    "RIIZE",
-    "우디",
-    "여자아이들",
-    "QWER",
+    '르세라핌',
+    '태연',
+    '임재현',
+    'aespa',
+    'EXO',
+    '박재정',
+    '범진',
+    '아이브',
+    '정국',
+    '임영웅',
+    '너드커넥션',
+    '이무진',
+    '아이유',
+    '제니',
+    '악뮤',
+    '제니',
+    'RIIZE',
+    '우디',
+    '여자아이들',
+    'QWER',
   ];
 
   return (
-    <StMainWrapper>
-      {/* // Banner */}
-      <StBannerDiv>
-        <StBannerImg src={bannerImg}></StBannerImg>
-      </StBannerDiv>
+    <>
+      <StMainWrapper>
+        {/* // Banner */}
+        <StBannerDiv>
+          <StBannerImg src={bannerImg}></StBannerImg>
+        </StBannerDiv>
 
-      {/* // My Artist */}
-      <StSideWrapper>
-        <StDiv>
-          <StSpan>나의 아티스트</StSpan>
-          <StArtistDiv>
-            {myArtistTestData.map((el) => {
-              return (
-                <StArtistTargetDiv>
-                  <StArtistTargetImgDiv></StArtistTargetImgDiv>
-                  <StArtistTargetP>{el}</StArtistTargetP>
-                </StArtistTargetDiv>
-              );
-            })}
-          </StArtistDiv>
-        </StDiv>
+        {searchInput && searchInput.length > 0 ? (
+          <StListWrapper>
+            <StSpan>검색결과</StSpan>
+            <StListDiv>
+              {listTestData
+                .filter(el => el.includes(searchInput))
+                .map(el => {
+                  return (
+                    <StListTargetDiv
+                      onClick={() => {
+                        artistNavigateHandler(el);
+                      }}
+                    >
+                      <StListTargetImgDiv></StListTargetImgDiv>
+                      <StListTargetP>{el}</StListTargetP>
+                    </StListTargetDiv>
+                  );
+                })}
+            </StListDiv>
+          </StListWrapper>
+        ) : (
+          <>
+            {/* // My Artist */}
+            <StSideWrapper>
+              <StDiv>
+                <StSpan>나의 아티스트</StSpan>
+                <StArtistDiv>
+                  {myArtistTestData.map(el => {
+                    return (
+                      <StArtistTargetDiv>
+                        <StArtistTargetImgDiv></StArtistTargetImgDiv>
+                        <StArtistTargetP>{el}</StArtistTargetP>
+                      </StArtistTargetDiv>
+                    );
+                  })}
+                </StArtistDiv>
+              </StDiv>
 
-        {/* // Artist List */}
-        <StListWrapper>
-          <StSpan>아티스트 만나보기</StSpan>
-          <StListDiv>
-            {listTestData.map((el) => {
-              return (
-                <StListTargetDiv onClick={() => {artistNavigateHandler(el)}}>
-                  <StListTargetImgDiv></StListTargetImgDiv>
-                  <StListTargetP>{el}</StListTargetP>
-                </StListTargetDiv>
-              );
-            })}
-          </StListDiv>
-        </StListWrapper>
-        <StP>더 많은 아티스트 준비 중</StP>
-      </StSideWrapper>
-    </StMainWrapper>
+              {/* // Artist List */}
+              <StListWrapper>
+                <StSpan>아티스트 만나보기</StSpan>
+                <StListDiv>
+                  {listTestData.map(el => {
+                    return (
+                      <StListTargetDiv
+                        onClick={() => {
+                          artistNavigateHandler(el);
+                        }}
+                      >
+                        <StListTargetImgDiv></StListTargetImgDiv>
+                        <StListTargetP>{el}</StListTargetP>
+                      </StListTargetDiv>
+                    );
+                  })}
+                </StListDiv>
+              </StListWrapper>
+              <StP>더 많은 아티스트 준비 중</StP>
+            </StSideWrapper>
+          </>
+        )}
+      </StMainWrapper>
+    </>
   );
 };
 
@@ -121,7 +155,7 @@ const StSpan = styled.span`
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
-  background-color: #F4EEFC;
+  background-color: #f4eefc;
 
   display: flex;
   justify-content: center;
@@ -133,7 +167,7 @@ const StBannerImg = styled.img`
   background-size: cover;
   background-color: transparent;
   object-fit: cover;
-`
+`;
 
 // My Artist
 const StDiv = styled.div`

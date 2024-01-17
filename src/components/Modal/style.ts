@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const StWholeDiv = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+`;
+
 export const StModalDiv = styled.div`
   // 모달창크기
   width: 300px;
