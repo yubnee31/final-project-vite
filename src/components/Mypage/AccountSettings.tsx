@@ -39,12 +39,12 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   }, [user]);
 
   //마우스 드래그시  초과된 팔로우 아티스트 리스트 보임
-  const handleMouseDown = e => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     setStartX(e.pageX - containerRef.current.offsetLeft);
     setScrollLeft(containerRef.current.scrollLeft);
   };
-  const handleMouseMove = e => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
     const x = e.pageX - containerRef.current.offsetLeft;
     const walk = (x - startX) * 2;

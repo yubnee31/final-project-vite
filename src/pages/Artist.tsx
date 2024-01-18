@@ -102,7 +102,6 @@ const Artist = () => {
         <StBannerImgDiv>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
-          <button>FOLLOW</button>
         </StBannerImgDiv>
 
         <StContentsWrapper>

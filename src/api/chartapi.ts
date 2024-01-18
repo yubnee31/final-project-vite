@@ -1,3 +1,4 @@
+import {number} from 'prop-types';
 import {supabase} from './supabase';
 
 //아티스트 조회
@@ -91,4 +92,16 @@ export const addLikeartist = async (postId: number) => {
   } catch (error) {
     console.log('좋아요 처리 실패', error);
   }
+};
+
+// 팔로우 리스트 추가
+export const artistFollowList = async (postId: number) => {
+  //로그인 된 사용자 정보 확인
+  const user = await supabase.auth.getUser();
+
+  //팔로우 증가 요청
+  const initialFollow = await getInitialLikes(postId);
+  const {data: testTableFollow, error: testTableError} = await supabase.from('testTable').select('like');
+
+  const {data: userinfoArtistFollow, error: userinfoError} = await supabase.from('userinfo').select('artist_follow');
 };
