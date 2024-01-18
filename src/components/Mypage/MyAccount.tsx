@@ -214,7 +214,6 @@ const StNickName = styled.div`
 `;
 const StMyAccount = styled.div`
   width: 976px;
-
   display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
   align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
   justify-content: space-between; /* 자식 요소들을 가로로 정렬 */

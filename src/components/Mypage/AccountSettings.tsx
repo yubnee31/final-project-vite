@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, useEffect} from 'react';
+import React, {ChangeEvent, useState, useEffect, useRef} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
 import nomalimage from '../../assets/images/normalimage.jpg';
@@ -22,6 +22,10 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [displayNickname, setDisplayNickname] = useState('');
   const [profileImage, setProfileImage] = useState(nomalimage);
   const [showMyAccount, setShowMyAccount] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const containerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -33,6 +37,20 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
       console.log('무한루프');
     }
   }, [user]);
+
+  //마우스 드래그시  초과된 팔로우 아티스트 리스트 보임
+  const handleMouseDown = e => {
+    setIsDragging(true);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+  const handleMouseMove = e => {
+    if (!isDragging) return;
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    containerRef.current.scrollLeft = scrollLeft + walk;
+  };
+
   const handleShowMyAccount = () => {
     setShowMyAccount(true);
   };
@@ -100,8 +118,15 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     {name: '아티스트', fanclubname: '팬클럽3', image: nomalimage},
     {name: '아티스트', fanclubname: '팬클럽4', image: nomalimage},
     {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽6', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
   ];
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   return (
     <>
       {showMyAccount ? (
@@ -131,9 +156,14 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
 
           <StMyFollowContainer>
             <p>MY FOLLOW ARTIST</p>
-            <StFollowArtistList>
+            <StFollowArtistList
+              ref={containerRef}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+            >
               {artistList.map((artist, index) => (
-                <StFwAtistContainer key={`artist_${index}`}>
+                <StFwAtistContainer key={`${index}`}>
                   <div>
                     <img src={nomalimage} alt={`아티스트 이미지 -${artist.name}`} />
                   </div>
@@ -203,6 +233,10 @@ const StFollowArtistList = styled.div`
   display: flex;
   align-items: center;
   margin-top: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  max-width: 85%;
 `;
 const StFwAtistContainer = styled.div`
   margin-right: 40px;
@@ -219,10 +253,7 @@ const StFwAtistContainer = styled.div`
   }
 
   &:hover::after {
-    content: '나의 아티스트로 이동';
     position: absolute;
-    transform: translate(5%, -350%);
-    color: white;
     padding: 10px;
     font-size: 14px;
     opacity: 0;
@@ -233,17 +264,5 @@ const StFwAtistContainer = styled.div`
     opacity: 1;
   }
 `;
-const StFollowArtistListSlider = styled(Slider)`
-  width: 100%;
-  overflow: hidden;
 
-  .slick-track {
-    display: flex;
-    align-items: center;
-  }
-
-  .slick-slide {
-    padding: 0 10px;
-  }
-`;
 export default AccountSettings;
