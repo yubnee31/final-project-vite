@@ -5,6 +5,6 @@ export const getArtistList = async () => {
         const { data } = await supabase.from('testTable').select('*');
         return data
     } catch (error) {
-        console.log('조회 에러', error);
+        console.log('error', error);
     }
 };

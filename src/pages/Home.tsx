@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg.png';
-import { getArtistList } from '../api/artistapi';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import {getArtistList} from '../api/artistapi';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
 
-  const { data: artistList } = useQuery({
+  const {data: artistList} = useQuery({
     queryKey: ['artist'],
     queryFn: getArtistList,
   });
@@ -51,7 +51,7 @@ const Home = () => {
                         artistNavigateHandler(el.artist);
                       }}
                     >
-                      <StListTargetImgDiv></StListTargetImgDiv>
+                      <StArtistTargetImg src={el.photo_url} />
                       <StListTargetP>{el.artist}</StListTargetP>
                     </StListTargetDiv>
                   );
@@ -87,7 +87,7 @@ const Home = () => {
                           artistNavigateHandler(el.artist);
                         }}
                       >
-                        <StListTargetImgDiv></StListTargetImgDiv>
+                        <StArtistTargetImg src={el.photo_url} />
                         <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );
@@ -113,7 +113,6 @@ const StSideWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
   margin-top: 140px;
 `;
 
@@ -131,7 +130,7 @@ const StSpan = styled.span`
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
-  background-color: #f4eefc;
+  background-color: #9747FF;
 
   display: flex;
   justify-content: center;
@@ -147,7 +146,7 @@ const StBannerImg = styled.img`
 
 // My Artist
 const StDiv = styled.div`
-  width: 1400px;
+  width: 1600px;
   height: 300px;
 `;
 
@@ -156,15 +155,21 @@ const StArtistDiv = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
 
-  height: 200px;
+  height: 250px;
   margin-top: 30px;
 `;
 const StArtistTargetDiv = styled.div`
   margin: 10px;
 `;
 const StArtistTargetImgDiv = styled.div`
-  height: 140px;
-  background-color: pink;
+  height: 208px;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+const StArtistTargetImg = styled.img`
+  width: 264px;
+  height: 214px;
+  object-fit: cover;
   border-radius: 10px;
 `;
 const StArtistTargetP = styled.p`
@@ -175,8 +180,8 @@ const StArtistTargetP = styled.p`
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 1400px;
-  height: 1000px;
+  width: 1600px;
+  height: 1400px;
 
   margin-top: 80px;
 `;
@@ -185,18 +190,21 @@ const StListDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  justify-content: space-around;
 `;
 const StListTargetDiv = styled.div`
   color: white;
-  margin: 15px;
-  margin-top: 30px;
-
+  /* margin: 15px; */
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   cursor: pointer;
 `;
 
 const StListTargetImgDiv = styled.div`
-  height: 140px;
-  background-color: pink;
+  height: 214px;
   border-radius: 10px;
 `;
 const StListTargetP = styled.p`

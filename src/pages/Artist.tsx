@@ -7,25 +7,15 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
-import alarmIcon from '../assets/images/alarm-icon-white.png';
-import {getArtistList} from '../api/artistapi';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import Checker from '../components/Schedule/Checker';
 
 const Artist = () => {
   const navigate = useNavigate();
   const param = useParams();
-  const queryClient = useQueryClient();
 
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
-
-  const {data: artistList} = useQuery({
-    queryKey: ['artist'],
-    queryFn: getArtistList,
-  });
-  const targetData = artistList?.filter(el => el.artist === param.artistName)[0];
-  console.log(targetData);
 
   useEffect(() => {
     const userInfo = async () => {
@@ -77,23 +67,6 @@ const Artist = () => {
     console.log(isArtistModalOpen);
     setIsArtistModalOpen(!isArtistModalOpen);
   };
-
-  const scheduleChecker = [
-    {checker: 0, day: '일'},
-    {checker: 1, day: '월'},
-    {checker: 2, day: '화'},
-    {checker: 3, day: '수'},
-    {checker: 4, day: '목'},
-    {checker: 5, day: '금'},
-    {checker: 6, day: '토'},
-  ];
-  const weekCalculator = () => {};
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
-  const dateString = `${year}-${month}-${day}`;
-  console.log(dateString);
 
   return (
     <>
@@ -173,32 +146,7 @@ const Artist = () => {
           </StWrapper>
           <StWrapper>
             <StTitle>Schedule</StTitle>
-            <StScheduleDiv>
-              <StScheduleUl>
-                {scheduleChecker.map(el => {
-                  return (
-                    <StScheduleLi>
-                      <StScheduleDayP>{el.day}</StScheduleDayP>
-                      {/* TODO: getDay checker 일치 여부 */}
-                      {targetData.schedule?.map(el => {
-                        return (
-                          <StScheduleListDiv>
-                            <StScheduleListSection>
-                              <StScheduleListTimeP>{el.place}</StScheduleListTimeP>
-                              <StScheduleListTitleP>{el.title}</StScheduleListTitleP>
-                            </StScheduleListSection>
-                            <StScheduleListImg src={alarmIcon} />
-                          </StScheduleListDiv>
-                        );
-                      })}
-                    </StScheduleLi>
-                  );
-                })}
-                {/* 스케줄 supabase에서 받아오면 날짜 getDay로 checker와 일치 여부 판단 */}
-                {/* time으로 sort */}
-                {/* supabase columns [{title: '', date: '', time: '', place: ''}] */}
-              </StScheduleUl>
-            </StScheduleDiv>
+            <Checker param={param.artistName} />
           </StWrapper>
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
@@ -241,58 +189,6 @@ const Artist = () => {
     </>
   );
 };
-
-// Schedule
-const StScheduleDiv = styled.div`
-  width: 1200px;
-  height: 300px;
-`;
-const StScheduleUl = styled.ul`
-  display: flex;
-  justify-content: space-around;
-  height: inherit;
-  margin-top: 40px;
-`;
-const StScheduleLi = styled.li`
-  text-align: left;
-  width: 150px;
-  height: inherit;
-`;
-const StScheduleDayP = styled.p`
-  font-size: 15px;
-  border-bottom: 2px solid gray;
-  height: 25px;
-`;
-
-const StScheduleListDiv = styled.div`
-  height: 50px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #3a3a3a;
-  margin-top: 10px;
-`;
-const StScheduleListSection = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  flex-direction: column;
-  width: 130px;
-`;
-const StScheduleListTimeP = styled.p`
-  color: gray;
-  font-size: 12px;
-`;
-const StScheduleListTitleP = styled.p`
-  color: white;
-  font-size: 15px;
-  margin-top: 5px;
-`;
-const StScheduleListImg = styled.img`
-  width: 15px;
-  height: 15px;
-  object-fit: cover;
-  background-size: cover;
-`;
 
 // Artist Info Modal
 const StModalBackDrop = styled.div`
