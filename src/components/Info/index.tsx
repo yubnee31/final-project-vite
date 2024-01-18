@@ -10,6 +10,7 @@ const Info = () => {
   });
   console.log('post CurrentUser', currentUser);
 
+
   return (
     <>
       <St.BannerDiv>
