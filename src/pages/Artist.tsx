@@ -7,13 +7,26 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
+import alarmIcon from '../assets/images/alarm-icon-white.png'
+import { getArtistList } from '../api/artistapi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+
 
 const Artist = () => {
+  const navigate = useNavigate();
+  const param = useParams();
+  const queryClient = useQueryClient();
+
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false)
-  const navigate = useNavigate();
-  const param = useParams();
+
+  const { data: artistList } = useQuery({
+    queryKey: ['artist'],
+    queryFn: getArtistList,
+  });
+  const targetData = artistList?.filter((el) => el.artist === param.artistName)[0]
+  console.log(targetData)
 
   useEffect(() => {
     const userInfo = async () => {
@@ -24,6 +37,8 @@ const Artist = () => {
     };
     userInfo();
   }, []);
+
+
 
   const artistTestData = ['카리나', '윈터', '닝닝', '지젤'];
   const albumsTestData = [
@@ -65,6 +80,25 @@ const Artist = () => {
     console.log(isArtistModalOpen)
     setIsArtistModalOpen(!isArtistModalOpen);
   };
+
+  const scheduleChecker = [
+    { checker: 0, day: '일' },
+    { checker: 1, day: '월' },
+    { checker: 2, day: '화' },
+    { checker: 3, day: '수' },
+    { checker: 4, day: '목' },
+    { checker: 5, day: '금' },
+    { checker: 6, day: '토' },
+  ]
+  const weekCalculator = () => {
+    
+  }
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ('0' + today.getDate()).slice(-2);
+  const dateString = `${year}-${month}-${day}`
+  console.log(dateString)
 
   return (
     <>
@@ -142,29 +176,66 @@ const Artist = () => {
               })}
             </StPhotoDiv>
           </StWrapper>
+          <StWrapper>
+            <StTitle>Schedule</StTitle>
+            <StScheduleDiv>
+              <StScheduleUl>
+                {
+                  scheduleChecker.map((el) => {
+                    return (
+                      <StScheduleLi>
+                        <StScheduleDayP>{el.day}</StScheduleDayP>
+                        {/* TODO: getDay checker 일치 여부 */}
+                        {
+                          targetData.schedule?.map((el) => {
+                            return (
+                              <StScheduleListDiv>
+                              <StScheduleListSection>
+                                <StScheduleListTimeP>{el.place}</StScheduleListTimeP>
+                                <StScheduleListTitleP>{el.title}</StScheduleListTitleP>
+                              </StScheduleListSection>
+                              <StScheduleListImg src={alarmIcon} />
+                            </StScheduleListDiv>
+                            )
+                          })
+                        }
+
+                      </StScheduleLi>
+                    )
+                  })
+                }
+                {/* 스케줄 supabase에서 받아오면 날짜 getDay로 checker와 일치 여부 판단 */}
+                {/* time으로 sort */}
+                {/* supabase columns [{title: '', date: '', time: '', place: ''}] */}
+              </StScheduleUl>
+            </StScheduleDiv>
+
+          </StWrapper>
+
+
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
         {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
         {
           isArtistModalOpen &&
           <StModalBackDrop onClick={openModalHandler}>
-            <StModalView onClick={(e) => {e.stopPropagation()}}>
-              <StModalProfileImg src='https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize'/>
-                <StModalContentsP>aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝 (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의 영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게 된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.</StModalContentsP> 
-                <StModalTitleP>데뷔</StModalTitleP>
-                <StModalContentsP>2020.11.17</StModalContentsP> 
-                <StModalTitleP>데뷔곡</StModalTitleP>
-                <StModalContentsP>Black Mamba</StModalContentsP> 
-                <StModalTitleP>수상이력</StModalTitleP>
-                <StModalContentsP>제38회 골든디스크 어워즈|음반 본상</StModalContentsP> 
-                <StModalContentsP>제33회 서울가요대상|본상</StModalContentsP>
-                <StModalContentsP>2023 MELON MUSIC AWARDS|밀리언스 TOP10</StModalContentsP>
-                <StModalTitleP>유형</StModalTitleP>
-                <StModalContentsP>그룹 |여성</StModalContentsP> 
-                <StModalTitleP>장르</StModalTitleP>
-                <StModalContentsP>댄스, 일렉트로니카, 발라드, R&B/Soul, 록/메탈, POP, 국외영화, 애니메이션/웹툰</StModalContentsP> 
-                <StModalTitleP>소속사명</StModalTitleP>
-                <StModalContentsP>(주)SM엔터테인먼트</StModalContentsP> 
+            <StModalView onClick={(e) => { e.stopPropagation() }}>
+              <StModalProfileImg src='https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize' />
+              <StModalContentsP>aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝 (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의 영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게 된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.</StModalContentsP>
+              <StModalTitleP>데뷔</StModalTitleP>
+              <StModalContentsP>2020.11.17</StModalContentsP>
+              <StModalTitleP>데뷔곡</StModalTitleP>
+              <StModalContentsP>Black Mamba</StModalContentsP>
+              <StModalTitleP>수상이력</StModalTitleP>
+              <StModalContentsP>제38회 골든디스크 어워즈|음반 본상</StModalContentsP>
+              <StModalContentsP>제33회 서울가요대상|본상</StModalContentsP>
+              <StModalContentsP>2023 MELON MUSIC AWARDS|밀리언스 TOP10</StModalContentsP>
+              <StModalTitleP>유형</StModalTitleP>
+              <StModalContentsP>그룹 |여성</StModalContentsP>
+              <StModalTitleP>장르</StModalTitleP>
+              <StModalContentsP>댄스, 일렉트로니카, 발라드, R&B/Soul, 록/메탈, POP, 국외영화, 애니메이션/웹툰</StModalContentsP>
+              <StModalTitleP>소속사명</StModalTitleP>
+              <StModalContentsP>(주)SM엔터테인먼트</StModalContentsP>
             </StModalView>
           </StModalBackDrop>
         }
@@ -174,6 +245,59 @@ const Artist = () => {
     </>
   );
 };
+
+// Schedule
+const StScheduleDiv = styled.div`
+  width: 1200px;
+  height: 300px;
+`
+const StScheduleUl = styled.ul`
+    display: flex;
+    justify-content: space-around;
+    height: inherit;
+    margin-top: 40px;
+`
+const StScheduleLi = styled.li`
+text-align: left;
+width: 150px;
+height: inherit;
+`
+const StScheduleDayP = styled.p`
+  font-size: 15px;
+  border-bottom: 2px solid gray;
+  height: 25px;
+`
+
+const StScheduleListDiv = styled.div`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #3a3a3a;
+  margin-top: 10px;
+`
+const StScheduleListSection = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  width: 130px;
+
+`
+const StScheduleListTimeP = styled.p`
+  color: gray;
+  font-size: 12px;
+`
+const StScheduleListTitleP = styled.p`
+  color: white;
+  font-size: 15px;
+  margin-top: 5px;
+`
+const StScheduleListImg = styled.img`
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
+  background-size: cover;
+`
 
 // Artist Info Modal
 const StModalBackDrop = styled.div`
@@ -190,8 +314,8 @@ const StModalBackDrop = styled.div`
   z-index: 10;
 `
 const StModalView = styled.div`
-  width: 700px;
-  height: 800px;
+  width: 500px;
+  height: 400px;
   background-color: #101010c6;
   border-radius: 15px;
   border: 1px solid #6d007b;
@@ -201,17 +325,30 @@ const StModalView = styled.div`
   justify-content: center;
   flex-direction: column;
   
+  overflow: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    background-color: #00000012;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #36363668;
+    border-radius: 30px;
+  }
+  padding-bottom: 30px;
+  padding-top: 150px;
 `
 const StModalProfileImg = styled.img`
-  width: 400px;
-  height: 200px;
+  width: 200px;
+  height: 100px;
   object-fit: cover;
   background-size: cover;
   border-radius: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `
 const StModalTitleP = styled.p`
   margin-top: 15px;
+  font-size: 10px;
 
 `
 const StModalContentsP = styled.p`
@@ -219,6 +356,8 @@ const StModalContentsP = styled.p`
   background-color: transparent;
   margin: 2px 30px 0px 30px;
   line-height: 1.4; 
+  font-size: 10px;
+
 `
 
 
