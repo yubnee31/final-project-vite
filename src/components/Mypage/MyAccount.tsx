@@ -22,17 +22,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   const [profileImage, setProfileImage] = useState(nomalimage);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-  useEffect(() => {
-    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
-    if (user.provider === 'google' && user.user_metadata?.name) {
-      setEditNickname(user.user_metadata.name);
-      setDisplayNickname(editNickname);
-    } else {
-      fetchData();
-      fetchImageData();
-    }
-  }, [user]);
-  // console.log(user);
   //유저 닉네임 수파베이스에서 불러오기
   const fetchData = async () => {
     const {data, error} = await supabase.from('userinfo').select('username').eq('id', user.id).single();
@@ -162,7 +151,17 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     onCompleteSettings();
   };
-
+  useEffect(() => {
+    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
+    if (user.provider === 'google' && user.user_metadata?.name) {
+      setEditNickname(user.user_metadata.name);
+      setDisplayNickname(editNickname);
+    } else {
+      fetchData();
+      fetchImageData();
+      console.log('myaccount');
+    }
+  }, [user]);
   return (
     <>
       <StMyAccountName>

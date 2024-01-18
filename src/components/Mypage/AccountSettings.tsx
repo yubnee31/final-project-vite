@@ -79,7 +79,9 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     // Handle completion logic here
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     setShowMyAccount(false);
+    fetchImageData();
   };
+
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -88,8 +90,9 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     } else {
       fetchData();
       fetchImageData();
+      console.log('무한루프');
     }
-  }, [editNickname, fetchData, fetchImageData, user]);
+  }, [user]);
   return (
     <>
       {showMyAccount ? (
@@ -119,11 +122,23 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
 
           <div>
             <p>FOLLOW ARTIST</p>
-            <div>
-              <div>아티스트 이미지</div>
-              <p>아티스트 네임</p>
-              <p>펜클럽 이름</p>
-            </div>
+            <StFollowArtistList>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+            </StFollowArtistList>
           </div>
         </>
       )}
@@ -179,5 +194,10 @@ const StProfileImage = styled.img`
   border-radius: 100%;
   object-fit: cover;
 `;
-
+const StFollowArtistList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+`;
+const StFwAtistContainer = styled.div``;
 export default AccountSettings;
