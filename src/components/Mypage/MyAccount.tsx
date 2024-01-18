@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState, useEffect} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
-import nomalimage from '../../assets/normalimage.jpg';
+import nomalimage from '../../assets/images/normalimage.jpg';
 
 interface AccountSettingProps {
   user: {
@@ -159,7 +159,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     } else {
       fetchData();
       fetchImageData();
-      console.log('myaccount');
     }
   }, [user]);
   return (

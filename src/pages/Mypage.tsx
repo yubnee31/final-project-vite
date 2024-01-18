@@ -120,6 +120,7 @@ export const StFormWrapper = styled.div`
   text-align: center;
   margin-right: 15%;
 `;
+
 export const StEmailBox = styled.div`
   /* border: 1px white solid; */
   height: 700px;
@@ -131,6 +132,7 @@ export const StEmailBox = styled.div`
     }
   }
 `;
+
 export const Staccount = styled.div`
   width: 60%;
   height: 10%;

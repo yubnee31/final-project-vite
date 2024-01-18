@@ -1,8 +1,9 @@
 import React, {ChangeEvent, useState, useEffect} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
-import nomalimage from '../../assets/normalimage.jpg';
+import nomalimage from '../../assets/images/normalimage.jpg';
 import MyAccount from './MyAccount';
+import Slider from 'react-slick';
 
 interface AccountSettingProps {
   user: {
@@ -21,7 +22,17 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [displayNickname, setDisplayNickname] = useState('');
   const [profileImage, setProfileImage] = useState(nomalimage);
   const [showMyAccount, setShowMyAccount] = useState(false);
-
+  useEffect(() => {
+    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
+    if (user.provider === 'google' && user.user_metadata?.name) {
+      setEditNickname(user.user_metadata.name);
+      setDisplayNickname(editNickname);
+    } else {
+      fetchData();
+      fetchImageData();
+      console.log('무한루프');
+    }
+  }, [user]);
   const handleShowMyAccount = () => {
     setShowMyAccount(true);
   };
@@ -82,17 +93,15 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     fetchImageData();
   };
 
-  useEffect(() => {
-    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
-    if (user.provider === 'google' && user.user_metadata?.name) {
-      setEditNickname(user.user_metadata.name);
-      setDisplayNickname(editNickname);
-    } else {
-      fetchData();
-      fetchImageData();
-      console.log('무한루프');
-    }
-  }, [user]);
+  //아티스트 리스트
+  const artistList = [
+    {name: '아티스트', fanclubname: '팬클럽1', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽2', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽3', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽4', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+    {name: '아티스트', fanclubname: '팬클럽6', image: nomalimage},
+  ];
   return (
     <>
       {showMyAccount ? (
@@ -120,26 +129,20 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
             </div>
           </StFollowcontainer>
 
-          <div>
-            <p>FOLLOW ARTIST</p>
+          <StMyFollowContainer>
+            <p>MY FOLLOW ARTIST</p>
             <StFollowArtistList>
-              <StFwAtistContainer>
-                <div>아티스트 이미지</div>
-                <p>아티스트 네임</p>
-                <p>펜클럽 이름</p>
-              </StFwAtistContainer>
-              <StFwAtistContainer>
-                <div>아티스트 이미지</div>
-                <p>아티스트 네임</p>
-                <p>펜클럽 이름</p>
-              </StFwAtistContainer>
-              <StFwAtistContainer>
-                <div>아티스트 이미지</div>
-                <p>아티스트 네임</p>
-                <p>펜클럽 이름</p>
-              </StFwAtistContainer>
+              {artistList.map((artist, index) => (
+                <StFwAtistContainer key={`artist_${index}`}>
+                  <div>
+                    <img src={nomalimage} alt={`아티스트 이미지 -${artist.name}`} />
+                  </div>
+                  <p>{artist.name}</p>
+                  <p>{artist.fanclubname}</p>
+                </StFwAtistContainer>
+              ))}
             </StFollowArtistList>
-          </div>
+          </StMyFollowContainer>
         </>
       )}
     </>
@@ -164,7 +167,6 @@ const StNickName = styled.div`
 `;
 const StMyAccount = styled.div`
   width: 976px;
-
   display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
   align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
   justify-content: space-between; /* 자식 요소들을 가로로 정렬 */
@@ -194,10 +196,54 @@ const StProfileImage = styled.img`
   border-radius: 100%;
   object-fit: cover;
 `;
+const StMyFollowContainer = styled.div`
+  margin-top: 20px;
+`;
 const StFollowArtistList = styled.div`
   display: flex;
   align-items: center;
   margin-top: 20px;
 `;
-const StFwAtistContainer = styled.div``;
+const StFwAtistContainer = styled.div`
+  margin-right: 40px;
+  cursor: pointer;
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+
+  &:hover::after {
+    content: '나의 아티스트로 이동';
+    position: absolute;
+    transform: translate(5%, -350%);
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+`;
+const StFollowArtistListSlider = styled(Slider)`
+  width: 100%;
+  overflow: hidden;
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+
+  .slick-slide {
+    padding: 0 10px;
+  }
+`;
 export default AccountSettings;
