@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     if (searchInput) {
-      const filteredArtists = listTestData.filter(item => item.includes(searchInput));
+      const filteredArtists = artistList?.filter(item => item.artist.includes(searchInput));
       setSearchedResults(filteredArtists);
     }
   }, []);
