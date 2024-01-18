@@ -131,7 +131,7 @@ const StSpan = styled.span`
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
-  background-color: #f4eefc;
+  background-color: #9747FF;
 
   display: flex;
   justify-content: center;

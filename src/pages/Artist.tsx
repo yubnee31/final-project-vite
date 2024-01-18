@@ -7,26 +7,25 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
-import alarmIcon from '../assets/images/alarm-icon-white.png'
 import { getArtistList } from '../api/artistapi';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import Checker from '../components/Schedule/Checker';
 
 
 const Artist = () => {
   const navigate = useNavigate();
   const param = useParams();
-  const queryClient = useQueryClient();
 
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false)
 
-  const { data: artistList } = useQuery({
-    queryKey: ['artist'],
-    queryFn: getArtistList,
-  });
-  const targetData = artistList?.filter((el) => el.artist === param.artistName)[0]
-  console.log(targetData)
+  // const { data: artistList } = useQuery({
+  //   queryKey: ['artist'],
+  //   queryFn: getArtistList,
+  // });
+  // const targetData = artistList?.filter((el) => el.artist === param.artistName)[0]
+  // console.log(targetData)
 
   useEffect(() => {
     const userInfo = async () => {
@@ -81,24 +80,35 @@ const Artist = () => {
     setIsArtistModalOpen(!isArtistModalOpen);
   };
 
-  const scheduleChecker = [
-    { checker: 0, day: '일' },
-    { checker: 1, day: '월' },
-    { checker: 2, day: '화' },
-    { checker: 3, day: '수' },
-    { checker: 4, day: '목' },
-    { checker: 5, day: '금' },
-    { checker: 6, day: '토' },
-  ]
-  const weekCalculator = () => {
-    
-  }
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
-  const dateString = `${year}-${month}-${day}`
-  console.log(dateString)
+
+  // const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
+
+  // const weekCalculator = () => {
+  //   const weekList = ['일', '월', '화', '수', '목', '금', '토', '일']
+  //   const today = new Date();
+  //   const year = today.getFullYear();
+  //   const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  //   const day = ('0' + today.getDate()).slice(-2);
+  //   const todayString = `${year}-${month}-${day}`
+
+  //   for (let i = 0; i < 7; i++) {
+  //     const sunday = new Date(today)
+  //     sunday.setDate(today.getDate() - new Date(todayString).getDay())
+
+  //     const week = new Date(sunday)
+  //     week.setDate(sunday.getDate() + i)
+  //     const year = week.getFullYear();
+  //     const month = ('0' + (week.getMonth() + 1)).slice(-2);
+  //     const day = ('0' + week.getDate()).slice(-2);
+  //     const weekDay = `${year}-${month}-${day}`
+  //     scheduleChecker.push({checker: i, dayString: weekList[i], day: weekDay})
+  //   }
+  //   console.log(scheduleChecker)
+  // }
+
+  // weekCalculator()
+
+  
 
   return (
     <>
@@ -178,37 +188,35 @@ const Artist = () => {
           </StWrapper>
           <StWrapper>
             <StTitle>Schedule</StTitle>
-            <StScheduleDiv>
+              <Checker param={param.artistName}/>
+            {/* <StScheduleDiv>
               <StScheduleUl>
                 {
-                  scheduleChecker.map((el) => {
+                  scheduleChecker
+                  .map((e) => {
                     return (
                       <StScheduleLi>
-                        <StScheduleDayP>{el.day}</StScheduleDayP>
-                        {/* TODO: getDay checker 일치 여부 */}
+                        <StScheduleDayP>{e.dayString}</StScheduleDayP>
                         {
-                          targetData.schedule?.map((el) => {
+                          targetData.schedule?.filter((el: { date: string; }) => el.date === e.day)
+                          .map((ele) => {
                             return (
                               <StScheduleListDiv>
                               <StScheduleListSection>
-                                <StScheduleListTimeP>{el.place}</StScheduleListTimeP>
-                                <StScheduleListTitleP>{el.title}</StScheduleListTitleP>
+                                <StScheduleListTimeP>{ele.place}</StScheduleListTimeP>
+                                <StScheduleListTitleP>{ele.title}</StScheduleListTitleP>
                               </StScheduleListSection>
-                              <StScheduleListImg src={alarmIcon} />
+                              <StScheduleListImg className='' src={alarmIcon} />
                             </StScheduleListDiv>
                             )
                           })
                         }
-
                       </StScheduleLi>
                     )
                   })
                 }
-                {/* 스케줄 supabase에서 받아오면 날짜 getDay로 checker와 일치 여부 판단 */}
-                {/* time으로 sort */}
-                {/* supabase columns [{title: '', date: '', time: '', place: ''}] */}
               </StScheduleUl>
-            </StScheduleDiv>
+            </StScheduleDiv> */}
 
           </StWrapper>
 
@@ -289,8 +297,9 @@ const StScheduleListTimeP = styled.p`
 `
 const StScheduleListTitleP = styled.p`
   color: white;
-  font-size: 15px;
+  font-size: 14px;
   margin-top: 5px;
+  margin-bottom: 5px;
 `
 const StScheduleListImg = styled.img`
   width: 15px;
