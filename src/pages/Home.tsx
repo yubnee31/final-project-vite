@@ -43,7 +43,7 @@ const Home = () => {
             <StSpan>검색결과</StSpan>
             <StListDiv>
               {artistList
-                ?.filter(el => el.includes(searchInput))
+                ?.filter(el => el.artist.includes(searchInput))
                 .map(el => {
                   return (
                     <StListTargetDiv
