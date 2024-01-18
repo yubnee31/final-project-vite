@@ -7,8 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
-import { getArtistList } from '../api/artistapi';
-import { useQuery } from '@tanstack/react-query';
 import Checker from '../components/Schedule/Checker';
 
 
@@ -19,13 +17,6 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false)
-
-  // const { data: artistList } = useQuery({
-  //   queryKey: ['artist'],
-  //   queryFn: getArtistList,
-  // });
-  // const targetData = artistList?.filter((el) => el.artist === param.artistName)[0]
-  // console.log(targetData)
 
   useEffect(() => {
     const userInfo = async () => {
@@ -80,35 +71,6 @@ const Artist = () => {
     setIsArtistModalOpen(!isArtistModalOpen);
   };
 
-
-  // const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
-
-  // const weekCalculator = () => {
-  //   const weekList = ['일', '월', '화', '수', '목', '금', '토', '일']
-  //   const today = new Date();
-  //   const year = today.getFullYear();
-  //   const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  //   const day = ('0' + today.getDate()).slice(-2);
-  //   const todayString = `${year}-${month}-${day}`
-
-  //   for (let i = 0; i < 7; i++) {
-  //     const sunday = new Date(today)
-  //     sunday.setDate(today.getDate() - new Date(todayString).getDay())
-
-  //     const week = new Date(sunday)
-  //     week.setDate(sunday.getDate() + i)
-  //     const year = week.getFullYear();
-  //     const month = ('0' + (week.getMonth() + 1)).slice(-2);
-  //     const day = ('0' + week.getDate()).slice(-2);
-  //     const weekDay = `${year}-${month}-${day}`
-  //     scheduleChecker.push({checker: i, dayString: weekList[i], day: weekDay})
-  //   }
-  //   console.log(scheduleChecker)
-  // }
-
-  // weekCalculator()
-
-  
 
   return (
     <>
@@ -189,35 +151,6 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Schedule</StTitle>
               <Checker param={param.artistName}/>
-            {/* <StScheduleDiv>
-              <StScheduleUl>
-                {
-                  scheduleChecker
-                  .map((e) => {
-                    return (
-                      <StScheduleLi>
-                        <StScheduleDayP>{e.dayString}</StScheduleDayP>
-                        {
-                          targetData.schedule?.filter((el: { date: string; }) => el.date === e.day)
-                          .map((ele) => {
-                            return (
-                              <StScheduleListDiv>
-                              <StScheduleListSection>
-                                <StScheduleListTimeP>{ele.place}</StScheduleListTimeP>
-                                <StScheduleListTitleP>{ele.title}</StScheduleListTitleP>
-                              </StScheduleListSection>
-                              <StScheduleListImg className='' src={alarmIcon} />
-                            </StScheduleListDiv>
-                            )
-                          })
-                        }
-                      </StScheduleLi>
-                    )
-                  })
-                }
-              </StScheduleUl>
-            </StScheduleDiv> */}
-
           </StWrapper>
 
 
@@ -253,60 +186,6 @@ const Artist = () => {
     </>
   );
 };
-
-// Schedule
-const StScheduleDiv = styled.div`
-  width: 1200px;
-  height: 300px;
-`
-const StScheduleUl = styled.ul`
-    display: flex;
-    justify-content: space-around;
-    height: inherit;
-    margin-top: 40px;
-`
-const StScheduleLi = styled.li`
-text-align: left;
-width: 150px;
-height: inherit;
-`
-const StScheduleDayP = styled.p`
-  font-size: 15px;
-  border-bottom: 2px solid gray;
-  height: 25px;
-`
-
-const StScheduleListDiv = styled.div`
-  height: 50px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #3a3a3a;
-  margin-top: 10px;
-`
-const StScheduleListSection = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  flex-direction: column;
-  width: 130px;
-
-`
-const StScheduleListTimeP = styled.p`
-  color: gray;
-  font-size: 12px;
-`
-const StScheduleListTitleP = styled.p`
-  color: white;
-  font-size: 14px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-`
-const StScheduleListImg = styled.img`
-  width: 15px;
-  height: 15px;
-  object-fit: cover;
-  background-size: cover;
-`
 
 // Artist Info Modal
 const StModalBackDrop = styled.div`
