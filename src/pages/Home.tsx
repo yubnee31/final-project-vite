@@ -2,11 +2,20 @@ import styled from 'styled-components';
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg.png';
+import { getArtistList } from '../api/artistapi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
+
+  const { data: artistList } = useQuery({
+    queryKey: ['artist'],
+    queryFn: getArtistList,
+  });
 
   useEffect(() => {
     if (searchInput) {
@@ -15,44 +24,11 @@ const Home = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data, error } = await supabase.from("testTable").select("*");
-  //       return data;
-  //     } catch (error) {
-  //       console.log("Error", error);
-  //     }
-  //   };
-  //   const artistData = fetchData();
-  // });
-  const navigate = useNavigate();
   const artistNavigateHandler = (artistName: string) => {
     navigate(`artist/${artistName}`);
   };
+
   const myArtistTestData = ['나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트'];
-  const listTestData = [
-    '르세라핌',
-    '태연',
-    '임재현',
-    'aespa',
-    'EXO',
-    '박재정',
-    '범진',
-    '아이브',
-    '정국',
-    '임영웅',
-    '너드커넥션',
-    '이무진',
-    '아이유',
-    '제니',
-    '악뮤',
-    '제니',
-    'RIIZE',
-    '우디',
-    '여자아이들',
-    'QWER',
-  ];
 
   return (
     <>
@@ -66,17 +42,17 @@ const Home = () => {
           <StListWrapper>
             <StSpan>검색결과</StSpan>
             <StListDiv>
-              {listTestData
-                .filter(el => el.includes(searchInput))
+              {artistList
+                ?.filter(el => el.artist.includes(searchInput))
                 .map(el => {
                   return (
                     <StListTargetDiv
                       onClick={() => {
-                        artistNavigateHandler(el);
+                        artistNavigateHandler(el.artist);
                       }}
                     >
                       <StListTargetImgDiv></StListTargetImgDiv>
-                      <StListTargetP>{el}</StListTargetP>
+                      <StListTargetP>{el.artist}</StListTargetP>
                     </StListTargetDiv>
                   );
                 })}
@@ -104,15 +80,15 @@ const Home = () => {
               <StListWrapper>
                 <StSpan>아티스트 만나보기</StSpan>
                 <StListDiv>
-                  {listTestData.map(el => {
+                  {artistList?.map(el => {
                     return (
                       <StListTargetDiv
                         onClick={() => {
-                          artistNavigateHandler(el);
+                          artistNavigateHandler(el.artist);
                         }}
                       >
                         <StListTargetImgDiv></StListTargetImgDiv>
-                        <StListTargetP>{el}</StListTargetP>
+                        <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );
                   })}
