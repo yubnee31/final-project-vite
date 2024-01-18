@@ -8,11 +8,19 @@ import {loginState} from '../shared/recoil/authAtom';
 
 const Mypage = () => {
   const [user, setUser] = useState({});
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState('계정 정보');
   const [login, setLogin] = useRecoilState(loginState);
   const [username, setUsername] = useState('');
   const [userInfoData, setUserInfoData] = useState('');
   const navigate = useNavigate();
+
+  // 로그아웃
+  const logOut = async () => {
+    const {error} = await supabase.auth.signOut();
+    setLogin(null);
+    navigate('/');
+    if (error) console.log('error', error);
+  };
 
   useEffect(() => {
     const userInfo = async () => {
@@ -44,6 +52,9 @@ const Mypage = () => {
 
   const handleMenuClick = menu => {
     setSelectedMenu(menu);
+    if (menu === '로그아웃') {
+      logOut();
+    }
   };
 
   const handleUpdateNickname = newNickname => {
@@ -89,6 +100,7 @@ const Mypage = () => {
         {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
         {selectedMenu === '스케줄' && <p>스케줄 컨텐츠</p>}
         {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
+        {selectedMenu === '로그아웃'}
       </Staccount>
     </StMypageContainer>
   );
