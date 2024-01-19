@@ -161,7 +161,6 @@ const Artist = () => {
           isArtistModalOpen &&
           <StModalBackDrop onClick={openModalHandler}>
             <StModalView onClick={(e) => { e.stopPropagation() }}>
-              <StModalProfileImg src='https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize' />
               <StModalContentsP>aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝 (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의 영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게 된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.</StModalContentsP>
               <StModalTitleP>데뷔</StModalTitleP>
               <StModalContentsP>2020.11.17</StModalContentsP>
@@ -224,16 +223,9 @@ const StModalView = styled.div`
     border-radius: 30px;
   }
   padding-bottom: 30px;
-  padding-top: 150px;
+  padding-top: 50px;
 `
-const StModalProfileImg = styled.img`
-  width: 200px;
-  height: 100px;
-  object-fit: cover;
-  background-size: cover;
-  border-radius: 15px;
-  margin-bottom: 20px;
-`
+
 const StModalTitleP = styled.p`
   margin-top: 15px;
   font-size: 10px;
@@ -270,7 +262,6 @@ const StTitle = styled.p`
 
 // Banner
 const StBannerImgDiv = styled.div`
-  margin-top: 80px;
   width: 100vw;
   height: 600px;
 

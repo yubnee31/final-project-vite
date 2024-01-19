@@ -107,6 +107,7 @@ const Home = () => {
 const StMainWrapper = styled.div`
   background-color: black;
   padding-bottom: 100px;
+  margin-top: 80px;
 `;
 const StSideWrapper = styled.div`
   display: flex;
