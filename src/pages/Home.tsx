@@ -135,6 +135,8 @@ const StBannerDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin-top: 80px;
 `;
 const StBannerImg = styled.img`
   width: 1000px;
@@ -147,7 +149,7 @@ const StBannerImg = styled.img`
 // My Artist
 const StDiv = styled.div`
   margin-top: 30px;
-  width: 100%;
+  width: 1920px;
   height: 300px;
   padding-left: 240px;
   padding-right: 240px;
@@ -186,7 +188,7 @@ const StArtistTargetP = styled.p`
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 100%;
+  width: 1920px;
   height: 1400px;
   padding-left: 240px;
   padding-right: 240px;
