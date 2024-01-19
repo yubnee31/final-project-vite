@@ -1,16 +1,15 @@
 import React from 'react'
-import { getArtistList } from '../../../api/artistapi';
+import { getArtistSchedule } from '../../../api/artistapi';
 import { useQuery } from '@tanstack/react-query';
 import St from './style';
 import ScheduleList from '../ScheduleList';
 
 const Checker = ({param}: string) => {
-  const { data: artistList } = useQuery({
+  const { data: schedule } = useQuery({
     queryKey: ['schedule'],
-    queryFn: getArtistList,
+    queryFn: getArtistSchedule,
   });
-
-  const targetData = artistList?.filter((el) => el.artist === param)[0]
+  const targetData = schedule?.filter((el) => el.artist === param)
 
   const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
 
@@ -48,10 +47,11 @@ const Checker = ({param}: string) => {
             <St.ScheduleLi>
               <St.ScheduleDayP>{e.dayString}</St.ScheduleDayP>
               {
-                targetData?.schedule?.filter((el: { date: string; }) => el.date === e.day)
+                targetData?.filter((el: { date: string; }) => el.date === e.day)
                 .map((ele) => {
                   return (
                     <ScheduleList 
+                    id={ele.id}
                     place={ele.place}
                     title={ele.title}
                     />
