@@ -2,13 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 const Calender = () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth()
-  const day =today.getDate()
-  const todayString = `${year}-${month}-${day}`
-
-  const dayList = [];
+  const dayList: number[] = [];
   const dayChecker = [
     {checker: 0, dayString: 'Sun'},
     {checker: 1, dayString: 'Mon'},
@@ -19,58 +13,144 @@ const Calender = () => {
     {checker: 6, dayString: 'Sat'},
   ]
 
-  const lastCalculator = () => {
-    const lastDay = new Date(year, month, 0)
-    const dayLast = ('0' + lastDay.getDate()).slice(-2);
+  // 금일
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1
+  const dayMonth = today.getMonth()
+  const day = today.getDate()
+  const monthString = `${year}.${('0' + month).slice(-2)}`
+  
+  // 말일
+  const lastDay = new Date(year, month, 0)
+  const dayLast = lastDay.getDate()
 
-    for (let i = 1; i <= +dayLast; i++) {
-      if (i === 1) {
-        const firstDay = new Date(year, month, 1).getDay()
-        const lastMonth = new Date(year, month-1, 0)
-        console.log(lastMonth.getDate())
+  // 첫일 요일 
+  const firstDay = new Date(year, dayMonth, 1).getDay()
 
-        console.log(firstDay)
+  // 지난달 말일
+  const lastMonth = new Date(year, month, 0)
+  lastMonth.setMonth(lastMonth.getMonth() - 1)
+
+  // this month
+  for (let i = 1; i <= +dayLast; i++) {
+    // last month
+    if (i === 1) {
+      for (let j = 0; j < firstDay; j++) {
+        const lastDay = lastMonth.getDate() - j;
+        dayList.push(lastDay)
       }
-      dayList.push(i)
+      dayList.sort((a, b) => a - b)
     }
-
-    console.log(dayList)
+    dayList.push(i)
   }
-
-  lastCalculator()
+  // next month
+  if (dayList.length < 35) {
+    const maxLength = 35 - dayList.length
+    for (let l = 1; l <= maxLength; l++) {
+      dayList.push(l)
+    }
+  } else {
+    const maxLength = 42 - dayList.length
+    for (let l = 1; l <= maxLength; l++) {
+      dayList.push(l)
+    }
+  }
 
   return (
     <StWrapper>
-      <StdayUl>
-
-
+      <StMonthDiv>{monthString}</StMonthDiv>
+      <StDayColumnUl>
         {
-          dayList.map((e) => {
+          dayChecker.map((el) => {
             return (
-              <Stdayli>
-                {e}
-              </Stdayli>
+              <StDayColumnLi>
+                {el.dayString}
+              </StDayColumnLi>
             )
           })
         }
-      </StdayUl>
+      </StDayColumnUl>
+      <StDayUl>
+        {
+          dayList.map((e) => {
+            return (
+              <StDayli>
+                <StDayP className={e === day ? 'today' : ''}>{e}</StDayP>
+              </StDayli>
+            )
+          })
+        }
+      </StDayUl>
     </StWrapper>
   )
 }
+
+// Wrapper
 const StWrapper = styled.div`
   width: 900px;
   height: 700px;
 `
-const StdayUl = styled.ul`
+
+// Year-Month
+const StMonthDiv = styled.div`
+  width: 875px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: start;
+
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+`
+
+// Day Columns
+const StDayColumnUl = styled.ul`
+  display: flex;
+`
+const StDayColumnLi = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 30px;
+  outline: 1px solid gray;
+
+  color: #b2b2b2;    
+`
+
+// Day List
+const StDayUl = styled.ul`
   width: inherit;
   height: inherit;
 
   display: grid;
-  grid-template-columns:  repeat(7, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 125px);
+  grid-template-rows: repeat(5, 140px);
+  grid-auto-columns: 125px;
+  grid-auto-rows: 140px;
 `
-const Stdayli = styled.li`
+const StDayli = styled.li`
   outline: 1px solid gray;
+`
+const StDayP = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 12px;
+  color: gray;
+  margin: 6px;
+  width: 20px;
+  height: 20px;
+  &.today {
+    background-color: #9747FF;
+    border-radius: 50%;
+    color: white;
+
+  }
 `
 
 

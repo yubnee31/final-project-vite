@@ -5,15 +5,12 @@ import St from './style';
 import ScheduleList from '../ScheduleList';
 
 const Checker = ({param}: string) => {
-  console.log(param)
   const { data: artistList } = useQuery({
     queryKey: ['schedule'],
     queryFn: getArtistList,
   });
-  console.log(artistList)
 
   const targetData = artistList?.filter((el) => el.artist === param)[0]
-  console.log(targetData)
 
   const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
 
@@ -37,7 +34,6 @@ const Checker = ({param}: string) => {
       const weekDay = `${year}-${month}-${day}`
       scheduleChecker.push({checker: i, dayString: weekList[i], day: weekDay})
     }
-    console.log(scheduleChecker)
   }
 
   weekCalculator()
