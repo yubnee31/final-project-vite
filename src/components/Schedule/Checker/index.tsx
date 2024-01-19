@@ -24,7 +24,6 @@ const Checker = ({ param }: string) => {
     queryFn: getUserSchedule,
   });
   const userTargetSchedule = userSchedule?.filter((el) => el.userid === currentUser.id)
-  console.log(userTargetSchedule)
 
   const addMutation = useMutation({
     mutationFn: addSchedule,
@@ -78,7 +77,6 @@ const Checker = ({ param }: string) => {
       }
       addMutation.mutate(schedule)
     } else if (isOn) {
-      console.log('isOn true')
       deleteMutation.mutate(info.id)
     }
   }
