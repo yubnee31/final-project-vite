@@ -8,9 +8,16 @@ export const StNav = styled.nav`
   height: 80px;
   background-color: #000000a8;
   z-index: 100;
+  padding: 0px 240px 0px 240px;
+`;
+
+export const StNavDiv = styled.div`
+  width: 100%;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 `;
 
 // Logo
@@ -21,9 +28,8 @@ export const StLogoDiv = styled.div`
 
 export const StLogoSpan = styled.span`
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: bold;
-  margin-left: 30px;
   background-color: transparent;
 
   cursor: pointer;
@@ -94,10 +100,10 @@ export const StButton = styled.button`
 `;
 
 export const StSignInBtn = styled.button`
-  background-color: white;
+  background-color: #9747ff;
   border: none;
-  width: 70px;
-  height: 35px;
+  width: 110px;
+  height: 36px;
   border-radius: 5px;
   margin-right: 5px;
   display: flex;
@@ -108,7 +114,7 @@ export const StSignInBtn = styled.button`
 
 export const StBtnP = styled.p`
   color: black;
-  font-size: 15px;
+  font-size: 16px;
   text-align: center;
   font-weight: bold;
   background-color: transparent;

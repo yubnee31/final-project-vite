@@ -107,14 +107,13 @@ const Home = () => {
 const StMainWrapper = styled.div`
   background-color: black;
   padding-bottom: 100px;
-  margin-top: 80px;
 `;
 const StSideWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 140px;
+  margin-top: 100px;
 `;
 
 // Common
@@ -124,14 +123,14 @@ const StP = styled.p`
 `;
 const StSpan = styled.span`
   color: white;
-  margin-left: 10px;
+  font-size: 24px;
 `;
 
 // Banner
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
-  background-color: #9747FF;
+  background-color: #9747ff;
 
   display: flex;
   justify-content: center;
@@ -147,25 +146,30 @@ const StBannerImg = styled.img`
 
 // My Artist
 const StDiv = styled.div`
-  width: 1600px;
+  margin-top: 30px;
+  width: 100%;
   height: 300px;
+  padding-left: 240px;
+  padding-right: 240px;
 `;
 
 const StArtistDiv = styled.div`
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
-
   height: 250px;
-  margin-top: 30px;
 `;
 const StArtistTargetDiv = styled.div`
-  margin: 10px;
+  width: 264px;
+  height: 292px;
 `;
 const StArtistTargetImgDiv = styled.div`
-  height: 208px;
+  width: 264px;
+  height: 214px;
   border-radius: 10px;
   overflow: hidden;
+  background-color: pink;
 `;
 const StArtistTargetImg = styled.img`
   width: 264px;
@@ -177,26 +181,30 @@ const StArtistTargetP = styled.p`
   color: white;
   text-align: center;
   margin-top: 15px;
+  font-size: 18px;
 `;
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 1600px;
+  width: 100%;
   height: 1400px;
-
-  margin-top: 80px;
+  padding-left: 240px;
+  padding-right: 240px;
+  margin-top: 100px;
 `;
 const StListDiv = styled.div`
+  margin-top: 50px;
   height: inherit;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
   justify-content: space-around;
 `;
+
 const StListTargetDiv = styled.div`
+  width: 264px;
+  height: 292px;
   color: white;
-  /* margin: 15px; */
-  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,7 +219,8 @@ const StListTargetImgDiv = styled.div`
 const StListTargetP = styled.p`
   color: white;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 20px;
+  font-size: 18px;
 `;
 
 export default Home;
