@@ -6,3 +6,12 @@ export type Post = {
   userid?: string;
   isEditing?: boolean;
 }
+
+export type Schedule = {
+  scheduleId?: number;
+  userid?: string;
+  artist?: string;
+  date?: string;
+  place?: string;
+  title?: string;
+};
