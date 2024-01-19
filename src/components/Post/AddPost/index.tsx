@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { addPost } from '../../../api/post'
+import { getCurrentUser } from '../../../api/currentUser'
 import profileImg from '../../../assets/images/profile-white.png'
 import St from './style'
 
 const AddPost = () => {
   const queryClient = useQueryClient();
   const [content, setContent] = useState('');
-  
+
+  const {data: currentUser} = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser,
+  });
+
   const addMutation = useMutation({
     mutationFn: addPost,
     onSuccess: () => {
@@ -23,7 +29,7 @@ const AddPost = () => {
   const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const newPost = {
-      userid: 'test',
+      userid: currentUser?.user_metadata.name,
       photo_url: 'posts?.photo_url',
       content: content,
     };

@@ -94,7 +94,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     }
   }, [user]);
   return (
-    <>
+    <StWrapper>
       {showMyAccount ? (
         <MyAccount user={user} onUpdateNickname={onUpdateNickname} onCompleteSettings={handleCompleteSettings} />
       ) : (
@@ -142,9 +142,12 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
           </div>
         </>
       )}
-    </>
+    </StWrapper>
   );
 };
+const StWrapper = styled.div`
+  
+`
 const StMyAccountName = styled.div`
   margin-bottom: 20px;
 `;

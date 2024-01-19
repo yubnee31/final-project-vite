@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {supabase} from '../api/supabase';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../api/supabase';
 import styled from 'styled-components';
 import AccountSettings from '../components/Mypage/AccountSettings';
-import {useNavigate} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
-import {loginState} from '../shared/recoil/authAtom';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { loginState } from '../shared/recoil/authAtom';
+import Calender from '../components/Calender';
 
 const Mypage = () => {
   const [user, setUser] = useState({});
@@ -16,7 +17,7 @@ const Mypage = () => {
 
   // 로그아웃
   const logOut = async () => {
-    const {error} = await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
     setLogin(null);
     navigate('/');
     if (error) console.log('error', error);
@@ -25,20 +26,20 @@ const Mypage = () => {
   useEffect(() => {
     const userInfo = async () => {
       const {
-        data: {user},
+        data: { user },
       } = await supabase.auth.getUser();
 
       if (user) {
         try {
           // userinfo 테이블의 username 값을 가져오기
-          const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
+          const { data: userinfoData, error } = await supabase.from('userinfo').select('username').eq('id', user.id);
           if (error) {
             console.error('userinfo 데이터 불러오기 에러:', error);
             return;
           }
           if (userinfoData && userinfoData.length > 0) {
             setUsername(userinfoData[0].username);
-            setUserInfoData(userinfoData as {username: string}[]); // userinfoData 상태 업데이트
+            setUserInfoData(userinfoData as { username: string }[]); // userinfoData 상태 업데이트
           }
         } catch (error) {
           console.error('유저 정보 불러오기 에러:', error);
@@ -82,26 +83,28 @@ const Mypage = () => {
   };
   return (
     <StMypageContainer>
-      <StFormWrapper>
-        {user && user.user_metadata ? (
-          <>
+      <StWrapper>
+        <StFormWrapper>
+          {user && user.user_metadata ? (
             <StEmailBox>
               <p onClick={() => handleMenuClick('계정 정보')}>나의 정보</p>
               <p onClick={() => handleMenuClick('스케줄')}>나의 스케줄 </p>
               <p onClick={() => handleMenuClick('1:1문의 하기')}>1:1문의 하기</p>
               <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
             </StEmailBox>
-          </>
-        ) : (
-          <p>로딩 중</p>
-        )}
-      </StFormWrapper>
-      <Staccount>
-        {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
-        {selectedMenu === '스케줄' && <p>스케줄 컨텐츠</p>}
-        {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
-        {selectedMenu === '로그아웃'}
-      </Staccount>
+
+          ) : (
+            <p>로딩 중</p>
+          )}
+        </StFormWrapper>
+        <Staccount>
+          {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
+          {selectedMenu === '스케줄' && <Calender />}
+          {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
+          {selectedMenu === '로그아웃'}
+        </Staccount>
+      </StWrapper>
+
     </StMypageContainer>
   );
 };
@@ -110,19 +113,37 @@ const StMypageContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
-  margin-top: 100px;
+  height: 900px;
+  margin-top: 150px;
 `;
-export const StFormWrapper = styled.div`
+const StWrapper = styled.div`
+  width: 1200px;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+
+`
+const StFormWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  margin-right: 15%;
-`;
-export const StEmailBox = styled.div`
-  /* border: 1px white solid; */
+  width: 200px;
   height: 700px;
+  border: 1px white solid;
+`;
+const Staccount = styled.div`
+width: 1000px;
+height: 700px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+`;
+const StEmailBox = styled.div`
+  height: inherit;
   p {
     cursor: pointer;
     margin: 50px;
@@ -131,9 +152,6 @@ export const StEmailBox = styled.div`
     }
   }
 `;
-export const Staccount = styled.div`
-  width: 60%;
-  height: 10%;
-`;
+
 
 export default Mypage;
