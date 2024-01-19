@@ -15,6 +15,7 @@ import {
   StLogoDiv,
   StLogoSpan,
   StNav,
+  StNavDiv,
   StSearchButton,
   StSignInBtn,
 } from './style';
@@ -44,49 +45,51 @@ const Nav = () => {
   return (
     <>
       <StNav>
-        <StLogoDiv>
-          <StLogoSpan
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            AIdol
-          </StLogoSpan>
-        </StLogoDiv>
-
-        <StBtnDiv>
-          <StForm onSubmit={handleSearchBtn}>
-            <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></StInput>
-            <StSearchButton>
-              <StImg src={searchIcon}></StImg>
-            </StSearchButton>
-          </StForm>
-          <StButton>
-            <StImg src={alarmIcon}></StImg>
-          </StButton>
-          {login ? (
-            <>
-              <StSignInBtn onClick={logOut}>
-                <StBtnP>Logout</StBtnP>
-              </StSignInBtn>
-              <StSignInBtn
-                onClick={() => {
-                  navigate('/mypage');
-                }}
-              >
-                <StBtnP>Mypage</StBtnP>
-              </StSignInBtn>
-            </>
-          ) : (
-            <StSignInBtn
+        <StNavDiv>
+          <StLogoDiv>
+            <StLogoSpan
               onClick={() => {
-                navigate('/login');
+                navigate('/');
               }}
             >
-              <StBtnP>Sign In</StBtnP>
-            </StSignInBtn>
-          )}
-        </StBtnDiv>
+              AIdol
+            </StLogoSpan>
+          </StLogoDiv>
+
+          <StBtnDiv>
+            <StForm onSubmit={handleSearchBtn}>
+              <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></StInput>
+              <StSearchButton>
+                <StImg src={searchIcon}></StImg>
+              </StSearchButton>
+            </StForm>
+            <StButton>
+              <StImg src={alarmIcon}></StImg>
+            </StButton>
+            {login ? (
+              <>
+                <StSignInBtn onClick={logOut}>
+                  <StBtnP>Logout</StBtnP>
+                </StSignInBtn>
+                <StSignInBtn
+                  onClick={() => {
+                    navigate('/mypage');
+                  }}
+                >
+                  <StBtnP>Mypage</StBtnP>
+                </StSignInBtn>
+              </>
+            ) : (
+              <StSignInBtn
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                <StBtnP>Sign In</StBtnP>
+              </StSignInBtn>
+            )}
+          </StBtnDiv>
+        </StNavDiv>
       </StNav>
 
       {/* <DropDownDiv>
