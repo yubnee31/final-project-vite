@@ -86,12 +86,28 @@ const Mypage = () => {
       <StWrapper>
         <StFormWrapper>
           {user && user.user_metadata ? (
-            <StEmailBox>
-              <p onClick={() => handleMenuClick('계정 정보')}>나의 정보</p>
-              <p onClick={() => handleMenuClick('스케줄')}>나의 스케줄 </p>
-              <p onClick={() => handleMenuClick('1:1문의 하기')}>1:1문의 하기</p>
-              <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
-            </StEmailBox>
+            <StMenuDiv>
+              <StMenuBtn 
+              className={selectedMenu === '계정 정보' ? 'target' : ''} 
+              onClick={() => handleMenuClick('계정 정보')}>
+                나의 정보
+              </StMenuBtn>
+              <StMenuBtn 
+              className={selectedMenu === '스케줄' ? 'target' : ''} 
+              onClick={() => handleMenuClick('스케줄')}>
+                나의 스케줄 
+              </StMenuBtn>
+              <StMenuBtn 
+              className={selectedMenu === '1:1문의 하기' ? 'target' : ''} 
+              onClick={() => handleMenuClick('1:1문의 하기')}>
+                1:1문의 하기
+              </StMenuBtn>
+              <StMenuBtn 
+              className={selectedMenu === '로그아웃' ? 'target' : ''} 
+              onClick={() => handleMenuClick('로그아웃')}>
+                로그아웃 하기
+              </StMenuBtn>
+            </StMenuDiv>
 
           ) : (
             <p>로딩 중</p>
@@ -124,14 +140,8 @@ const StWrapper = styled.div`
 
 `
 const StFormWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
   width: 200px;
   height: 700px;
-  border: 1px white solid;
 `;
 const Staccount = styled.div`
 width: 1000px;
@@ -140,17 +150,28 @@ height: 700px;
 display: flex;
 align-items: center;
 justify-content: center;
-
 `;
-const StEmailBox = styled.div`
-  height: inherit;
-  p {
-    cursor: pointer;
-    margin: 50px;
-    :hover {
-      text-decoration: underline;
-    }
+const StMenuBtn = styled.button`
+font-size: 17px;
+color: gray;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 45px;
+  &:hover {
+    text-decoration: underline;
   }
+  &.target {
+    color: white;
+    transition: 0.3s;
+  }
+`
+const StMenuDiv = styled.div`
+  height: inherit;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  text-align: start;
 `;
 
 
