@@ -8,3 +8,12 @@ export const getArtistList = async () => {
         console.log('error', error);
     }
 };
+
+export const getArtistSchedule = async () => {
+    try {
+        const { data } = await supabase.from('schedule').select('*');
+        return data
+    } catch (error) {
+        console.log('error', error);
+    }
+};
