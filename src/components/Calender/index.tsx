@@ -1,16 +1,29 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import styled from 'styled-components';
+import { getUserSchedule } from '../../api/artistapi';
+import { getCurrentUser } from '../../api/currentUser';
 
 const Calender = () => {
+  const { data: currentUser } = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser,
+  });
+  const { data: userSchdule } = useQuery({
+    queryKey: ['userSchedule'],
+    queryFn: getUserSchedule,
+  })
+  const targetUserSchedule = userSchdule?.filter((el) => el.userid === currentUser.id)
+
   const dayList: number[] = [];
   const dayChecker = [
-    {checker: 0, dayString: 'Sun'},
-    {checker: 1, dayString: 'Mon'},
-    {checker: 2, dayString: 'Tue'},
-    {checker: 3, dayString: 'Wed'},
-    {checker: 4, dayString: 'Thu'},
-    {checker: 5, dayString: 'Fri'},
-    {checker: 6, dayString: 'Sat'},
+    { checker: 0, dayString: 'Sun' },
+    { checker: 1, dayString: 'Mon' },
+    { checker: 2, dayString: 'Tue' },
+    { checker: 3, dayString: 'Wed' },
+    { checker: 4, dayString: 'Thu' },
+    { checker: 5, dayString: 'Fri' },
+    { checker: 6, dayString: 'Sat' },
   ]
 
   // 금일
@@ -20,7 +33,7 @@ const Calender = () => {
   const dayMonth = today.getMonth()
   const day = today.getDate()
   const monthString = `${year}.${('0' + month).slice(-2)}`
-  
+
   // 말일
   const lastDay = new Date(year, month, 0)
   const dayLast = lastDay.getDate()
@@ -57,6 +70,15 @@ const Calender = () => {
     }
   }
 
+  const textLengthHandler = (text: string) => {
+    const maxLength = 13;
+    if (text.length > maxLength) {
+      const result = text.slice(0, maxLength) + '···';
+      return result;
+    }
+  }
+   
+
   return (
     <StWrapper>
       <StMonthDiv>{monthString}</StMonthDiv>
@@ -77,7 +99,19 @@ const Calender = () => {
             return (
               <StDayli>
                 <StDayP className={e === day ? 'today' : ''}>{e}</StDayP>
+                {
+                  targetUserSchedule?.filter((el) => +el.date.slice(-2) === e)
+                  .map((ele) => {
+                    return (
+                      <StScheduleDiv>
+                        <StScheduleArtistP>{ele.artist}</StScheduleArtistP>
+                        <StScheduleTitleP>{textLengthHandler(ele.title)}</StScheduleTitleP>
+                      </StScheduleDiv>
+                    )
+                  })
+                }
               </StDayli>
+
             )
           })
         }
@@ -151,6 +185,22 @@ const StDayP = styled.p`
     color: white;
 
   }
+`
+const StScheduleDiv = styled.div`
+ width: 100px; 
+ height: 35px;
+ font-size: 12px;
+ margin-left: 10px;
+
+ margin-bottom: 5px;
+  border-bottom: 1px solid #434343;
+`
+const StScheduleArtistP = styled.div`
+margin-bottom: 5px;
+color: #aaaaaa;
+`
+const StScheduleTitleP = styled.div`
+
 `
 
 
