@@ -20,6 +20,7 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
     queryKey: ['userinfo', postId],
     queryFn: () => (postId ? getUsers(postId) : null),
   });
+
   // useEffect(() => {
   //   if (postId) {
   //     refetchUser();
