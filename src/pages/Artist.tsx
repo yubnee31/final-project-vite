@@ -25,7 +25,6 @@ const Artist = () => {
     queryFn: getArtistDetail,
   })
   const detailTargetData = artistDetail?.find((el) => el.artist === param.artistName)
-  console.log(detailTargetData?.cover)
   
 
   useEffect(() => {
@@ -44,6 +43,8 @@ const Artist = () => {
     if (title.length > maxLength) {
       const result = title.slice(0, maxLength) + '···';
       return result;
+    } else {
+      return title;
     }
   };
 
