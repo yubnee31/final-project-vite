@@ -6,6 +6,7 @@ import St from './style';
 import heartUmg from '../../../assets/images/heart-white.png'
 import commentImg from '../../../assets/images/comment-white.png'
 import seeMoreImg from '../../../assets/images/see-more-white.png'
+import styled from 'styled-components'
 
 // 1. Community 레이아웃 - 경욱
 
@@ -68,6 +69,28 @@ const PostList = () => {
     editMutation.mutate(params);
   };
 
+  const createdAtHandler = (data: string, type: string) => {
+    if (type === 'date') {
+      const createdAt = new Date(data)
+      const year = createdAt.getFullYear();
+      const month = ('0' + (createdAt.getMonth() + 1)).slice(-2);
+      const day = ('0' + createdAt.getDate()).slice(-2);
+      const date = `${year}.${month}.${day}.`
+      console.log(date)
+      return date;
+    } else if (type === 'time') {
+      const createdAt = new Date(data)
+      const hours = ('0' + createdAt.getHours()).slice(-2); 
+      const minutes = ('0' + createdAt.getMinutes()).slice(-2);
+      const seconds = ('0' + createdAt.getSeconds()).slice(-2); 
+      const time = `${hours}:${minutes}:${seconds}`
+      console.log(time)
+      return time;
+    } else {
+      return data;
+    }
+  }
+
   return (
     <>
         <St.PostDiv>
@@ -83,51 +106,68 @@ const PostList = () => {
                   <St.PostLi>
                       <St.PostNameP>{post.userid}</St.PostNameP>
                       <St.PostContentsP>{post.content}</St.PostContentsP>
-                      <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
-                      <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
+                      <St.PostTimeP $right={'14%'}>{createdAtHandler(post.created_at, 'time')}</St.PostTimeP>
+                      <St.PostTimeP $right={'1%'}>{createdAtHandler(post.created_at, 'date')}</St.PostTimeP>
                       <St.PostImg src={heartUmg} $left={'1%'} />
                       <St.PostImg src={commentImg} $left={'6.5%'} />
-                      <St.PostImg src={seeMoreImg} $left={'95%'} />
-                      {post.userid === currentUser!.user_metadata.name && (
+                      {/* <St.PostImg src={seeMoreImg} $left={'95%'} /> */}
+                      {post.userid === currentUser!.user_metadata.name ? (
                         <>
-                          <button
+                          <StPostBtn
+                          $right={'10%'}
                             onClick={() => {
                               deleteMutation.mutate(post.id);
                             }}
                           >
                             삭제
-                          </button>
-                          <button
+                          </StPostBtn>
+                          <StPostBtn
+                          $right={'1%'}
                             onClick={() => {
                               isEditingMutation.mutate(post.id);
                             }}
                           >
                             수정
-                          </button>
+                          </StPostBtn>
                         </>
-                      )}
+                      )
+                      : (
+                        <>
+                        <StPostBtn
+                        $right={'10%'}
+                        >
+                          신고
+                        </StPostBtn>
+                        <StPostBtn
+                        $right={'1%'}
+                        >
+                          차단
+                        </StPostBtn>
+                      </>
+                      )
+                    }
                       {post.isEditing ? (
-                        <form
+                        <StPostEditForm
                           onSubmit={() => {
                             handleSubmitEditedPost(post.id);
                           }}
                         >
-                          <input
+                          <StPostEditInput
                             type="text"
                             placeholder="내용수정"
                             value={editInputState}
                             name="editingPosts"
                             onChange={handleChangeEditPost}
                           />
-                          <button
+                          <StPostEditBtn
                           // onClick={() => {
                           //   editingCancelPost(post.id);
                           // }}
                           >
                             취소
-                          </button>
-                          <button>저장</button>
-                        </form>
+                          </StPostEditBtn>
+                          <StPostEditBtn>저장</StPostEditBtn>
+                        </StPostEditForm>
                       ) : null}
                   </St.PostLi>
                 );
@@ -137,5 +177,56 @@ const PostList = () => {
     </>
   );
 };
+
+const StPostBtn = styled.button`
+  position: absolute;
+  right: ${(props) => props.$right};
+  bottom: 5%;
+
+  border: none;
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333333;
+    transition: 0.5s;
+  }
+
+
+`
+
+const StPostEditForm = styled.form`
+  position: absolute;
+  left: 1%;
+  top: 25%;
+
+  width: 750px;
+  height: 50px;
+`
+
+const StPostEditInput = styled.input`
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+
+`
+const StPostEditBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  border: 1px solid gray;
+  width: 50px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #333333;
+    transition: 0.5s;
+  }
+`
 
 export default PostList
