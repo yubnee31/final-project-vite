@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 import { Schedule } from '../types/global.d';
 
-
+// List
 export const getArtistList = async () => {
     try {
         const { data } = await supabase.from('testTable').select('*');
@@ -11,6 +11,7 @@ export const getArtistList = async () => {
     }
 };
 
+// Schedule
 export const getArtistSchedule = async () => {
     try {
         const { data } = await supabase.from('schedule').select('*');
@@ -44,3 +45,15 @@ export const getUserSchedule = async () => {
         console.log('error', error);
     }
 };
+
+// Detail
+export const getArtistDetail = async () => {
+    try {
+        const { data } = await supabase.from('artistDetail').select('*');
+        return data
+    } catch (error) {
+        console.log('error', error);
+    }
+};
+
+

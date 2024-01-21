@@ -62,7 +62,8 @@ const Home = () => {
           <>
             {/* // My Artist */}
             <StSideWrapper>
-              <StDiv>
+              {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
+              {/* <StDiv>
                 <StSpan>나의 아티스트</StSpan>
                 <StArtistDiv>
                   {myArtistTestData.map(el => {
@@ -74,7 +75,7 @@ const Home = () => {
                     );
                   })}
                 </StArtistDiv>
-              </StDiv>
+              </StDiv> */}
 
               {/* // Artist List */}
               <StListWrapper>
