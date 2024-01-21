@@ -13,7 +13,7 @@ const Community = () => {
   
   return (
     <StWrapper>
-      <Info />
+      <Info param={param.artistName}/>
       <AddPost />
       <PostList />
     </StWrapper>

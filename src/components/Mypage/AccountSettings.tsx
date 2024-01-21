@@ -128,7 +128,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   };
 
   return (
-    <>
+    <StWrapper>
       {showMyAccount ? (
         <MyAccount user={user} onUpdateNickname={onUpdateNickname} onCompleteSettings={handleCompleteSettings} />
       ) : (
@@ -175,9 +175,12 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
           </StMyFollowContainer>
         </>
       )}
-    </>
+    </StWrapper>
   );
 };
+const StWrapper = styled.div`
+  
+`
 const StMyAccountName = styled.div`
   margin-bottom: 20px;
 `;

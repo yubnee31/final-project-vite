@@ -62,7 +62,8 @@ const Home = () => {
           <>
             {/* // My Artist */}
             <StSideWrapper>
-              <StDiv>
+              {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
+              {/* <StDiv>
                 <StSpan>나의 아티스트</StSpan>
                 <StArtistDiv>
                   {myArtistTestData.map(el => {
@@ -74,7 +75,7 @@ const Home = () => {
                     );
                   })}
                 </StArtistDiv>
-              </StDiv>
+              </StDiv> */}
 
               {/* // Artist List */}
               <StListWrapper>
@@ -113,7 +114,7 @@ const StSideWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 140px;
+  margin-top: 100px;
 `;
 
 // Common
@@ -123,18 +124,20 @@ const StP = styled.p`
 `;
 const StSpan = styled.span`
   color: white;
-  margin-left: 10px;
+  font-size: 24px;
 `;
 
 // Banner
 const StBannerDiv = styled.div`
   width: 100vw;
   height: 500px;
-  background-color: #9747FF;
+  background-color: #9747ff;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin-top: 80px;
 `;
 const StBannerImg = styled.img`
   width: 1000px;
@@ -146,25 +149,30 @@ const StBannerImg = styled.img`
 
 // My Artist
 const StDiv = styled.div`
-  width: 1600px;
+  margin-top: 30px;
+  width: 1920px;
   height: 300px;
+  padding-left: 240px;
+  padding-right: 240px;
 `;
 
 const StArtistDiv = styled.div`
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
-
   height: 250px;
-  margin-top: 30px;
 `;
 const StArtistTargetDiv = styled.div`
-  margin: 10px;
+  width: 264px;
+  height: 292px;
 `;
 const StArtistTargetImgDiv = styled.div`
-  height: 208px;
+  width: 264px;
+  height: 214px;
   border-radius: 10px;
   overflow: hidden;
+  background-color: pink;
 `;
 const StArtistTargetImg = styled.img`
   width: 264px;
@@ -176,26 +184,30 @@ const StArtistTargetP = styled.p`
   color: white;
   text-align: center;
   margin-top: 15px;
+  font-size: 18px;
 `;
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 1600px;
+  width: 1920px;
   height: 1400px;
-
-  margin-top: 80px;
+  padding-left: 240px;
+  padding-right: 240px;
+  margin-top: 100px;
 `;
 const StListDiv = styled.div`
+  margin-top: 50px;
   height: inherit;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
   justify-content: space-around;
 `;
+
 const StListTargetDiv = styled.div`
+  width: 264px;
+  height: 292px;
   color: white;
-  /* margin: 15px; */
-  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -210,7 +222,8 @@ const StListTargetImgDiv = styled.div`
 const StListTargetP = styled.p`
   color: white;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 20px;
+  font-size: 18px;
 `;
 
 export default Home;

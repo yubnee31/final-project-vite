@@ -8,22 +8,36 @@ export const StNav = styled.nav`
   height: 80px;
   background-color: #000000a8;
   z-index: 100;
+
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+export const StNavWrapper = styled.div`
+  width: 1920px;
+  height: inherit;
+  background-color: transparent;
+`;
+export const StNavDiv = styled.div`
+  width: inherit;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  padding: 0px 240px 0px 240px;
+`;
+
 
 // Logo
 export const StLogoDiv = styled.div`
-  width: 75%;
-  background-color: transparent;
+background-color: transparent;
 `;
 
 export const StLogoSpan = styled.span`
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: bold;
-  margin-left: 30px;
   background-color: transparent;
 
   cursor: pointer;
@@ -33,10 +47,10 @@ export const StLogoSpan = styled.span`
 export const StForm = styled.form`
   width: 200px;
   height: 43px;
-  border: 2px solid white;
+  border-bottom: 1.5px solid white;
   background-color: transparent;
-  border-radius: 20px;
-  margin-right: 10px;
+  /* border-radius: 20px; */
+  margin-right: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,13 +62,12 @@ export const StInput = styled.input`
   outline: none;
   float: left;
   border: none;
-  font-size: 17px;
-  margin-left: 10px;
+  font-size: 15px;
 `;
 
 export const StSearchButton = styled.button`
-  width: 30px;
-  height: 29px;
+  width: 25px;
+  height: 25px;
   background-color: transparent;
   border: none;
   display: flex;
@@ -69,7 +82,6 @@ export const StSearchButton = styled.button`
 
 // Button
 export const StBtnDiv = styled.div`
-  /* width: 25%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,7 +95,7 @@ export const StButton = styled.button`
   padding: 0;
   background-color: transparent;
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,10 +106,10 @@ export const StButton = styled.button`
 `;
 
 export const StSignInBtn = styled.button`
-  background-color: white;
+  background-color: #9747ff;
   border: none;
-  width: 70px;
-  height: 35px;
+  width: 110px;
+  height: 36px;
   border-radius: 5px;
   margin-right: 5px;
   display: flex;
@@ -108,7 +120,7 @@ export const StSignInBtn = styled.button`
 
 export const StBtnP = styled.p`
   color: black;
-  font-size: 15px;
+  font-size: 16px;
   text-align: center;
   font-weight: bold;
   background-color: transparent;

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
+import {getArtistDetail} from '../api/artistapi';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
@@ -8,6 +9,7 @@ import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
+import {useQuery} from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
 
 const Artist = () => {
@@ -17,7 +19,13 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
-  console.log(param.artistname);
+
+  const {data: artistDetail} = useQuery({
+    queryKey: [''],
+    queryFn: getArtistDetail,
+  });
+  const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
+
   useEffect(() => {
     const userInfo = async () => {
       const {
@@ -28,35 +36,13 @@ const Artist = () => {
     userInfo();
   }, []);
 
-  const artistTestData = ['카리나', '윈터', '닝닝', '지젤'];
-  const albumsTestData = [
-    {id: 1, title: 'Drama - The 4th Mini Album', date: '2023.11.10'},
-    {id: 2, title: 'MY WORLD - The 3rd Mini Album', date: '2023.05.08 '},
-    {id: 3, title: 'Girls - The 2nd Mini Album', date: '2022.07.08'},
-    {id: 4, title: 'Savage - The 1st Mini Album', date: '2021.10.05'},
-  ];
-  const photoTestData = [
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/553/80238553_20231202223512_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/487/80238487_20231202205505_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/481/80238481_20231202205503_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/687/80235687_20231110103941_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/705/80235705_20231110104140_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/25/868/80225868_20230818114014_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/553/80238553_20231202223512_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/487/80238487_20231202205505_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/38/481/80238481_20231202205503_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/687/80235687_20231110103941_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/705/80235705_20231110104140_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize',
-    'https://cdnimg.melon.co.kr/cm2/photo/images/000/802/25/868/80225868_20230818114014_org.jpg/melon/quality/80/optimize',
-  ];
-
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
     if (title.length > maxLength) {
       const result = title.slice(0, maxLength) + '···';
       return result;
+    } else {
+      return title;
     }
   };
 
@@ -73,7 +59,7 @@ const Artist = () => {
     <>
       <StWrapper>
         {/* Banner Image */}
-        <StBannerImgDiv>
+        <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
           <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
@@ -86,13 +72,13 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Profile</StTitle>
             <StProfileDiv>
-              {artistTestData.map(el => {
+              {detailTargetData?.profile?.map(el => {
                 return (
                   <StPfWrapper onClick={openModalHandler}>
                     <StPfMemberDiv>
-                      <StPfMemberImg src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/028/99/557/2899557_20231109104729_500.jpg?8be6f07f7073a2610be7863fad33b8ae/melon/resize/416/quality/80/optimize"></StPfMemberImg>
+                      <StPfMemberImg src={el.memberImg}></StPfMemberImg>
                     </StPfMemberDiv>
-                    <StPfSpan>{el}</StPfSpan>
+                    <StPfSpan>{el.memberName}</StPfSpan>
                   </StPfWrapper>
                 );
               })}
@@ -103,11 +89,11 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Albums</StTitle>
             <StAlbumsDiv>
-              {albumsTestData.map(el => {
+              {detailTargetData?.album?.map(el => {
                 return (
                   <StAbWrapper>
                     <StAbImgDiv>
-                      <StAbImg src="https://cdnimg.melon.co.kr/cm2/album/images/113/62/544/11362544_20231110142622_500.jpg?YUV444-90/melon/resize/282"></StAbImg>
+                      <StAbImg src={el.albumImg}></StAbImg>
                     </StAbImgDiv>
                     <StAbContentsSectiion>
                       <StAbTitleP>{albumVaildationHandler(el.title)}</StAbTitleP>
@@ -124,7 +110,7 @@ const Artist = () => {
             <StTitle>Music Video</StTitle>
             <StVideoDiv>
               <ReactPlayer
-                url={'https://www.youtube.com/embed/D8VEhcPeSlc?si=HDZtluGogKS711ox'}
+                url={detailTargetData?.musicVideo}
                 width="1200px"
                 height="675px"
                 playing={true}
@@ -139,10 +125,10 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Photo</StTitle>
             <StPhotoDiv>
-              {photoTestData.map(el => {
+              {detailTargetData?.photo?.map(el => {
                 return (
                   <StPhotoImgDiv>
-                    <StPhotoImg src={el}></StPhotoImg>
+                    <StPhotoImg src={el.imgUrl}></StPhotoImg>
                   </StPhotoImgDiv>
                 );
               })}
@@ -162,7 +148,6 @@ const Artist = () => {
                 e.stopPropagation();
               }}
             >
-              <StModalProfileImg src="https://cdnimg.melon.co.kr/cm2/photo/images/000/802/35/695/80235695_20231110103944_org.jpg/melon/quality/80/optimize" />
               <StModalContentsP>
                 aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝
                 (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의
@@ -230,16 +215,9 @@ const StModalView = styled.div`
     border-radius: 30px;
   }
   padding-bottom: 30px;
-  padding-top: 150px;
+  padding-top: 50px;
 `;
-const StModalProfileImg = styled.img`
-  width: 200px;
-  height: 100px;
-  object-fit: cover;
-  background-size: cover;
-  border-radius: 15px;
-  margin-bottom: 20px;
-`;
+
 const StModalTitleP = styled.p`
   margin-top: 15px;
   font-size: 10px;
@@ -270,20 +248,19 @@ const StTitle = styled.p`
 `;
 
 // Banner
-const StBannerImgDiv = styled.div`
-  margin-top: 80px;
+const StBannerImgDiv = styled.div<{url: string}>`
   width: 100vw;
-  height: 600px;
+  height: 770px;
 
   display: flex;
   align-items: center;
   justify-content: end;
   flex-direction: column;
 
-  background: linear-gradient(0deg, black, transparent), url('../../public/testImg.jpg');
+  background: linear-gradient(0deg, black, transparent), url(${props => props.url}) center center;
+  background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
-
   margin-bottom: 30px;
 `;
 
