@@ -14,12 +14,13 @@ const InputImg = styled.img`
   object-fit: cover;
   background-size: cover;
 `
-const Input = styled.input`
+const Input = styled.div`
   width: 735px;
   height: 50px;
   border: none;
   margin-left: 15px;
   font-size: 15px;
+  cursor: pointer;
 `
 
 export default { InputDiv, InputImg, Input }

@@ -10,7 +10,7 @@ import seeMoreImg from '../../../assets/images/see-more-white.png'
 // 1. Community 레이아웃 - 경욱
 
 // 1. 유저 정보 연동 => 내 게시글에만 수정, 삭제 뜨기 V
-// 2. useState Edit 오류 수정 위한 portal Modal 구현
+// 2. useState Edit 오류 수정 위한 portal Modal 구현 V
 // 3. photo 업로드 기능 추가
 // ---------------------------------------
 // 4. 댓글(수정, 삭제), 좋아요
@@ -19,13 +19,12 @@ import seeMoreImg from '../../../assets/images/see-more-white.png'
 
 const PostList = () => {
   const queryClient = useQueryClient();
-
   // current UserInfo
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('post CurrentUser', currentUser);
+  // console.log('post CurrentUser', currentUser);
 
   // post list
   const {data: posts} = useQuery({
@@ -67,7 +66,17 @@ const PostList = () => {
     editMutation.mutate(params);
   };
 
-  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = id => {}
+  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = id => {
+    e.preventDefault();
+    if (posts.id === id) {
+      return {...posts, isEditing: false }
+    }
+    return posts;
+  }
+
+
+  // upload photo
+  const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
 
   return (
     <>
@@ -84,6 +93,7 @@ const PostList = () => {
                   <St.PostLi>
                     <St.PostNameP>{post.userid}</St.PostNameP>
                     <St.PostContentsP>{post.content}</St.PostContentsP>
+                    <St.PostUploadImg src={postPhotoImg} alt='upload photo'/>
                     <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
                     <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
                     <St.PostImg src={heartUmg} $left={'1%'} />

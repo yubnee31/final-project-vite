@@ -75,15 +75,16 @@ const Mypage = () => {
     <StMypageContainer>
       <StFormWrapper>
         {user && user.user_metadata ? (
-          <StEmailBox>
-            <h1>{username || user.user_metadata.name}</h1>
-            <h3>Email</h3>
-            <p onClick={() => handleMenuClick('계정 정보')}>계정 설정</p>
-            <h2>나의 정보</h2>
-            <p onClick={() => handleMenuClick('스케줄')}>저장한 스케줄 보기</p>
-            <p onClick={() => handleMenuClick('1:1문의 하기')}>1:1문의 하기</p>
-            <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
-          </StEmailBox>
+          <>
+            <StEmailBox>
+              <h3>Email</h3>
+              <p onClick={() => handleMenuClick('계정 정보')}>계정 설정</p>
+              <h2>나의 정보</h2>
+              <p onClick={() => handleMenuClick('스케줄')}>저장한 스케줄 보기</p>
+              <p onClick={() => handleMenuClick('1:1문의 하기')}>1:1문의 하기</p>
+              <p onClick={() => handleMenuClick('로그아웃')}>로그아웃 하기</p>
+            </StEmailBox>
+          </>
         ) : (
           <p>로딩 중</p>
         )}

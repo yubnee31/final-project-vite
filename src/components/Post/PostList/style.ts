@@ -5,7 +5,8 @@ const PostDiv = styled.div`
   width: 800px;
   height: 1200px;
   margin-top: 40px;
-
+  overflow: auto;
+  overflow-x: hidden;
 `
 const PostUl = styled.ul`
   display: grid;
@@ -22,6 +23,14 @@ const PostNameP = styled.p`
   position: absolute;
   left: 1%;
   top: 1%;
+`
+const PostUploadImg = styled.img`
+  background-color: green;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-size: cover;
+  background-color: transparent;
 `
 const PostContentsP = styled.p`
   position: absolute;
@@ -52,4 +61,4 @@ const PostImg = styled.img`
 `
 
 
-export default { PostDiv, PostUl, PostLi, PostNameP, PostContentsP, PostTimeP, PostImg } 
+export default { PostDiv, PostUl, PostLi, PostNameP, PostUploadImg, PostContentsP, PostTimeP, PostImg } 
