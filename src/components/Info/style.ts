@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 // Banner
 const BannerDiv = styled.div`
-  border: 1px solid red;
   width: 1200px;
   height: 400px;
 
@@ -78,7 +77,7 @@ const FollowP = styled.p`
   font-size: 12px;
   color: gray;
 `
-const InfoArtistDiv = styled.div`
+const InfoArtistDiv = styled.div< { url : string } >`
   width: 300px;
   border-radius: 10px;
   margin-left: 15px;
@@ -88,7 +87,7 @@ const InfoArtistDiv = styled.div`
   align-items: center;
   flex-direction: column;
 
-  background: url('../../public/optimize.jpg') center center;
+  background: url(${props => props.url}) center center;
   object-fit: cover;
   background-size: cover;
 

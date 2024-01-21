@@ -2,24 +2,35 @@ import React from 'react';
 import St from './style';
 import {getCurrentUser} from '../../api/currentUser';
 import {useQuery} from '@tanstack/react-query';
+import { getArtistDetail } from '../../api/artistapi';
+import { useNavigate } from 'react-router-dom';
 
-const Info = () => {
+const Info = ({param}: string) => {
+  const navigate = useNavigate();
+
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('post CurrentUser', currentUser);
 
+  const { data: artistDetail } = useQuery({
+    queryKey: [''],
+    queryFn: getArtistDetail,
+  })
+  const detailTargetData = artistDetail?.find((el) => el.artist === param)
+
+  const onClickNavigateHandler = () => {
+    navigate(`/artist/${param}`)
+  }
 
   return (
     <>
       <St.BannerDiv>
-        <St.BannerImg src="https://cdnimg.melon.co.kr/cm2/photo/images/000/802/42/594/80242594_20240111161428_org.jpg/melon/quality/80/optimize" />
+        <St.BannerImg src={detailTargetData?.community_banner} />
       </St.BannerDiv>
       <St.InfoDiv>
         <St.InfoNameDiv>
           <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
-          <St.InfoNameBtn>프로필 변경하기</St.InfoNameBtn>
         </St.InfoNameDiv>
         <St.InfoFollowerDiv>
           <St.InfoFollowP>109</St.InfoFollowP>
@@ -29,7 +40,7 @@ const Info = () => {
           <St.InfoFollowP>20</St.InfoFollowP>
           <St.FollowP>팔로잉</St.FollowP>
         </St.InfoFollowingDiv>
-        <St.InfoArtistDiv>
+        <St.InfoArtistDiv onClick={onClickNavigateHandler} url={detailTargetData?.community_button}>
           {/* <StInfoArtistImg src={toArtistTestImg}/> */}
           <St.InfoArtistP>아티스트 보러가기</St.InfoArtistP>
         </St.InfoArtistDiv>
