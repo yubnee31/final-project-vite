@@ -124,7 +124,7 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Photo</StTitle>
             <StPhotoDiv>
-              {detailTargetData?.photo.map(el => {
+              {detailTargetData?.photo?.map(el => {
                 return (
                   <StPhotoImgDiv>
                     <StPhotoImg src={el.imgUrl}></StPhotoImg>
@@ -166,7 +166,6 @@ const Artist = () => {
         }
       </StWrapper>
       <Artistchart></Artistchart>
-
     </>
   );
 };
@@ -248,7 +247,7 @@ const StTitle = styled.p`
 // Banner
 const StBannerImgDiv = styled.div< { url : string } >`
   width: 100vw;
-  height: 600px;
+  height: 770px;
 
   display: flex;
   align-items: center;
