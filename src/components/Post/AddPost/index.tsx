@@ -47,7 +47,6 @@ const AddPost = () => {
           name="content"
           onChange={handleChangeAddPost}
         />
-        <button>추가하기</button>
       </St.InputDiv>
     </>
 
