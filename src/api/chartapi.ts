@@ -28,7 +28,7 @@ export const getInitialLikes = async (postId: number) => {
 
       // 해당 아티스트가 있다면 좋아요 수를 반환
       if (artist) {
-        return artist.like;
+        return artist.artist_fw_count;
       }
     }
 
@@ -94,14 +94,37 @@ export const addLikeartist = async (postId: number) => {
   }
 };
 
-// 팔로우 리스트 추가
-export const artistFollowList = async (postId: number) => {
-  //로그인 된 사용자 정보 확인
-  const user = await supabase.auth.getUser();
+//팔로우 버튼클릭시 수파베이스 테이블에 해당 타입의 데이터가 삽입됨
+export const artistFollowList = async (targetData: any) => {
+  try {
+    // 로그인 된 사용자 정보 확인
+    const user = await supabase.auth.getUser();
+    console.log(targetData);
+    // userinfo에서 현재 유저의 팔로우 리스트 가져오기
+    const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
 
-  //팔로우 증가 요청
-  const initialFollow = await getInitialLikes(postId);
-  const {data: testTableFollow, error: testTableError} = await supabase.from('testTable').select('like');
+    const userinfoArtistFollow = userinfoData[0]?.artist_follow || [];
 
-  const {data: userinfoArtistFollow, error: userinfoError} = await supabase.from('userinfo').select('artist_follow');
+    // targetData가 이미 팔로우 목록에 있는지 확인
+    const isFollowing = userinfoArtistFollow.some(artist => artist.artist === targetData.artist);
+
+    // isFollowing이 true이면 언팔로우, false이면 팔로우
+    const updatedArtistFollow = isFollowing
+      ? userinfoArtistFollow.filter(artist => artist.artist !== targetData.artist)
+      : [...userinfoArtistFollow, targetData];
+
+    // userinfo에 아티스트 추가 또는 제거
+    await supabase.from('userinfo').update({artist_follow: updatedArtistFollow}).eq('id', user.data.user.id);
+  } catch (error) {
+    console.error('artistFollowList 함수에서 에러 발생:', error);
+  }
+};
+//팔로우 유뮤 확인을 위해 유저 데이터를 가져옴
+export const getUsers = async (postId: string) => {
+  try {
+    const {data} = await supabase.from('userinfo').select('*').eq('id', postId);
+    return data[0];
+  } catch (error) {
+    console.log('error', error);
+  }
 };

@@ -8,21 +8,22 @@ import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
+import FollowArtistBt from '../components/follow/FollowArtistBt';
 
 const Artist = () => {
   const navigate = useNavigate();
   const param = useParams();
-
+  const [currentuser, setCurrentuser] = useState('');
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
-
+  console.log(param.artistname);
   useEffect(() => {
     const userInfo = async () => {
       const {
         data: {user},
       } = await supabase.auth.getUser();
-      console.log(user);
+      setCurrentuser(user);
     };
     userInfo();
   }, []);
@@ -75,6 +76,9 @@ const Artist = () => {
         <StBannerImgDiv>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
+          <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
+            팔로우
+          </FollowArtistBt>
         </StBannerImgDiv>
 
         <StContentsWrapper>
@@ -185,7 +189,6 @@ const Artist = () => {
           </StModalBackDrop>
         )}
       </StWrapper>
-      <Artistchart></Artistchart>
     </>
   );
 };
