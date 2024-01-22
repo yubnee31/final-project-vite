@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-
-
 import { useParams } from 'react-router-dom'
 import PostList from '../components/Post/PostList'
 import AddPost from '../components/Post/AddPost'
-import Info from '../components/Info'
+import Info from '../components/artistInfo'
 
 const Community = () => {
   const param = useParams();

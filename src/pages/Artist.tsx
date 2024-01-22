@@ -62,9 +62,9 @@ const Artist = () => {
         <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
-          <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
+          {/* <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
             팔로우
-          </FollowArtistBt>
+          </FollowArtistBt> */}
         </StBannerImgDiv>
 
         <StContentsWrapper>
