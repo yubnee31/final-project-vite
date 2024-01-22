@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../api/supabase';
-import { getArtistDetail } from '../api/artistapi';
+import React, {useEffect, useState} from 'react';
+import {supabase} from '../api/supabase';
+import {getArtistDetail} from '../api/artistapi';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../shared/recoil/authAtom';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
-import { useQuery } from '@tanstack/react-query';
-
+import {useQuery} from '@tanstack/react-query';
+import FollowArtistBt from '../components/follow/FollowArtistBt';
 
 const Artist = () => {
   const navigate = useNavigate();
   const param = useParams();
-
+  const [currentuser, setCurrentuser] = useState('');
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false)
+  const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
 
-  const { data: artistDetail } = useQuery({
+  const {data: artistDetail} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
-  })
-  const detailTargetData = artistDetail?.find((el) => el.artist === param.artistName)
-  
+  });
+  const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
 
   useEffect(() => {
     const userInfo = async () => {
       const {
-        data: { user },
+        data: {user},
       } = await supabase.auth.getUser();
-      console.log(user);
+      setCurrentuser(user);
     };
     userInfo();
   }, []);
-
 
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
@@ -53,10 +51,9 @@ const Artist = () => {
   };
 
   const openModalHandler = () => {
-    console.log(isArtistModalOpen)
+    console.log(isArtistModalOpen);
     setIsArtistModalOpen(!isArtistModalOpen);
   };
-
 
   return (
     <>
@@ -65,6 +62,9 @@ const Artist = () => {
         <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
+          {/* <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
+            팔로우
+          </FollowArtistBt> */}
         </StBannerImgDiv>
 
         <StContentsWrapper>
@@ -136,18 +136,24 @@ const Artist = () => {
           </StWrapper>
           <StWrapper>
             <StTitle>Schedule</StTitle>
-              <Checker param={param.artistName}/>
+            <Checker param={param.artistName} />
           </StWrapper>
-
-
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
         {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
-        {
-          isArtistModalOpen &&
+        {isArtistModalOpen && (
           <StModalBackDrop onClick={openModalHandler}>
-            <StModalView onClick={(e) => { e.stopPropagation() }}>
-              <StModalContentsP>aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝 (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의 영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게 된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.</StModalContentsP>
+            <StModalView
+              onClick={e => {
+                e.stopPropagation();
+              }}
+            >
+              <StModalContentsP>
+                aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝
+                (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의
+                영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게
+                된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.
+              </StModalContentsP>
               <StModalTitleP>데뷔</StModalTitleP>
               <StModalContentsP>2020.11.17</StModalContentsP>
               <StModalTitleP>데뷔곡</StModalTitleP>
@@ -159,14 +165,15 @@ const Artist = () => {
               <StModalTitleP>유형</StModalTitleP>
               <StModalContentsP>그룹 |여성</StModalContentsP>
               <StModalTitleP>장르</StModalTitleP>
-              <StModalContentsP>댄스, 일렉트로니카, 발라드, R&B/Soul, 록/메탈, POP, 국외영화, 애니메이션/웹툰</StModalContentsP>
+              <StModalContentsP>
+                댄스, 일렉트로니카, 발라드, R&B/Soul, 록/메탈, POP, 국외영화, 애니메이션/웹툰
+              </StModalContentsP>
               <StModalTitleP>소속사명</StModalTitleP>
               <StModalContentsP>(주)SM엔터테인먼트</StModalContentsP>
             </StModalView>
           </StModalBackDrop>
-        }
+        )}
       </StWrapper>
-      <Artistchart></Artistchart>
     </>
   );
 };
@@ -184,7 +191,7 @@ const StModalBackDrop = styled.div`
   align-items: center;
 
   z-index: 10;
-`
+`;
 const StModalView = styled.div`
   width: 500px;
   height: 400px;
@@ -196,7 +203,7 @@ const StModalView = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
+
   overflow: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -209,27 +216,22 @@ const StModalView = styled.div`
   }
   padding-bottom: 30px;
   padding-top: 50px;
-`
+`;
 
 const StModalTitleP = styled.p`
   margin-top: 15px;
   font-size: 10px;
-
-`
+`;
 const StModalContentsP = styled.p`
   text-align: center;
   background-color: transparent;
   margin: 2px 30px 0px 30px;
-  line-height: 1.4; 
+  line-height: 1.4;
   font-size: 10px;
-
-`
-
+`;
 
 // Wrapper
-const StWrapper = styled.div`
-
-`;
+const StWrapper = styled.div``;
 const StContentsWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -246,7 +248,7 @@ const StTitle = styled.p`
 `;
 
 // Banner
-const StBannerImgDiv = styled.div< { url : string } >`
+const StBannerImgDiv = styled.div<{url: string}>`
   width: 100vw;
   height: 770px;
 

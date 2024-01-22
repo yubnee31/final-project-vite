@@ -43,6 +43,7 @@ const PostTimeP = styled.p`
   position: absolute;
   right: ${(props) => props.$right};
   top: 1%;
+  color: gray;
 `
 const PostImg = styled.img`
   width: 25px;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../api/supabase';
+import React, {useEffect, useState} from 'react';
+import {supabase} from '../api/supabase';
 import styled from 'styled-components';
 import AccountSettings from '../components/Mypage/AccountSettings';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../shared/recoil/authAtom';
+import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../shared/recoil/authAtom';
 import Calender from '../components/Calender';
 
 const Mypage = () => {
@@ -17,7 +17,7 @@ const Mypage = () => {
 
   // 로그아웃
   const logOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    const {error} = await supabase.auth.signOut();
     setLogin(null);
     navigate('/');
     if (error) console.log('error', error);
@@ -26,20 +26,20 @@ const Mypage = () => {
   useEffect(() => {
     const userInfo = async () => {
       const {
-        data: { user },
+        data: {user},
       } = await supabase.auth.getUser();
 
       if (user) {
         try {
           // userinfo 테이블의 username 값을 가져오기
-          const { data: userinfoData, error } = await supabase.from('userinfo').select('username').eq('id', user.id);
+          const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
           if (error) {
             console.error('userinfo 데이터 불러오기 에러:', error);
             return;
           }
           if (userinfoData && userinfoData.length > 0) {
             setUsername(userinfoData[0].username);
-            setUserInfoData(userinfoData as { username: string }[]); // userinfoData 상태 업데이트
+            setUserInfoData(userinfoData as {username: string}[]); // userinfoData 상태 업데이트
           }
         } catch (error) {
           console.error('유저 정보 불러오기 에러:', error);
@@ -87,28 +87,31 @@ const Mypage = () => {
         <StFormWrapper>
           {user && user.user_metadata ? (
             <StMenuDiv>
-              <StMenuBtn 
-              className={selectedMenu === '계정 정보' ? 'target' : ''} 
-              onClick={() => handleMenuClick('계정 정보')}>
+              <StMenuBtn
+                className={selectedMenu === '계정 정보' ? 'target' : ''}
+                onClick={() => handleMenuClick('계정 정보')}
+              >
                 나의 정보
               </StMenuBtn>
-              <StMenuBtn 
-              className={selectedMenu === '스케줄' ? 'target' : ''} 
-              onClick={() => handleMenuClick('스케줄')}>
-                나의 스케줄 
+              <StMenuBtn
+                className={selectedMenu === '스케줄' ? 'target' : ''}
+                onClick={() => handleMenuClick('스케줄')}
+              >
+                나의 스케줄
               </StMenuBtn>
-              <StMenuBtn 
-              className={selectedMenu === '1:1문의 하기' ? 'target' : ''} 
-              onClick={() => handleMenuClick('1:1문의 하기')}>
+              <StMenuBtn
+                className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
+                onClick={() => handleMenuClick('1:1문의 하기')}
+              >
                 1:1문의 하기
               </StMenuBtn>
-              <StMenuBtn 
-              className={selectedMenu === '로그아웃' ? 'target' : ''} 
-              onClick={() => handleMenuClick('로그아웃')}>
+              <StMenuBtn
+                className={selectedMenu === '로그아웃' ? 'target' : ''}
+                onClick={() => handleMenuClick('로그아웃')}
+              >
                 로그아웃 하기
               </StMenuBtn>
             </StMenuDiv>
-
           ) : (
             <p>로딩 중</p>
           )}
@@ -120,7 +123,6 @@ const Mypage = () => {
           {selectedMenu === '로그아웃'}
         </Staccount>
       </StWrapper>
-
     </StMypageContainer>
   );
 };
@@ -137,23 +139,22 @@ const StWrapper = styled.div`
   height: inherit;
   display: flex;
   justify-content: center;
-
-`
+`;
 const StFormWrapper = styled.div`
   width: 200px;
   height: 700px;
 `;
 const Staccount = styled.div`
-width: 1000px;
-height: 700px;
+  width: 1000px;
+  height: 700px;
 
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const StMenuBtn = styled.button`
-font-size: 17px;
-color: gray;
+  font-size: 17px;
+  color: gray;
   cursor: pointer;
   border: none;
   margin-bottom: 45px;
@@ -164,7 +165,7 @@ color: gray;
     color: white;
     transition: 0.3s;
   }
-`
+`;
 const StMenuDiv = styled.div`
   height: inherit;
   display: flex;
@@ -173,6 +174,5 @@ const StMenuDiv = styled.div`
   flex-direction: column;
   text-align: start;
 `;
-
 
 export default Mypage;

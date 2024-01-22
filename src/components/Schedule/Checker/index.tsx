@@ -23,7 +23,7 @@ const Checker = ({ param }: string) => {
     queryKey: ['userSchedule'],
     queryFn: getUserSchedule,
   });
-  const userTargetSchedule = userSchedule?.filter((el) => el.userid === currentUser.id)
+  const userTargetSchedule = userSchedule?.filter((el) => el.userid === currentUser?.id)
 
   const addMutation = useMutation({
     mutationFn: addSchedule,
