@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import {getPosts, updatePost, deletePost, updateisEditing} from '../../../api/post';
 import {getCurrentUser} from '../../../api/currentUser';
 import St from './style';
-import heartUmg from '../../../assets/images/heart-white.png'
-import commentImg from '../../../assets/images/comment-white.png'
-import seeMoreImg from '../../../assets/images/see-more-white.png'
+import heartUmg from '../../../assets/images/heart-white.png';
+import commentImg from '../../../assets/images/comment-white.png';
+import seeMoreImg from '../../../assets/images/see-more-white.png';
+import PortalModal from '../../Common/portalModal';
+import {Post} from '../../../types/global.d';
 
 // 1. Community 레이아웃 - 경욱
 
@@ -18,6 +20,21 @@ import seeMoreImg from '../../../assets/images/see-more-white.png'
 // 2024.01.16. 오후 7시 : "경욱 - 레이아웃, 민정 - CRUD" Merge
 
 const PostList = () => {
+  // modal
+  const [openModal, setOpenModal] = useState(false);
+  const [modalData, setModalData] = useState('');
+
+  const handleModal = (id: React.SetStateAction<string>) => {
+    setModalData(id);
+    setOpenModal(!openModal);
+  };
+
+  // toggle
+  const [openToggle, setOpenToggle] = useState(false);
+  const handleToggle = () => {
+    setOpenToggle(!openToggle);
+  };
+
   const queryClient = useQueryClient();
   // current UserInfo
   const {data: currentUser} = useQuery({
@@ -55,6 +72,7 @@ const PostList = () => {
   });
 
   // handler
+  const [editablePosts, setEditablePosts] = useState<Post[]>([]);
   const [editInputState, setEditInputState] = useState(''); // TODO : Modal로 리팩토링
   const handleChangeEditPost: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -66,87 +84,109 @@ const PostList = () => {
     editMutation.mutate(params);
   };
 
-  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = id => {
-    e.preventDefault();
-    if (posts.id === id) {
-      return {...posts, isEditing: false }
-    }
-    return posts;
-  }
-
+  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = () => {};
 
   // upload photo
-  const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
+  // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
 
   return (
     <>
-        <St.PostDiv>
-          <St.PostUl>
-            {posts
-              ?.sort((a, b) => {
-                const aDate: any = new Date(a.created_at);
-                const bDate: any = new Date(b.created_at);
-                return bDate - aDate;
-              })
-              .map(post => {
-                return (
-                  <St.PostLi>
-                    <St.PostNameP>{post.userid}</St.PostNameP>
-                    <St.PostContentsP>{post.content}</St.PostContentsP>
-                    <St.PostUploadImg src={postPhotoImg} alt='upload photo'/>
-                    <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
-                    <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
-                    <St.PostImg src={heartUmg} $left={'1%'} />
-                    <St.PostImg src={commentImg} $left={'6.5%'} />
-                    <St.PostImg src={seeMoreImg} $left={'95%'} />
-                    {post.userid === currentUser?.user_metadata.name && (
-                      <>
-                        <button
+      <St.PostDiv>
+        <St.PostUl>
+          {posts
+            ?.sort((a, b) => {
+              const aDate: any = new Date(a.created_at);
+              const bDate: any = new Date(b.created_at);
+              return bDate - aDate;
+            })
+            .map(post => {
+              return (
+                <St.PostLi key={post.id}>
+                  <St.PostNameP>{post.userid}</St.PostNameP>
+                  <St.PostContentsP>{post.content}</St.PostContentsP>
+                  {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
+                  <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
+                  <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
+                  <St.PostImg src={heartUmg} $left={'1%'} />
+                  <St.PostImg src={commentImg} $left={'6.5%'} />
+                  <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
+                  {openToggle && (
+                    <>
+                      {post.userid === currentUser?.user_metadata.name ? (
+                        <St.PostBtnDiv>
+                          <St.PostBtn
+                            onClick={() => {
+                              deleteMutation.mutate(post.id);
+                            }}
+                          >
+                            삭제
+                          </St.PostBtn>
+                          <St.PostBtn
+                            onClick={() => {
+                              handleModal(post.id);
+                            }}
+                          >
+                            수정
+                          </St.PostBtn>
+                        </St.PostBtnDiv>
+                      ) : (
+                        <St.PostBtnDiv>
+                          <St.PostBtn>차단</St.PostBtn>
+                          <St.PostBtn>신고</St.PostBtn>
+                        </St.PostBtnDiv>
+                      )}
+                    </>
+                  )}
+                </St.PostLi>
+              );
+            })}
+          <PortalModal>
+            {openModal && (
+              <>
+                <St.EditPostModalContainer
+                  onClick={() => {
+                    setOpenModal(!openModal);
+                  }}
+                >
+                  <St.EditPostModalBox
+                    onClick={e => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <St.EditPostModalContent
+                      onSubmit={() => {
+                        handleSubmitEditedPost(modalData);
+                      }}
+                    >
+                      <St.EditPostModalTitle>post 수정하기</St.EditPostModalTitle>
+                      <St.EditPosModalArtistName>artist name</St.EditPosModalArtistName>
+                      <St.EditPostModalInput
+                        type="text"
+                        placeholder="내용수정"
+                        value={editInputState}
+                        name="editingPosts"
+                        onChange={handleChangeEditPost}
+                      />
+                      <St.EditPostModalBtnDiv>
+                        <St.EditPostModalBtn
                           onClick={() => {
-                            deleteMutation.mutate(post.id);
+                            handleClickEditCancelPost;
                           }}
-                        >
-                          삭제
-                        </button>
-                        <button
-                          onClick={() => {
-                            isEditingMutation.mutate(post.id);
-                          }}
-                        >
-                          수정
-                        </button>
-                      </>
-                    )}
-                    {post.isEditing ? (
-                      <form
-                        onSubmit={() => {
-                          handleSubmitEditedPost(post.id);
-                        }}
-                      >
-                        <input
-                          type="text"
-                          placeholder="내용수정"
-                          value={editInputState}
-                          name="editingPosts"
-                          onChange={handleChangeEditPost}
-                        />
-                        <button
-                        onClick={() => {
-                          handleClickEditCancelPost
-                        }}
                         >
                           취소
-                        </button>
-                        <button>저장</button>
-                      </form>
-                    ) : null}
-                  </St.PostLi>
-                );
-              })}
-          </St.PostUl>
-        </St.PostDiv>
+                        </St.EditPostModalBtn>
+                        <St.EditPostModalBtn>저장</St.EditPostModalBtn>
+                      </St.EditPostModalBtnDiv>
+                    </St.EditPostModalContent>
+                  </St.EditPostModalBox>
+                </St.EditPostModalContainer>
+              </>
+            )}
+          </PortalModal>
+        </St.PostUl>
+      </St.PostDiv>
     </>
   );
 };
 
-export default PostList
+export default PostList;

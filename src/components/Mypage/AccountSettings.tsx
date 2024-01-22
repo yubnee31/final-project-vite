@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState, useEffect} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
 import nomalimage from '../../assets/normalimage.jpg';
+import MyAccount from './MyAccount';
 
 interface AccountSettingProps {
   user: {
@@ -18,21 +19,13 @@ interface AccountSettingProps {
 const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [editNickname, setEditNickname] = useState('');
   const [displayNickname, setDisplayNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(user.user_metadata.avatar_url || nomalimage);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [showSettings, setShowSettings] = useState(false);
+  const [profileImage, setProfileImage] = useState(nomalimage);
+  const [showMyAccount, setShowMyAccount] = useState(false);
 
-  useEffect(() => {
-    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
-    if (user.provider === 'google' && user.user_metadata?.name) {
-      setEditNickname(user.user_metadata.name);
-      setDisplayNickname(editNickname);
-    } else {
-      fetchData();
-      fetchImageData();
-    }
-  }, [user]);
-
+  const handleShowMyAccount = () => {
+    setShowMyAccount(true);
+  };
+  //유저 닉네임 수파베이스에서 불러오기
   const fetchData = async () => {
     const {data, error} = await supabase.from('userinfo').select('username').eq('id', user.id).single();
     if (error) {
@@ -50,6 +43,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
       setDisplayNickname(updatedNickname);
     }
   };
+  // 유저 프로필 서버에서 불러오기
   const fetchImageData = async () => {
     try {
       const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', user.id).single();
@@ -81,102 +75,132 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
       console.error('프로필 이미지 가져오기 오류', error);
     }
   };
+  const handleCompleteSettings = () => {
+    // Handle completion logic here
+    // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
+    setShowMyAccount(false);
+    fetchImageData();
+  };
 
-  const updateNickname = async () => {
-    // 사용자 정보 업데이트
-    const {data, error} = await supabase.from('userinfo').update({username: editNickname}).eq('id', user.id).select();
-
-    if (error) {
-      console.error('닉네임 업데이트 실패', error);
-    } else {
-      console.log('닉네임 업데이트 완료');
-      onUpdateNickname(editNickname);
-
-      alert('닉네임이 변경되었습니다.');
+  useEffect(() => {
+    // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
+    if (user.provider === 'google' && user.user_metadata?.name) {
+      setEditNickname(user.user_metadata.name);
       setDisplayNickname(editNickname);
-      setEditNickname('');
-    }
-  };
-
-  const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEditNickname(e.target.value);
-  };
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-
-      // 이미지 선택 후 프로필 이미지 상태 업데이트
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
-    }
-  };
-
-  const updateProfile = async () => {
-    if (!selectedImage) return;
-
-    // 프로필 업로드
-    const uniqueKey = `profile-image/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-    const {data: uploadData, error: uploadError} = await supabase.storage
-      .from('profile-images')
-      .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
-
-    if (uploadError) {
-      console.error('프로필 업로드 실패', uploadError);
-      return;
-    }
-
-    const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
-    const bucketName = 'profile-images';
-
-    // 프로필 정보 업데이트
-    const {data: profileData, error} = await supabase
-      .from('userinfo')
-      .update({profile_image: uniqueKey})
-      .eq('id', user.id)
-      .select();
-
-    if (error) {
-      console.error('프로필 업데이트 실패', error);
     } else {
-      console.log('프로필 업데이트 완료');
-      const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
-      // 이미지 업로드 후 프로필 이미지 상태 업데이트
-      setProfileImage(uploadUrl);
-      alert('프로필 수정완료 ');
+      fetchData();
+      fetchImageData();
+      console.log('무한루프');
     }
-  };
+  }, [user]);
   return (
-    <StMyAccount>
-      <StProfileImage src={profileImage} alt="아바타 이미지" />
-      <h1>{displayNickname || editNickname}</h1>
-
-      <button onClick={() => setShowSettings(!showSettings)}>설정</button>
-
-      {showSettings && user.provider !== 'google' && (
+    <StWrapper>
+      {showMyAccount ? (
+        <MyAccount user={user} onUpdateNickname={onUpdateNickname} onCompleteSettings={handleCompleteSettings} />
+      ) : (
         <>
-          <input type="text" placeholder="닉네임을 입력하세요" value={editNickname} onChange={handleNicknameChange} />
-          <button onClick={updateNickname}>닉네임 수정</button>
+          <StMyAccountName>
+            <p>나의 정보 </p>
+          </StMyAccountName>
+          <StMyAccount>
+            <StProfileImage src={profileImage} alt="아바타 이미지" />
+            <StNickName>
+              <h1>{displayNickname || editNickname}</h1>
+              <h2>Email</h2>
+            </StNickName>
+
+            <StSettingButton onClick={handleShowMyAccount}>설정</StSettingButton>
+          </StMyAccount>
+          <StFollowcontainer>
+            <div>
+              <StFollowerTX>팔로워 0</StFollowerTX>
+            </div>
+            <div>
+              <StFollowingTX>팔로잉 0</StFollowingTX>
+            </div>
+          </StFollowcontainer>
+
           <div>
-            <p>프로필 이미지</p>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            <button onClick={updateProfile}>프로필 수정</button>
+            <p>FOLLOW ARTIST</p>
+            <StFollowArtistList>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+              <StFwAtistContainer>
+                <div>아티스트 이미지</div>
+                <p>아티스트 네임</p>
+                <p>펜클럽 이름</p>
+              </StFwAtistContainer>
+            </StFollowArtistList>
           </div>
         </>
       )}
-    </StMyAccount>
+    </StWrapper>
   );
 };
-
+const StWrapper = styled.div`
+  
+`
+const StMyAccountName = styled.div`
+  margin-bottom: 20px;
+`;
+const StSettingButton = styled.button`
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+const StNickName = styled.div`
+  margin-right: 65%;
+  h2 {
+    margin-top: 15px;
+  }
+`;
 const StMyAccount = styled.div`
   width: 976px;
+
+  display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
+  align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
+  justify-content: space-between; /* 자식 요소들을 가로로 정렬 */
+  h1 {
+    font-size: 25px;
+  }
+  h2 {
+    font-size: 15px;
+  }
 `;
+const StFollowcontainer = styled.div`
+  width: 976px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  border-bottom: 1px solid gray;
+  padding-bottom: 20px;
+`;
+const StFollowerTX = styled.p``;
+const StFollowingTX = styled.p`
+  margin-left: 20px;
+`;
+
 const StProfileImage = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
 `;
-
+const StFollowArtistList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+`;
+const StFwAtistContainer = styled.div``;
 export default AccountSettings;

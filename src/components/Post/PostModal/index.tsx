@@ -128,16 +128,16 @@ const Modal = ({ handleModal }) => {
       alert('사진 업로드 완료')
     }
   }
-  
+
   return (
     <>
       <St.ModalContainer onClick={handleModal}>
         <St.ModalBox onClick = {(e) => { e.stopPropagation()}}>
           <St.ModalContent onSubmit={handleSubmitAddPost}>
-            <div>
+            <St.ModalHeader>
               <St.ModalTitle>포스트 쓰기</St.ModalTitle>
               <St.ModalArtistName>artist name</St.ModalArtistName>
-            </div>
+            </St.ModalHeader>
             <St.ModalContentInput
               type="text"
               placeholder="당신의 이야기를 공유해주세요"
@@ -145,10 +145,11 @@ const Modal = ({ handleModal }) => {
               name="content"
               onChange={handleChangeAddPost}
             />
-            <div>
-              <input type='file' accept='image/*' onChange={handleImgChange}/>
+            <St.ModalBtnDiv>
+              {/* <input type='file' accept='image/*' onChange={handleImgChange}/> */}
+              <img src={postPhotoImg} />
               <St.ModalAddPostBtn onClick={updatePhoto}>등록</St.ModalAddPostBtn>
-            </div>
+            </St.ModalBtnDiv>
           </St.ModalContent>
         </St.ModalBox>
       </St.ModalContainer>

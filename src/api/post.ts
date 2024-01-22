@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "./supabase";
 
 type POST = {
-    id?: number;
+    id?: string;
     userid?: string;
     content?: string;
     photo_url?: string;
@@ -44,7 +44,7 @@ const updatePost = async ({ id, content }: POST) => {
   }
 };
 
-const updateisEditing = async (id : number) => {
+const updateisEditing = async (id : string) => {
   try {
     const { error } = await supabase
       .from('posts')
@@ -56,7 +56,7 @@ const updateisEditing = async (id : number) => {
 };
 
 // 게시글 삭제
-const deletePost = async (id: number) => {
+const deletePost = async (id: string) => {
   try {
     await supabase.from('posts').delete().eq('id', id);
   } catch (error) {

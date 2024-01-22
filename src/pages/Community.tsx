@@ -7,10 +7,11 @@ import Info from '../components/artistInfo'
 
 const Community = () => {
   const param = useParams();
+
   
   return (
     <StWrapper>
-      <Info />
+      <Info param={param.artistName}/>
       <AddPost />
       <PostList />
     </StWrapper>
