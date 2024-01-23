@@ -32,11 +32,7 @@ const Mypage = () => {
       if (user) {
         try {
           // userinfo 테이블의 username 값을 가져오기
-          const {
-            data: userinfoData,
-            error,
-            isLoading,
-          } = await supabase.from('userinfo').select('username').eq('id', user.id);
+          const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
           if (error) {
             console.error('userinfo 데이터 불러오기 에러:', error);
             return;
