@@ -8,6 +8,7 @@ import commentImg from '../../../assets/images/comment-white.png';
 import seeMoreImg from '../../../assets/images/see-more-white.png';
 import PortalModal from '../../Common/portalModal';
 import {Post} from '../../../types/global.d';
+import Spinner from '../../Common/Spinner';
 
 // 1. Community 레이아웃 - 경욱
 
@@ -44,7 +45,7 @@ const PostList = () => {
   // console.log('post CurrentUser', currentUser);
 
   // post list
-  const {data: posts} = useQuery({
+  const {data: posts, isLoading} = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
   });
@@ -88,6 +89,14 @@ const PostList = () => {
 
   // upload photo
   // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
