@@ -36,11 +36,13 @@ const Nav = () => {
   };
 
   // , filter: `user_id=in.(${subList})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
+
   supabase
     .channel('db-changes')
     .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'userSchedule'}, payload => {
       console.log('Change received!', payload);
-    });
+    })
+    .subscribe();
 
   return (
     <>
