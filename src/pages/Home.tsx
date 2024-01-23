@@ -4,7 +4,11 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg.png';
 import {getArtistList} from '../api/artistapi';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
+<<<<<<< HEAD
+import {DiLaravel} from 'react-icons/di';
+=======
 import Spinner from '../components/Common/Spinner';
+>>>>>>> c419a7b9944b8aa7cc57113968e692f46125798e
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
@@ -56,6 +60,7 @@ const Home = () => {
                 .map(el => {
                   return (
                     <StListTargetDiv
+                      key={el.id}
                       onClick={() => {
                         artistNavigateHandler(el.artist);
                       }}
@@ -93,6 +98,7 @@ const Home = () => {
                   {artistList?.map(el => {
                     return (
                       <StListTargetDiv
+                        key={el.id}
                         onClick={() => {
                           artistNavigateHandler(el.artist);
                         }}
