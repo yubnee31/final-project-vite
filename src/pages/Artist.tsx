@@ -64,6 +64,7 @@ const Artist = () => {
     );
   }
 
+  // git merge test
   return (
     <>
       <StWrapper>

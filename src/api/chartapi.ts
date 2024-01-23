@@ -4,7 +4,7 @@ import {supabase} from './supabase';
 //아티스트 조회
 export const getArtist = async () => {
   try {
-    const {data: chart, error} = await supabase.from('testTable').select('*');
+    const {data: chart, error} = await supabase.from('artists').select('*');
 
     if (error) {
       console.error('조회 실패', error);
@@ -49,7 +49,7 @@ export const addLikeartist = async (postId: number) => {
     const initialLikes = await getInitialLikes(postId);
 
     // 존재하는 데이터 인지 확인
-    const checkData = await supabase.from('testTable').select('*').eq('id', postId);
+    const checkData = await supabase.from('artists').select('*').eq('id', postId);
 
     if (checkData.data && checkData.data.length > 0) {
       const existingData = checkData.data[0];
@@ -62,7 +62,7 @@ export const addLikeartist = async (postId: number) => {
         const updatedUserLikes = userLikes.filter(likedUser => likedUser.id !== user.id);
 
         const {data, error} = await supabase
-          .from('testTable')
+          .from('artists')
           .update({like: updatedLikes, user_likes: updatedUserLikes})
           .eq('id', postId);
 
@@ -74,7 +74,7 @@ export const addLikeartist = async (postId: number) => {
       } else {
         // 중복된 데이터가 없는 경우에만 좋아요 추가
         const {data, error} = await supabase
-          .from('testTable')
+          .from('artists')
           .update({like: initialLikes + 1, user_likes: [...userLikes, user]})
           .eq('id', postId);
 
@@ -118,7 +118,7 @@ export const artistFollowList = async (targetData: any) => {
 
     //testTable 의 artist_fw_count 행  팔로우 수 추가 또는 감소
     await supabase
-      .from('testTable')
+      .from('artists')
       .update({
         artist_fw_count: isFollowing ? initialLikes - 1 : initialLikes + 1,
       })
