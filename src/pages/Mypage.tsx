@@ -32,7 +32,11 @@ const Mypage = () => {
       if (user) {
         try {
           // userinfo 테이블의 username 값을 가져오기
-          const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
+          const {
+            data: userinfoData,
+            error,
+            isLoading,
+          } = await supabase.from('userinfo').select('username').eq('id', user.id);
           if (error) {
             console.error('userinfo 데이터 불러오기 에러:', error);
             return;
@@ -81,40 +85,34 @@ const Mypage = () => {
       return prevUser;
     });
   };
+
   return (
     <StMypageContainer>
       <StWrapper>
         <StFormWrapper>
-          {user && user.user_metadata ? (
-            <StMenuDiv>
-              <StMenuBtn
-                className={selectedMenu === '계정 정보' ? 'target' : ''}
-                onClick={() => handleMenuClick('계정 정보')}
-              >
-                나의 정보
-              </StMenuBtn>
-              <StMenuBtn
-                className={selectedMenu === '스케줄' ? 'target' : ''}
-                onClick={() => handleMenuClick('스케줄')}
-              >
-                나의 스케줄
-              </StMenuBtn>
-              <StMenuBtn
-                className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
-                onClick={() => handleMenuClick('1:1문의 하기')}
-              >
-                1:1문의 하기
-              </StMenuBtn>
-              <StMenuBtn
-                className={selectedMenu === '로그아웃' ? 'target' : ''}
-                onClick={() => handleMenuClick('로그아웃')}
-              >
-                로그아웃 하기
-              </StMenuBtn>
-            </StMenuDiv>
-          ) : (
-            <p>로딩 중</p>
-          )}
+          <StMenuDiv>
+            <StMenuBtn
+              className={selectedMenu === '계정 정보' ? 'target' : ''}
+              onClick={() => handleMenuClick('계정 정보')}
+            >
+              나의 정보
+            </StMenuBtn>
+            <StMenuBtn className={selectedMenu === '스케줄' ? 'target' : ''} onClick={() => handleMenuClick('스케줄')}>
+              나의 스케줄
+            </StMenuBtn>
+            <StMenuBtn
+              className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
+              onClick={() => handleMenuClick('1:1문의 하기')}
+            >
+              1:1문의 하기
+            </StMenuBtn>
+            <StMenuBtn
+              className={selectedMenu === '로그아웃' ? 'target' : ''}
+              onClick={() => handleMenuClick('로그아웃')}
+            >
+              로그아웃 하기
+            </StMenuBtn>
+          </StMenuDiv>
         </StFormWrapper>
         <Staccount>
           {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}

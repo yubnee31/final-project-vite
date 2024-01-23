@@ -4,6 +4,7 @@ import {getCurrentUser} from '../../api/currentUser';
 import {useQuery} from '@tanstack/react-query';
 import {getArtistDetail} from '../../api/artistapi';
 import {useNavigate} from 'react-router-dom';
+import Spinner from '../Common/Spinner';
 
 const Info = ({param}: string) => {
   const navigate = useNavigate();
@@ -13,15 +14,24 @@ const Info = ({param}: string) => {
     queryFn: getCurrentUser,
   });
 
-  const {data: artistDetail} = useQuery({
+  const {data: artistDetail, isLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
+
   const detailTargetData = artistDetail?.find(el => el.artist === param);
 
   const onClickNavigateHandler = () => {
     navigate(`/artist/${param}`);
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
