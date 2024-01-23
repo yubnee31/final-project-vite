@@ -64,6 +64,7 @@ const Artist = () => {
     );
   }
 
+  // git merge test
   return (
     <>
       <StWrapper>
@@ -71,7 +72,7 @@ const Artist = () => {
         <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
-          <FollowArtistBt postId={login ? currentuser.id : null} artistId={param.artistName}></FollowArtistBt>
+          <FollowArtistBt postId={login ? currentuser?.id : null} artistId={param.artistName}></FollowArtistBt>
         </StBannerImgDiv>
 
         <StContentsWrapper>
