@@ -11,6 +11,7 @@ import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
 import {useQuery} from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
+import Spinner from '../components/Common/Spinner';
 
 const Artist = () => {
   const navigate = useNavigate();
@@ -21,18 +22,11 @@ const Artist = () => {
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
   console.log(login);
 
-  const {data: artistDetail} = useQuery({
+  const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-
-  // 이거 쿼리 안쓰는디? 빼도되나
-  const {data: artistList} = useQuery({
-    queryKey: ['testTable'],
-    queryFn: getArtistList,
-  });
-  const targetData = artistList?.find(el => el.artist === param.artistName);
 
   useEffect(() => {
     const userInfo = async () => {
@@ -61,6 +55,14 @@ const Artist = () => {
   const openModalHandler = () => {
     setIsArtistModalOpen(!isArtistModalOpen);
   };
+
+  if (artistDetailLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
