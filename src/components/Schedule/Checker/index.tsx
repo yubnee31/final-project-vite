@@ -40,6 +40,7 @@ const Checker = ({param}: string) => {
   const targetData = schedule?.filter(el => el.artist === param);
   const scheduleChecker: {checker: number; dayString: string; day: string}[] = [];
 
+  // 유틸함수로 따로 빼서 쓰는게 좋음
   const weekCalculator = () => {
     const weekList = ['일', '월', '화', '수', '목', '금', '토', '일'];
     const today = new Date();

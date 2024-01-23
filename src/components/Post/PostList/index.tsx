@@ -11,6 +11,7 @@ import {Post} from '../../../types/global.d';
 import {useParams} from 'react-router-dom';
 import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
+import PostLike from './PostLike';
 
 // 1. Community 레이아웃 - 경욱
 
@@ -105,7 +106,8 @@ const PostList = () => {
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
                   <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
                   <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
-                  <St.PostImg src={heartUmg} $left={'1%'} />
+                  {/* <St.PostImg src={heartUmg} $left={'1%'} /> */}
+                  <PostLike postLike={post.id} currentUser={currentUser} />
                   <St.PostImg src={commentImg} $left={'6.5%'} />
                   {/* <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} /> */}
                   {/* {openToggle && ( */}

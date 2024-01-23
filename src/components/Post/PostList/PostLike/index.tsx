@@ -1,11 +1,10 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import React from 'react';
+import St from './style';
 import {addLikeartist} from '../../../../api/chartapi';
+import heartUmg from '../../../../assets/images/heart-white.png';
 
-interface LikeButtonProps {
-  postLike: number;
-}
-const PostLike = ({postLike}: LikeButtonProps) => {
+const PostLike = ({postLike, currentUser}) => {
   const queryClient = useQueryClient();
   const addLikeMutate = useMutation({
     mutationFn: async () => {
@@ -22,7 +21,19 @@ const PostLike = ({postLike}: LikeButtonProps) => {
       queryClient.invalidateQueries({queryKey: ['posts']});
     },
   });
-  return <></>;
+
+  const handleLikeToggle = () => {
+    if (currentUser) {
+      addLikeMutate;
+    }
+  };
+
+  return (
+    <>
+      <St.LikeBtnImg onClick={handleLikeToggle} src={heartUmg} $left={'1%'} />
+      {/* <button onClick={handleLikeToggle}>좋아요</button> */}
+    </>
+  );
 };
 
 export default PostLike;
