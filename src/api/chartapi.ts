@@ -15,31 +15,28 @@ export const getArtist = async () => {
     console.log('조회 에러', error);
   }
 };
-// 좋아요 버튼 클릭 전의 좋아요 수를 가져오는 api
+// 팔로우 버튼 클릭 전의 팔로우 수를 가져오는 api
 export const getInitialLikes = async (postId: number) => {
   try {
     // postId에 해당하는 아티스트의 데이터를 가져옴
     const artistData = await getArtist();
-
+    console.log(postId.artistId);
     // 해당 아티스트 데이터가 있다면
+
     if (artistData) {
       // postId에 해당하는 아티스트의 데이터를 찾음
-      const artist = artistData.find(item => item.id === postId);
-
-      // 해당 아티스트가 있다면 좋아요 수를 반환
+      const artist = artistData.find(item => item.id === postId.artistId.id);
+      console.log(artist);
+      // 해당 아티스트가 있다면 팔로우 수를 반환
       if (artist) {
         return artist.artist_fw_count;
       }
     }
-
-    // 해당 아티스트가 없거나 에러가 발생한 경우 기본값인 0 반환
-    return 0;
   } catch (error) {
     console.error('좋아요 초기값 가져오기 실패', error);
     return 0; // 에러 발생 시 기본값인 0 반환
   }
 };
-
 // 좋아요 추가 API
 export const addLikeartist = async (postId: number) => {
   try {
@@ -95,19 +92,20 @@ export const addLikeartist = async (postId: number) => {
 };
 
 //팔로우 버튼클릭시 수파베이스 테이블에 해당 타입의 데이터가 삽입됨
-export const artistFollowList = async (targetData: any) => {
+export const artistFollowList = async (targetData: any, postId: number) => {
   try {
     // 로그인 된 사용자 정보 확인
     const user = await supabase.auth.getUser();
-    console.log(targetData);
+
+    const initialLikes = await getInitialLikes(targetData);
+    console.log(initialLikes);
     // userinfo에서 현재 유저의 팔로우 리스트 가져오기
     const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
 
     const userinfoArtistFollow = userinfoData[0]?.artist_follow || [];
-
     // targetData가 이미 팔로우 목록에 있는지 확인
     const isFollowing = userinfoArtistFollow.some(artist => artist.artist === targetData.artist);
-
+    console.log(isFollowing);
     // isFollowing이 true이면 언팔로우, false이면 팔로우
     const updatedArtistFollow = isFollowing
       ? userinfoArtistFollow.filter(artist => artist.artist !== targetData.artist)
@@ -115,6 +113,14 @@ export const artistFollowList = async (targetData: any) => {
 
     // userinfo에 아티스트 추가 또는 제거
     await supabase.from('userinfo').update({artist_follow: updatedArtistFollow}).eq('id', user.data.user.id);
+
+    //userinfo에 팔로우 수 추가 또는 감소
+    // await supabase
+    //   .from('userinfo')
+    //   .update({
+    //     artist_fw_count: isFollowing ? initialLikes - 1 : initialLikes + 1,
+    //   })
+    //   .eq('id', user.data.user.id);
   } catch (error) {
     console.error('artistFollowList 함수에서 에러 발생:', error);
   }

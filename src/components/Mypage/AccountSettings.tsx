@@ -112,17 +112,17 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   };
 
   //아티스트 리스트
-  const artistList = [
-    {name: '아티스트', fanclubname: '팬클럽1', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽2', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽3', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽4', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-    {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  ];
+  // const artistList = [
+  //   // {name: '아티스트', fanclubname: '팬클럽1', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽2', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽3', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽4', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
+  // ];
   const handleMouseUp = () => {
     setIsDragging(false);
   };
@@ -162,7 +162,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
             >
-              {artistList.map((artist, index) => (
+              {/* {artistList.map((artist, index) => (
                 <StFwAtistContainer key={`${index}`}>
                   <div>
                     <img src={nomalimage} alt={`아티스트 이미지 -${artist.name}`} />
@@ -170,7 +170,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
                   <p>{artist.name}</p>
                   <p>{artist.fanclubname}</p>
                 </StFwAtistContainer>
-              ))}
+              ))} */}
             </StFollowArtistList>
           </StMyFollowContainer>
         </>
@@ -178,9 +178,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     </StWrapper>
   );
 };
-const StWrapper = styled.div`
-  
-`
+const StWrapper = styled.div``;
 const StMyAccountName = styled.div`
   margin-bottom: 20px;
 `;
