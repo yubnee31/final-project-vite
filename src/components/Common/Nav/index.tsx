@@ -34,14 +34,17 @@ const Nav = () => {
     e.preventDefault();
     navigate('/', { state: searchInput });
   };
+  
 
-  // 로그아웃
-  const logOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    setLogin(null);
-    navigate('/');
-    if (error) console.log('error', error);
-  };
+    // , filter: `user_id=in.(${subList})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
+    supabase
+    .channel('db-changes')
+    .on('postgres_changes', 
+    { event: 'INSERT', schema: 'public', table: 'userSchedule'}, 
+    payload => {
+      console.log('Change received!', payload)
+    })
+
 
   return (
     <>
@@ -92,49 +95,9 @@ const Nav = () => {
         </StNavWrapper>
       </StNav>
 
-      {/* <DropDownDiv>
-        <DropDownImgDiv>
-          <StImg src={process.env.PUBLIC_URL + '/images/search-icon-white.png'}></StImg>
-        </DropDownImgDiv> 
-        <DropDownInput 
-        placeholder='아티스트 검색하기'
-        />
-      </DropDownDiv> */}
     </>
   );
 };
 
-// Dropdown
-// const DropDownDiv = styled.div`
-//   width: 100vw;
-//   height: 300px;
-//   background-color: #3a3a3a;
-//   padding-top: 80px;
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-// const DropDownImgDiv = styled.div`
-//   width: 50px;
-//   height: 50px;
-// `;
-// const DropDownInput = styled.input`
-//   width: 40vw;
-//   height: 50px;
-
-//   background-color: transparent;
-//   border: none;
-//   border-bottom: 2px solid #292929;
-
-//   color: #c5c5c5;
-//   font-size: 18px;
-//   font-weight: bold;
-
-//   margin-left: 20px;
-// `;
-
-// TODO : 최소 사이즈 1000px 잡기
-// Layout
 
 export default Nav;
