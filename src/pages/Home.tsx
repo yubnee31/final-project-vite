@@ -56,6 +56,7 @@ const Home = () => {
                 .map(el => {
                   return (
                     <StListTargetDiv
+                      key={el.id}
                       onClick={() => {
                         artistNavigateHandler(el.artist);
                       }}
@@ -93,6 +94,7 @@ const Home = () => {
                   {artistList?.map(el => {
                     return (
                       <StListTargetDiv
+                        key={el.id}
                         onClick={() => {
                           artistNavigateHandler(el.artist);
                         }}

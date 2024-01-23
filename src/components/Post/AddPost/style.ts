@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const InputDiv = styled.form`
   width: 800px;
@@ -7,13 +7,13 @@ const InputDiv = styled.form`
   display: flex;
 
   margin-top: 50px;
-`
+`;
 const InputImg = styled.img`
   height: 50px;
   width: 50px;
   object-fit: cover;
   background-size: cover;
-`
+`;
 const Input = styled.div`
   width: 735px;
   height: 50px;
@@ -21,6 +21,6 @@ const Input = styled.div`
   margin-left: 15px;
   font-size: 15px;
   cursor: pointer;
-`
+`;
 
-export default { InputDiv, InputImg, Input }
+export default {InputDiv, InputImg, Input};

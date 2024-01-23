@@ -18,6 +18,7 @@ const Info = ({param}: string) => {
     queryKey: [''],
     queryFn: getArtistDetail,
   });
+
   const detailTargetData = artistDetail?.find(el => el.artist === param);
 
   const onClickNavigateHandler = () => {
