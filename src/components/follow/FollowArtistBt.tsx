@@ -4,6 +4,8 @@ import {useRecoilValue} from 'recoil';
 import {loginState} from '../../shared/recoil/authAtom';
 import {artistFollowList, getInitialLikes, getUsers} from '../../api/chartapi';
 import {getArtistList} from '../../api/artistapi';
+import {supabase} from '../../api/supabase';
+import {from} from 'stylis';
 
 interface FollowArtistProps {
   children: React.ReactNode;
@@ -16,28 +18,33 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
   const loginInfo = useRecoilValue(loginState);
   // followed 상태를 추적하는 상태 변수 추가
   const [followed, setFollowed] = useState(false);
-  const [followCount, setFollowCount] = useState(0);
+
   const {data: currentUser} = useQuery({
     queryKey: ['userinfo', postId],
     queryFn: () => (postId ? getUsers(postId) : null),
   });
 
   const {data: artistList} = useQuery({
-    queryKey: ['testTable'],
+    queryKey: ['artists'],
     queryFn: getArtistList,
   });
   const targetData = artistList?.find(el => el.artist === artistId);
-  //console.log('포스트 아이디를 보여준다.', postId);
 
   //팔로우 된 인원을 보여주는 데이터를 가지고 온다.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchCountData = async () => {
+    try {
+      const {data} = await supabase.from('artists').select('artist_fw_count').eq('artist', artistId);
+      setFollowCount(data[0].artist_fw_count);
+    } catch (error) {
+      console.log('팔로우 수 카운트 불러오기 실패', error);
+    }
+  };
+  const [followCount, setFollowCount] = useState<number | null>(null);
+
   useEffect(() => {
-    const fetchInstallFollowCount = async () => {
-      const initialCount = await getInitialLikes(targetData.artist_fw_count);
-      setFollowCount(initialCount);
-      console.log('팔로우수 카운트를 보여준다. :', initialCount);
-    };
-    fetchInstallFollowCount();
-  }, []);
+    fetchCountData();
+  }, [fetchCountData]);
 
   //현재 유저가 팔로우 했었는지 안했었는지 데이터를 가져온다.
   useEffect(() => {
@@ -45,7 +52,6 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
       const isFollowing = currentUser.artist_follow?.some(
         followData => followData.artistId.artist === targetData?.artist,
       );
-
       // 팔로우 상태 토글
       setFollowed(isFollowing);
     }
@@ -55,25 +61,24 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
     mutationFn: async () => {
       // 팔로우 또는 언팔로우 시 artistFollowList 호출하도록 수정
       await artistFollowList({artistId: targetData});
-      // await getInitialLikes(postId);
 
-      // //팔로우 카운트에서 다시 팔로우 수를 가져오려고할떄  artist 오류가 생긴다.
-      const updatedFollowCount = await getInitialLikes(postId);
-      setFollowCount(updatedFollowCount);
+      // // //팔로우 카운트에서 다시 팔로우 수를 가져오려고할떄  artist 오류가 생긴다.
+      // const updatedFollowCount = await getInitialLikes(postId);
+      // setFollowCount(updatedFollowCount);
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries({queryKey: ['testTable']});
+      queryClient.invalidateQueries({queryKey: ['artists']});
       queryClient.invalidateQueries({queryKey: ['userinfo']});
       // 팔로우 상태 토글
       setFollowed(!followed);
     },
     onError: async context => {
       const previousData = context || {};
-      queryClient.setQueryData(['testTable'], previousData);
+      queryClient.setQueryData(['artists'], previousData);
       queryClient.setQueryData(['userinfo'], previousData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey: ['testTable']});
+      queryClient.invalidateQueries({queryKey: ['artists']});
       queryClient.invalidateQueries({queryKey: ['userinfo']});
     },
   });
@@ -89,7 +94,7 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
   return (
     <>
       <button onClick={handleFollowToggle}>{followed ? '팔로우 끊기' : '팔로우 하기'}</button>
-      <p>{followCount} 명이 팔로우 했습니다.</p>
+      {followCount !== null && <p>{followCount} 명이 팔로우 했습니다.</p>}
     </>
   );
 };

@@ -5,17 +5,10 @@ const ScheduleDiv = styled.div`
   height: 300px;
 `;
 const ScheduleUl = styled.ul`
-<<<<<<< HEAD
-  justify-content: space-around;
-  height: inherit;
-  margin-top: 40px;
-  display: flex;
-=======
   display: flex;
   justify-content: space-around;
   height: inherit;
   margin-top: 40px;
->>>>>>> c419a7b9944b8aa7cc57113968e692f46125798e
 `;
 const ScheduleLi = styled.li`
   text-align: left;
