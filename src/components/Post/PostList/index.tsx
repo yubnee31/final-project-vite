@@ -36,12 +36,13 @@ const PostList = () => {
   };
 
   const queryClient = useQueryClient();
+  
   // current UserInfo
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  // console.log('post CurrentUser', currentUser);
+  console.log('post CurrentUser', currentUser);
 
   // post list
   const {data: posts} = useQuery({
@@ -109,8 +110,8 @@ const PostList = () => {
                   <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
                   <St.PostImg src={heartUmg} $left={'1%'} />
                   <St.PostImg src={commentImg} $left={'6.5%'} />
-                  <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
-                  {openToggle && (
+                  {/* <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} /> */}
+                  {/* {openToggle && ( */}
                     <>
                       {post.userid === currentUser?.user_metadata.name ? (
                         <St.PostBtnDiv>
@@ -136,7 +137,7 @@ const PostList = () => {
                         </St.PostBtnDiv>
                       )}
                     </>
-                  )}
+                  {/* )} */}
                 </St.PostLi>
               );
             })}

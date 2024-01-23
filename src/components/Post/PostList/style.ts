@@ -59,17 +59,21 @@ const PostImg = styled.img`
   cursor: pointer;
 `
 const PostBtnDiv = styled.div`
-  margin-top: 95px;
-  margin-left: 600px;
-  margin-right: 30px;
+  margin-top: 85px;
+  margin-left: 540px;
+  /* margin-right: 30px; */
 `
 const PostBtn = styled.button`
-  width: 80px;
-  height: 20px;
+  width: 120px;
+  height: 30px;
   border: 1px solid white;
-  margin-right: 3px;
+  margin-right: 10px;
 
   cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
 `
 
 // EditModal

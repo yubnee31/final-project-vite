@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg.png';
 import {getArtistList} from '../api/artistapi';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
+import { DiLaravel } from 'react-icons/di';
 // import { supabase } from "../api/supabase";
 
 const Home = () => {
@@ -46,7 +47,7 @@ const Home = () => {
                 ?.filter(el => el.artist.includes(searchInput))
                 .map(el => {
                   return (
-                    <StListTargetDiv
+                    <StListTargetDiv key={el.id}
                       onClick={() => {
                         artistNavigateHandler(el.artist);
                       }}
@@ -83,7 +84,7 @@ const Home = () => {
                 <StListDiv>
                   {artistList?.map(el => {
                     return (
-                      <StListTargetDiv
+                      <StListTargetDiv key={el.id}
                         onClick={() => {
                           artistNavigateHandler(el.artist);
                         }}
