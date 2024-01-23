@@ -4,12 +4,12 @@ import {getArtistDetail, getArtistList} from '../api/artistapi';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../shared/recoil/authAtom';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
-import { useQuery } from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
 
 const Artist = () => {
@@ -26,6 +26,7 @@ const Artist = () => {
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
+  console.log(detailTargetData);
 
   // 이거 쿼리 안쓰는디? 빼도되나
   const {data: artistList} = useQuery({
@@ -36,7 +37,7 @@ const Artist = () => {
   useEffect(() => {
     const userInfo = async () => {
       const {
-        data: { user },
+        data: {user},
       } = await supabase.auth.getUser();
       setCurrentuser(user);
     };
@@ -87,7 +88,6 @@ const Artist = () => {
                         <StPfDetailP>데뷔일: </StPfDetailP>
                         <StPfDetailP>데뷔곡: </StPfDetailP>
                       </StPfDetailDiv>
-
                     </StPfMemberDiv>
                     <StPfSpan>{el.memberName}</StPfSpan>
                   </StPfWrapper>
@@ -160,14 +160,17 @@ const Artist = () => {
               }}
             >
               <StModalContentsP>
-                Red Velvet (레드벨벳)은 SM엔터테인먼트에 소속된 5인조 걸그룹으로 강렬하고 매혹적인 '레드'와 여성스럽고 부드러운 '벨벳'의 이미지에서 연상되듯, 색깔 있고 세련된 음악과 퍼포먼스로 전 세계를 매료시키겠다는 의미를 담고 있다. 2014년 첫 싱글 '행복(Happiness)'으로 데뷔한 그룹은 데뷔 2주 만에 음악방송 정상에 올랐고, S.E.S의 원작을 커버한 'Be Natural' 마저 정상권에 올리며 가요계를 이끌 특급 신인으로 주목받았다. 이어 'Ice Cream Cake', 'Dumb Dumb', 'Russian Roulette', 'Rookie', '빨간 맛' 등의 히트곡을 쏟아내 팬덤을 넘어 대중적으로 큰 사랑을 받으며 대표 걸그룹으로 자리매김했다.
+                Red Velvet (레드벨벳)은 SM엔터테인먼트에 소속된 5인조 걸그룹으로 강렬하고 매혹적인 '레드'와 여성스럽고
+                부드러운 '벨벳'의 이미지에서 연상되듯, 색깔 있고 세련된 음악과 퍼포먼스로 전 세계를 매료시키겠다는
+                의미를 담고 있다. 2014년 첫 싱글 '행복(Happiness)'으로 데뷔한 그룹은 데뷔 2주 만에 음악방송 정상에
+                올랐고, S.E.S의 원작을 커버한 'Be Natural' 마저 정상권에 올리며 가요계를 이끌 특급 신인으로 주목받았다.
+                이어 'Ice Cream Cake', 'Dumb Dumb', 'Russian Roulette', 'Rookie', '빨간 맛' 등의 히트곡을 쏟아내 팬덤을
+                넘어 대중적으로 큰 사랑을 받으며 대표 걸그룹으로 자리매김했다.
               </StModalContentsP>
               <StModalTitleP>데뷔</StModalTitleP>
               <StModalContentsP>2014.08.01</StModalContentsP>
               <StModalTitleP>데뷔곡</StModalTitleP>
-              <StModalContentsP>
-                행복 (Happiness)
-              </StModalContentsP>
+              <StModalContentsP>행복 (Happiness)</StModalContentsP>
               <StModalTitleP>수상이력</StModalTitleP>
               <StModalContentsP>2022 한터뮤직어워즈|트렌드상 (제너레이션 아이콘)</StModalContentsP>
               <StModalContentsP>제32회 서울가요대상|본상</StModalContentsP>
@@ -258,7 +261,7 @@ const StTitle = styled.p`
 `;
 
 // Banner
-const StBannerImgDiv = styled.div<{ url: string }>`
+const StBannerImgDiv = styled.div<{url: string}>`
   width: 100vw;
   height: 770px;
 
@@ -319,7 +322,7 @@ const StPfDetailP = styled.p`
   background-color: transparent;
   color: transparent;
   margin-top: 15px;
-`
+`;
 const StPfDetailDiv = styled.div`
   width: 200px;
   height: 200px;
@@ -340,8 +343,7 @@ const StPfDetailDiv = styled.div`
     transition: 0.5s;
     color: white;
   }
-`
-
+`;
 
 // Album
 const StAlbumsDiv = styled.div`
