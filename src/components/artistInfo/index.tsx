@@ -18,7 +18,10 @@ const Info = ({param}: string) => {
     queryKey: [''],
     queryFn: getArtistDetail,
   });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3ca13a344e20ba4446f761ca2c482bbef7c0e49a
   const detailTargetData = artistDetail?.find(el => el.artist === param);
 
   const onClickNavigateHandler = () => {
