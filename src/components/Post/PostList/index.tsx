@@ -46,16 +46,16 @@ const PostList = () => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('post CurrentUser', currentUser);
 
   // post list
   const {data: posts, isLoading} = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
   });
+  // console.log('post List', posts);
 
   const currentArtistPost = posts?.filter(post => post.artist === param.artistName);
-  console.log('아티스트 별 게시글', currentArtistPost);
+  // console.log('아티스트 별 게시글', currentArtistPost);
 
   // mutation
   const queryClient = useQueryClient();
