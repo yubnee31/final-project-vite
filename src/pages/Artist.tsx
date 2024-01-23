@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {supabase} from '../api/supabase';
-import {getArtistDetail} from '../api/artistapi';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../api/supabase';
+import { getArtistDetail } from '../api/artistapi';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
-import {useNavigate, useParams} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
-import {loginState} from '../shared/recoil/authAtom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { loginState } from '../shared/recoil/authAtom';
 import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
-import {useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
 
 const Artist = () => {
@@ -20,7 +20,7 @@ const Artist = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
 
-  const {data: artistDetail} = useQuery({
+  const { data: artistDetail } = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
@@ -29,7 +29,7 @@ const Artist = () => {
   useEffect(() => {
     const userInfo = async () => {
       const {
-        data: {user},
+        data: { user },
       } = await supabase.auth.getUser();
       setCurrentuser(user);
     };
@@ -74,9 +74,16 @@ const Artist = () => {
             <StProfileDiv>
               {detailTargetData?.profile?.map(el => {
                 return (
-                  <StPfWrapper onClick={openModalHandler}>
+                  <StPfWrapper>
                     <StPfMemberDiv>
                       <StPfMemberImg src={el.memberImg}></StPfMemberImg>
+                      <StPfDetailDiv>
+                        <StPfDetailP>본명: </StPfDetailP>
+                        <StPfDetailP>생년월일: </StPfDetailP>
+                        <StPfDetailP>데뷔일: </StPfDetailP>
+                        <StPfDetailP>데뷔곡: </StPfDetailP>
+                      </StPfDetailDiv>
+
                     </StPfMemberDiv>
                     <StPfSpan>{el.memberName}</StPfSpan>
                   </StPfWrapper>
@@ -149,19 +156,18 @@ const Artist = () => {
               }}
             >
               <StModalContentsP>
-                aespa는 SM 엔터테인먼트에 소속된 걸그룹으로 카리나 (KARINA), 지젤 (GISELLE), 윈터 (WINTER), 닝닝
-                (NINGNING)으로 구성되어 있다. 팀명 'aespa'는 ‘Avatar X Experience’를 표현한 'ae’와 양면이라는 뜻의
-                영단어 ‘aspect’를 결합해 만든 이름으로, '자신의 또 다른 자아인 아바타를 만나 새로운 세계를 경험하게
-                된다'는 세계관을 바탕으로 획기적이고 다채로운 활동을 선보일 예정이다.
+                Red Velvet (레드벨벳)은 SM엔터테인먼트에 소속된 5인조 걸그룹으로 강렬하고 매혹적인 '레드'와 여성스럽고 부드러운 '벨벳'의 이미지에서 연상되듯, 색깔 있고 세련된 음악과 퍼포먼스로 전 세계를 매료시키겠다는 의미를 담고 있다. 2014년 첫 싱글 '행복(Happiness)'으로 데뷔한 그룹은 데뷔 2주 만에 음악방송 정상에 올랐고, S.E.S의 원작을 커버한 'Be Natural' 마저 정상권에 올리며 가요계를 이끌 특급 신인으로 주목받았다. 이어 'Ice Cream Cake', 'Dumb Dumb', 'Russian Roulette', 'Rookie', '빨간 맛' 등의 히트곡을 쏟아내 팬덤을 넘어 대중적으로 큰 사랑을 받으며 대표 걸그룹으로 자리매김했다.
               </StModalContentsP>
               <StModalTitleP>데뷔</StModalTitleP>
-              <StModalContentsP>2020.11.17</StModalContentsP>
+              <StModalContentsP>2014.08.01</StModalContentsP>
               <StModalTitleP>데뷔곡</StModalTitleP>
-              <StModalContentsP>Black Mamba</StModalContentsP>
+              <StModalContentsP>
+                행복 (Happiness)
+              </StModalContentsP>
               <StModalTitleP>수상이력</StModalTitleP>
-              <StModalContentsP>제38회 골든디스크 어워즈|음반 본상</StModalContentsP>
-              <StModalContentsP>제33회 서울가요대상|본상</StModalContentsP>
-              <StModalContentsP>2023 MELON MUSIC AWARDS|밀리언스 TOP10</StModalContentsP>
+              <StModalContentsP>2022 한터뮤직어워즈|트렌드상 (제너레이션 아이콘)</StModalContentsP>
+              <StModalContentsP>제32회 서울가요대상|본상</StModalContentsP>
+              <StModalContentsP>2022 GMA (GENIE MUSIC AWARDS)|베스트 뮤직비디오상</StModalContentsP>
               <StModalTitleP>유형</StModalTitleP>
               <StModalContentsP>그룹 |여성</StModalContentsP>
               <StModalTitleP>장르</StModalTitleP>
@@ -248,7 +254,7 @@ const StTitle = styled.p`
 `;
 
 // Banner
-const StBannerImgDiv = styled.div<{url: string}>`
+const StBannerImgDiv = styled.div<{ url: string }>`
   width: 100vw;
   height: 770px;
 
@@ -286,12 +292,12 @@ const StProfileDiv = styled.div`
 const StPfWrapper = styled.div`
   width: 200px;
   height: 250px;
-  cursor: pointer;
 `;
 const StPfMemberDiv = styled.div`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;
+  position: relative;
 `;
 const StPfMemberImg = styled.img`
   width: inherit;
@@ -305,6 +311,33 @@ const StPfSpan = styled.span`
   letter-spacing: 2px;
   margin-left: 5px;
 `;
+const StPfDetailP = styled.p`
+  background-color: transparent;
+  color: transparent;
+  margin-top: 15px;
+`
+const StPfDetailDiv = styled.div`
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &:hover {
+    background-color: #000000aa;
+    transition: 0.5s;
+  }
+  &:hover ${StPfDetailP} {
+    transition: 0.5s;
+    color: white;
+  }
+`
+
 
 // Album
 const StAlbumsDiv = styled.div`

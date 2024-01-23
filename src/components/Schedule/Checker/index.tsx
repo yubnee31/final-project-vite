@@ -40,7 +40,9 @@ const Checker = ({ param }: string) => {
 
   const targetData = schedule?.filter((el) => el.artist === param);
   const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
+  console.log('targetData', targetData)
 
+  // 유틸함수로 따로 빼서 쓰는게 좋음
   const weekCalculator = () => {
     const weekList = ['일', '월', '화', '수', '목', '금', '토', '일']
     const today = new Date();
@@ -82,6 +84,8 @@ const Checker = ({ param }: string) => {
   }
 
 
+  console.log('scheduleChecker', scheduleChecker)
+  console.log('targetData', targetData?.filter((el: { date: string; }) => el.date === '2024-01-23'))
 
   return (
     <St.ScheduleDiv>
@@ -113,6 +117,7 @@ const Checker = ({ param }: string) => {
               )
             })
         }
+
       </St.ScheduleUl>
     </St.ScheduleDiv>
   )
