@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../../../shared/recoil/authAtom';
-import { supabase } from '../../../api/supabase';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {loginState} from '../../../shared/recoil/authAtom';
+import {supabase} from '../../../api/supabase';
 import alarmIcon from '../../../assets/images/alarm-icon-white.png';
 import searchIcon from '../../../assets/images/search-icon-white.png';
 import {
@@ -32,19 +32,15 @@ const Nav = () => {
 
   const handleSearchBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate('/', { state: searchInput });
+    navigate('/', {state: searchInput});
   };
-  
 
-    // , filter: `user_id=in.(${subList})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
-    // supabase
-    // .channel('db-changes')
-    // .on('postgres_changes', 
-    // { event: 'INSERT', schema: 'public', table: 'userSchedule'}, 
-    // payload => {
-    //   console.log('Change received!', payload)
-    // })
-
+  // , filter: `user_id=in.(${subList})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
+  supabase
+    .channel('db-changes')
+    .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'userSchedule'}, payload => {
+      console.log('Change received!', payload);
+    });
 
   return (
     <>
@@ -94,10 +90,8 @@ const Nav = () => {
           </StNavDiv>
         </StNavWrapper>
       </StNav>
-
     </>
   );
 };
-
 
 export default Nav;

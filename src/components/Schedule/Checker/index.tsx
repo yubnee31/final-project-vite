@@ -37,8 +37,8 @@ const Checker = ({param}: string) => {
     },
   });
 
-  const targetData = schedule?.filter((el) => el.artist === param);
-  const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
+  const targetData = schedule?.filter(el => el.artist === param);
+  const scheduleChecker: {checker: number; dayString: string; day: string}[] = [];
 
   // 유틸함수로 따로 빼서 쓰는게 좋음
   const weekCalculator = () => {
@@ -79,40 +79,38 @@ const Checker = ({param}: string) => {
     } else if (isOn) {
       deleteMutation.mutate(info.id);
     }
-  }
-
-
+  };
 
   return (
     <St.ScheduleDiv>
       <St.ScheduleUl>
-        {
-          scheduleChecker
-            .map((e) => {
-              return (
-                <St.ScheduleLi>
-                  <St.ScheduleDayP>{e.dayString}</St.ScheduleDayP>
-                  {
-                    targetData?.filter((el: { date: string; }) => el.date === e.day)
-                      .map((ele) => {
-                        return (
-                          <St.ScheduleListDiv>
-                            <St.ScheduleListSection>
-                              <St.ScheduleListTimeP>{ele.place}</St.ScheduleListTimeP>
-                              <St.ScheduleListTitleP>{ele.title}</St.ScheduleListTitleP>
-                            </St.ScheduleListSection>
-                            <St.ScheduleListImg
-                              onClick={() => { onClickIsOnHandler(ele, currentUser.id) }}
-                              src={userTargetSchedule?.filter((el) => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon}
-                            />
-                          </St.ScheduleListDiv>
-                        )
-                      })
-                  }
-                </St.ScheduleLi>
-              )
-            })
-        }
+        {scheduleChecker.map(e => {
+          return (
+            <St.ScheduleLi>
+              <St.ScheduleDayP>{e.dayString}</St.ScheduleDayP>
+              {targetData
+                ?.filter((el: {date: string}) => el.date === e.day)
+                .map(ele => {
+                  return (
+                    <St.ScheduleListDiv>
+                      <St.ScheduleListSection>
+                        <St.ScheduleListTimeP>{ele.place}</St.ScheduleListTimeP>
+                        <St.ScheduleListTitleP>{ele.title}</St.ScheduleListTitleP>
+                      </St.ScheduleListSection>
+                      <St.ScheduleListImg
+                        onClick={() => {
+                          onClickIsOnHandler(ele, currentUser.id);
+                        }}
+                        src={
+                          userTargetSchedule?.filter(el => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon
+                        }
+                      />
+                    </St.ScheduleListDiv>
+                  );
+                })}
+            </St.ScheduleLi>
+          );
+        })}
       </St.ScheduleUl>
     </St.ScheduleDiv>
   );
