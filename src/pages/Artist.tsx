@@ -11,6 +11,7 @@ import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
 import { useQuery } from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
+import Spinner from '../components/Common/Spinner';
 
 const Artist = () => {
   const navigate = useNavigate();
@@ -20,12 +21,12 @@ const Artist = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
   console.log(login);
-  const {data: artistDetail} = useQuery({
+  const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-  const {data: artistList} = useQuery({
+  const {data: artistList, isLoading: artistListLoading} = useQuery({
     queryKey: ['testTable'],
     queryFn: getArtistList,
   });
@@ -57,6 +58,22 @@ const Artist = () => {
   const openModalHandler = () => {
     setIsArtistModalOpen(!isArtistModalOpen);
   };
+
+  if (artistDetailLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (artistListLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
