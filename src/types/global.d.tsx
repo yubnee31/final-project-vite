@@ -1,6 +1,6 @@
 export type Post = {
   content?: string;
-  id?: number;
+  id?: string;
   photo_url?: string;
   created_at?: string;
   userid?: string;

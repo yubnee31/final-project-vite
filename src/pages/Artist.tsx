@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../api/supabase';
-import { getArtistDetail } from '../api/artistapi';
+import React, {useEffect, useState} from 'react';
+import {supabase} from '../api/supabase';
+import {getArtistDetail, getArtistList} from '../api/artistapi';
 import styled from 'styled-components';
 import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
@@ -19,13 +19,17 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
-
-  const { data: artistDetail } = useQuery({
+  console.log(login);
+  const {data: artistDetail} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-
+  const {data: artistList} = useQuery({
+    queryKey: ['testTable'],
+    queryFn: getArtistList,
+  });
+  const targetData = artistList?.find(el => el.artist === param.artistName);
   useEffect(() => {
     const userInfo = async () => {
       const {
@@ -51,7 +55,6 @@ const Artist = () => {
   };
 
   const openModalHandler = () => {
-    console.log(isArtistModalOpen);
     setIsArtistModalOpen(!isArtistModalOpen);
   };
 
@@ -62,9 +65,7 @@ const Artist = () => {
         <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
-          <FollowArtistBt postId={currentuser.id} artistId={param.artistName}>
-            팔로우
-          </FollowArtistBt>
+          <FollowArtistBt postId={login ? currentuser.id : null} artistId={param.artistName}></FollowArtistBt>
         </StBannerImgDiv>
 
         <StContentsWrapper>

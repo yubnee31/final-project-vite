@@ -1,53 +1,26 @@
 import React, { useState } from 'react'
-import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
-import { addPost } from '../../../api/post'
-import { getCurrentUser } from '../../../api/currentUser'
 import profileImg from '../../../assets/images/profile-white.png'
 import St from './style'
+import PortalModal from '../../Common/portalModal'
+import Modal from '../PostModal'
 
 const AddPost = () => {
-  const queryClient = useQueryClient();
-  const [content, setContent] = useState('');
-
-  const {data: currentUser} = useQuery({
-    queryKey: ['getCurrentUser'],
-    queryFn: getCurrentUser,
-  });
-
-  const addMutation = useMutation({
-    mutationFn: addPost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']})
-    }
-  })
-
-  const handleChangeAddPost: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    e.preventDefault();
-    setContent(e.target.value);
+  const [openModal, setOpenModal] = useState(false)
+  const handleModal = () => {
+    setOpenModal(!openModal);
   }
-  
-  const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    const newPost = {
-      userid: currentUser?.user_metadata.name,
-      photo_url: 'posts?.photo_url',
-      content: content,
-    };
-    addMutation.mutate(newPost);
-    setContent('');
-  };
+
   return (
     <>
-      <St.InputDiv onSubmit={handleSubmitAddPost}>
+     <div>
+      <St.InputDiv>
         <St.InputImg src={profileImg}/>
-        <St.Input
-          type="text"
-          placeholder="지금 아티스트에게 하고 싶은 말은?"
-          value={content}
-          name="content"
-          onChange={handleChangeAddPost}
-        />
+        <St.Input onClick={handleModal}/>
+      <PortalModal>
+        {openModal && <Modal handleModal={handleModal}/>}
+      </PortalModal>
       </St.InputDiv>
+     </div>
     </>
 
   )

@@ -11,5 +11,5 @@ const getCurrentUser = async () => {
 }
 
 export {
-    getCurrentUser,
+    getCurrentUser
 }

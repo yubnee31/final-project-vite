@@ -1,73 +1,71 @@
-import React from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getArtistSchedule, getUserSchedule, addSchedule, deleteSchedule } from '../../../api/artistapi';
-import { getCurrentUser } from '../../../api/currentUser';
+import React from 'react';
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import {getArtistSchedule, getUserSchedule, addSchedule, deleteSchedule} from '../../../api/artistapi';
+import {getCurrentUser} from '../../../api/currentUser';
 import St from './style';
-import { Schedule } from '../../../types/global.d';
-import alarmIcon from '../../../assets/images/alarm-icon-white.png'
-import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png'
+import {Schedule} from '../../../types/global.d';
+import alarmIcon from '../../../assets/images/alarm-icon-white.png';
+import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png';
 
-
-const Checker = ({ param }: string) => {
+const Checker = ({param}: string) => {
   const queryClient = useQueryClient();
 
-  const { data: schedule } = useQuery({
+  const {data: schedule} = useQuery({
     queryKey: ['schedule'],
     queryFn: getArtistSchedule,
   });
-  const { data: currentUser } = useQuery({
+  const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  const { data: userSchedule } = useQuery({
+  const {data: userSchedule} = useQuery({
     queryKey: ['userSchedule'],
     queryFn: getUserSchedule,
   });
-  const userTargetSchedule = userSchedule?.filter((el) => el.userid === currentUser.id)
+  const userTargetSchedule = userSchedule?.filter(el => el.userid === currentUser?.id);
 
   const addMutation = useMutation({
     mutationFn: addSchedule,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userSchedule'] })
-    }
-  })
+      queryClient.invalidateQueries({queryKey: ['userSchedule']});
+    },
+  });
   const deleteMutation = useMutation({
     mutationFn: deleteSchedule,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userSchedule'] })
-    }
-  })
+      queryClient.invalidateQueries({queryKey: ['userSchedule']});
+    },
+  });
 
   const targetData = schedule?.filter((el) => el.artist === param);
   const scheduleChecker: { checker: number; dayString: string; day: string; }[] = [];
-  console.log('targetData', targetData)
 
   // 유틸함수로 따로 빼서 쓰는게 좋음
   const weekCalculator = () => {
-    const weekList = ['일', '월', '화', '수', '목', '금', '토', '일']
+    const weekList = ['일', '월', '화', '수', '목', '금', '토', '일'];
     const today = new Date();
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2);
     const day = ('0' + today.getDate()).slice(-2);
-    const todayString = `${year}-${month}-${day}`
+    const todayString = `${year}-${month}-${day}`;
 
     for (let i = 0; i < 7; i++) {
-      const sunday = new Date(today)
-      sunday.setDate(today.getDate() - new Date(todayString).getDay())
+      const sunday = new Date(today);
+      sunday.setDate(today.getDate() - new Date(todayString).getDay());
 
-      const week = new Date(sunday)
-      week.setDate(sunday.getDate() + i)
+      const week = new Date(sunday);
+      week.setDate(sunday.getDate() + i);
       const year = week.getFullYear();
       const month = ('0' + (week.getMonth() + 1)).slice(-2);
       const day = ('0' + week.getDate()).slice(-2);
-      const weekDay = `${year}-${month}-${day}`
-      scheduleChecker.push({ checker: i, dayString: weekList[i], day: weekDay })
+      const weekDay = `${year}-${month}-${day}`;
+      scheduleChecker.push({checker: i, dayString: weekList[i], day: weekDay});
     }
-  }
-  weekCalculator()
+  };
+  weekCalculator();
 
   const onClickIsOnHandler = (info, userid) => {
-    const isOn = userTargetSchedule?.filter((el) => el.scheduleId === info.id)[0]
+    const isOn = userTargetSchedule?.filter(el => el.scheduleId === info.id)[0];
     if (!isOn) {
       const schedule: Schedule = {
         userid: userid,
@@ -75,17 +73,15 @@ const Checker = ({ param }: string) => {
         artist: info.artist,
         title: info.title,
         date: info.date,
-        place: info.place
-      }
-      addMutation.mutate(schedule)
+        place: info.place,
+      };
+      addMutation.mutate(schedule);
     } else if (isOn) {
-      deleteMutation.mutate(info.id)
+      deleteMutation.mutate(info.id);
     }
   }
 
 
-  console.log('scheduleChecker', scheduleChecker)
-  console.log('targetData', targetData?.filter((el: { date: string; }) => el.date === '2024-01-23'))
 
   return (
     <St.ScheduleDiv>
@@ -117,10 +113,9 @@ const Checker = ({ param }: string) => {
               )
             })
         }
-
       </St.ScheduleUl>
     </St.ScheduleDiv>
-  )
-}
+  );
+};
 
-export default Checker
+export default Checker;
