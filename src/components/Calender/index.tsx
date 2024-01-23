@@ -3,13 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 import {getUserSchedule} from '../../api/artistapi';
 import {getCurrentUser} from '../../api/currentUser';
+import Spinner from '../Common/Spinner';
 
 const Calender = () => {
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  const {data: userSchdule} = useQuery({
+  const {data: userSchdule, isLoading} = useQuery({
     queryKey: ['userSchedule'],
     queryFn: getUserSchedule,
   });
@@ -77,6 +78,14 @@ const Calender = () => {
       return result;
     }
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <StWrapper>
