@@ -26,7 +26,7 @@ const Artist = () => {
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-  console.log(detailTargetData);
+  console.log(detailTargetData.info);
 
   // 이거 쿼리 안쓰는디? 빼도되나
   const {data: artistList} = useQuery({
@@ -77,19 +77,25 @@ const Artist = () => {
           <StWrapper>
             <StTitle>Profile</StTitle>
             <StProfileDiv>
-              {detailTargetData?.profile?.map(el => {
+              {detailTargetData?.profile?.map(e => {
                 return (
                   <StPfWrapper>
                     <StPfMemberDiv>
-                      <StPfMemberImg src={el.memberImg}></StPfMemberImg>
-                      <StPfDetailDiv>
-                        <StPfDetailP>본명: </StPfDetailP>
-                        <StPfDetailP>생년월일: </StPfDetailP>
-                        <StPfDetailP>데뷔일: </StPfDetailP>
-                        <StPfDetailP>데뷔곡: </StPfDetailP>
-                      </StPfDetailDiv>
+                      <StPfMemberImg src={e.memberImg}></StPfMemberImg>
+                      {detailTargetData?.info
+                        ?.filter((el: {name: string}) => el.name === e.memberName)
+                        ?.map(ele => {
+                          return (
+                            <StPfDetailDiv>
+                              <StPfDetailP>{`본명 : ${ele.realName}`}</StPfDetailP>
+                              <StPfDetailP>{`생년월일 : ${ele.birthday}`}</StPfDetailP>
+                              <StPfDetailP>{`데뷔일 : ${ele.debutDate}`}</StPfDetailP>
+                              <StPfDetailP>{`데뷔일 : ${ele.debutSong}`}</StPfDetailP>
+                            </StPfDetailDiv>
+                          );
+                        })}
                     </StPfMemberDiv>
-                    <StPfSpan>{el.memberName}</StPfSpan>
+                    <StPfSpan>{e.memberName}</StPfSpan>
                   </StPfWrapper>
                 );
               })}
@@ -322,6 +328,7 @@ const StPfDetailP = styled.p`
   background-color: transparent;
   color: transparent;
   margin-top: 15px;
+  font-size: 14px;
 `;
 const StPfDetailDiv = styled.div`
   width: 200px;
@@ -341,7 +348,7 @@ const StPfDetailDiv = styled.div`
   }
   &:hover ${StPfDetailP} {
     transition: 0.5s;
-    color: white;
+    color: #ececec;
   }
 `;
 
