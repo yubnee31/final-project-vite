@@ -33,17 +33,6 @@ const Signin = () => {
   //리코일로 로그인상태관리
   const setLogin = useSetRecoilState(loginState);
 
-  // user 정보 테스트
-  // useEffect(() => {
-  //   const userInfo = async () => {
-  //     const {
-  //       data: {user},
-  //     } = await supabase.auth.getUser();
-  //     console.log(user);
-  //   };
-  //   userInfo();
-  // }, []);
-
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
     setEmail(email);
