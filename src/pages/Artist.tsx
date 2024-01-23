@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
 import {getArtistDetail, getArtistList} from '../api/artistapi';
 import styled from 'styled-components';
-import Artistchart from '../components/like/Artistchart';
 import ReactPlayer from 'react-player';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
@@ -20,14 +19,17 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
-  console.log(login);
 
   const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-
+  // const {data: artistList} = useQuery({
+  //   queryKey: ['artists'],
+  //   queryFn: getArtistList,
+  // });
+  // const targetData = artistList?.find(el => el.artist === param.artistName);
   useEffect(() => {
     const userInfo = async () => {
       const {
@@ -72,7 +74,11 @@ const Artist = () => {
         <StBannerImgDiv url={detailTargetData?.cover}>
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
-          <FollowArtistBt postId={login ? currentuser?.id : null} artistId={param.artistName}></FollowArtistBt>
+          <FollowArtistBt
+            postId={login ? currentuser?.id : null}
+            artistId={param.artistName}
+            // fwcount={targetData.artist_fw_count}
+          ></FollowArtistBt>
         </StBannerImgDiv>
 
         <StContentsWrapper>
