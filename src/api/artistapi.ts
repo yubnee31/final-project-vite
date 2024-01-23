@@ -4,7 +4,7 @@ import {Schedule} from '../types/global.d';
 // List
 export const getArtistList = async () => {
   try {
-    const {data} = await supabase.from('testTable').select('*');
+    const {data} = await supabase.from('artists').select('*');
     return data;
   } catch (error) {
     console.log('error', error);
