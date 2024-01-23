@@ -76,7 +76,7 @@ const Join = () => {
       navigate('/login');
     }
     if (error) {
-      toast.error('회원가입에 실패했습니다');
+      console.log(error);
     }
   };
 

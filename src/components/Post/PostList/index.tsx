@@ -8,12 +8,9 @@ import commentImg from '../../../assets/images/comment-white.png';
 import seeMoreImg from '../../../assets/images/see-more-white.png';
 import PortalModal from '../../Common/portalModal';
 import {Post} from '../../../types/global.d';
-<<<<<<< HEAD
 import {useParams} from 'react-router-dom';
 import EditPostModal from './EditModal';
-=======
 import Spinner from '../../Common/Spinner';
->>>>>>> c419a7b9944b8aa7cc57113968e692f46125798e
 
 // 1. Community 레이아웃 - 경욱
 

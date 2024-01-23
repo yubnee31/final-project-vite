@@ -26,7 +26,6 @@ const Artist = () => {
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-  console.log(detailTargetData.info);
 
   // 이거 쿼리 안쓰는디? 빼도되나
   const {data: artistList} = useQuery({
