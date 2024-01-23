@@ -77,6 +77,7 @@ const Join = () => {
     }
     if (error) {
       console.log(error);
+      toast.error('사용중인 이메일입니다');
     }
   };
 
