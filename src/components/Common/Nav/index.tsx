@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {useQuery} from '@tanstack/react-query';
+import {getCurrentUser} from '../../../api/currentUser';
 import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../../../shared/recoil/authAtom';
@@ -25,6 +27,12 @@ const Nav = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useRecoilState(loginState);
   const [searchInput, setSearchInput] = useState<string>('');
+  const [alarm, setAlarm] = useState([]);
+
+  const {data: currentUser} = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser,
+  });
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -35,13 +43,18 @@ const Nav = () => {
     navigate('/', {state: searchInput});
   };
 
-  // , filter: `user_id=in.(${subList})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
+  // , filter: `userid=in.(${currentUser?.id})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
+  const taskListener = supabase
+    .channel('room1')
+    .on(
+      'postgres_changes',
+      {event: 'INSERT', schema: 'public', table: 'userSchedule', filter: `userid=in.(${currentUser?.id})`},
+      payload => {
+        console.log('payload', payload.new);
 
-  supabase
-    .channel('db-changes')
-    .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'userSchedule'}, payload => {
-      console.log('Change received!', payload);
-    })
+        // setAlarm(payload);
+      },
+    )
     .subscribe();
 
   return (
