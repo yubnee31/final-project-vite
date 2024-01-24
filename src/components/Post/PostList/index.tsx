@@ -3,25 +3,14 @@ import React, {useState} from 'react';
 import {getPosts, deletePost, updateisEditing} from '../../../api/post';
 import {getCurrentUser} from '../../../api/currentUser';
 import St from './style';
-import heartUmg from '../../../assets/images/heart-white.png';
-import commentImg from '../../../assets/images/comment-white.png';
-import seeMoreImg from '../../../assets/images/see-more-white.png';
+import commentImg from '../../../assets/images/chat.svg';
+import seeMoreImg from '../../../assets/images/meatballs-v.svg';
 import PortalModal from '../../Common/portalModal';
-import {Post} from '../../../types/global.d';
 import {useParams} from 'react-router-dom';
 import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
 import PostLike from './PostLike';
 import dayjs from 'dayjs';
-// 1. Community 레이아웃 - 경욱
-
-// 1. 유저 정보 연동 => 내 게시글에만 수정, 삭제 뜨기 V
-// 2. useState Edit 오류 수정 위한 portal Modal 구현 V
-// 3. photo 업로드 기능 추가
-// ---------------------------------------
-// 4. 댓글(수정, 삭제), 좋아요
-
-// 2024.01.16. 오후 7시 : "경욱 - 레이아웃, 민정 - CRUD" Merge
 
 const PostList = () => {
   // modal
@@ -52,10 +41,8 @@ const PostList = () => {
     queryKey: ['posts'],
     queryFn: getPosts,
   });
-  // console.log('post List', posts);
 
   const currentArtistPost = posts?.filter(post => post.artist === param.artistName);
-  // console.log('아티스트 별 게시글', currentArtistPost);
 
   // mutation
   const queryClient = useQueryClient();
@@ -109,7 +96,7 @@ const PostList = () => {
                     postlike={post.like}
                     postInfo={post.like_userInfo}
                   />
-                  <St.PostImg src={commentImg} $left={'6.5%'} />
+                  <St.CommentImg src={commentImg} $left={'6.5%'} />
                   <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
                   {openToggle && (
                     <>
