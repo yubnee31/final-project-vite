@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import St from './style';
 import {updateLikes} from '../../../../api/like';
 import heartImgWhite from '../../../../assets/images/heart-white.png';
-import heartImgRed from '../../../../assets/images/heart-red.png';
+import heartImgPurple from '../../../../assets/images/heart-purple.png';
 
 const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
   const queryClient = useQueryClient();
@@ -38,7 +38,7 @@ const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
 
   return (
     <St.LikeBtnDiv>
-      <St.LikeBtnImg src={liked ? heartImgRed : heartImgWhite} onClick={onClickLikeHandler} />
+      <St.LikeBtnImg src={liked ? heartImgPurple : heartImgWhite} onClick={onClickLikeHandler} />
       <St.LikeCountP>{postlike}</St.LikeCountP>
     </St.LikeBtnDiv>
   );
