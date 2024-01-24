@@ -1,6 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {StErrorMessage, StForm, StFormDiv, StFormWrapper, StInfoP, StInput, StSignupBtn, StTitleP} from './style';
+import {
+  StErrorMessage,
+  StForm,
+  StFormDiv,
+  StFormWrapper,
+  StInfoP,
+  StInput,
+  StSignupBtn,
+  StTitleP,
+  StInputDiv,
+  StInputButton,
+} from './style';
 import {toast} from 'react-toastify';
 import {supabase} from '../../api/supabase';
 
@@ -19,13 +30,17 @@ const Join = () => {
   const [passwordAgainError, setPasswordAgainError] = useState<string>('');
   const [nicknameError, setNicknameError] = useState<string>('');
 
+  const [isCheckedNickname, setIsCheckedNickname] = useState<boolean>(false);
+
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(() => {
       const newEamil = e.target.value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!newEamil) setEmailError('이메일 아이디를 입력해주세요.');
       else if (!emailRegex.test(newEamil)) setEmailError('올바른 이메일 형식이 아닙니다.');
-      else setEmailError('');
+      else {
+        setEmailError('');
+      }
       return newEamil;
     });
   };
@@ -50,15 +65,35 @@ const Join = () => {
     });
   };
 
-  const handleNicknameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNicknameInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(() => {
       const newNickname = e.target.value;
-      if (!newNickname) setNicknameError('닉네임을 입력해주세요.');
-      else if (newNickname.length < 2) setNicknameError('닉네임은 2자 이상이어야 합니다.');
-      else setNicknameError('');
-      setIsValid(true);
+      if (!newNickname) {
+        setNicknameError('닉네임을 입력해주세요.');
+        setIsCheckedNickname(false);
+      } else if (newNickname.length < 2) {
+        setNicknameError('닉네임은 2자 이상이어야 합니다.');
+      } else if (newNickname) {
+        setIsCheckedNickname(false);
+        setNicknameError('');
+      }
       return newNickname;
     });
+  };
+
+  const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const {data} = await supabase.from('userinfo').select().eq('username', nickname);
+    // console.log(data);
+    if (data?.length !== 0) {
+      toast.error('이미 사용중인 닉네임입니다.');
+      setIsValid(false);
+      setIsCheckedNickname(false);
+    } else {
+      toast.success('사용 가능한 닉네임입니다.');
+      setIsValid(true);
+      setIsCheckedNickname(true);
+    }
   };
 
   const handleSignupButtonClick = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,12 +107,12 @@ const Join = () => {
         },
       },
     });
-    if (data.user !== null) {
-      navigate('/login');
-    }
     if (error) {
-      console.log(error);
-      toast.error('사용중인 이메일입니다');
+      console.log('회원가입 오류', error.message);
+      if (error.message === 'User already registered') toast.error('이미 사용중인 이메일입니다.');
+    } else {
+      toast.success('회원가입에 성공하였습니다.');
+      navigate('/login');
     }
   };
 
@@ -99,8 +134,12 @@ const Join = () => {
       setIsValid(false);
       return;
     }
+    if (isCheckedNickname === false) {
+      setIsValid(false);
+      return;
+    }
     setIsValid(true);
-  }, [email, password, passwordAgain, nickname]);
+  }, [email, password, passwordAgain, nickname, isCheckedNickname]);
 
   return (
     <StFormWrapper>
@@ -126,13 +165,18 @@ const Join = () => {
             required
           ></StInput>
           <StErrorMessage>{passwordAgainError}</StErrorMessage>
-          <StInput
-            placeholder="사용할 닉네임 입력"
-            value={nickname}
-            onChange={handleNicknameInput}
-            required
-            minLength={2}
-          ></StInput>
+          <StInputDiv>
+            <StInput
+              placeholder="사용할 닉네임 입력"
+              value={nickname}
+              onChange={handleNicknameInput}
+              required
+              minLength={2}
+            ></StInput>
+            <StInputButton className={isCheckedNickname ? 'success' : 'failed'} onClick={handleValidateNickname}>
+              중복확인
+            </StInputButton>
+          </StInputDiv>
           <StErrorMessage>{nicknameError}</StErrorMessage>
           <StSignupBtn
             type="submit"

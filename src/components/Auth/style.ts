@@ -39,7 +39,38 @@ export const StInfoP = styled.p`
   font-size: small;
   background-color: transparent;
 `;
+export const StInputDiv = styled.div`
+  width: 300px;
+  height: 50px;
+  border-bottom: 1px solid gray;
+  background-color: transparent;
 
+  position: relative;
+`;
+export const StInputButton = styled.button`
+  width: 70px;
+  height: 25px;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 25%;
+  right: 0;
+  cursor: pointer;
+
+  font-size: 12px;
+  letter-spacing: 1.1px;
+
+  &.success {
+    background-color: gray;
+    transition: 0.5s;
+  }
+  &.failed {
+    background-color: #5a68e8;
+    transition: 0.5s;
+  }
+`;
 export const StInput = styled.input`
   width: 300px;
   height: 50px;
