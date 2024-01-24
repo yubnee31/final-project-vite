@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
-import {getArtistDetail, getArtistList} from '../api/artistapi';
+import {getArtistDetail} from '../api/artistapi';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 import {useNavigate, useParams} from 'react-router-dom';

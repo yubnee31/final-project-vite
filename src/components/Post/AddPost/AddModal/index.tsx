@@ -135,7 +135,7 @@ const AddPostModal = ({handleModal}) => {
           <St.ModalContent onSubmit={handleSubmitAddPost}>
             <St.ModalHeader>
               <St.ModalTitle>포스트 쓰기</St.ModalTitle>
-              <St.ModalArtistName>artist name</St.ModalArtistName>
+              <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
             </St.ModalHeader>
             <St.ModalContentInput
               type="text"

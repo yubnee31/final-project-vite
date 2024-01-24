@@ -6,6 +6,9 @@ import {artistFollowList, getInitialLikes, getUsers} from '../../api/chartapi';
 import {getArtistList} from '../../api/artistapi';
 import {supabase} from '../../api/supabase';
 import {from} from 'stylis';
+import styled from 'styled-components';
+import checkmark from '../../../src/assets/checkmark.svg';
+import add from '../../../src/assets/add.svg';
 
 interface FollowArtistProps {
   children: React.ReactNode;
@@ -92,11 +95,74 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
   };
 
   return (
-    <>
-      <button onClick={handleFollowToggle}>{followed ? '팔로우 끊기' : '팔로우 하기'}</button>
-      {followCount !== null && <p>{followCount} 명이 팔로우 했습니다.</p>}
-    </>
+    <StDiv>
+      {followCount !== null && (
+        <StFollowNumDiv>
+          팔로우 수 <p>{followCount}</p>
+        </StFollowNumDiv>
+      )}
+      <StButton className={followed ? 'following' : 'follow'} onClick={handleFollowToggle}>
+        {followed ? (
+          <StBtnDiv>
+            <img src={checkmark} /> <StFollowingP>팔로잉</StFollowingP>
+          </StBtnDiv>
+        ) : (
+          <StBtnDiv>
+            <img src={add} /> <StFollowP>팔로우</StFollowP>
+          </StBtnDiv>
+        )}
+      </StButton>
+    </StDiv>
   );
 };
 
 export default FollowArtistBt;
+
+const StFollowNumDiv = styled.div`
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+`;
+
+const StDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+`;
+
+const StButton = styled.button`
+  width: 120px;
+  height: 42px;
+  border: 1px solid #aeaeb2;
+  border-radius: 5px;
+  &.following {
+    color: #9747ff;
+    border: 1px solid #9747ff;
+    transition: 0.3s;
+  }
+  &.follow {
+    transition: 0.3s;
+  }
+`;
+
+const StBtnDiv = styled.div`
+  width: 120px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding-right: 15px;
+  gap: 10px;
+`;
+
+const StFollowingP = styled.p`
+  color: #9747ff;
+  font-size: 16px;
+`;
+
+const StFollowP = styled.p`
+  font-size: 16px;
+`;
