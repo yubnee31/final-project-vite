@@ -7,6 +7,8 @@ import {loginState} from '../../../shared/recoil/authAtom';
 import {supabase} from '../../../api/supabase';
 import alarmIcon from '../../../assets/images/alarm-icon-white.png';
 import searchIcon from '../../../assets/images/search-icon-white.png';
+import {Alarm} from '../../../types/global.d';
+import dayjs from 'dayjs';
 import {
   StBtnDiv,
   StBtnP,
@@ -21,13 +23,25 @@ import {
   StNavWrapper,
   StSearchButton,
   StSignInBtn,
+  StAlarmCounterP,
+  StAlarmListDiv,
+  StAlarmListUl,
+  StAlarmListLi,
+  StAlarmListP,
+  StAlarmTimeP,
+  StAlarmTitleP,
+  StAlarmDeleteBtn,
+  StAlarmContentsDiv,
+  StAlarmDiv,
+  StAlarmP,
 } from './style';
 
 const Nav = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useRecoilState(loginState);
   const [searchInput, setSearchInput] = useState<string>('');
-  const [alarm, setAlarm] = useState([]);
+  const [alarm, setAlarm] = useState<Alarm[]>([]);
+  const [alarmToggle, setAlarmToggle] = useState<boolean>(false);
 
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
@@ -43,19 +57,35 @@ const Nav = () => {
     navigate('/', {state: searchInput});
   };
 
-  // , filter: `userid=in.(${currentUser?.id})` => 유저 정보 받아와서 쿼리문에 필터 기능 추가
   const taskListener = supabase
-    .channel('room1')
+    .channel('schedule-changes')
     .on(
       'postgres_changes',
       {event: 'INSERT', schema: 'public', table: 'userSchedule', filter: `userid=in.(${currentUser?.id})`},
       payload => {
-        console.log('payload', payload.new);
+        console.log('payload', payload);
+        const {id, artist, userid, created_at, title, date} = payload.new;
+        const createdFormat = dayjs(created_at).format('YYYY.MM.DD HH:mm:ss');
+        console.log(createdFormat);
+        const alarmData: Alarm = {
+          id: id,
+          artist: artist,
+          userid: userid,
+          created_at: createdFormat,
+          title: title,
+          date: date,
+        };
+        setAlarm([...alarm, alarmData]);
 
-        // setAlarm(payload);
+        // alarm 을 누르면 display 상태 바뀌기 (알람이 없을 경우 CSS 도 작업)
       },
     )
     .subscribe();
+  console.log(alarm);
+
+  const alarmDeleteHandler = id => {
+    setAlarm(alarm.filter(e => e.id !== id));
+  };
 
   return (
     <>
@@ -79,9 +109,47 @@ const Nav = () => {
                   <StImg src={searchIcon}></StImg>
                 </StSearchButton>
               </StForm>
-              <StButton>
+              <StButton
+                onClick={() => {
+                  setAlarmToggle(!alarmToggle);
+                }}
+              >
                 <StImg src={alarmIcon}></StImg>
+                <StAlarmCounterP>{alarm.length}</StAlarmCounterP>
               </StButton>
+              <StAlarmListDiv className={alarmToggle ? 'On' : 'OFF'}>
+                <StAlarmDiv>
+                  <StAlarmP>알림</StAlarmP>
+                </StAlarmDiv>
+                <StAlarmListUl>
+                  {alarm
+                    .sort((a, b) => {
+                      const aDate: any = new Date(a.created_at);
+                      const bDate: any = new Date(b.created_at);
+                      return bDate - aDate;
+                    })
+                    .map(e => {
+                      return (
+                        <StAlarmListLi>
+                          <StAlarmContentsDiv>
+                            <StAlarmTitleP>{e.artist} 스케줄이 추가되었습니다.</StAlarmTitleP>
+                            <StAlarmListP>
+                              {e.title} / {e.date}
+                            </StAlarmListP>
+                          </StAlarmContentsDiv>
+                          <StAlarmTimeP>{e.created_at}</StAlarmTimeP>
+                          <StAlarmDeleteBtn
+                            onClick={() => {
+                              alarmDeleteHandler(e.id);
+                            }}
+                          >
+                            ✖️
+                          </StAlarmDeleteBtn>
+                        </StAlarmListLi>
+                      );
+                    })}
+                </StAlarmListUl>
+              </StAlarmListDiv>
               {login ? (
                 <>
                   <StSignInBtn
