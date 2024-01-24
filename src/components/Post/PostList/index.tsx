@@ -11,6 +11,7 @@ import {Post} from '../../../types/global.d';
 import {useParams} from 'react-router-dom';
 import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
+import PostLike from './PostLike';
 
 // 1. Community 레이아웃 - 경욱
 
@@ -45,16 +46,16 @@ const PostList = () => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('post CurrentUser', currentUser);
 
   // post list
   const {data: posts, isLoading} = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
   });
+  // console.log('post List', posts);
 
   const currentArtistPost = posts?.filter(post => post.artist === param.artistName);
-  console.log('아티스트 별 게시글', currentArtistPost);
+  // console.log('아티스트 별 게시글', currentArtistPost);
 
   // mutation
   const queryClient = useQueryClient();
@@ -72,9 +73,6 @@ const PostList = () => {
       queryClient.invalidateQueries({queryKey: ['posts']});
     },
   });
-
-  // handler
-  const [editablePosts, setEditablePosts] = useState<Post[]>([]);
 
   // upload photo
   // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
@@ -105,36 +103,41 @@ const PostList = () => {
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
                   <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
                   <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
-                  <St.PostImg src={heartUmg} $left={'1%'} />
+                  <PostLike
+                    postId={post.id}
+                    currentUser={currentUser}
+                    postlike={post.like}
+                    postInfo={post.like_userInfo}
+                  />
                   <St.PostImg src={commentImg} $left={'6.5%'} />
-                  {/* <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} /> */}
-                  {/* {openToggle && ( */}
-                  <>
-                    {post.userid === currentUser?.user_metadata.name ? (
-                      <St.PostBtnDiv>
-                        <St.PostBtn
-                          onClick={() => {
-                            deleteMutation.mutate(post.id);
-                          }}
-                        >
-                          삭제
-                        </St.PostBtn>
-                        <St.PostBtn
-                          onClick={() => {
-                            handleModal(post.id);
-                          }}
-                        >
-                          수정
-                        </St.PostBtn>
-                      </St.PostBtnDiv>
-                    ) : (
-                      <St.PostBtnDiv>
-                        <St.PostBtn>차단</St.PostBtn>
-                        <St.PostBtn>신고</St.PostBtn>
-                      </St.PostBtnDiv>
-                    )}
-                  </>
-                  {/* )} */}
+                  <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
+                  {openToggle && (
+                    <>
+                      {post.userid === currentUser?.user_metadata.name ? (
+                        <St.PostBtnDiv>
+                          <St.PostBtn
+                            onClick={() => {
+                              deleteMutation.mutate(post.id);
+                            }}
+                          >
+                            삭제
+                          </St.PostBtn>
+                          <St.PostBtn
+                            onClick={() => {
+                              handleModal(post.id);
+                            }}
+                          >
+                            수정
+                          </St.PostBtn>
+                        </St.PostBtnDiv>
+                      ) : (
+                        <St.PostBtnDiv>
+                          <St.PostBtn>차단</St.PostBtn>
+                          <St.PostBtn>신고</St.PostBtn>
+                        </St.PostBtnDiv>
+                      )}
+                    </>
+                  )}
                 </St.PostLi>
               );
             })}
