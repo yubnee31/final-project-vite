@@ -5,31 +5,45 @@ import bannerImg from '../assets/images/bannerImg.png';
 import {getArtistList} from '../api/artistapi';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
-// import { supabase } from "../api/supabase";
+import {supabase} from '../api/supabase';
+import {getCurrentUser} from '../api/currentUser';
 
 const Home = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
+  const [followAt, setFollowAt] = useState([]);
+  //const user = getCurrentUser();
 
   const {data: artistList, isLoading: artistLoading} = useQuery({
     queryKey: ['artist'],
     queryFn: getArtistList,
   });
 
+  //로그인 하면 팔로우된 유저 정보를 불러온다.
+  const fetchFollowArtist = async () => {
+    try {
+      //로그인 된 사용자 정보 확인
+      const user = await supabase.auth.getUser();
+      const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
+      setFollowAt(userinfoData[0]?.artist_follow);
+    } catch (error) {
+      console.log('팔로우된 아티스트 불러오기 실패', error);
+    }
+  };
+
   useEffect(() => {
     if (searchInput) {
       const filteredArtists = artistList?.filter(item => item.artist.includes(searchInput));
       setSearchedResults(filteredArtists);
     }
+    fetchFollowArtist();
   }, []);
 
   const artistNavigateHandler = (artistName: string) => {
     navigate(`artist/${artistName}`);
   };
-
-  const myArtistTestData = ['나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트', '나의 아티스트'];
 
   if (artistLoading) {
     return (
@@ -73,19 +87,30 @@ const Home = () => {
             {/* // My Artist */}
             <StSideWrapper>
               {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
-              {/* <StDiv>
+              <StDiv>
                 <StSpan>나의 아티스트</StSpan>
                 <StArtistDiv>
-                  {myArtistTestData.map(el => {
-                    return (
-                      <StArtistTargetDiv>
-                        <StArtistTargetImgDiv></StArtistTargetImgDiv>
-                        <StArtistTargetP>{el}</StArtistTargetP>
-                      </StArtistTargetDiv>
-                    );
-                  })}
+                  {followAt.length > 0 ? (
+                    followAt.map((followAt, index) => {
+                      console.log('Artist Object:', followAt);
+
+                      return (
+                        <StListTargetDiv
+                          key={followAt.artistId.id}
+                          onClick={() => artistNavigateHandler(followAt.artistId.artist)}
+                        >
+                          <div>
+                            <StArtistTargetImg src={followAt.artistId.photo_url} />
+                          </div>
+                          <StListTargetP>{followAt.artistId.artist}</StListTargetP>
+                        </StListTargetDiv>
+                      );
+                    })
+                  ) : (
+                    <p>팔로우한 아티스트가 없습니다.</p>
+                  )}
                 </StArtistDiv>
-              </StDiv> */}
+              </StDiv>
 
               {/* // Artist List */}
               <StListWrapper>
@@ -161,6 +186,7 @@ const StBannerImg = styled.img`
 // My Artist
 const StDiv = styled.div`
   margin-top: 30px;
+  margin-bottom: 60px;
   width: 1920px;
   height: 300px;
   padding-left: 240px;
@@ -236,5 +262,30 @@ const StListTargetP = styled.p`
   margin-top: 20px;
   font-size: 18px;
 `;
+const StFwAtistContainer = styled.div`
+  margin-right: 40px;
+  cursor: pointer;
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: filter 0.3s ease;
 
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+
+  &:hover::after {
+    position: absolute;
+    padding: 10px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+`;
 export default Home;
