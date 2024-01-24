@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import nomalimage from '../../assets/images/normalimage.jpg';
 import MyAccount from './MyAccount';
 import Slider from 'react-slick';
+import {useNavigate} from 'react-router';
 
 interface AccountSettingProps {
   user: {
@@ -26,7 +27,11 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [followAt, setfollowAt] = useState([]);
+  const [followAt, setFollowAt] = useState([]);
+  const navigate = useNavigate();
+  const artistNavigateHandler = (artistName: string) => {
+    navigate(`/artist/${artistName}`);
+  };
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -114,23 +119,13 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const fetchFollowArtist = async () => {
     try {
       const {data} = await supabase.from('userinfo').select('artist_follow').eq('id', user.id);
-      console.log('팔로우된 아티스트 데이터', data);
+      //console.log('팔로우된 아티스트 데이터', data[0].artist_follow);
+      setFollowAt(data[0]?.artist_follow || []);
     } catch (error) {
       console.log('팔로우된 아티스트 불러오기 실패', error);
     }
   };
-  //아티스트 리스트
-  // const artistList = [
-  //   // {name: '아티스트', fanclubname: '팬클럽1', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽2', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽3', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽4', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  //   // {name: '아티스트', fanclubname: '팬클럽5', image: nomalimage},
-  // ];
+
   const handleMouseUp = () => {
     setIsDragging(false);
   };
@@ -170,15 +165,25 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
             >
-              {/* {artistList.map((artist, index) => (
-                <StFwAtistContainer key={`${index}`}>
-                  <div>
-                    <img src={nomalimage} alt={`아티스트 이미지 -${artist.name}`} />
-                  </div>
-                  <p>{artist.name}</p>
-                  <p>{artist.fanclubname}</p>
-                </StFwAtistContainer>
-              ))} */}
+              {followAt.length > 0 ? (
+                followAt.map((followAt, index) => {
+                  console.log('Artist Object:', followAt);
+
+                  return (
+                    <StFwAtistContainer
+                      key={followAt.artistId.id}
+                      onClick={() => artistNavigateHandler(followAt.artistId.artist)}
+                    >
+                      <div>
+                        <img src={followAt.artistId.photo_url} />
+                      </div>
+                      <p>{followAt.artistId.artist}</p>
+                    </StFwAtistContainer>
+                  );
+                })
+              ) : (
+                <p>팔로우한 아티스트가 없습니다.</p>
+              )}
             </StFollowArtistList>
           </StMyFollowContainer>
         </>
