@@ -1,6 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {StErrorMessage, StForm, StFormDiv, StFormWrapper, StInfoP, StInput, StSignupBtn, StTitleP} from './style';
+import {
+  StErrorMessage,
+  StForm,
+  StFormDiv,
+  StFormWrapper,
+  StInfoP,
+  StInput,
+  StSignupBtn,
+  StTitleP,
+  StInputDiv,
+  StInputButton,
+} from './style';
 import {toast} from 'react-toastify';
 import {supabase} from '../../api/supabase';
 
@@ -57,23 +68,29 @@ const Join = () => {
   const handleNicknameInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(() => {
       const newNickname = e.target.value;
-      if (!newNickname) setNicknameError('닉네임을 입력해주세요.');
-      else if (newNickname.length < 2) setNicknameError('닉네임은 2자 이상이어야 합니다.');
-      else setNicknameError('');
+      if (!newNickname) {
+        setNicknameError('닉네임을 입력해주세요.');
+        setIsCheckedNickname(false);
+      } else if (newNickname.length < 2) {
+        setNicknameError('닉네임은 2자 이상이어야 합니다.');
+      } else if (newNickname) {
+        setIsCheckedNickname(false);
+        setNicknameError('');
+      }
       return newNickname;
     });
   };
 
   const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const {data, error} = await supabase.from('userinfo').select().eq('username', nickname);
+    const {data} = await supabase.from('userinfo').select().eq('username', nickname);
     // console.log(data);
     if (data?.length !== 0) {
-      setNicknameError('이미 사용중인 닉네임입니다.');
+      toast.error('이미 사용중인 닉네임입니다.');
       setIsValid(false);
       setIsCheckedNickname(false);
     } else {
-      setNicknameError('');
+      toast.success('사용 가능한 닉네임입니다.');
       setIsValid(true);
       setIsCheckedNickname(true);
     }
@@ -122,7 +139,7 @@ const Join = () => {
       return;
     }
     setIsValid(true);
-  }, [email, password, passwordAgain, nickname]);
+  }, [email, password, passwordAgain, nickname, isCheckedNickname]);
 
   return (
     <StFormWrapper>
@@ -148,14 +165,18 @@ const Join = () => {
             required
           ></StInput>
           <StErrorMessage>{passwordAgainError}</StErrorMessage>
-          <StInput
-            placeholder="사용할 닉네임 입력"
-            value={nickname}
-            onChange={handleNicknameInput}
-            required
-            minLength={2}
-          ></StInput>
-          <button onClick={handleValidateNickname}>중복확인</button>
+          <StInputDiv>
+            <StInput
+              placeholder="사용할 닉네임 입력"
+              value={nickname}
+              onChange={handleNicknameInput}
+              required
+              minLength={2}
+            ></StInput>
+            <StInputButton className={isCheckedNickname ? 'success' : 'failed'} onClick={handleValidateNickname}>
+              중복확인
+            </StInputButton>
+          </StInputDiv>
           <StErrorMessage>{nicknameError}</StErrorMessage>
           <StSignupBtn
             type="submit"
