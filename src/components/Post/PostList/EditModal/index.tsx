@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {updatePost} from '../../../../api/post';
+import {useParams} from 'react-router-dom';
 
 const EditPostModal = ({handleModal, modalData}) => {
+  const param = useParams();
   const queryClient = useQueryClient();
   const editMutation = useMutation({
     mutationFn: updatePost,
@@ -40,7 +42,7 @@ const EditPostModal = ({handleModal, modalData}) => {
             }}
           >
             <St.EditPostModalTitle>post 수정하기</St.EditPostModalTitle>
-            <St.EditPosModalArtistName>artist name</St.EditPosModalArtistName>
+            <St.EditPosModalArtistName>{param.artistName}</St.EditPosModalArtistName>
             <St.EditPostModalInput
               type="text"
               placeholder="내용수정"
