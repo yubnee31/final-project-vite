@@ -112,6 +112,7 @@ export const artistFollowList = async (targetData: any) => {
 
     // isFollowing이 true이면 언팔로우, false이면 팔로우
     let updatedArtistFollow;
+
     console.log('updatedArtistFollow', updatedArtistFollow);
     if (isFollowing) {
       // 이미 팔로우 중이면 언팔로우 처리
