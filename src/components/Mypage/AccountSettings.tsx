@@ -26,6 +26,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [followAt, setfollowAt] = useState([]);
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -34,7 +35,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     } else {
       fetchData();
       fetchImageData();
-      console.log('무한루프');
+      fetchFollowArtist();
     }
   }, [user]);
 
@@ -110,7 +111,14 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     setShowMyAccount(false);
     fetchImageData();
   };
-
+  const fetchFollowArtist = async () => {
+    try {
+      const {data} = await supabase.from('userinfo').select('artist_follow').eq('id', user.id);
+      console.log('팔로우된 아티스트 데이터', data);
+    } catch (error) {
+      console.log('팔로우된 아티스트 불러오기 실패', error);
+    }
+  };
   //아티스트 리스트
   // const artistList = [
   //   // {name: '아티스트', fanclubname: '팬클럽1', image: nomalimage},
