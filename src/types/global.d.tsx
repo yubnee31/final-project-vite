@@ -5,7 +5,7 @@ export type Post = {
   created_at?: string;
   userid?: string;
   isEditing?: boolean;
-}
+};
 
 export type Schedule = {
   scheduleId?: number;
@@ -14,4 +14,13 @@ export type Schedule = {
   date?: string;
   place?: string;
   title?: string;
+};
+
+export type Alarm = {
+  id: string;
+  artist: string;
+  userid: string;
+  created_at: string;
+  title: string;
+  date: string;
 };
