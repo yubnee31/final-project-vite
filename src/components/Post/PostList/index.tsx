@@ -12,7 +12,7 @@ import {useParams} from 'react-router-dom';
 import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
 import PostLike from './PostLike';
-
+import dayjs from 'dayjs';
 // 1. Community 레이아웃 - 경욱
 
 // 1. 유저 정보 연동 => 내 게시글에만 수정, 삭제 뜨기 V
@@ -101,8 +101,8 @@ const PostList = () => {
                   <St.PostNameP>{post.userid}</St.PostNameP>
                   <St.PostContentsP>{post.content}</St.PostContentsP>
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
-                  <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
-                  <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
+                  <St.PostTimeP $right={'14%'}>{dayjs(post.created_at).format('HH:mm')}</St.PostTimeP>
+                  <St.PostTimeP $right={'1%'}>{dayjs(post.created_at).format('YYYY.MM.DD')}</St.PostTimeP>
                   <PostLike
                     postId={post.id}
                     currentUser={currentUser}
