@@ -19,13 +19,17 @@ const Join = () => {
   const [passwordAgainError, setPasswordAgainError] = useState<string>('');
   const [nicknameError, setNicknameError] = useState<string>('');
 
+  const [isCheckedNickname, setIsCheckedNickname] = useState<boolean>(false);
+
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(() => {
       const newEamil = e.target.value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!newEamil) setEmailError('이메일 아이디를 입력해주세요.');
       else if (!emailRegex.test(newEamil)) setEmailError('올바른 이메일 형식이 아닙니다.');
-      else setEmailError('');
+      else {
+        setEmailError('');
+      }
       return newEamil;
     });
   };
@@ -50,15 +54,29 @@ const Join = () => {
     });
   };
 
-  const handleNicknameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNicknameInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(() => {
       const newNickname = e.target.value;
       if (!newNickname) setNicknameError('닉네임을 입력해주세요.');
       else if (newNickname.length < 2) setNicknameError('닉네임은 2자 이상이어야 합니다.');
       else setNicknameError('');
-      setIsValid(true);
       return newNickname;
     });
+  };
+
+  const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const {data, error} = await supabase.from('userinfo').select().eq('username', nickname);
+    // console.log(data);
+    if (data?.length !== 0) {
+      setNicknameError('이미 사용중인 닉네임입니다.');
+      setIsValid(false);
+      setIsCheckedNickname(false);
+    } else {
+      setNicknameError('');
+      setIsValid(true);
+      setIsCheckedNickname(true);
+    }
   };
 
   const handleSignupButtonClick = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,12 +90,12 @@ const Join = () => {
         },
       },
     });
-    if (data.user !== null) {
-      navigate('/login');
-    }
     if (error) {
-      console.log(error);
-      toast.error('사용중인 이메일입니다');
+      console.log('회원가입 오류', error.message);
+      if (error.message === 'User already registered') toast.error('이미 사용중인 이메일입니다.');
+    } else {
+      toast.success('회원가입에 성공하였습니다.');
+      navigate('/login');
     }
   };
 
@@ -96,6 +114,10 @@ const Join = () => {
       return;
     }
     if (nickname.length < 2) {
+      setIsValid(false);
+      return;
+    }
+    if (isCheckedNickname === false) {
       setIsValid(false);
       return;
     }
@@ -133,6 +155,7 @@ const Join = () => {
             required
             minLength={2}
           ></StInput>
+          <button onClick={handleValidateNickname}>중복확인</button>
           <StErrorMessage>{nicknameError}</StErrorMessage>
           <StSignupBtn
             type="submit"
