@@ -1,41 +1,46 @@
-import {UseMutationOptions, useMutation, useQueryClient} from '@tanstack/react-query';
-import React from 'react';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import React, {useState} from 'react';
 import St from './style';
-import heartUmg from '../../../../assets/images/heart-white.png';
-import {addLikePost} from '../../../../api/post';
+import {updateLikes} from '../../../../api/like';
+import heartImgWhite from '../../../../assets/images/heart-white.png';
+import heartImgRed from '../../../../assets/images/heart-red.png';
 
-interface postLike {
-  Id: number;
-}
-const PostLike = ({postLike, currentUser}) => {
+const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
   const queryClient = useQueryClient();
-  const {mutate} = useMutation<void, Error, void, unknown>({
-    mutationFn: async () => {
-      await addLikePost(postLike);
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
-    },
-    onError: context => {
-      const previousData = context || {};
-      queryClient.setQueryData(['posts'], previousData);
-    },
-    onSettled: async () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
-    },
-  } as UseMutationOptions<void, Error, void, unknown>);
 
-  const handleLikeToggle = () => {
-    if (currentUser) {
-      mutate();
+  const likeMutation = useMutation({
+    mutationFn: updateLikes,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['posts']});
+    },
+  });
+
+  const [liked, setLiked] = useState(false);
+
+  const userInfo = {id: currentUser.id};
+
+  const onClickLikeHandler = () => {
+    const target = postInfo?.filter(e => e.id === currentUser.id);
+    if (target.length) {
+      const likeCounter = postlike - 1;
+      const postInfoData = postInfo.filter(e => e.id !== userInfo.id);
+      const param = {id: postId, likeUserInfo: postInfoData, likeCount: likeCounter};
+      likeMutation.mutate(param);
+      setLiked(false);
+    } else {
+      const likeCounter = postlike + 1;
+      postInfo.push(userInfo);
+      const param = {id: postId, likeUserInfo: postInfo, likeCount: likeCounter};
+      likeMutation.mutate(param);
+      setLiked(true);
     }
   };
 
   return (
-    <>
-      <St.LikeBtnImg onClick={handleLikeToggle} src={heartUmg} $left={'1%'} />
-      {/* <button onClick={handleLikeToggle}>좋아요</button> */}
-    </>
+    <St.LikeBtnDiv>
+      <St.LikeBtnImg src={liked ? heartImgRed : heartImgWhite} onClick={onClickLikeHandler} />
+      <St.LikeCountP>{postlike}</St.LikeCountP>
+    </St.LikeBtnDiv>
   );
 };
 

@@ -74,9 +74,6 @@ const PostList = () => {
     },
   });
 
-  // handler
-  const [editablePosts, setEditablePosts] = useState<Post[]>([]);
-
   // upload photo
   // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
 
@@ -106,37 +103,41 @@ const PostList = () => {
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
                   <St.PostTimeP $right={'14%'}>{post.created_at}</St.PostTimeP>
                   <St.PostTimeP $right={'1%'}>{post.created_at}</St.PostTimeP>
-                  {/* <St.PostImg src={heartUmg} $left={'1%'} /> */}
-                  <PostLike postLike={post.id} currentUser={currentUser} />
+                  <PostLike
+                    postId={post.id}
+                    currentUser={currentUser}
+                    postlike={post.like}
+                    postInfo={post.like_userInfo}
+                  />
                   <St.PostImg src={commentImg} $left={'6.5%'} />
-                  {/* <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} /> */}
-                  {/* {openToggle && ( */}
-                  <>
-                    {post.userid === currentUser?.user_metadata.name ? (
-                      <St.PostBtnDiv>
-                        <St.PostBtn
-                          onClick={() => {
-                            deleteMutation.mutate(post.id);
-                          }}
-                        >
-                          삭제
-                        </St.PostBtn>
-                        <St.PostBtn
-                          onClick={() => {
-                            handleModal(post.id);
-                          }}
-                        >
-                          수정
-                        </St.PostBtn>
-                      </St.PostBtnDiv>
-                    ) : (
-                      <St.PostBtnDiv>
-                        <St.PostBtn>차단</St.PostBtn>
-                        <St.PostBtn>신고</St.PostBtn>
-                      </St.PostBtnDiv>
-                    )}
-                  </>
-                  {/* )} */}
+                  <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
+                  {openToggle && (
+                    <>
+                      {post.userid === currentUser?.user_metadata.name ? (
+                        <St.PostBtnDiv>
+                          <St.PostBtn
+                            onClick={() => {
+                              deleteMutation.mutate(post.id);
+                            }}
+                          >
+                            삭제
+                          </St.PostBtn>
+                          <St.PostBtn
+                            onClick={() => {
+                              handleModal(post.id);
+                            }}
+                          >
+                            수정
+                          </St.PostBtn>
+                        </St.PostBtnDiv>
+                      ) : (
+                        <St.PostBtnDiv>
+                          <St.PostBtn>차단</St.PostBtn>
+                          <St.PostBtn>신고</St.PostBtn>
+                        </St.PostBtnDiv>
+                      )}
+                    </>
+                  )}
                 </St.PostLi>
               );
             })}

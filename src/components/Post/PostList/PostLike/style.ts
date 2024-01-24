@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const LikeBtnImg = styled.img`
-  width: 25px;
-  height: 25px;
+  width: inherit;
+  height: inherit;
   object-fit: cover;
   background-size: cover;
   background-color: transparent;
@@ -14,4 +14,17 @@ const LikeBtnImg = styled.img`
   cursor: pointer;
 `;
 
-export default {LikeBtnImg};
+const LikeBtnDiv = styled.div`
+  width: 25px;
+  height: 25px;
+`;
+
+const LikeCountP = styled.p`
+  position: absolute;
+  left: 3%;
+  bottom: 10%;
+  width: 10px;
+  height: 10px;
+`;
+
+export default {LikeBtnImg, LikeBtnDiv, LikeCountP};
