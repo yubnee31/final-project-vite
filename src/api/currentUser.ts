@@ -5,9 +5,16 @@ const getCurrentUser = async () => {
   const {
     data: {user},
   } = await supabase.auth.getUser();
-  console.log('현재 로그인 된 유저', user?.id);
-  console.log('user', user);
   return user;
 };
 
-export {getCurrentUser};
+const getTargetUserInfo = async () => {
+  try {
+    const {data, error} = await supabase.from('userinfo').select('*');
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {getCurrentUser, getTargetUserInfo};

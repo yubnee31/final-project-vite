@@ -56,6 +56,19 @@ const PostImg = styled.img`
 
   cursor: pointer;
 `;
+const CommentImg = styled.img`
+  width: 27px;
+  height: 27px;
+  object-fit: cover;
+  background-size: cover;
+  background-color: transparent;
+
+  position: absolute;
+  left: ${props => props.$left};
+  bottom: 8%;
+
+  cursor: pointer;
+`;
 const PostBtnDiv = styled.div`
   margin-top: 85px;
   margin-left: 810px;
@@ -86,4 +99,5 @@ export default {
   PostContentsP,
   PostTimeP,
   PostImg,
+  CommentImg,
 };
