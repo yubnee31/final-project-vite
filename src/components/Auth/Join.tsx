@@ -84,7 +84,6 @@ const Join = () => {
   const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const {data} = await supabase.from('userinfo').select().eq('username', nickname);
-    // console.log(data);
     if (data?.length !== 0) {
       toast.error('이미 사용중인 닉네임입니다.');
       setIsValid(false);

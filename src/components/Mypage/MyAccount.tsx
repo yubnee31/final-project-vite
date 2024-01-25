@@ -112,7 +112,41 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     }
   };
 
-  const updateProfile = async () => {
+  // const updateProfile = async () => {
+  //   if (!selectedImage) return;
+
+  //   // 프로필 업로드
+  //   const uniqueKey = `profile-image/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
+  //   const {data: uploadData, error: uploadError} = await supabase.storage
+  //     .from('profile-images')
+  //     .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
+
+  //   if (uploadError) {
+  //     console.error('프로필 업로드 실패', uploadError);
+  //     return;
+  //   }
+
+  //   const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
+  //   const bucketName = 'profile-images';
+
+  //   // 프로필 정보 업데이트
+  //   const {data: profileData, error} = await supabase
+  //     .from('userinfo')
+  //     .update({profile_image: uniqueKey})
+  //     .eq('id', user.id)
+  //     .select();
+
+  //   if (error) {
+  //     console.error('프로필 업데이트 실패', error);
+  //   } else {
+  //     console.log('프로필 업데이트 완료');
+  //     const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
+  //     // 이미지 업로드 후 프로필 이미지 상태 업데이트
+  //     setProfileImage(uploadUrl);
+  //     alert('프로필 수정완료 ');
+  //   }
+  // };
+  const handleCompleteSettings = async () => {
     if (!selectedImage) return;
 
     // 프로필 업로드
@@ -145,8 +179,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       setProfileImage(uploadUrl);
       alert('프로필 수정완료 ');
     }
-  };
-  const handleCompleteSettings = () => {
     // 여기서 설정 완료 버튼을 눌렀을 때 처리할 로직 추가
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     onCompleteSettings();
@@ -169,6 +201,11 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       <StMyAccount>
         <StProfileImage src={profileImage} alt="아바타 이미지" />
       </StMyAccount>
+      <StProfileSettingContainer>
+        <input id="profileImg" type="file" accept="image/*" style={{display: 'none'}} onChange={handleImageChange} />
+        {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
+        <label htmlFor="profileImg">프로필 수정</label>
+      </StProfileSettingContainer>
       <StNickName>
         <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
       </StNickName>
@@ -176,8 +213,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         <StUpdateContainer>
           <h1>이메일</h1>
           <p>{user.email}</p>
-          <h1>핸드폰</h1>
-          <p>010-0000-0000</p>
           <h2>닉네임 변경하기 </h2>
 
           <input
@@ -186,13 +221,11 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
             value={editNickname}
             onChange={handleNicknameChange}
           />
+
           <StUpdateNicknameBt onClick={updateNickname}>닉네임 수정</StUpdateNicknameBt>
-          <StProfileSettingContainer>
-            <p>프로필 이미지</p>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            <button onClick={updateProfile}>프로필 수정</button>
-          </StProfileSettingContainer>
-          <button onClick={handleCompleteSettings}>설정 완료</button>
+          <div>
+            <button onClick={handleCompleteSettings}>저장</button>
+          </div>
         </StUpdateContainer>
       )}
     </>
