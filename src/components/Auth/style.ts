@@ -148,7 +148,6 @@ export const StGoogleLoginBtn = styled.button`
   border-radius: 5px;
   &:hover {
     cursor: pointer;
-    font-weight: bold;
   }
 `;
 
