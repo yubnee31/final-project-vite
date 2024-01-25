@@ -6,10 +6,6 @@ export const StFormWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  /* align-items: center; 
-  justify-content: center;
-  flex-direction: column;
-  text-align: center; */
 `;
 
 export const StForm = styled.form`
@@ -92,7 +88,6 @@ export const StSigninBtn = styled.button`
   margin-top: 10px;
   border: none;
   border-radius: 5px;
-  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
@@ -157,18 +152,31 @@ export const StGoogleLoginBtn = styled.button`
   }
 `;
 
-export const StKakaoLoginBtn = styled.button`
+export const StGoogleIcon = styled.img`
+  height: 18px;
+  background-color: transparent;
+`;
+
+export const StGoogleDiv = styled.div`
+  background-color: transparent;
+  margin-left: 10px;
+  width: 170px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const StGoogleP = styled.p`
+  background-color: transparent;
+  color: black;
+`;
+
+export const StKakaoImg = styled.img`
   width: 300px;
   height: 40px;
-  font-size: small;
-  background-color: #fee500;
-  color: black;
-  border: none;
-  margin-bottom: 10px;
-  border-radius: 5px;
   &:hover {
     cursor: pointer;
-    font-weight: bold;
   }
 `;
 
@@ -179,7 +187,6 @@ export const StSignupBtn = styled.button`
   margin-top: 20px;
   border: none;
   border-radius: 5px;
-  /* background-image: linear-gradient(45deg, #cc51d6, #5a68e8, #e1b1ff); */
   &:hover {
     cursor: pointer;
     font-weight: bold;
