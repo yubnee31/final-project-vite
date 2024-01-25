@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {getCurrentUser} from '../../../../api/currentUser';
+import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {addPost, getPosts} from '../../../../api/post';
 import postPhotoImg from '../../../assets/images/post-photo.png';
 import {supabase} from '../../../../api/supabase';
@@ -16,7 +16,11 @@ const AddPostModal = ({handleModal}) => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('post CurrentUser', currentUser);
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
 
   const {data: posts} = useQuery({
     queryKey: ['posts'],
@@ -38,7 +42,7 @@ const AddPostModal = ({handleModal}) => {
   const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     const newPost = {
-      userid: currentUser?.user_metadata.name,
+      userid: targetUser?.username,
       photo_url: posts?.photo_url,
       content: content,
       artist: param.artistName,

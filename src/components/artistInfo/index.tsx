@@ -5,6 +5,7 @@ import {useQuery} from '@tanstack/react-query';
 import {getArtistDetail} from '../../api/artistapi';
 import {useNavigate} from 'react-router-dom';
 import Spinner from '../Common/Spinner';
+import {getTargetUserInfo} from '../../api/currentUser';
 
 const Info = ({param}: string) => {
   const navigate = useNavigate();
@@ -13,6 +14,11 @@ const Info = ({param}: string) => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
 
   const {data: artistDetail, isLoading} = useQuery({
     queryKey: [''],
@@ -39,7 +45,7 @@ const Info = ({param}: string) => {
       </St.BannerDiv>
       <St.InfoDiv>
         <St.InfoNameDiv>
-          <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
+          <St.InfoNameP>{targetUser?.username}</St.InfoNameP>
         </St.InfoNameDiv>
         <St.InfoFollowerDiv>
           <St.InfoFollowP>109</St.InfoFollowP>

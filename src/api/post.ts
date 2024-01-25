@@ -16,7 +16,6 @@ type newPost = Omit<POST, 'id' | 'createdAt'>;
 const getPosts = async () => {
   try {
     const {data, error} = await supabase.from('posts').select('*');
-    console.log('data', data);
     return data;
   } catch (error) {
     console.log('Error', error);

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Footer = () => {
   return (
@@ -14,7 +14,6 @@ const Footer = () => {
           <StLi>쿠키정책</StLi>
           <StLi>쿠키 설정</StLi>
         </StUl>
-
       </StDiv>
       <StInfoWrapper>
         <StInfoDiv>
@@ -22,58 +21,51 @@ const Footer = () => {
         </StInfoDiv>
       </StInfoWrapper>
       {/* Info */}
-
-
     </StWrapper>
-  )
-}
-
+  );
+};
 
 const StWrapper = styled.div`
-height: 200px;
-width: 100vw;
-background-color: black;
+  height: 200px;
+  width: 100vw;
+  background-color: black;
 
-color: gray;
-`
+  color: gray;
+`;
 // Policy
 const StDiv = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const StUl = styled.ul`
-width: 1400px;
+  width: 1440px;
 
-border-top: 2px solid gray;
-border-bottom: 2px solid #1d1d1d;
-display: flex;
-`
+  border-top: 2px solid gray;
+  border-bottom: 2px solid #1d1d1d;
+  display: flex;
+`;
 const StLi = styled.li`
-margin-top: 25px;
-margin-bottom: 25px;
-padding-right: 50px;
-cursor: pointer;
-color: #bdbdbd;
-
-`
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding-right: 50px;
+  cursor: pointer;
+  color: #bdbdbd;
+`;
 // Info
 
 const StInfoWrapper = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const StInfoDiv = styled.div`
-width: 1400px;
-margin-top: 30px;
-`
+  width: 1440px;
+  margin-top: 30px;
+`;
 
 const StInfoSpan = styled.span`
-color: #bdbdbd;
+  color: #bdbdbd;
+`;
 
-`
-
-
-export default Footer
+export default Footer;

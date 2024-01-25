@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import React, {useState} from 'react';
+import React from 'react';
 import St from './style';
 import {updateLikes} from '../../../../api/like';
 import heartImgWhite from '../../../../assets/images/heart-white.png';
