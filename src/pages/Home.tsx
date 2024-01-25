@@ -90,7 +90,7 @@ const Home = () => {
               <StDiv>
                 <StSpan>나의 아티스트</StSpan>
                 <StArtistDiv>
-                  {followAt.length > 0 ? (
+                  {followAt?.length > 0 ? (
                     followAt.map((followAt, index) => {
                       console.log('Artist Object:', followAt);
 

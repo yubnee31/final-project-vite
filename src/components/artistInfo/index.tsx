@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import St from './style';
 import {getCurrentUser} from '../../api/currentUser';
 import {useQuery} from '@tanstack/react-query';
 import {getArtistDetail} from '../../api/artistapi';
 import {useNavigate} from 'react-router-dom';
 import Spinner from '../Common/Spinner';
+import PortalModal from '../Common/portalModal';
+import OpenPostModal from '../Post/PostList/OpenModal';
 
 const Info = ({param}: string) => {
+  // modal
+  const [openModal, setOpenModal] = useState(false);
+  const [modalData, setModalData] = useState('');
+  const handleModal = id => {
+    setModalData(id);
+    setOpenModal(!openModal);
+  };
   const navigate = useNavigate();
 
   const {data: currentUser} = useQuery({
@@ -38,7 +47,10 @@ const Info = ({param}: string) => {
         <St.BannerImg src={detailTargetData?.community_banner} />
       </St.BannerDiv>
       <St.InfoDiv>
-        <St.InfoNameDiv>
+        <St.InfoNameDiv onClick={handleModal}>
+          <PortalModal>
+            {openModal && <OpenPostModal handleModal={handleModal} currentUser={currentUser} modalData={modalData} />}
+          </PortalModal>
           <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
         </St.InfoNameDiv>
         <St.InfoFollowerDiv>

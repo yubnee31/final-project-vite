@@ -7,6 +7,16 @@ export type Post = {
   isEditing?: boolean;
 };
 
+export type Comment = {
+  postid?: string;
+  commentid?: string;
+  userid?: string;
+  comment?: string;
+  re_comment?: string;
+  isEditing?: boolean;
+  created_at?: string;
+};
+
 export type Schedule = {
   scheduleId?: number;
   userid?: string;
