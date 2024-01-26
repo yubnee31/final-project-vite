@@ -18,10 +18,15 @@ interface AccountSettingProps {
 }
 
 const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingProps) => {
-  const [editNickname, setEditNickname] = useState('');
+  const [editNickname, setEditNickname] = useState<string>('');
   const [displayNickname, setDisplayNickname] = useState('');
   const [profileImage, setProfileImage] = useState(nomalimage);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
+  //에러
+  const [nicknameError, setNicknameError] = useState<string>('');
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isCheckedNickname, setIsCheckedNickname] = useState<boolean>(false);
 
   //유저 닉네임 수파베이스에서 불러오기
   const fetchData = async () => {
@@ -74,31 +79,35 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     }
   };
 
-  // const updateNickname = async () => {
-  //   // 사용자 정보 업데이트
-  //   const {data, error} = await supabase.from('userinfo').update({username: editNickname}).eq('id', user.id).select();
+  const handleNicknameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditNickname(() => {
+      const newNickname = e.target.value;
+      if (!newNickname) {
+        setNicknameError('변경할 닉네임을 입력해주세요.');
+        setIsCheckedNickname(false);
+      } else if (newNickname.length < 2) {
+        setNicknameError('닉네임은 2자 이상이어야 합니다.');
+        setIsCheckedNickname(false);
+      } else if (newNickname) {
+        setIsCheckedNickname(false);
+        setNicknameError('');
+      }
+      return newNickname;
+    });
+  };
 
-  //   if (error) {
-  //     console.error('닉네임 업데이트 실패', error);
-  //   } else {
-  //     console.log('닉네임 업데이트 완료');
-  //     onUpdateNickname(editNickname);
-
-  //     alert('닉네임이 변경되었습니다.');
-  //     setDisplayNickname(editNickname);
-  //     setEditNickname('');
-  //   }
-  // };
-
-  const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newNickname = e.target.value;
-
-    // 길이 체크
-    if (newNickname.length <= 6) {
-      setEditNickname(newNickname);
+  const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const {data} = await supabase.from('userinfo').select().eq('username', editNickname);
+    console.log(data);
+    if (data?.length !== 0) {
+      toast.error('이미 사용중인 닉네임입니다.');
+      setIsValid(false);
+      setIsCheckedNickname(false);
     } else {
-      // 길이가 6자 이상인 경우 처리
-      return;
+      toast.success('사용 가능한 닉네임입니다.');
+      setIsValid(true);
+      setIsCheckedNickname(true);
     }
   };
 
@@ -110,43 +119,10 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       // 이미지 선택 후 프로필 이미지 상태 업데이트
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
+      setIsValid(true);
     }
   };
 
-  // const updateProfile = async () => {
-  //   if (!selectedImage) return;
-
-  //   // 프로필 업로드
-  //   const uniqueKey = `profile-image/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-  //   const {data: uploadData, error: uploadError} = await supabase.storage
-  //     .from('profile-images')
-  //     .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
-
-  //   if (uploadError) {
-  //     console.error('프로필 업로드 실패', uploadError);
-  //     return;
-  //   }
-
-  //   const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
-  //   const bucketName = 'profile-images';
-
-  //   // 프로필 정보 업데이트
-  //   const {data: profileData, error} = await supabase
-  //     .from('userinfo')
-  //     .update({profile_image: uniqueKey})
-  //     .eq('id', user.id)
-  //     .select();
-
-  //   if (error) {
-  //     console.error('프로필 업데이트 실패', error);
-  //   } else {
-  //     console.log('프로필 업데이트 완료');
-  //     const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
-  //     // 이미지 업로드 후 프로필 이미지 상태 업데이트
-  //     setProfileImage(uploadUrl);
-  //     alert('프로필 수정완료 ');
-  //   }
-  // };
   const handleCompleteSettings = async () => {
     // 프로필 업로드 로직
     if (selectedImage) {
@@ -175,7 +151,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         // console.log('프로필 업데이트 완료');
         const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
         setProfileImage(uploadUrl);
-        toast.success('프로필 수정되었습니다. ');
+        // toast.success('프로필 수정되었습니다. ');
       }
     }
 
@@ -192,7 +168,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       } else {
         // console.log('닉네임 업데이트 완료');
         onUpdateNickname(editNickname);
-        toast.success('닉네임이 변경되었습니다.');
+        toast.success('프로필이 수정되었습니다.');
         setDisplayNickname(editNickname);
         setEditNickname('');
       }
@@ -236,8 +212,18 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
             placeholder="변경할 닉네임 입력"
             onChange={handleNicknameChange}
           />
+          {/* 요 피태그 회원가입 오류메시지 뜨는것처럼 작게 빨간색,,! */}
+          <p>{nicknameError}</p>
+
+          <button onClick={handleValidateNickname}>중복확인</button>
           <div>
-            <button onClick={handleCompleteSettings}>저장</button>
+            <button
+              disabled={isValid ? false : true}
+              onClick={handleCompleteSettings}
+              style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8)' : '#aeaeb2'}}
+            >
+              저장
+            </button>
           </div>
         </StUpdateContainer>
       )}
