@@ -143,7 +143,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
             <StProfileImage src={profileImage} alt="아바타 이미지" />
             <StNickName>
               <h1>{displayNickname || editNickname}</h1>
-              <h2>Email</h2>
+              <h2>{user.email}</h2>
             </StNickName>
 
             <StSettingButton onClick={handleShowMyAccount}>설정</StSettingButton>

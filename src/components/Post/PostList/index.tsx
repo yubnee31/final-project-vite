@@ -70,7 +70,6 @@ const PostList = () => {
   });
 
   const targetUser = userInfo?.find(user => user.id === currentUser?.id);
-  console.log(targetUser);
 
   // post list
   const {data: posts, isLoading} = useQuery({
@@ -121,6 +120,14 @@ const PostList = () => {
   // upload photo
   // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
 
+  const nameFilterHandler = id => {
+    const target = userInfo?.find(e => e.id === id);
+    console.log('id', id);
+    console.log('userInfo', userInfo);
+    console.log('target', target);
+    return target?.username;
+  };
+
   if (isLoading) {
     return (
       <div>
@@ -142,7 +149,7 @@ const PostList = () => {
             .map(post => {
               return (
                 <St.PostLi key={post.id}>
-                  <St.PostNameP>{post.username}</St.PostNameP>
+                  <St.PostNameP>{nameFilterHandler(post.userid)}</St.PostNameP>
                   <St.PostContentsP>{post.content}</St.PostContentsP>
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
                   <St.PostTimeP $right={'14%'}>{dayjs(post.created_at).format('HH:mm')}</St.PostTimeP>
