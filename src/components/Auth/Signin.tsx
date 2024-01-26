@@ -10,17 +10,21 @@ import {
   StForm,
   StFormDiv,
   StFormWrapper,
+  StGoogleDiv,
+  StGoogleIcon,
   StGoogleLoginBtn,
+  StGoogleP,
   StInfoP,
   StInput,
-  StKakaoLoginBtn,
+  StKakaoImg,
   StSigninBtn,
   StSignupBtnDiv,
   StSpan,
   StTitleP,
 } from './style';
-import {FcGoogle} from 'react-icons/fc';
-import {RiKakaoTalkFill} from 'react-icons/ri';
+import googleicon from '../../assets/images/googleicon.png';
+import kakaologin from '../../assets/images/kakao_login_large_wide.png';
+import {toast} from 'react-toastify';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
@@ -68,9 +72,10 @@ const Signin = () => {
     // 리코일 깊은 복사
     setLogin(JSON.parse(JSON.stringify(data.user)));
     if (data.user !== null) {
+      toast.success('로그인이 완료되었습니다.');
       navigate('/');
     }
-    if (error) setPasswordError('이메일 혹은 비밀번호를 확인해주세요');
+    if (error) setPasswordError('이메일 혹은 비밀번호를 확인해주세요.');
   };
 
   // 모두 만족할 때 isValid true로
@@ -155,13 +160,13 @@ const Signin = () => {
           </StSignupBtnDiv>
           <StDivisionDiv>Or</StDivisionDiv>
           <StGoogleLoginBtn onClick={googleLogin}>
-            <FcGoogle style={{backgroundColor: 'transparent'}} />
-            &nbsp; 구글 로그인
+            <StGoogleDiv>
+              <StGoogleIcon src={googleicon} />
+              <StGoogleP>구글 로그인</StGoogleP>
+            </StGoogleDiv>
           </StGoogleLoginBtn>
-          <StKakaoLoginBtn onClick={kakaoLogin}>
-            <RiKakaoTalkFill style={{backgroundColor: 'transparent'}} />
-            &nbsp; 카카오 로그인
-          </StKakaoLoginBtn>
+
+          <StKakaoImg src={kakaologin} onClick={kakaoLogin} />
         </StFormDiv>
       </StForm>
     </StFormWrapper>
