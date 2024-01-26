@@ -1,16 +1,5 @@
+import {toast} from 'react-toastify';
 import {supabase} from './supabase';
-
-// 처음에 초기 포스트 목록을 가져오는 함수
-export const getInitialPosts = async (artistName: string) => {
-  try {
-    const {data, error} = await supabase.from('posts').select('*').eq('artist', artistName);
-
-    return data;
-  } catch (error) {
-    console.error('Error fetching initial posts', error);
-    throw error;
-  }
-};
 
 // 추가 포스트를 가져오는 함수
 export const morePosts = async (pageParam, artistName) => {
@@ -21,10 +10,12 @@ export const morePosts = async (pageParam, artistName) => {
       .select('*')
       .eq('artist', artistName)
       .range(pageParam.start, pageParam.end);
-
-    console.log('morePosts', data);
-
+    console.log(data);
     // 여기서 nextCursor와 prevCursor를 반환하도록 조정
+    if (data?.length === 0) {
+      toast.error('마지막 페이지입니다.');
+      return {data: [], nextCursor: null, prevCursor: null};
+    }
     return {
       data,
       nextCursor: pageParam.end + 1,
