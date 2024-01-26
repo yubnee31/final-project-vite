@@ -65,10 +65,8 @@ const Nav = () => {
       'postgres_changes',
       {event: 'INSERT', schema: 'public', table: 'userSchedule', filter: `userid=in.(${currentUser?.id})`},
       payload => {
-        console.log('payload', payload);
         const {id, artist, userid, created_at, title, date} = payload.new;
         const createdFormat = dayjs(created_at).format('YYYY.MM.DD HH:mm:ss');
-        console.log(createdFormat);
         const alarmData: Alarm = {
           id: id,
           artist: artist,
@@ -83,7 +81,6 @@ const Nav = () => {
       },
     )
     .subscribe();
-  console.log(alarm);
 
   const alarmDeleteHandler = id => {
     setAlarm(alarm.filter(e => e.id !== id));

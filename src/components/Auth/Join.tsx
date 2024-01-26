@@ -107,7 +107,6 @@ const Join = () => {
       },
     });
     if (error) {
-      console.log('회원가입 오류', error.message);
       if (error.message === 'User already registered') toast.error('이미 사용중인 이메일입니다.');
     } else {
       toast.success('회원가입에 성공하였습니다.');

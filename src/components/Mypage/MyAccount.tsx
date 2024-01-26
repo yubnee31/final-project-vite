@@ -31,51 +31,41 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   //유저 닉네임 수파베이스에서 불러오기
   const fetchData = async () => {
     const {data, error} = await supabase.from('userinfo').select('username').eq('id', user.id).single();
-    if (error) {
-      console.error('유저 정보 가져오기 실패', error);
-    } else {
-      // 값을 업데이트할 변수 설정
-      let updatedNickname = '';
 
-      if (data?.username) {
-        updatedNickname = data.username;
-      }
+    // 값을 업데이트할 변수 설정
+    let updatedNickname = '';
 
-      // 최종적으로 상태 업데이트
-      setEditNickname('');
-      setDisplayNickname(updatedNickname);
+    if (data?.username) {
+      updatedNickname = data.username;
     }
+
+    // 최종적으로 상태 업데이트
+    setEditNickname('');
+    setDisplayNickname(updatedNickname);
   };
+
   // 유저 프로필 서버에서 불러오기
   const fetchImageData = async () => {
     try {
       const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', user.id).single();
 
-      if (error) {
-        console.error('유저 이미지 가져오기 실패', error);
-      } else {
-        if (data?.profile_image) {
-          // 이미지 파일명이나 경로를 가져옴
-          const imageFileName = data.profile_image;
+      if (data?.profile_image) {
+        // 이미지 파일명이나 경로를 가져옴
+        const imageFileName = data.profile_image;
 
-          // Supabase 스토리지에서 직접 이미지를 가져오기
-          const {data: imageData, error: imageError} = await supabase.storage
-            .from('profile-images') // 스토리지 버킷 이름
-            .download(imageFileName);
+        // Supabase 스토리지에서 직접 이미지를 가져오기
+        const {data: imageData, error: imageError} = await supabase.storage
+          .from('profile-images') // 스토리지 버킷 이름
+          .download(imageFileName);
 
-          if (imageError) {
-            console.error('프로필 이미지 다운로드 실패', imageError);
-          } else {
-            // 다운로드된 이미지를 Blob URL로 변환
-            const imageUrl = URL.createObjectURL(imageData);
+        // 다운로드된 이미지를 Blob URL로 변환
+        const imageUrl = URL.createObjectURL(imageData);
 
-            // 상태 업데이트
-            setProfileImage(imageUrl);
-          }
-        }
+        // 상태 업데이트
+        setProfileImage(imageUrl);
       }
     } catch (error) {
-      console.error('프로필 이미지 가져오기 오류', error);
+      // console.error('프로필 이미지 가져오기 오류', error);
     }
   };
 
@@ -99,7 +89,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   const handleValidateNickname = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const {data} = await supabase.from('userinfo').select().eq('username', editNickname);
-    console.log(data);
     if (data?.length !== 0) {
       toast.error('이미 사용중인 닉네임입니다.');
       setIsValid(false);
@@ -132,7 +121,6 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
 
       if (uploadError) {
-        console.error('프로필 업로드 실패', uploadError);
         return;
       }
 
@@ -146,9 +134,8 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         .select();
 
       if (profileUpdateError) {
-        console.error('프로필 업데이트 실패', profileUpdateError);
+        // console.error('프로필 업데이트 실패', profileUpdateError);
       } else {
-        // console.log('프로필 업데이트 완료');
         const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
         setProfileImage(uploadUrl);
         // toast.success('프로필 수정되었습니다. ');
@@ -164,9 +151,8 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         .select();
 
       if (nicknameUpdateError) {
-        console.error('닉네임 업데이트 실패', nicknameUpdateError);
+        // console.error('닉네임 업데이트 실패', nicknameUpdateError);
       } else {
-        // console.log('닉네임 업데이트 완료');
         onUpdateNickname(editNickname);
         toast.success('프로필이 수정되었습니다.');
         setDisplayNickname(editNickname);

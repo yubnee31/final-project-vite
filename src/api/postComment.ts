@@ -14,10 +14,9 @@ type newComment = Omit<COMMENT, 'id' | 'createdAt'>;
 const getComments = async () => {
   try {
     const {data, error} = await supabase.from('postComments').select('*');
-    console.log('data', data);
     return data;
   } catch (error) {
-    console.log('가져오기Error', error);
+    // console.log('가져오기Error', error);
   }
 };
 
@@ -26,7 +25,7 @@ const addComment = async (newComment: newComment) => {
   try {
     const {error} = await supabase.from('postComments').insert(newComment);
   } catch (error) {
-    console.log('등록하기Error', error);
+    // console.log('등록하기Error', error);
   }
 };
 
@@ -35,7 +34,7 @@ const deleteComment = async (commentid: string) => {
   try {
     await supabase.from('postComments').delete().eq('commentid', commentid);
   } catch (error) {
-    console.log('삭제하기Error', error);
+    // console.log('삭제하기Error', error);
   }
 };
 

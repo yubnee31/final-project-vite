@@ -1,9 +1,8 @@
-import React, {ChangeEvent, useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
 import nomalimage from '../../assets/images/normalimage.jpg';
 import MyAccount from './MyAccount';
-import Slider from 'react-slick';
 import {useNavigate} from 'react-router';
 
 interface AccountSettingProps {
@@ -64,7 +63,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const fetchData = async () => {
     const {data, error} = await supabase.from('userinfo').select('username').eq('id', user.id).single();
     if (error) {
-      console.error('유저 정보 가져오기 실패', error);
+      // console.error('유저 정보 가져오기 실패', error);
     } else {
       // 값을 업데이트할 변수 설정
       let updatedNickname = '';
@@ -83,31 +82,23 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     try {
       const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', user.id).single();
 
-      if (error) {
-        console.error('유저 이미지 가져오기 실패', error);
-      } else {
-        if (data?.profile_image) {
-          // 이미지 파일명이나 경로를 가져옴
-          const imageFileName = data.profile_image;
+      if (data?.profile_image) {
+        // 이미지 파일명이나 경로를 가져옴
+        const imageFileName = data.profile_image;
 
-          // Supabase 스토리지에서 직접 이미지를 가져오기
-          const {data: imageData, error: imageError} = await supabase.storage
-            .from('profile-images') // 스토리지 버킷 이름
-            .download(imageFileName);
+        // Supabase 스토리지에서 직접 이미지를 가져오기
+        const {data: imageData, error: imageError} = await supabase.storage
+          .from('profile-images') // 스토리지 버킷 이름
+          .download(imageFileName);
 
-          if (imageError) {
-            console.error('프로필 이미지 다운로드 실패', imageError);
-          } else {
-            // 다운로드된 이미지를 Blob URL로 변환
-            const imageUrl = URL.createObjectURL(imageData);
+        // 다운로드된 이미지를 Blob URL로 변환
+        const imageUrl = URL.createObjectURL(imageData);
 
-            // 상태 업데이트
-            setProfileImage(imageUrl);
-          }
-        }
+        // 상태 업데이트
+        setProfileImage(imageUrl);
       }
     } catch (error) {
-      console.error('프로필 이미지 가져오기 오류', error);
+      // console.error('프로필 이미지 가져오기 오류', error);
     }
   };
   const handleCompleteSettings = () => {
@@ -119,10 +110,9 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   const fetchFollowArtist = async () => {
     try {
       const {data} = await supabase.from('userinfo').select('artist_follow').eq('id', user.id);
-      //console.log('팔로우된 아티스트 데이터', data[0].artist_follow);
       setFollowAt(data[0]?.artist_follow || []);
     } catch (error) {
-      console.log('팔로우된 아티스트 불러오기 실패', error);
+      // console.log('팔로우된 아티스트 불러오기 실패', error);
     }
   };
 
@@ -167,8 +157,6 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
             >
               {followAt.length > 0 ? (
                 followAt.map((followAt, index) => {
-                  console.log('Artist Object:', followAt);
-
                   return (
                     <StFwAtistContainer
                       key={followAt.artistId.id}
