@@ -73,21 +73,21 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     }
   };
 
-  const updateNickname = async () => {
-    // 사용자 정보 업데이트
-    const {data, error} = await supabase.from('userinfo').update({username: editNickname}).eq('id', user.id).select();
+  // const updateNickname = async () => {
+  //   // 사용자 정보 업데이트
+  //   const {data, error} = await supabase.from('userinfo').update({username: editNickname}).eq('id', user.id).select();
 
-    if (error) {
-      console.error('닉네임 업데이트 실패', error);
-    } else {
-      console.log('닉네임 업데이트 완료');
-      onUpdateNickname(editNickname);
+  //   if (error) {
+  //     console.error('닉네임 업데이트 실패', error);
+  //   } else {
+  //     console.log('닉네임 업데이트 완료');
+  //     onUpdateNickname(editNickname);
 
-      alert('닉네임이 변경되었습니다.');
-      setDisplayNickname(editNickname);
-      setEditNickname('');
-    }
-  };
+  //     alert('닉네임이 변경되었습니다.');
+  //     setDisplayNickname(editNickname);
+  //     setEditNickname('');
+  //   }
+  // };
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newNickname = e.target.value;
@@ -164,25 +164,43 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     const bucketName = 'profile-images';
 
     // 프로필 정보 업데이트
-    const {data: profileData, error} = await supabase
+    const {data: profileData, error: profileUpdateError} = await supabase
       .from('userinfo')
       .update({profile_image: uniqueKey})
       .eq('id', user.id)
       .select();
 
-    if (error) {
-      console.error('프로필 업데이트 실패', error);
+    if (profileUpdateError) {
+      console.error('프로필 업데이트 실패', profileUpdateError);
     } else {
       console.log('프로필 업데이트 완료');
       const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
       // 이미지 업로드 후 프로필 이미지 상태 업데이트
       setProfileImage(uploadUrl);
       alert('프로필 수정완료 ');
+
+      const {data: nicknameData, error: nicknameUpdateError} = await supabase
+        .from('userinfo')
+        .update({username: editNickname})
+        .eq('id', user.id)
+        .select();
+
+      if (nicknameUpdateError) {
+        console.error('닉네임 업데이트 실패', nicknameUpdateError);
+      } else {
+        console.log('닉네임 업데이트 완료');
+        onUpdateNickname(editNickname);
+
+        alert('닉네임이 변경되었습니다.');
+        setDisplayNickname(editNickname);
+        setEditNickname('');
+      }
     }
     // 여기서 설정 완료 버튼을 눌렀을 때 처리할 로직 추가
     // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
     onCompleteSettings();
   };
+
   useEffect(() => {
     // 구글로 로그인한 경우 name이 있으면 nickname으로 사용
     if (user.provider === 'google' && user.user_metadata?.name) {
@@ -193,11 +211,13 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       fetchImageData();
     }
   }, [user]);
+
   return (
     <>
       <StMyAccountName>
         <p>나의 정보 {'>'} 계정 설정 </p>
       </StMyAccountName>
+      <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
       <StMyAccount>
         <StProfileImage src={profileImage} alt="아바타 이미지" />
       </StMyAccount>
@@ -206,23 +226,16 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
         <label htmlFor="profileImg">프로필 수정</label>
       </StProfileSettingContainer>
-      <StNickName>
-        <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
-      </StNickName>
+      <StNickName></StNickName>
       {user.provider !== 'google' && (
         <StUpdateContainer>
-          <h1>이메일</h1>
-          <p>{user.email}</p>
-          <h2>닉네임 변경하기 </h2>
-
-          <input
+          <p>닉네임</p>
+          <StNicknameInput
             type="text"
-            placeholder="닉네임은 6자 내외 입니다."
-            value={editNickname}
+            defaultValue={displayNickname}
+            placeholder="변경할 닉네임 입력"
             onChange={handleNicknameChange}
           />
-
-          <StUpdateNicknameBt onClick={updateNickname}>닉네임 수정</StUpdateNicknameBt>
           <div>
             <button onClick={handleCompleteSettings}>저장</button>
           </div>
@@ -263,6 +276,7 @@ const StProfileImage = styled.img`
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
+  margin-top: 50px;
 `;
 const StUpdateContainer = styled.div`
   margin-top: 15px;
@@ -286,6 +300,12 @@ const StUpdateContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+const StNicknameInput = styled.input`
+  border: none;
+  border-bottom: 1px solid #636366;
+`;
+
 const StUpdateNicknameBt = styled.button`
   margin-left: 7.4%;
 `;
