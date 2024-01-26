@@ -20,7 +20,8 @@ const AddPostModal = ({handleModal}) => {
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
   });
-  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
+
+  const targetUser = userInfo?.find(user => user.id === currentUser?.id);
 
   const {data: posts} = useQuery({
     queryKey: ['posts'],
@@ -42,7 +43,8 @@ const AddPostModal = ({handleModal}) => {
   const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     const newPost = {
-      userid: targetUser?.username,
+      userid: currentUser?.id,
+      username: targetUser.username,
       photo_url: posts?.photo_url,
       content: content,
       artist: param.artistName,
@@ -149,7 +151,7 @@ const AddPostModal = ({handleModal}) => {
               onChange={handleChangeAddPost}
             />
             <St.ModalBtnDiv>
-              {/* <input type='file' accept='image/*' onChange={handleImgChange}/> */}
+              {/* <label type='file' accept='image/*' onChange={handleImgChange}/> */}
               <img src={postPhotoImg} />
               <St.ModalAddPostBtn onClick={updatePhoto}>등록</St.ModalAddPostBtn>
             </St.ModalBtnDiv>
