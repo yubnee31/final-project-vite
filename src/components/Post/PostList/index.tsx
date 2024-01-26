@@ -1,5 +1,5 @@
-import {useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
-import React, {useState} from 'react';
+import {useQuery, useQueryClient, useMutation, useInfiniteQuery} from '@tanstack/react-query';
+import React, {useEffect, useState} from 'react';
 import {getPosts, deletePost, updateisEditing} from '../../../api/post';
 import {getCurrentUser, getTargetUserInfo} from '../../../api/currentUser';
 import St from './style';
@@ -12,6 +12,8 @@ import Spinner from '../../Common/Spinner';
 import PostLike from './PostLike';
 import dayjs from 'dayjs';
 import OpenPostModal from './OpenModal';
+import {morePosts} from '../../../api/scrollerapi';
+import {toast} from 'react-toastify';
 
 const PostList = () => {
   // modal
@@ -30,6 +32,26 @@ const PostList = () => {
     setModalEditData(id);
     setOpenEditModal(!openEditModal);
   };
+
+  // 스크롤 기능
+  const handleScroll = () => {
+    const isAtBottom =
+      window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 3;
+    const isBottom = window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
+    // 스크롤이 맨 아래에 닿았을 때만 다음 페이지를 가져옴
+    if (isAtBottom) {
+      console.log('hasNextPage', hasNextPage);
+      fetchNextPage();
+      // if (isBottom) {
+      //   toast.error('마지막 페이지입니다.');
+      // }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // toggle
   const [openToggle, setOpenToggle] = useState(false);
@@ -55,7 +77,24 @@ const PostList = () => {
     queryFn: getPosts,
   });
 
-  const currentArtistPost = posts?.filter(post => post.artist === param.artistName);
+  // useinfinityQuery
+  const {
+    data: morePostList,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['morePostList'],
+    queryFn: ({pageParam = {start: 1, end: 5}}) => morePosts(pageParam, param.artistName),
+    initialPageParam: {start: 1, end: 5},
+    getNextPageParam: lastPage =>
+      lastPage.nextCursor ? {start: lastPage.nextCursor, end: lastPage.nextCursor + 4} : null,
+  });
+  console.log('morePostList', morePostList);
+
+  const currentArtistPost = morePostList?.pages
+    .flatMap(page => page.data)
+    .filter(post => post.artist === param.artistName);
 
   // mutation
   const queryClient = useQueryClient();
@@ -73,6 +112,10 @@ const PostList = () => {
       queryClient.invalidateQueries({queryKey: ['posts']});
     },
   });
+
+  if (isFetchingNextPage) {
+    return <Spinner />;
+  }
 
   // upload photo
   // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);

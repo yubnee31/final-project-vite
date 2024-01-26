@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState, useEffect} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
 import nomalimage from '../../assets/images/normalimage.jpg';
+import {toast} from 'react-toastify';
 
 interface AccountSettingProps {
   user: {
@@ -147,38 +148,39 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   //   }
   // };
   const handleCompleteSettings = async () => {
-    if (!selectedImage) return;
+    // 프로필 업로드 로직
+    if (selectedImage) {
+      const uniqueKey = `profile-image/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
+      const {data: uploadData, error: uploadError} = await supabase.storage
+        .from('profile-images')
+        .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
 
-    // 프로필 업로드
-    const uniqueKey = `profile-image/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-    const {data: uploadData, error: uploadError} = await supabase.storage
-      .from('profile-images')
-      .upload(uniqueKey, selectedImage, {contentType: 'image/png'});
+      if (uploadError) {
+        console.error('프로필 업로드 실패', uploadError);
+        return;
+      }
 
-    if (uploadError) {
-      console.error('프로필 업로드 실패', uploadError);
-      return;
+      const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
+      const bucketName = 'profile-images';
+
+      const {data: profileData, error: profileUpdateError} = await supabase
+        .from('userinfo')
+        .update({profile_image: uniqueKey})
+        .eq('id', user.id)
+        .select();
+
+      if (profileUpdateError) {
+        console.error('프로필 업데이트 실패', profileUpdateError);
+      } else {
+        // console.log('프로필 업데이트 완료');
+        const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
+        setProfileImage(uploadUrl);
+        toast.success('프로필 수정되었습니다. ');
+      }
     }
 
-    const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
-    const bucketName = 'profile-images';
-
-    // 프로필 정보 업데이트
-    const {data: profileData, error: profileUpdateError} = await supabase
-      .from('userinfo')
-      .update({profile_image: uniqueKey})
-      .eq('id', user.id)
-      .select();
-
-    if (profileUpdateError) {
-      console.error('프로필 업데이트 실패', profileUpdateError);
-    } else {
-      console.log('프로필 업데이트 완료');
-      const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
-      // 이미지 업로드 후 프로필 이미지 상태 업데이트
-      setProfileImage(uploadUrl);
-      alert('프로필 수정완료 ');
-
+    // 닉네임 업데이트 로직
+    if (editNickname) {
       const {data: nicknameData, error: nicknameUpdateError} = await supabase
         .from('userinfo')
         .update({username: editNickname})
@@ -188,16 +190,14 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
       if (nicknameUpdateError) {
         console.error('닉네임 업데이트 실패', nicknameUpdateError);
       } else {
-        console.log('닉네임 업데이트 완료');
+        // console.log('닉네임 업데이트 완료');
         onUpdateNickname(editNickname);
-
-        alert('닉네임이 변경되었습니다.');
+        toast.success('닉네임이 변경되었습니다.');
         setDisplayNickname(editNickname);
         setEditNickname('');
       }
     }
-    // 여기서 설정 완료 버튼을 눌렀을 때 처리할 로직 추가
-    // AccountSettings 컴포넌트가 보이도록 하는 상태 변경
+
     onCompleteSettings();
   };
 
@@ -304,10 +304,6 @@ const StUpdateContainer = styled.div`
 const StNicknameInput = styled.input`
   border: none;
   border-bottom: 1px solid #636366;
-`;
-
-const StUpdateNicknameBt = styled.button`
-  margin-left: 7.4%;
 `;
 const StProfileSettingContainer = styled.div`
   margin-bottom: 30px;

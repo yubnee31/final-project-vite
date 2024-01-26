@@ -3,7 +3,7 @@ import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {addPost, getPosts} from '../../../../api/post';
-import postPhotoImg from '../../../assets/images/post-photo.png';
+import postPhotoImg from '../../../../assets/images/post-photo.png';
 import {supabase} from '../../../../api/supabase';
 import {useParams} from 'react-router-dom';
 
