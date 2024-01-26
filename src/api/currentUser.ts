@@ -13,7 +13,7 @@ const getTargetUserInfo = async () => {
     const {data, error} = await supabase.from('userinfo').select('*');
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

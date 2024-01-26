@@ -25,11 +25,6 @@ const Artist = () => {
     queryFn: getArtistDetail,
   });
   const detailTargetData = artistDetail?.find(el => el.artist === param.artistName);
-  // const {data: artistList} = useQuery({
-  //   queryKey: ['artists'],
-  //   queryFn: getArtistList,
-  // });
-  // const targetData = artistList?.find(el => el.artist === param.artistName);
   useEffect(() => {
     const userInfo = async () => {
       const {

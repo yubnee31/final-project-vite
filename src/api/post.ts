@@ -19,7 +19,7 @@ const getPosts = async () => {
     const {data, error} = await supabase.from('posts').select('*');
     return data;
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -28,7 +28,7 @@ const addPost = async (newPost: newPost) => {
   try {
     const {error} = await supabase.from('posts').insert(newPost);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -37,7 +37,7 @@ const updatePost = async ({id, content}: POST) => {
   try {
     const {error} = await supabase.from('posts').update({content: content, isEditing: false}).eq('id', id);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -45,7 +45,7 @@ const updateisEditing = async (id: string) => {
   try {
     const {error} = await supabase.from('posts').update({isEditing: true}).eq('id', id);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -54,44 +54,8 @@ const deletePost = async (id: string) => {
   try {
     await supabase.from('posts').delete().eq('id', id);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
-// supabase storage에 이미지 올리기
-
-// storage에 파일 업로드하기
-// const [selecedtImg, setSelectedImg] = useState<File | null>(null)
-// const bucketName = 'upload_posts';
-// const uniqueKey = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-// const uploadStoragePostImg = async () => {
-//   try{
-//     const { data, error } = await supabase
-//     .storage
-//     .from(bucketName)
-//     .upload(uniqueKey, selecedtImg, {contentType: 'image/png'})
-//   } catch (error) {
-//     console.log('uploadImgError', error)
-//   }
-// }
-
-// const postImgFile = e.target.files[0]
-// const uploadPostImg = async () => {
-//   const { data, error } = await supabase
-//   .storage
-//   .from(bucketName)
-//   .upload(uniqueKey, postImgFile, {
-//     cacheControl: 'public',
-//     upsert: false
-//   })
-// }
-
-export {
-  getPosts,
-  addPost,
-  updatePost,
-  deletePost,
-  updateisEditing,
-  // uploadStoragePostImg,
-  // uploadPostImg,
-};
+export {getPosts, addPost, updatePost, deletePost, updateisEditing};
