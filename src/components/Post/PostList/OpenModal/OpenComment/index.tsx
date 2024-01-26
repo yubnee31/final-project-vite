@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {addComment, deleteComment, getComments} from '../../../../../api/postComment';
+import {getTargetUserInfo} from '../../../../../api/currentUser';
 import dayjs from 'dayjs';
 
-const OpenComment = ({currentUser}: any) => {
+const OpenComment = ({currentUser, modalData}: any) => {
   const queryClient = useQueryClient();
   const [comment, setComment] = useState('');
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
 
   // 댓글 list
   const {data: comments} = useQuery({
@@ -30,8 +35,8 @@ const OpenComment = ({currentUser}: any) => {
   const handleSubmitAddComment: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     const newComment = {
-      postid: 'postId',
-      username: currentUser?.user_metadata.name,
+      postid: modalData,
+      userid: currentUser?.id,
       comment: comment,
     };
 
@@ -47,11 +52,15 @@ const OpenComment = ({currentUser}: any) => {
     },
   });
 
+  const nameFilterHandler = id => {
+    const target = userInfo?.find(e => e.id === id);
+    return target?.username;
+  };
+
   return (
     <St.CommentContent>
-      <div>댓글창</div>
-      <div>댓글 리스트</div>
       {comments
+        ?.filter(e => e.postid === modalData)
         ?.sort((a, b) => {
           const aDate: any = new Date(a.created_at);
           const bDate: any = new Date(b.created_at);
@@ -60,7 +69,7 @@ const OpenComment = ({currentUser}: any) => {
         .map(el => {
           return (
             <div key={el.id}>
-              <p>{el.userid}</p>
+              <p>{nameFilterHandler(el.userid)}</p>
               <p>{el.comment}</p>
               <p>{dayjs(el.created_at).format('YYYY.MM.DD')}</p>
               <button
@@ -70,7 +79,6 @@ const OpenComment = ({currentUser}: any) => {
               >
                 삭제
               </button>
-              <button>수정</button>
             </div>
           );
         })}
