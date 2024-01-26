@@ -5,10 +5,12 @@ import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../../../shared/recoil/authAtom';
 import {supabase} from '../../../api/supabase';
-import alarmIcon from '../../../assets/images/alarm-icon-white.png';
-import searchIcon from '../../../assets/images/search-icon-white.png';
+import alarmIcon from '../../../assets/images/alarm.svg';
+import searchIcon from '../../../assets/images/search.svg';
+import escape from '../../../assets/images/escape.svg';
 import {Alarm} from '../../../types/global.d';
 import dayjs from 'dayjs';
+import profileImg from '../../../assets/images/profile-white.png';
 import {
   StBtnDiv,
   StBtnP,
@@ -115,7 +117,7 @@ const Nav = () => {
                 }}
               >
                 <StImg src={alarmIcon}></StImg>
-                <StAlarmCounterP>{alarm.length}</StAlarmCounterP>
+                {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
               </StButton>
               <StAlarmListDiv className={alarmToggle ? 'On' : 'OFF'}>
                 <StAlarmDiv>
@@ -143,7 +145,7 @@ const Nav = () => {
                               alarmDeleteHandler(e.id);
                             }}
                           >
-                            ✖️
+                            <StImg src={escape} />
                           </StAlarmDeleteBtn>
                         </StAlarmListLi>
                       );
@@ -152,13 +154,13 @@ const Nav = () => {
               </StAlarmListDiv>
               {login ? (
                 <>
-                  <StSignInBtn
+                  <StButton
                     onClick={() => {
                       navigate('/mypage');
                     }}
                   >
-                    <StBtnP>Mypage</StBtnP>
-                  </StSignInBtn>
+                    <StImg src={profileImg} />
+                  </StButton>
                 </>
               ) : (
                 <StSignInBtn

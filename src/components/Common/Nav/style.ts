@@ -88,8 +88,8 @@ export const StBtnDiv = styled.div`
 `;
 
 export const StButton = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border: 0;
   padding: 0;
   background-color: transparent;
@@ -139,7 +139,7 @@ export const StAlarmListDiv = styled.div`
   width: 400px;
   height: 500px;
   cursor: default;
-  margin-top: 100px;
+  margin-top: 90px;
   background-color: #121212;
 
   border-radius: 10px;
@@ -162,6 +162,13 @@ export const StAlarmListUl = styled.ul`
 
   overflow: auto;
   overflow-x: hidden;
+  &::-webkit-scrollbar {
+    background-color: #00000012;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #36363668;
+    border-radius: 30px;
+  }
 `;
 export const StAlarmListLi = styled.li`
   border-radius: 10px;

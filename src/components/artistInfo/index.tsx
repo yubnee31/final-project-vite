@@ -1,28 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import St from './style';
 import {getCurrentUser} from '../../api/currentUser';
 import {useQuery} from '@tanstack/react-query';
 import {getArtistDetail} from '../../api/artistapi';
 import {useNavigate} from 'react-router-dom';
 import Spinner from '../Common/Spinner';
-import PortalModal from '../Common/portalModal';
-import OpenPostModal from '../Post/PostList/OpenModal';
+import {getTargetUserInfo} from '../../api/currentUser';
 
 const Info = ({param}: string) => {
-  // modal
-  const [openModal, setOpenModal] = useState(false);
-  const [modalData, setModalData] = useState('');
-  const handleModal = id => {
-    setModalData(id);
-    setOpenModal(!openModal);
-  };
   const navigate = useNavigate();
 
+  // current user info
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
 
+  // artist name
   const {data: artistDetail, isLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,
@@ -47,11 +46,8 @@ const Info = ({param}: string) => {
         <St.BannerImg src={detailTargetData?.community_banner} />
       </St.BannerDiv>
       <St.InfoDiv>
-        <St.InfoNameDiv onClick={handleModal}>
-          <PortalModal>
-            {openModal && <OpenPostModal handleModal={handleModal} currentUser={currentUser} modalData={modalData} />}
-          </PortalModal>
-          <St.InfoNameP>{currentUser?.user_metadata.name}</St.InfoNameP>
+        <St.InfoNameDiv>
+          <St.InfoNameP>{targetUser?.username}</St.InfoNameP>
         </St.InfoNameDiv>
         <St.InfoFollowerDiv>
           <St.InfoFollowP>109</St.InfoFollowP>

@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import React, {useState} from 'react';
+import React from 'react';
 import St from './style';
 import {updateLikes} from '../../../../api/like';
 import heartImgWhite from '../../../../assets/images/heart-white.png';
@@ -24,13 +24,11 @@ const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
       const postInfoData = postInfo.filter(e => e.id !== userInfo.id);
       const param = {id: postId, likeUserInfo: postInfoData, likeCount: likeCounter};
       likeMutation.mutate(param);
-      // setLiked(false);
     } else {
       const likeCounter = postlike + 1;
       postInfo.push(userInfo);
       const param = {id: postId, likeUserInfo: postInfo, likeCount: likeCounter};
       likeMutation.mutate(param);
-      // setLiked(true);
     }
   };
 

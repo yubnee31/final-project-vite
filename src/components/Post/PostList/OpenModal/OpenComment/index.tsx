@@ -1,36 +1,20 @@
 import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {useParams} from 'react-router-dom';
-import {getCurrentUser} from '../../../../../api/currentUser';
-import {addComment, getComments} from '../../../../../api/postComment';
-import {getPosts} from '../../../../../api/post';
+import {addComment, deleteComment, getComments} from '../../../../../api/postComment';
+import dayjs from 'dayjs';
 
-const OpenComment = () => {
+const OpenComment = ({currentUser}: any) => {
   const queryClient = useQueryClient();
-  const param = useParams();
   const [comment, setComment] = useState('');
 
-  // current UserInfo
-  const {data: currentUser} = useQuery({
-    queryKey: ['getCurrentUser'],
-    queryFn: getCurrentUser,
-  });
-
-  // post list
-  const {data: posts, isLoading} = useQuery({
-    queryKey: ['posts'],
-    queryFn: getPosts,
-  });
-
+  // 댓글 list
   const {data: comments} = useQuery({
     queryKey: ['postComments'],
     queryFn: getComments,
   });
 
-  const currentPostId = posts?.filter(post => post.id === comments?.postid);
-  console.log(comment?.postid);
-
+  // 댓글 추가
   const addMutation = useMutation({
     mutationFn: addComment,
     onSuccess: () => {
@@ -45,16 +29,23 @@ const OpenComment = () => {
 
   const handleSubmitAddComment: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    // const param: {id};
-    const newComments = {
-      postid: '게시글 아이디',
-      userid: currentUser?.user_metadata.name,
+    const newComment = {
+      postid: 'postId',
+      username: currentUser?.user_metadata.name,
       comment: comment,
-      re_comment: '나중에 추가',
     };
-    addMutation.mutate(newComments);
+
+    addMutation.mutate(newComment);
     setComment('');
   };
+
+  // 댓글 삭제
+  const deleteMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['postComments']});
+    },
+  });
 
   return (
     <St.CommentContent>
@@ -66,13 +57,21 @@ const OpenComment = () => {
           const bDate: any = new Date(b.created_at);
           return bDate - aDate;
         })
-        .map(comment => {
+        .map(el => {
           return (
-            <>
-              <p>{comment.userid}</p>
-              <p>{comment.comment}</p>
-              <p>{comment.create_at}</p>
-            </>
+            <div key={el.id}>
+              <p>{el.userid}</p>
+              <p>{el.comment}</p>
+              <p>{dayjs(el.created_at).format('YYYY.MM.DD')}</p>
+              <button
+                onClick={() => {
+                  deleteMutation.mutate(el.commentid);
+                }}
+              >
+                삭제
+              </button>
+              <button>수정</button>
+            </div>
           );
         })}
       <form onSubmit={handleSubmitAddComment}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import St from './style';
 
-const OpenContent = ({currentUser}) => {
+const OpenContent = ({currentUser}: any) => {
   return (
     <St.OpenContentModalContainer>
       <St.OpenContentModalUserName>{currentUser?.user_metadata.name}</St.OpenContentModalUserName>

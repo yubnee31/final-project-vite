@@ -3,7 +3,7 @@ import St from './style';
 import OpenContent from './OpenContent';
 import OpenComment from './OpenComment';
 
-const OpenPostModal = ({handleModal, currentUser}) => {
+const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
   return (
     <>
       <St.OpenPostModalContainer onClick={handleModal}>
@@ -14,7 +14,7 @@ const OpenPostModal = ({handleModal, currentUser}) => {
         >
           <St.OpenPostModalContent>
             <OpenContent currentUser={currentUser} />
-            <OpenComment />
+            <OpenComment currentUser={currentUser} modalData={modalData} />
           </St.OpenPostModalContent>
         </St.OpenPostModalBox>
       </St.OpenPostModalContainer>

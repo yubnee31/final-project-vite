@@ -3,10 +3,8 @@ import {supabase} from './supabase';
 type COMMENT = {
   postid?: string;
   commentid?: string;
-  userid?: string;
+  username?: string;
   comment?: string;
-  re_comment?: string;
-  isEditing?: boolean;
   created_at?: string;
 };
 
@@ -19,38 +17,26 @@ const getComments = async () => {
     console.log('data', data);
     return data;
   } catch (error) {
-    console.log('Error', error);
+    console.log('가져오기Error', error);
   }
 };
 
 // 댓글 등록
 const addComment = async (newComment: newComment) => {
   try {
-    const {error} = await supabase.from('postComment').insert(newComment);
+    const {error} = await supabase.from('postComments').insert(newComment);
   } catch (error) {
-    console.log('Error', error);
+    console.log('등록하기Error', error);
   }
 };
 
 // 댓글 삭제
 const deleteComment = async (commentid: string) => {
   try {
-    await supabase.from('postComment').delete().eq('commentid', commentid);
+    await supabase.from('postComments').delete().eq('commentid', commentid);
   } catch (error) {
-    console.log('Error', error);
+    console.log('삭제하기Error', error);
   }
 };
 
-// 댓글 수정
-const updateComment = async ({commentid, comment}: COMMENT) => {
-  try {
-    const {error} = await supabase
-      .from('postComment')
-      .update({comment: comment, isEditing: false})
-      .eq('commentid', commentid);
-  } catch (error) {
-    console.log('Error', error);
-  }
-};
-
-export {getComments, addComment, deleteComment, updateComment};
+export {getComments, addComment, deleteComment};

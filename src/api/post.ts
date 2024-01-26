@@ -3,6 +3,7 @@ import {supabase} from './supabase';
 type POST = {
   id?: string;
   userid?: string;
+  username?: string;
   content?: string;
   photo_url?: string;
   isEditing?: boolean;
@@ -16,7 +17,6 @@ type newPost = Omit<POST, 'id' | 'createdAt'>;
 const getPosts = async () => {
   try {
     const {data, error} = await supabase.from('posts').select('*');
-    console.log('data', data);
     return data;
   } catch (error) {
     console.log('Error', error);
