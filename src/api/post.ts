@@ -3,6 +3,7 @@ import {supabase} from './supabase';
 type POST = {
   id?: string;
   userid?: string;
+  username?: string;
   content?: string;
   photo_url?: string;
   isEditing?: boolean;

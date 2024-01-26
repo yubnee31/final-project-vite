@@ -4,7 +4,17 @@ export type Post = {
   photo_url?: string;
   created_at?: string;
   userid?: string;
+  username?: string;
   isEditing?: boolean;
+};
+
+export type Comment = {
+  postid?: string;
+  commentid?: string;
+  username?: string;
+  comment?: string;
+  re_comment?: string;
+  created_at?: string;
 };
 
 export type Schedule = {

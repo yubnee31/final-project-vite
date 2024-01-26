@@ -32,6 +32,7 @@ const EditPosModalArtistName = styled.p`
 `;
 const EditPostModalInput = styled.input`
   background-color: #2a2a2a;
+  border: none;
   width: 772px;
   height: 334px;
   margin: 20px 40px;

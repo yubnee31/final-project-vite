@@ -1,16 +1,18 @@
 import React from 'react';
+import St from './style';
 
-const OpenContent = () => {
+const OpenContent = ({currentUser}: any) => {
   return (
-    <>
-      <St.OpenPostModalTitle>post 수정하기</St.OpenPostModalTitle>
-      <St.OpenPosModalArtistName>artist name</St.OpenPosModalArtistName>
-      <St.OpenPostModalInput />
-      <St.OpenPostModalBtnDiv>
-        <St.OpenPostModalBtn></St.OpenPostModalBtn>
-        <St.OpenPostModalBtn></St.OpenPostModalBtn>
-      </St.OpenPostModalBtnDiv>
-    </>
+    <St.OpenContentModalContainer>
+      <St.OpenContentModalUserName>{currentUser?.user_metadata.name}</St.OpenContentModalUserName>
+      <div>
+        <St.OpenContentModalContent>이건 내용</St.OpenContentModalContent>
+        <St.OpenContentModalImg alt="게시글 사진" />
+      </div>
+      <div>
+        <St.OpenContentModalLike></St.OpenContentModalLike>
+      </div>
+    </St.OpenContentModalContainer>
   );
 };
 

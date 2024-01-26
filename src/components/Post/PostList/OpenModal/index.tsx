@@ -3,14 +3,18 @@ import St from './style';
 import OpenContent from './OpenContent';
 import OpenComment from './OpenComment';
 
-const OpenPostModal = () => {
+const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
   return (
     <>
-      <St.OpenPostModalContainer>
-        <St.OpenPostModalBox>
+      <St.OpenPostModalContainer onClick={handleModal}>
+        <St.OpenPostModalBox
+          onClick={e => {
+            e.stopPropagation();
+          }}
+        >
           <St.OpenPostModalContent>
-            <OpenContent />
-            <OpenComment />
+            <OpenContent currentUser={currentUser} />
+            <OpenComment currentUser={currentUser} modalData={modalData} />
           </St.OpenPostModalContent>
         </St.OpenPostModalBox>
       </St.OpenPostModalContainer>

@@ -10,6 +10,7 @@ import {getTargetUserInfo} from '../../api/currentUser';
 const Info = ({param}: string) => {
   const navigate = useNavigate();
 
+  // current user info
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
@@ -20,6 +21,7 @@ const Info = ({param}: string) => {
   });
   const targetUser = userInfo?.find(e => e.id === currentUser?.id);
 
+  // artist name
   const {data: artistDetail, isLoading} = useQuery({
     queryKey: [''],
     queryFn: getArtistDetail,

@@ -1,7 +1,7 @@
 import {useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
 import React, {useState} from 'react';
 import {getPosts, deletePost, updateisEditing} from '../../../api/post';
-import {getCurrentUser} from '../../../api/currentUser';
+import {getCurrentUser, getTargetUserInfo} from '../../../api/currentUser';
 import St from './style';
 import commentImg from '../../../assets/images/chat.svg';
 import seeMoreImg from '../../../assets/images/meatballs-v.svg';
@@ -11,15 +11,24 @@ import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
 import PostLike from './PostLike';
 import dayjs from 'dayjs';
+import OpenPostModal from './OpenModal';
 
 const PostList = () => {
   // modal
-  const [openModal, setOpenModal] = useState(false);
-  const [modalData, setModalData] = useState('');
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [modalEditData, setModalEditData] = useState('');
 
-  const handleModal = (id: React.SetStateAction<string>) => {
-    setModalData(id);
-    setOpenModal(!openModal);
+  const [openCommentModal, setOpenCommentModal] = useState(false);
+  const [modalCommentData, setModalCommentData] = useState('');
+
+  const handlecommentModal = (id: React.SetStateAction<string>) => {
+    setModalCommentData(id);
+    setOpenCommentModal(!openCommentModal);
+  };
+
+  const handleEditModal = (id: React.SetStateAction<string>) => {
+    setModalEditData(id);
+    setOpenEditModal(!openEditModal);
   };
 
   // toggle
@@ -35,6 +44,13 @@ const PostList = () => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+
+  const targetUser = userInfo?.find(user => user.id === currentUser?.id);
+  console.log(targetUser);
 
   // post list
   const {data: posts, isLoading} = useQuery({
@@ -43,6 +59,7 @@ const PostList = () => {
   });
 
   const currentArtistPost = posts?.filter(post => post.artist === param.artistName);
+  console.log(param);
 
   // mutation
   const queryClient = useQueryClient();
@@ -85,7 +102,7 @@ const PostList = () => {
             .map(post => {
               return (
                 <St.PostLi key={post.id}>
-                  <St.PostNameP>{post.userid}</St.PostNameP>
+                  <St.PostNameP>{post.username}</St.PostNameP>
                   <St.PostContentsP>{post.content}</St.PostContentsP>
                   {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
                   <St.PostTimeP $right={'14%'}>{dayjs(post.created_at).format('HH:mm')}</St.PostTimeP>
@@ -96,11 +113,19 @@ const PostList = () => {
                     postlike={post.like}
                     postInfo={post.like_userInfo}
                   />
-                  <St.CommentImg src={commentImg} $left={'6.5%'} />
+                  <div>
+                    <St.CommentImg
+                      src={commentImg}
+                      $left={'6.5%'}
+                      onClick={() => {
+                        handlecommentModal(post.id);
+                      }}
+                    />
+                  </div>
                   <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
                   {openToggle && (
                     <>
-                      {post.userid === currentUser?.user_metadata.name ? (
+                      {post.userid === currentUser?.id ? (
                         <St.PostBtnDiv>
                           <St.PostBtn
                             onClick={() => {
@@ -111,7 +136,7 @@ const PostList = () => {
                           </St.PostBtn>
                           <St.PostBtn
                             onClick={() => {
-                              handleModal(post.id);
+                              handleEditModal(post.id);
                             }}
                           >
                             수정
@@ -128,7 +153,14 @@ const PostList = () => {
                 </St.PostLi>
               );
             })}
-          <PortalModal>{openModal && <EditPostModal handleModal={handleModal} modalData={modalData} />}</PortalModal>
+          <PortalModal>
+            {openCommentModal && (
+              <OpenPostModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
+            )}
+          </PortalModal>
+          <PortalModal>
+            {openEditModal && <EditPostModal handleModal={handleEditModal} modalData={modalEditData} />}
+          </PortalModal>
         </St.PostUl>
       </St.PostDiv>
     </>
