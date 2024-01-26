@@ -7,12 +7,11 @@ export const getArtist = async () => {
     const {data: chart, error} = await supabase.from('artists').select('*');
 
     if (error) {
-      console.error('조회 실패', error);
       return null;
     }
     return chart;
   } catch (error) {
-    console.log('조회 에러', error);
+    // console.log('조회 에러', error);
   }
 };
 
@@ -26,16 +25,13 @@ export const getInitialLikes = async (postId: number) => {
     if (artistData) {
       // postId에 해당하는 아티스트의 데이터를 찾음
       const artist = artistData.find(item => item.artist === postId.artistId.artist);
-      console.log('artist.artist_fw_count : ', artist.artist_fw_count);
 
       // 해당 아티스트가 있다면 팔로우 수를 반환
       if (artist) {
-        console.log(artist);
         return artist.artist_fw_count;
       }
     }
   } catch (error) {
-    console.error('좋아요 초기값 가져오기 실패', error);
     return 0; // 에러 발생 시 기본값인 0 반환
   }
 };
@@ -45,7 +41,6 @@ export const addLikeartist = async (postId: number) => {
   try {
     // 로그인된 사용자 정보 확인
     const user = await supabase.auth.getUser();
-    console.log(user);
 
     // 좋아요 증가 요청
     const initialLikes = await getInitialLikes(postId);
@@ -67,30 +62,16 @@ export const addLikeartist = async (postId: number) => {
           .from('artists')
           .update({like: updatedLikes, user_likes: updatedUserLikes})
           .eq('id', postId);
-
-        if (error) {
-          console.error('좋아요 취소 실패', error);
-        } else {
-          console.log('좋아요 취소 완료');
-        }
       } else {
         // 중복된 데이터가 없는 경우에만 좋아요 추가
         const {data, error} = await supabase
           .from('artists')
           .update({like: initialLikes + 1, user_likes: [...userLikes, user]})
           .eq('id', postId);
-
-        if (error) {
-          console.error('좋아요 추가 실패', error);
-        } else {
-          console.log('좋아요 추가 완료');
-        }
       }
-    } else {
-      console.log('존재하지 않는 데이터');
     }
   } catch (error) {
-    console.log('좋아요 처리 실패', error);
+    // console.log('좋아요 처리 실패', error);
   }
 };
 
@@ -113,18 +94,15 @@ export const artistFollowList = async (targetData: any) => {
     // isFollowing이 true이면 언팔로우, false이면 팔로우
     let updatedArtistFollow;
 
-    console.log('updatedArtistFollow', updatedArtistFollow);
     if (isFollowing) {
       // 이미 팔로우 중이면 언팔로우 처리
       updatedArtistFollow = userinfoArtistFollow.filter(artist => artist.artistId.id !== targetData.artistId.id);
-      //console.log('팔로우 중이라면 삭제', updatedArtistFollow);
     } else {
       // 새로운 아티스트를 팔로우 목록에 추가 (INSERT)
       updatedArtistFollow = [
         ...userinfoArtistFollow.filter(artist => artist.artistId.id !== targetData.artistId.id),
         targetData,
       ];
-      //console.log('팔로우 중이 아니라서 추가 ', updatedArtistFollow);
     }
 
     // userinfo에 아티스트 추가 또는 제거
@@ -138,7 +116,7 @@ export const artistFollowList = async (targetData: any) => {
       })
       .eq('artist', targetData.artistId.artist);
   } catch (error) {
-    console.error('artistFollowList 함수에서 에러 발생:', error);
+    // console.error('artistFollowList 함수에서 에러 발생:', error);
   }
 };
 
@@ -148,6 +126,6 @@ export const getUsers = async (postId: string) => {
     const {data} = await supabase.from('userinfo').select('*').eq('id', postId);
     return data[0];
   } catch (error) {
-    console.log('error', error);
+    // console.log('error', error);
   }
 };

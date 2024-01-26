@@ -20,7 +20,9 @@ const Mypage = () => {
     const {error} = await supabase.auth.signOut();
     setLogin(null);
     navigate('/');
-    if (error) console.log('error', error);
+    if (error) {
+      // console.log('error', error);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +36,6 @@ const Mypage = () => {
           // userinfo 테이블의 username 값을 가져오기
           const {data: userinfoData, error} = await supabase.from('userinfo').select('username').eq('id', user.id);
           if (error) {
-            console.error('userinfo 데이터 불러오기 에러:', error);
             return;
           }
           if (userinfoData && userinfoData.length > 0) {
@@ -42,7 +43,7 @@ const Mypage = () => {
             setUserInfoData(userinfoData as {username: string}[]); // userinfoData 상태 업데이트
           }
         } catch (error) {
-          console.error('유저 정보 불러오기 에러:', error);
+          // console.error('유저 정보 불러오기 에러:', error);
         }
 
         setUser(user);
