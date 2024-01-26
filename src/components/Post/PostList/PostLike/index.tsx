@@ -17,6 +17,9 @@ const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
 
   const userInfo = {id: currentUser.id};
   const target = postInfo?.filter(e => e.id === currentUser.id);
+  console.log('postInfo', postInfo);
+
+  console.log('target', target);
 
   const onClickLikeHandler = () => {
     if (target.length) {

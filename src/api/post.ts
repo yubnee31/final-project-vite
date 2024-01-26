@@ -58,40 +58,34 @@ const deletePost = async (id: string) => {
   }
 };
 
-// supabase storage에 이미지 올리기
-
-// storage에 파일 업로드하기
-// const [selecedtImg, setSelectedImg] = useState<File | null>(null)
-// const bucketName = 'upload_posts';
-// const uniqueKey = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-// const uploadStoragePostImg = async () => {
-//   try{
-//     const { data, error } = await supabase
-//     .storage
-//     .from(bucketName)
-//     .upload(uniqueKey, selecedtImg, {contentType: 'image/png'})
-//   } catch (error) {
-//     console.log('uploadImgError', error)
-//   }
-// }
-
-// const postImgFile = e.target.files[0]
-// const uploadPostImg = async () => {
-//   const { data, error } = await supabase
-//   .storage
-//   .from(bucketName)
-//   .upload(uniqueKey, postImgFile, {
-//     cacheControl: 'public',
-//     upsert: false
-//   })
-// }
-
-export {
-  getPosts,
-  addPost,
-  updatePost,
-  deletePost,
-  updateisEditing,
-  // uploadStoragePostImg,
-  // uploadPostImg,
+// storage에 이미지 업로드
+const uploadStorage = async ({uniqueKey, uploadFile}) => {
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, uploadFile, {
+      cacheControl: '3600',
+      upsert: false,
+    });
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
+
+// storage에서 파일 다운로드
+const downloadStorage = async uniqueKey => {
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').download(uniqueKey);
+  } catch (error) {
+    console.log('Error', error);
+  }
+};
+
+// posts table에 파일 업로드
+const uploadPostsTable = async uniqueKey => {
+  try {
+    const {error} = await supabase.from('posts').update(uniqueKey).eq('id', id);
+  } catch (error) {
+    console.log('Error', error);
+  }
+};
+
+export {getPosts, addPost, updatePost, deletePost, updateisEditing, uploadStorage, downloadStorage, uploadPostsTable};

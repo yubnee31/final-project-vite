@@ -54,81 +54,81 @@ const AddPostModal = ({handleModal}) => {
   };
   // ----------------------------------------------------------------
 
-  const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
-  const bucketName = 'upload_posts';
-  const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
-  const [selectedPhotoImg, setSelectedPhotoImg] = useState<File | null>(null);
+  // const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
+  // const bucketName = 'upload_posts';
+  // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
+  // const [selectedPhotoImg, setSelectedPhotoImg] = useState<File | null>(null);
 
-  const getImgData = async id => {
-    try {
-      const {data, error} = await supabase.from('posts').select('photo_url').eq('id', id);
+  // const getImgData = async id => {
+  //   try {
+  //     const {data, error} = await supabase.from('posts').select('photo_url').eq('id', id);
 
-      if (error) {
-        console.log('posts img 가져오기 실패', error);
-      } else {
-        if (data?.photo_url) {
-          // 이미지 파일먕이나 경로 가져옴
-          const imgFileName = data.photo_url;
+  //     if (error) {
+  //       console.log('posts img 가져오기 실패', error);
+  //     } else {
+  //       if (data?.photo_url) {
+  //         // 이미지 파일먕이나 경로 가져옴
+  //         const imgFileName = data.photo_url;
 
-          // supabase storage에서 직접 이미지 가져오기
-          const {data: imgData, error: imgError} = await supabase.storage.from(bucketName).download(imgFileName);
+  //         // supabase storage에서 직접 이미지 가져오기
+  //         const {data: imgData, error: imgError} = await supabase.storage.from(bucketName).download(imgFileName);
 
-          if (imgError) {
-            console.log('post photo image 다운로드 실패', imgError);
-          } else {
-            // download image => 변환: Blob URL
-            const imgUrl = URL.createObjectURL(imgData);
+  //         if (imgError) {
+  //           console.log('post photo image 다운로드 실패', imgError);
+  //         } else {
+  //           // download image => 변환: Blob URL
+  //           const imgUrl = URL.createObjectURL(imgData);
 
-            // 상태 업데이트
-            setPostPhotoImg(imgUrl);
-          }
-        }
-      }
-    } catch (error) {
-      console.log('post photo image 가져오기 오류', error);
-    }
-  };
+  //           // 상태 업데이트
+  //           setPostPhotoImg(imgUrl);
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log('post photo image 가져오기 오류', error);
+  //   }
+  // };
 
-  const handleImgChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedPhotoImg(file);
+  // const handleImgChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setSelectedPhotoImg(file);
 
-      const imgUrl = URL.createObjectURL(file);
-      setPostPhotoImg(imgUrl);
-    }
-  };
+  //     const imgUrl = URL.createObjectURL(file);
+  //     setPostPhotoImg(imgUrl);
+  //   }
+  // };
 
-  const updatePhoto = async () => {
-    if (!selectedPhotoImg) return;
+  // const updatePhoto = async () => {
+  //   if (!selectedPhotoImg) return;
 
-    // post photo img upload
-    const uniqueKey = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-    const {data: uploadData, error: uploadError} = await supabase.storage
-      .from(bucketName)
-      .upload(uniqueKey, selectedPhotoImg, {contentType: 'image/png'});
+  //   // post photo img upload
+  //   const uniqueKey = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
+  //   const {data: uploadData, error: uploadError} = await supabase.storage
+  //     .from(bucketName)
+  //     .upload(uniqueKey, selectedPhotoImg, {contentType: 'image/png'});
 
-    if (uploadError) {
-      console.log('post photo upload fail', uploadError);
-      return;
-    }
+  //   if (uploadError) {
+  //     console.log('post photo upload fail', uploadError);
+  //     return;
+  //   }
 
-    const {data: postPhotoData, error: postPhotoError} = await supabase
-      .from('posts')
-      .update({upload_posts: uniqueKey})
-      .eq('id', id)
-      .select();
+  //   const {data: postPhotoData, error: postPhotoError} = await supabase
+  //     .from('posts')
+  //     .update({upload_posts: uniqueKey})
+  //     .eq('id', id)
+  //     .select();
 
-    if (postPhotoError) {
-      console.log('post photo update fail', postPhotoError);
-    } else {
-      console.log('post photo update success');
-      const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
+  //   if (postPhotoError) {
+  //     console.log('post photo update fail', postPhotoError);
+  //   } else {
+  //     console.log('post photo update success');
+  //     const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
 
-      setPostPhotoImg(uploadUrl);
-      alert('사진 업로드 완료');
-    }
-  };
+  //     setPostPhotoImg(uploadUrl);
+  //     alert('사진 업로드 완료');
+  //   }
+  // };
 
   return (
     <>

@@ -21,8 +21,8 @@ const PostList = () => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
   const [modalCommentData, setModalCommentData] = useState('');
 
-  const handlecommentModal = (id: React.SetStateAction<string>) => {
-    setModalCommentData(id);
+  const handlecommentModal = (id, userid, like, like_userInfo, content) => {
+    setModalCommentData({id, userid, like, like_userInfo, content});
     setOpenCommentModal(!openCommentModal);
   };
 
@@ -48,8 +48,6 @@ const PostList = () => {
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
   });
-
-  const targetUser = userInfo?.find(user => user.id === currentUser?.id);
 
   // post list
   const {data: posts, isLoading} = useQuery({
@@ -81,9 +79,6 @@ const PostList = () => {
 
   const nameFilterHandler = id => {
     const target = userInfo?.find(e => e.id === id);
-    console.log('id', id);
-    console.log('userInfo', userInfo);
-    console.log('target', target);
     return target?.username;
   };
 
@@ -124,7 +119,7 @@ const PostList = () => {
                       src={commentImg}
                       $left={'6.5%'}
                       onClick={() => {
-                        handlecommentModal(post.id);
+                        handlecommentModal(post.id, post.userid, post.like, post.like_userInfo, post.content);
                       }}
                     />
                   </div>
