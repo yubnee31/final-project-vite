@@ -13,7 +13,6 @@ import PostLike from './PostLike';
 import dayjs from 'dayjs';
 import OpenPostModal from './OpenModal';
 import {morePosts} from '../../../api/scrollerapi';
-import {toast} from 'react-toastify';
 
 const PostList = () => {
   // modal
@@ -40,11 +39,7 @@ const PostList = () => {
     const isBottom = window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
     // 스크롤이 맨 아래에 닿았을 때만 다음 페이지를 가져옴
     if (isAtBottom) {
-      console.log('hasNextPage', hasNextPage);
       fetchNextPage();
-      // if (isBottom) {
-      //   toast.error('마지막 페이지입니다.');
-      // }
     }
   };
 
@@ -90,7 +85,6 @@ const PostList = () => {
     getNextPageParam: lastPage =>
       lastPage.nextCursor ? {start: lastPage.nextCursor, end: lastPage.nextCursor + 4} : null,
   });
-  console.log('morePostList', morePostList);
 
   const currentArtistPost = morePostList?.pages
     .flatMap(page => page.data)
@@ -116,9 +110,6 @@ const PostList = () => {
   if (isFetchingNextPage) {
     return <Spinner />;
   }
-
-  // upload photo
-  // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
 
   const nameFilterHandler = id => {
     const target = userInfo?.find(e => e.id === id);
