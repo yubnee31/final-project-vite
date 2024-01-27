@@ -11,7 +11,7 @@ const PostLike = ({postId, currentUser, postlike, postInfo}: any) => {
   const likeMutation = useMutation({
     mutationFn: updateLikes,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
 
