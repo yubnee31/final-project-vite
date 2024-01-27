@@ -31,7 +31,7 @@ const AddPostModal = ({handleModal}) => {
   const addMutation = useMutation({
     mutationFn: addPost,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
 

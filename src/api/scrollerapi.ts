@@ -9,16 +9,16 @@ export const morePosts = async (pageParam, artistName) => {
       .from('posts')
       .select('*')
       .eq('artist', artistName)
+      .order('created_at', {ascending: false})
       .range(pageParam.start, pageParam.end);
     // 여기서 nextCursor와 prevCursor를 반환하도록 조정
     if (data?.length === 0) {
-      toast.error('마지막 페이지입니다.');
       return {data: [], nextCursor: null, prevCursor: null};
     }
     return {
       data,
       nextCursor: pageParam.end + 1,
-      prevCursor: pageParam.start - 1,
+      prevCursor: pageParam.start,
     };
   } catch (error) {
     console.error('Error fetching more posts', error);
