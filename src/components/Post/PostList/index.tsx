@@ -32,7 +32,7 @@ const PostList = () => {
   const handleScroll = () => {
     const isAtBottom =
       window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 3;
-    const isBottom = window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
+    //const isBottom = window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
     // 스크롤이 맨 아래에 닿았을 때만 다음 페이지를 가져옴
     if (isAtBottom) {
       console.log('hasNextPage', hasNextPage);
@@ -47,6 +47,7 @@ const PostList = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const handlecommentModal = (id: React.SetStateAction<string>) => {
     setModalCommentData(id);
     setOpenCommentModal(!openCommentModal);

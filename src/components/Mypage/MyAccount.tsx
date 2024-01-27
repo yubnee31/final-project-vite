@@ -113,6 +113,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
     }
   };
 
+  // //코드 리뷰 자료
   // const updateProfile = async () => {
   //   if (!selectedImage) return;
 
