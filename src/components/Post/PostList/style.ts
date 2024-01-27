@@ -3,8 +3,8 @@ import styled from 'styled-components';
 // PostList
 const PostDiv = styled.div`
   width: 800px;
-  height: 1200px;
   margin-top: 40px;
+  margin-bottom: 80px;
 `;
 const PostUl = styled.ul`
   display: grid;

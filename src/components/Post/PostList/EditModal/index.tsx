@@ -10,7 +10,7 @@ const EditPostModal = ({handleModal, modalData}) => {
   const editMutation = useMutation({
     mutationFn: updatePost,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
 
