@@ -14,7 +14,7 @@ const EditPostModal = ({handleModal, modalData}) => {
     },
   });
 
-  const [editInputState, setEditInputState] = useState(''); // TODO : Modal로 리팩토링
+  const [editInputState, setEditInputState] = useState(modalData.content); // TODO : Modal로 리팩토링
 
   const handleChangeEditPost: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -45,7 +45,6 @@ const EditPostModal = ({handleModal, modalData}) => {
             <St.EditPosModalArtistName>{param.artistName}</St.EditPosModalArtistName>
             <St.EditPostModalInput
               type="text"
-              placeholder="내용수정"
               value={editInputState}
               name="editingPosts"
               onChange={handleChangeEditPost}

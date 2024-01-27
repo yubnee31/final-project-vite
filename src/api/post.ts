@@ -15,45 +15,77 @@ type newPost = Omit<POST, 'id' | 'createdAt'>;
 
 //등록된 게시글 목록 가져오기
 const getPosts = async () => {
-  const {data} = await supabase.from('posts').select('*');
-  return data;
+  try {
+    const {data, error} = await supabase.from('posts').select('*');
+    return data;
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // 새 게시글 등록
 const addPost = async (newPost: newPost) => {
-  const {error} = await supabase.from('posts').insert(newPost);
+  try {
+    const {error} = await supabase.from('posts').insert(newPost);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // 게시글 수정
 const updatePost = async ({id, content}: POST) => {
-  const {error} = await supabase.from('posts').update({content: content, isEditing: false}).eq('id', id);
+  try {
+    const {error} = await supabase.from('posts').update({content: content, isEditing: false}).eq('id', id);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 const updateisEditing = async (id: string) => {
-  const {error} = await supabase.from('posts').update({isEditing: true}).eq('id', id);
+  try {
+    const {error} = await supabase.from('posts').update({isEditing: true}).eq('id', id);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // 게시글 삭제
 const deletePost = async (id: string) => {
-  const {error} = await supabase.from('posts').delete().eq('id', id);
+  try {
+    await supabase.from('posts').delete().eq('id', id);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // storage에 이미지 업로드
 const uploadStorage = async ({uniqueKey, uploadFile}) => {
-  const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, uploadFile, {
-    cacheControl: '3600',
-    upsert: false,
-  });
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, uploadFile, {
+      cacheControl: '3600',
+      upsert: false,
+    });
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // storage에서 파일 다운로드
 const downloadStorage = async uniqueKey => {
-  const {data, error} = await supabase.storage.from('upload_posts').download(uniqueKey);
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').download(uniqueKey);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 // posts table에 파일 업로드
 const uploadPostsTable = async uniqueKey => {
-  const {error} = await supabase.from('posts').update(uniqueKey).eq('id', id);
+  try {
+    const {error} = await supabase.from('posts').update(uniqueKey).eq('id', id);
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 export {getPosts, addPost, updatePost, deletePost, updateisEditing, uploadStorage, downloadStorage, uploadPostsTable};

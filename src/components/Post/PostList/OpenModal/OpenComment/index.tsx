@@ -12,28 +12,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
   });
-  // const likeMutation = useMutation({
-  //   mutationFn: updateLikes,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({queryKey: ['posts']});
-  //   },
-  // });
-  // console.log('modalData', modalData);
-  // const target = modalData.like_userInfo?.filter(e => e.id === currentUser.id);
 
-  // const onClickLikeHandler = () => {
-  //   if (target.length) {
-  //     const likeCounter = modalData.like - 1;
-  //     const postInfoData = modalData.like_userInfo?.filter(e => e.id !== userInfo.id);
-  //     const param = {id: postId, likeUserInfo: postInfoData, likeCount: likeCounter};
-  //     likeMutation.mutate(param);
-  //   } else {
-  //     const likeCounter = postlike + 1;
-  //     postInfo.push(userInfo);
-  //     const param = {id: postId, likeUserInfo: postInfo, likeCount: likeCounter};
-  //     likeMutation.mutate(param);
-  //   }
-  // };
   // 댓글 list
   const {data: comments} = useQuery({
     queryKey: ['postComments'],
@@ -92,6 +71,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
             <div key={el.id}>
               <p>{nameFilterHandler(el.userid)}</p>
               <p>{el.comment}</p>
+              <p $right={'14%'}>{dayjs(post.created_at).format('HH:mm')}</p>
               <p>{dayjs(el.created_at).format('YYYY.MM.DD')}</p>
               <button
                 onClick={() => {
