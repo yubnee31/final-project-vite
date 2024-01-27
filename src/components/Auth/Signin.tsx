@@ -104,7 +104,7 @@ const Signin = () => {
       },
     });
     setLogin(JSON.parse(JSON.stringify(data.provider)));
-    if (error) console.log('error', error);
+    // if (error) console.log('error', error);
   };
 
   // kakao 로그인
@@ -119,7 +119,7 @@ const Signin = () => {
       },
     });
     setLogin(JSON.parse(JSON.stringify(data.provider)));
-    if (error) console.log('error', error);
+    // if (error) console.log('error', error);
   };
 
   return (

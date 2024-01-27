@@ -1,30 +1,122 @@
-# React + TypeScript + Vite
+# Final Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 
-Currently, two official plugins are available:
+## 프로젝트
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 팀원
+- [makeit80](https://github.com/makeit80)
+  - 각자 할일 적기
+- [loveytheb](https://github.com/loveytheb)
+  - 각자 할일 적기
+- [joonyg](https://github.com/joonyg)
+  - 각자 할일 적기
+- [yubnee31](https://github.com/yubnee31)
+  - 각자 할일 적기
 
-## Expanding the ESLint configuration
+### 소개
+- 최종 프로젝트의 컨셉은 <b>아이돌 정보 공유 커뮤니티</b>로 설정했으며, <b>아이돌 정보 공유 커뮤니티</b>라는 컨셉에 맞게 선호하는 아이돌의 정보를 얻을 수 있고 같은 팬덤의 사람들끼리 정보를 공유할 수 있는 프로젝트입니다.
+- 회원가입은 사용자의 이메일 및 구글, 카카오를 사용하였습니다.
+### 사이트
+![image](https://github.com/makeit80/final-project-vite/assets/146186897/c1e96a79-e084-4a0c-9a80-721a997c44dc)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[프로젝트로 이동하기](배포 사이트 링크 게시)
 
-- Configure the top-level `parserOptions` property like this:
+## 기술 스택 및 사용 라이브러리
+- react
+- typescript
+- Vite
+- dayjs
+- styled-components
+- styled-reset
+- react-toastify
+- react-spinners
+- recoil
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- tanstack/react-query
+- tanstack/react-query-devtools
+
+- supabase
+- supabase - Authentication
+- supabase - Table Editor
+- supabase - Storage
+
+## 프로젝트 설치
+
+### clone repository
+
+```
+git clone https://github.com/vitejs/vite.git .
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### install npm dependencies
+
+```
+yarn
+yarn install
+```
+
+### start dev-server
+
+```
+yarn dev
+```
+
+## 프로젝트 구조
+
+```
+📦 src
+ ┣ 📂 api
+ ┣ 📂 assets
+ ┃ ┗ 📂 images
+ ┣ 📂 components
+ ┃ ┣ 📂 artistInfo
+ ┃ ┣ 📂 Auth
+ ┃ ┣ 📂 Calender
+ ┃ ┣ 📂 Common
+ ┃ ┃ ┣ 📂 Nav
+ ┃ ┃ ┗ 📂 Spinner
+ ┃ ┣ 📂 follow
+ ┃ ┣ 📂 like
+ ┃ ┣ 📂 Modal
+ ┃ ┣ 📂 Mypage
+ ┃ ┣ 📂 Post
+ ┃ ┃ ┣ 📂 AddPost
+ ┃ ┃ ┃ ┣ 📂 AddModal
+ ┃ ┃ ┣ 📂 PostList
+ ┃ ┃ ┃ ┣ 📂 EditModal
+ ┃ ┃ ┃ ┣ 📂 OpenModal
+ ┃ ┃ ┃ ┃ ┣ 📂 OpenComment
+ ┃ ┃ ┃ ┃ ┗ 📂 OpenContent
+ ┃ ┃ ┃ ┗ 📂 PostLike
+ ┃ ┗ 📂 Schedule
+ ┣ 📂 pages
+ ┣ 📂 shared
+ ┃ ┣ 📂 recoil
+ ┣ 📂 toast
+ ┣ 📂 types
+ ┣ 📜 App.tsx
+ ┣ 📜 GlobalStyle.tsx
+ ┣ 📜 main.tsx
+ ┗ 📜 vite-env.d.ts
+```
+
+## 구현 사항
+
+### 로그인, 회원가입
+
+### CRUD
+
+### 댓글 기능
+
+### 팔로우, 팔로워 기능
+
+### 좋아요 기능
+
+### 무한 스크롤
+
+### 반응형 웹 구현
+
+### 마이 페이지
+
+### aws에 배포한 뒤 커스텀 도메인 적용

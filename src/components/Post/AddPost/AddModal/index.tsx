@@ -64,7 +64,7 @@ const AddPostModal = ({handleModal}) => {
       const {data, error} = await supabase.from('posts').select('photo_url').eq('id', id);
 
       if (error) {
-        console.log('posts img 가져오기 실패', error);
+        // console.log('posts img 가져오기 실패', error);
       } else {
         if (data?.photo_url) {
           // 이미지 파일먕이나 경로 가져옴
@@ -74,7 +74,7 @@ const AddPostModal = ({handleModal}) => {
           const {data: imgData, error: imgError} = await supabase.storage.from(bucketName).download(imgFileName);
 
           if (imgError) {
-            console.log('post photo image 다운로드 실패', imgError);
+            // console.log('post photo image 다운로드 실패', imgError);
           } else {
             // download image => 변환: Blob URL
             const imgUrl = URL.createObjectURL(imgData);
@@ -85,7 +85,7 @@ const AddPostModal = ({handleModal}) => {
         }
       }
     } catch (error) {
-      console.log('post photo image 가져오기 오류', error);
+      // console.log('post photo image 가져오기 오류', error);
     }
   };
 
@@ -109,7 +109,6 @@ const AddPostModal = ({handleModal}) => {
       .upload(uniqueKey, selectedPhotoImg, {contentType: 'image/png'});
 
     if (uploadError) {
-      console.log('post photo upload fail', uploadError);
       return;
     }
 
@@ -120,9 +119,8 @@ const AddPostModal = ({handleModal}) => {
       .select();
 
     if (postPhotoError) {
-      console.log('post photo update fail', postPhotoError);
+      // console.log('post photo update fail', postPhotoError);
     } else {
-      console.log('post photo update success');
       const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
 
       setPostPhotoImg(uploadUrl);

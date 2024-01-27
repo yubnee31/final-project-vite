@@ -72,6 +72,7 @@ const CommentImg = styled.img`
 const PostBtnDiv = styled.div`
   margin-top: 85px;
   margin-left: 810px;
+  margin-bottom: 30px;
   /* margin-right: 30px; */
   position: absolute;
 `;

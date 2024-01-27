@@ -6,7 +6,6 @@ import {getArtistList} from '../api/artistapi';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
-import {getCurrentUser} from '../api/currentUser';
 
 const Home = () => {
   const queryClient = useQueryClient();
@@ -29,7 +28,7 @@ const Home = () => {
       const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
       setFollowAt(userinfoData[0]?.artist_follow);
     } catch (error) {
-      console.log('팔로우된 아티스트 불러오기 실패', error);
+      // console.log('팔로우된 아티스트 불러오기 실패', error);
     }
   };
 
@@ -92,8 +91,6 @@ const Home = () => {
                 <StArtistDiv>
                   {followAt?.length > 0 ? (
                     followAt?.map((followAt, index) => {
-                      console.log('Artist Object:', followAt);
-
                       return (
                         <StListTargetDiv
                           key={followAt.artistId.id}

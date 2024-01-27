@@ -2,13 +2,14 @@ import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import React, {useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {loginState} from '../../shared/recoil/authAtom';
-import {artistFollowList, getInitialLikes, getUsers} from '../../api/chartapi';
+import {artistFollowList, getUsers} from '../../api/chartapi';
 import {getArtistList} from '../../api/artistapi';
 import {supabase} from '../../api/supabase';
-import {from} from 'stylis';
-import styled from 'styled-components';
 import checkmark from '../../../src/assets/checkmark.svg';
 import add from '../../../src/assets/add.svg';
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
+import {StBtnDiv, StButton, StDiv, StFollowNumDiv, StFollowP, StFollowingP} from './style';
 
 interface FollowArtistProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ interface FollowArtistProps {
 const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
   const queryClient = useQueryClient();
   const loginInfo = useRecoilValue(loginState);
+  const navigate = useNavigate();
   // followed 상태를 추적하는 상태 변수 추가
   const [followed, setFollowed] = useState(false);
 
@@ -40,7 +42,7 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
       const {data} = await supabase.from('artists').select('artist_fw_count').eq('artist', artistId);
       setFollowCount(data[0].artist_fw_count);
     } catch (error) {
-      console.log('팔로우 수 카운트 불러오기 실패', error);
+      // console.log('팔로우 수 카운트 불러오기 실패', error);
     }
   };
   const [followCount, setFollowCount] = useState<number | null>(null);
@@ -90,7 +92,8 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
     if (loginInfo) {
       mutate();
     } else {
-      alert('로그인이 필요합니다.');
+      toast.error('로그인이 필요합니다.');
+      navigate('/login');
     }
   };
 
@@ -117,52 +120,3 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
 };
 
 export default FollowArtistBt;
-
-const StFollowNumDiv = styled.div`
-  display: flex;
-  gap: 10px;
-  font-size: 18px;
-`;
-
-const StDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
-  margin-top: 30px;
-`;
-
-const StButton = styled.button`
-  width: 120px;
-  height: 42px;
-  border: 1px solid #aeaeb2;
-  border-radius: 5px;
-  &.following {
-    color: #9747ff;
-    border: 1px solid #9747ff;
-    transition: 0.3s;
-  }
-  &.follow {
-    transition: 0.3s;
-  }
-`;
-
-const StBtnDiv = styled.div`
-  width: 120px;
-  height: 42px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  padding-right: 15px;
-  gap: 10px;
-`;
-
-const StFollowingP = styled.p`
-  color: #9747ff;
-  font-size: 16px;
-`;
-
-const StFollowP = styled.p`
-  font-size: 16px;
-`;

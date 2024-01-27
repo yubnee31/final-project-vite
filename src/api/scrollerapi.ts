@@ -10,7 +10,6 @@ export const morePosts = async (pageParam, artistName) => {
       .select('*')
       .eq('artist', artistName)
       .range(pageParam.start, pageParam.end);
-    console.log(data);
     // 여기서 nextCursor와 prevCursor를 반환하도록 조정
     if (data?.length === 0) {
       toast.error('마지막 페이지입니다.');
