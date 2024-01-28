@@ -5,6 +5,7 @@ import {addLikes, getLikes, updateLikes} from '../../../../../api/like';
 import heartImgPurple from '../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../assets/images/heart-white.png';
 import {getTargetUserInfo} from '../../../../../api/currentUser';
+import dayjs from 'dayjs';
 
 const OpenContent = ({currentUser, modalData}: any) => {
   const queryClient = useQueryClient();
@@ -62,18 +63,25 @@ const OpenContent = ({currentUser, modalData}: any) => {
 
   return (
     <St.OpenContentModalContainer>
-      <St.OpenContentModalUserName>{nameFilterHandler(modalData.userid)}</St.OpenContentModalUserName>
+      <St.OpenContentModalTitle>게시글 보기</St.OpenContentModalTitle>
+      <St.OpenContentModalHeader>
+        <St.OpenContentModalUserName>{nameFilterHandler(modalData.userid)}</St.OpenContentModalUserName>
+        <St.OpenContentModalDateDiv>
+          <St.OpenContetnModalDateP>{dayjs(modalData.created_at).format('HH:mm')}</St.OpenContetnModalDateP>
+          <St.OpenContentModalTimeP>{dayjs(modalData.created_at).format('YYYY.MM.DD')}</St.OpenContentModalTimeP>
+        </St.OpenContentModalDateDiv>
+      </St.OpenContentModalHeader>
       <div>
         <St.OpenContentModalContent>{modalData.content}</St.OpenContentModalContent>
-        <St.OpenContentModalImg alt="게시글 사진" />
+        {/* <St.OpenContentModalImg alt="게시글 사진" /> */}
       </div>
-      <St.OpenContentMocalLikeBtnDiv>
+      <St.OpenContentModalLikeBtnDiv>
         <St.OpenContentModalLikeImg
           src={target?.length ? heartImgPurple : heartImgWhite}
           onClick={onClickLikeHandler}
         ></St.OpenContentModalLikeImg>
         <St.OpenContentModalLikeCountP>{targetPost?.like}</St.OpenContentModalLikeCountP>
-      </St.OpenContentMocalLikeBtnDiv>
+      </St.OpenContentModalLikeBtnDiv>
     </St.OpenContentModalContainer>
   );
 };

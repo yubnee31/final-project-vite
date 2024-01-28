@@ -33,7 +33,7 @@ const ModalArtistName = styled.p`
   font-size: 14px;
   margin: 6px 380px 0 380px;
 `;
-const ModalContentInput = styled.input`
+const ModalContentInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
 
