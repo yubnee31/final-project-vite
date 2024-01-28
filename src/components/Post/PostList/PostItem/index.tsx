@@ -82,6 +82,7 @@ const PostItem = ({id, userid, content, created_at}) => {
                 <St.PostBtn
                   onClick={() => {
                     deleteMutation.mutate(id);
+                    setOpenToggle(false);
                   }}
                 >
                   삭제
@@ -89,6 +90,7 @@ const PostItem = ({id, userid, content, created_at}) => {
                 <St.PostBtn
                   onClick={() => {
                     handleEditModal(id, content);
+                    setOpenToggle(false);
                   }}
                 >
                   수정
