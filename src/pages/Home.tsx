@@ -89,7 +89,7 @@ const Home = () => {
             <StSideWrapper>
               {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
 
-              {login ? ( // Check if login is not null
+              {login ? (
                 <StDiv>
                   <StSpan>나의 아티스트</StSpan>
                   <StArtistDiv>

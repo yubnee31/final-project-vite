@@ -127,7 +127,7 @@ const StMypageContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: 900px;
-  margin-top: 150px;
+  margin-top: 100px;
 `;
 const StWrapper = styled.div`
   width: 1200px;
