@@ -9,9 +9,6 @@ const PostDiv = styled.div`
 const PostUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-<<<<<<< HEAD
-  grid-auto-rows: 180px;
-=======
   grid-auto-rows: 150px;
 `;
 const PostLi = styled.li`
@@ -90,7 +87,6 @@ const PostBtn = styled.button`
     background-color: white;
     color: black;
   }
->>>>>>> 2a9dd092e0b04cba1381c1fc924bc48cb086f8f3
 `;
 
 export default {

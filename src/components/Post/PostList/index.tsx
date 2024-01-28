@@ -33,12 +33,6 @@ const PostList = () => {
   };
   window.addEventListener('scroll', handleScroll);
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
-=======
   const handlecommentModal = (id: React.SetStateAction<string>) => {
     setModalCommentData(id);
     setOpenCommentModal(!openCommentModal);
@@ -60,7 +54,6 @@ const PostList = () => {
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
   });
->>>>>>> 2a9dd092e0b04cba1381c1fc924bc48cb086f8f3
 
   // post list
   const {
