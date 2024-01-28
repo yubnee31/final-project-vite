@@ -252,6 +252,9 @@ const StListTargetDiv = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StListTargetImgDiv = styled.div`
