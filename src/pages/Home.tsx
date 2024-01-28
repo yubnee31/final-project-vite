@@ -6,6 +6,8 @@ import {getArtistList} from '../api/artistapi';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
+import {loginState} from '../shared/recoil/authAtom';
+import {useRecoilState} from 'recoil';
 
 const Home = () => {
   const queryClient = useQueryClient();
@@ -13,8 +15,8 @@ const Home = () => {
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
   const [followAt, setFollowAt] = useState([]);
-  //const user = getCurrentUser();
-
+  const [login, setLogin] = useRecoilState(loginState);
+  console.log(login);
   const {data: artistList, isLoading: artistLoading} = useQuery({
     queryKey: ['artist'],
     queryFn: getArtistList,
@@ -86,28 +88,31 @@ const Home = () => {
             {/* // My Artist */}
             <StSideWrapper>
               {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
-              <StDiv>
-                <StSpan>나의 아티스트</StSpan>
-                <StArtistDiv>
-                  {followAt?.length > 0 ? (
-                    followAt?.map((followAt, index) => {
-                      return (
-                        <StListTargetDiv
-                          key={followAt.artistId.id}
-                          onClick={() => artistNavigateHandler(followAt.artistId.artist)}
-                        >
-                          <div>
-                            <StArtistTargetImg src={followAt.artistId.photo_url} />
-                          </div>
-                          <StListTargetP>{followAt.artistId.artist}</StListTargetP>
-                        </StListTargetDiv>
-                      );
-                    })
-                  ) : (
-                    <p>팔로우한 아티스트가 없습니다.</p>
-                  )}
-                </StArtistDiv>
-              </StDiv>
+
+              {login ? ( // Check if login is not null
+                <StDiv>
+                  <StSpan>나의 아티스트</StSpan>
+                  <StArtistDiv>
+                    {followAt?.length > 0 ? (
+                      followAt?.map((followAt, index) => {
+                        return (
+                          <StListTargetDiv
+                            key={followAt.artistId.id}
+                            onClick={() => artistNavigateHandler(followAt.artistId.artist)}
+                          >
+                            <div>
+                              <StArtistTargetImg src={followAt.artistId.photo_url} />
+                            </div>
+                            <StListTargetP>{followAt.artistId.artist}</StListTargetP>
+                          </StListTargetDiv>
+                        );
+                      })
+                    ) : (
+                      <p>팔로우한 아티스트가 없습니다.</p>
+                    )}
+                  </StArtistDiv>
+                </StDiv>
+              ) : null}
 
               {/* // Artist List */}
               <StListWrapper>
