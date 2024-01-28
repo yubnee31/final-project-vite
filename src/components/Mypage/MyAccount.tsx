@@ -176,7 +176,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
 
   return (
     <>
-      <div>
+      <StSettingDiv>
         <StMyAccountName>
           <p>나의 정보 {'>'} 계정 설정 </p>
         </StMyAccountName>
@@ -187,7 +187,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
         <StProfileSettingContainer>
           <input id="profileImg" type="file" accept="image/*" style={{display: 'none'}} onChange={handleImageChange} />
           {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
-          <label htmlFor="profileImg">프로필 수정하기</label>
+          <label htmlFor="profileImg">프로필사진 수정</label>
         </StProfileSettingContainer>
         <StNickName></StNickName>
         {user.provider !== 'google' && (
@@ -200,7 +200,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
               onChange={handleNicknameChange}
             />
             {/* 요 피태그 회원가입 오류메시지 뜨는것처럼 작게 빨간색,,! */}
-            <p>{nicknameError}</p>
+            <StErrorP>{nicknameError}</StErrorP>
 
             <StcheckButton onClick={handleValidateNickname}>중복확인</StcheckButton>
             <div>
@@ -214,10 +214,13 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
             </div>
           </StUpdateContainer>
         )}
-      </div>
+      </StSettingDiv>
     </>
   );
 };
+
+const StSettingDiv = styled.div``;
+
 const StMyAccountName = styled.div`
   margin-bottom: 20px;
 `;
@@ -274,6 +277,12 @@ const StUpdateContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+const StErrorP = styled.p`
+  font-size: x-small;
+  color: red;
+`;
+
 const StcheckButton = styled.button`
   margin-bottom: 50px;
 `;
@@ -286,6 +295,7 @@ const StProfileSettingContainer = styled.div`
   margin-bottom: 30px;
   margin-top: 30px;
   label {
+    font-size: small;
     text-decoration: underline;
     cursor: pointer;
   }
