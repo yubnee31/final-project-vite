@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const ScheduleDiv = styled.div`
   width: 1200px;
-  height: 300px;
+  /* height: 300px; */
+  margin-bottom: 100px;
 `;
 const ScheduleUl = styled.ul`
   display: flex;
@@ -22,7 +23,7 @@ const ScheduleDayP = styled.p`
 `;
 
 const ScheduleListDiv = styled.div`
-  height: 50px;
+  height: 110px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #3a3a3a;
