@@ -126,9 +126,7 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
         <MyAccount user={user} onUpdateNickname={onUpdateNickname} onCompleteSettings={handleCompleteSettings} />
       ) : (
         <>
-          <StMyAccountName>
-            <p>나의 정보 </p>
-          </StMyAccountName>
+          <StMyAccountName></StMyAccountName>
           <StMyAccount>
             <StProfileImage src={profileImage} alt="아바타 이미지" />
             <StNickName>
@@ -138,17 +136,9 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
 
             <StSettingButton onClick={handleShowMyAccount}>설정</StSettingButton>
           </StMyAccount>
-          <StFollowcontainer>
-            <div>
-              <StFollowerTX>팔로워 0</StFollowerTX>
-            </div>
-            <div>
-              <StFollowingTX>팔로잉 0</StFollowingTX>
-            </div>
-          </StFollowcontainer>
-
+          <StLine></StLine>
           <StMyFollowContainer>
-            <p>MY FOLLOW ARTIST</p>
+            <StFollowP>내가 팔로우한 아티스트</StFollowP>
             <StFollowArtistList
               ref={containerRef}
               onMouseDown={handleMouseDown}
@@ -162,9 +152,8 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
                       key={followAt.artistId.id}
                       onClick={() => artistNavigateHandler(followAt.artistId.artist)}
                     >
-                      <div>
-                        <img src={followAt.artistId.photo_url} />
-                      </div>
+                      <img src={followAt.artistId.photo_url} />
+
                       <p>{followAt.artistId.artist}</p>
                     </StFwAtistContainer>
                   );
@@ -179,7 +168,10 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
     </StWrapper>
   );
 };
-const StWrapper = styled.div``;
+const StWrapper = styled.div`
+  width: 1000px;
+`;
+
 const StMyAccountName = styled.div`
   margin-bottom: 20px;
 `;
@@ -209,17 +201,13 @@ const StMyAccount = styled.div`
     font-size: 15px;
   }
 `;
-const StFollowcontainer = styled.div`
+const StLine = styled.div`
   width: 976px;
   display: flex;
   align-items: center;
   margin-top: 20px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #636366;
   padding-bottom: 20px;
-`;
-const StFollowerTX = styled.p``;
-const StFollowingTX = styled.p`
-  margin-left: 20px;
 `;
 
 const StProfileImage = styled.img`
@@ -231,27 +219,34 @@ const StProfileImage = styled.img`
 const StMyFollowContainer = styled.div`
   margin-top: 20px;
 `;
-const StFollowArtistList = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-  max-width: 85%;
+
+const StFollowP = styled.p`
+  margin-top: 50px;
 `;
+
+const StFollowArtistList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 24px;
+  margin-top: 20px;
+  white-space: nowrap;
+`;
+
 const StFwAtistContainer = styled.div`
-  margin-right: 40px;
   cursor: pointer;
   img {
-    width: 150px;
-    height: 150px;
+    width: 226px;
+    height: 200px;
+    border-radius: 10px;
     object-fit: cover;
     transition: filter 0.3s ease;
 
     &:hover {
       filter: brightness(80%);
     }
+  }
+  p {
+    margin-top: 10px;
   }
 
   &:hover::after {
@@ -265,6 +260,13 @@ const StFwAtistContainer = styled.div`
   &:hover::after {
     opacity: 1;
   }
+`;
+
+const StArtistImg = styled.img`
+  width: 264px;
+  height: 214px;
+  object-fit: cover;
+  border-radius: 10px;
 `;
 
 export default AccountSettings;

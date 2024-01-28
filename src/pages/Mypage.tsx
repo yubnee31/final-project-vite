@@ -125,7 +125,6 @@ const Mypage = () => {
 const StMypageContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
   height: 900px;
   margin-top: 100px;
 `;
@@ -144,7 +143,7 @@ const Staccount = styled.div`
   height: 700px;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 `;
 const StMenuBtn = styled.button`
