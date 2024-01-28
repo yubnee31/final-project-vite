@@ -176,43 +176,45 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
 
   return (
     <>
-      <StMyAccountName>
-        <p>나의 정보 {'>'} 계정 설정 </p>
-      </StMyAccountName>
-      <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
-      <StMyAccount>
-        <StProfileImage src={profileImage} alt="아바타 이미지" />
-      </StMyAccount>
-      <StProfileSettingContainer>
-        <input id="profileImg" type="file" accept="image/*" style={{display: 'none'}} onChange={handleImageChange} />
-        {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
-        <label htmlFor="profileImg">프로필 수정</label>
-      </StProfileSettingContainer>
-      <StNickName></StNickName>
-      {user.provider !== 'google' && (
-        <StUpdateContainer>
-          <p>닉네임</p>
-          <StNicknameInput
-            type="text"
-            defaultValue={displayNickname}
-            placeholder="변경할 닉네임 입력"
-            onChange={handleNicknameChange}
-          />
-          {/* 요 피태그 회원가입 오류메시지 뜨는것처럼 작게 빨간색,,! */}
-          <p>{nicknameError}</p>
+      <div>
+        <StMyAccountName>
+          <p>나의 정보 {'>'} 계정 설정 </p>
+        </StMyAccountName>
+        <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
+        <StMyAccount>
+          <StProfileImage src={profileImage} alt="아바타 이미지" />
+        </StMyAccount>
+        <StProfileSettingContainer>
+          <input id="profileImg" type="file" accept="image/*" style={{display: 'none'}} onChange={handleImageChange} />
+          {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
+          <label htmlFor="profileImg">프로필 수정하기</label>
+        </StProfileSettingContainer>
+        <StNickName></StNickName>
+        {user.provider !== 'google' && (
+          <StUpdateContainer>
+            <p>닉네임</p>
+            <StNicknameInput
+              type="text"
+              defaultValue={displayNickname}
+              placeholder="변경할 닉네임 입력"
+              onChange={handleNicknameChange}
+            />
+            {/* 요 피태그 회원가입 오류메시지 뜨는것처럼 작게 빨간색,,! */}
+            <p>{nicknameError}</p>
 
-          <button onClick={handleValidateNickname}>중복확인</button>
-          <div>
-            <button
-              disabled={isValid ? false : true}
-              onClick={handleCompleteSettings}
-              style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8)' : '#aeaeb2'}}
-            >
-              저장
-            </button>
-          </div>
-        </StUpdateContainer>
-      )}
+            <StcheckButton onClick={handleValidateNickname}>중복확인</StcheckButton>
+            <div>
+              <button
+                disabled={isValid ? false : true}
+                onClick={handleCompleteSettings}
+                style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8)' : '#aeaeb2'}}
+              >
+                저장
+              </button>
+            </div>
+          </StUpdateContainer>
+        )}
+      </div>
     </>
   );
 };
@@ -222,7 +224,7 @@ const StMyAccountName = styled.div`
 
 const StNickName = styled.div`
   margin-right: 65%;
-  margin-bottom: 10%;
+
   h1 {
     margin-top: 20px;
   }
@@ -231,7 +233,7 @@ const StNickName = styled.div`
   }
 `;
 const StMyAccount = styled.div`
-  width: 976px;
+  width: 1000px;
   display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
   align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
   justify-content: space-between; /* 자식 요소들을 가로로 정렬 */
@@ -272,6 +274,9 @@ const StUpdateContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
+const StcheckButton = styled.button`
+  margin-bottom: 50px;
+`;
 
 const StNicknameInput = styled.input`
   border: none;
@@ -279,5 +284,11 @@ const StNicknameInput = styled.input`
 `;
 const StProfileSettingContainer = styled.div`
   margin-bottom: 30px;
+  margin-top: 30px;
+  label {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
+
 export default MyAccount;

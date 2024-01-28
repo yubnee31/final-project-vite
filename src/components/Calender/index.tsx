@@ -16,7 +16,7 @@ const Calender = () => {
   });
   const targetUserSchedule = userSchdule?.filter(el => el.userid === currentUser.id);
 
-  const dayList: number[] = [];
+  const dayList: any[] = [];
   const dayChecker = [
     {checker: 0, dayString: 'Sun'},
     {checker: 1, dayString: 'Mon'},
@@ -46,28 +46,32 @@ const Calender = () => {
   const lastMonth = new Date(year, month, 0);
   lastMonth.setMonth(lastMonth.getMonth() - 1);
 
+  // 다음달
+  const nextMonth = new Date(year, month, 1);
+  // nextMonth.setMonth(nextMonth.getMonth() + 1);
+
   // this month
   for (let i = 1; i <= +dayLast; i++) {
     // last month
     if (i === 1) {
       for (let j = 0; j < firstDay; j++) {
         const lastDay = lastMonth.getDate() - j;
-        dayList.push(lastDay);
+        dayList.push(`${('0' + (lastMonth.getMonth() + 1)).slice(-2)}-${('0' + lastDay).slice(-2)}`);
       }
       dayList.sort((a, b) => a - b);
     }
-    dayList.push(i);
+    dayList.push(`${('0' + month).slice(-2)}-${('0' + i).slice(-2)}`);
   }
   // next month
   if (dayList.length < 35) {
     const maxLength = 35 - dayList.length;
     for (let l = 1; l <= maxLength; l++) {
-      dayList.push(l);
+      dayList.push(`${('0' + (nextMonth.getMonth() + 1)).slice(-2)}-${('0' + l).slice(-2)}`);
     }
   } else {
     const maxLength = 42 - dayList.length;
     for (let l = 1; l <= maxLength; l++) {
-      dayList.push(l);
+      dayList.push(`${('0' + nextMonth.getMonth()).slice(-2)}-${('0' + l).slice(-2)}`);
     }
   }
 
@@ -99,9 +103,9 @@ const Calender = () => {
         {dayList.map(e => {
           return (
             <StDayli>
-              <StDayP className={e === day ? 'today' : ''}>{e}</StDayP>
+              <StDayP className={+e.slice(-2) === day ? 'today' : ''}>{+e.slice(-2)}</StDayP>
               {targetUserSchedule
-                ?.filter(el => +el.date.slice(-2) === e)
+                ?.filter(el => el.date.slice(-5) == e)
                 .map(ele => {
                   return (
                     <StScheduleDiv>

@@ -19,8 +19,11 @@ const PostList = () => {
     const {scrollY} = window; // 현재 스크롤 높이
     const {clientHeight} = document.documentElement; // 현재 화면 높이
     const {scrollHeight} = document.documentElement; // 전체 높이
-
+    // hasNextPage 이거 왜 계속 ture 나옴?
     if (Math.ceil(scrollY) + clientHeight === scrollHeight && hasNextPage && !isFetchingNextPage) {
+      console.log('hasNextPage', hasNextPage);
+      console.log('isFetchingNextPage', isFetchingNextPage);
+
       console.log('next page');
       fetchNextPage();
       // if (isBottom) {
@@ -30,10 +33,34 @@ const PostList = () => {
   };
   window.addEventListener('scroll', handleScroll);
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll);
   //   return () => window.removeEventListener('scroll', handleScroll);
   // }, []);
+=======
+  const handlecommentModal = (id: React.SetStateAction<string>) => {
+    setModalCommentData(id);
+    setOpenCommentModal(!openCommentModal);
+  };
+  // toggle
+  const [openToggle, setOpenToggle] = useState(false);
+  const handleToggle = () => {
+    setOpenToggle(!openToggle);
+  };
+
+  const param = useParams();
+
+  // current UserInfo
+  const {data: currentUser} = useQuery({
+    queryKey: ['getCurrentUser'],
+    queryFn: getCurrentUser,
+  });
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+>>>>>>> 2a9dd092e0b04cba1381c1fc924bc48cb086f8f3
 
   // post list
   const {
