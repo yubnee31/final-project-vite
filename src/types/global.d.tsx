@@ -8,12 +8,17 @@ export type Post = {
   isEditing?: boolean;
 };
 
+export type postLike = {
+  postid?: string;
+  like?: number;
+  userid?: string;
+};
+
 export type Comment = {
   postid?: string;
   commentid?: string;
   username?: string;
   comment?: string;
-  re_comment?: string;
   created_at?: string;
 };
 

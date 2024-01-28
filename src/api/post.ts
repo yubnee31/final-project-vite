@@ -35,15 +35,7 @@ const addPost = async (newPost: newPost) => {
 // 게시글 수정
 const updatePost = async ({id, content}: POST) => {
   try {
-    const {error} = await supabase.from('posts').update({content: content, isEditing: false}).eq('id', id);
-  } catch (error) {
-    // console.log('Error', error);
-  }
-};
-
-const updateisEditing = async (id: string) => {
-  try {
-    const {error} = await supabase.from('posts').update({isEditing: true}).eq('id', id);
+    const {error} = await supabase.from('posts').update({content: content}).eq('id', id);
   } catch (error) {
     // console.log('Error', error);
   }
@@ -58,4 +50,34 @@ const deletePost = async (id: string) => {
   }
 };
 
-export {getPosts, addPost, updatePost, deletePost, updateisEditing};
+// storage에 이미지 업로드
+const uploadStorage = async ({uniqueKey, uploadFile}) => {
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, uploadFile, {
+      cacheControl: '3600',
+      upsert: false,
+    });
+  } catch (error) {
+    // console.log('Error', error);
+  }
+};
+
+// storage에서 파일 다운로드
+const downloadStorage = async uniqueKey => {
+  try {
+    const {data, error} = await supabase.storage.from('upload_posts').download(uniqueKey);
+  } catch (error) {
+    // console.log('Error', error);
+  }
+};
+
+// posts table에 파일 업로드
+const uploadPostsTable = async uniqueKey => {
+  try {
+    const {error} = await supabase.from('posts').update(uniqueKey).eq('id', id);
+  } catch (error) {
+    // console.log('Error', error);
+  }
+};
+
+export {getPosts, addPost, updatePost, deletePost, uploadStorage, downloadStorage, uploadPostsTable};
