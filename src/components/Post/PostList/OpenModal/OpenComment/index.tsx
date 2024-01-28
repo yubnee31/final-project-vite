@@ -71,7 +71,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
             <div key={el.id}>
               <p>{nameFilterHandler(el.userid)}</p>
               <p>{el.comment}</p>
-              <p $right={'14%'}>{dayjs(post.created_at).format('HH:mm')}</p>
+              <p $right={'14%'}>{dayjs(el.created_at).format('HH:mm')}</p>
               <p>{dayjs(el.created_at).format('YYYY.MM.DD')}</p>
               <button
                 onClick={() => {

@@ -19,7 +19,7 @@ const getPosts = async () => {
     const {data, error} = await supabase.from('posts').select('*');
     return data;
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -28,24 +28,16 @@ const addPost = async (newPost: newPost) => {
   try {
     const {error} = await supabase.from('posts').insert(newPost);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
 // 게시글 수정
 const updatePost = async ({id, content}: POST) => {
   try {
-    const {error} = await supabase.from('posts').update({content: content, isEditing: false}).eq('id', id);
+    const {error} = await supabase.from('posts').update({content: content}).eq('id', id);
   } catch (error) {
-    console.log('Error', error);
-  }
-};
-
-const updateisEditing = async (id: string) => {
-  try {
-    const {error} = await supabase.from('posts').update({isEditing: true}).eq('id', id);
-  } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -54,7 +46,7 @@ const deletePost = async (id: string) => {
   try {
     await supabase.from('posts').delete().eq('id', id);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -66,7 +58,7 @@ const uploadStorage = async ({uniqueKey, uploadFile}) => {
       upsert: false,
     });
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -75,7 +67,7 @@ const downloadStorage = async uniqueKey => {
   try {
     const {data, error} = await supabase.storage.from('upload_posts').download(uniqueKey);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
@@ -84,8 +76,8 @@ const uploadPostsTable = async uniqueKey => {
   try {
     const {error} = await supabase.from('posts').update(uniqueKey).eq('id', id);
   } catch (error) {
-    console.log('Error', error);
+    // console.log('Error', error);
   }
 };
 
-export {getPosts, addPost, updatePost, deletePost, updateisEditing, uploadStorage, downloadStorage, uploadPostsTable};
+export {getPosts, addPost, updatePost, deletePost, uploadStorage, downloadStorage, uploadPostsTable};

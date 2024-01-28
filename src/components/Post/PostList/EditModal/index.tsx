@@ -4,29 +4,34 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {updatePost} from '../../../../api/post';
 import {useParams} from 'react-router-dom';
 
-const EditPostModal = ({handleModal, modalData}) => {
+const EditPostModal = ({handleModal, modalData, setOpenEditModal}) => {
   const param = useParams();
   const queryClient = useQueryClient();
   const editMutation = useMutation({
     mutationFn: updatePost,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
 
   const [editInputState, setEditInputState] = useState(modalData.content); // TODO : Modal로 리팩토링
 
   const handleChangeEditPost: React.ChangeEventHandler<HTMLInputElement> = e => {
-    e.preventDefault();
     setEditInputState(e.target.value);
   };
 
-  const handleSubmitEditedPost: React.FormEventHandler<HTMLFormElement> = id => {
-    const params = {id: id, content: editInputState};
+  const handleSubmitEditedPost: React.FormEventHandler<HTMLFormElement> = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params = {id: modalData.id, content: editInputState};
     editMutation.mutate(params);
+    setOpenEditModal(false);
   };
 
-  const handleClickEditCancelPost: React.FormEventHandler<HTMLFormElement> = () => {};
+  const handleClickEditCancelPost = (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setEditInputState(modalData.content);
+    setOpenEditModal(false);
+  };
 
   return (
     <>
@@ -37,8 +42,8 @@ const EditPostModal = ({handleModal, modalData}) => {
           }}
         >
           <St.EditPostModalContent
-            onSubmit={() => {
-              handleSubmitEditedPost(modalData);
+            onSubmit={e => {
+              handleSubmitEditedPost(e);
             }}
           >
             <St.EditPostModalTitle>post 수정하기</St.EditPostModalTitle>
@@ -47,17 +52,12 @@ const EditPostModal = ({handleModal, modalData}) => {
               type="text"
               value={editInputState}
               name="editingPosts"
+              placeholder="수정할 내용을 입력해주세요"
               onChange={handleChangeEditPost}
             />
             <St.EditPostModalBtnDiv>
-              <St.EditPostModalBtn
-                onClick={() => {
-                  handleClickEditCancelPost;
-                }}
-              >
-                취소
-              </St.EditPostModalBtn>
-              <St.EditPostModalBtn>저장</St.EditPostModalBtn>
+              <St.EditPostModalBtn onClick={e => handleClickEditCancelPost(e)}>취소</St.EditPostModalBtn>
+              <St.EditPostModalBtn type="submit">저장</St.EditPostModalBtn>
             </St.EditPostModalBtnDiv>
           </St.EditPostModalContent>
         </St.EditPostModalBox>

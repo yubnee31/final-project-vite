@@ -1,10 +1,9 @@
 import React from 'react';
 import St from './style';
 import {useMutation, useQueryClient, useQuery} from '@tanstack/react-query';
-import {updateLikes} from '../../../../../api/like';
+import {addLikes, getLikes, updateLikes} from '../../../../../api/like';
 import heartImgPurple from '../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../assets/images/heart-white.png';
-import {getPosts} from '../../../../../api/post';
 import {getTargetUserInfo} from '../../../../../api/currentUser';
 
 const OpenContent = ({currentUser, modalData}: any) => {
@@ -15,31 +14,43 @@ const OpenContent = ({currentUser, modalData}: any) => {
     queryFn: getTargetUserInfo,
   });
 
-  const {data: posts, isLoading} = useQuery({
-    queryKey: ['posts'],
-    queryFn: getPosts,
+  const {data: postLike} = useQuery({
+    queryKey: ['postLike'],
+    queryFn: getLikes,
   });
-  const targetPost = posts?.find(e => e.id === modalData.id);
+
+  const addLikeMutation = useMutation({
+    mutationFn: addLikes,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['postLike']});
+    },
+  });
 
   const likeMutation = useMutation({
     mutationFn: updateLikes,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postLike']});
     },
   });
+
+  const targetPost = postLike?.find(e => e.postid === modalData.id);
+
   console.log('modalData', modalData.id);
-  const target = targetPost?.like_userInfo?.filter(e => e.id === currentUser.id);
+  const target = targetPost?.userid?.filter(e => e.id === currentUser.id);
 
   const onClickLikeHandler = () => {
-    if (target.length) {
-      const likeCounter = targetPost?.like - 1;
-      const postInfoData = targetPost?.like_userInfo.filter(e => e.id !== currentUser.id);
-      const param = {id: modalData.id, likeUserInfo: postInfoData, likeCount: likeCounter};
+    if (targetPost === undefined) {
+      const param = {postid: modalData.id, userid: [{id: currentUser.id}]};
+      addLikeMutation.mutate(param);
+    } else if (target?.length) {
+      const likeCounter = targetPost.like - 1;
+      const postInfoData = targetPost.userid.filter(e => e.id !== currentUser.id);
+      const param = {postid: modalData.id, userid: postInfoData, likeCount: likeCounter};
       likeMutation.mutate(param);
     } else {
-      const likeCounter = targetPost?.like + 1;
-      targetPost?.like_userInfo.push({id: currentUser.id});
-      const param = {id: targetPost?.id, likeUserInfo: targetPost?.like_userInfo, likeCount: likeCounter};
+      const likeCounter = targetPost.like + 1;
+      targetPost.userid.push({id: currentUser.id});
+      const param = {postid: modalData.id, userid: targetPost.userid, likeCount: likeCounter};
       likeMutation.mutate(param);
     }
   };
@@ -58,7 +69,7 @@ const OpenContent = ({currentUser, modalData}: any) => {
       </div>
       <St.OpenContentMocalLikeBtnDiv>
         <St.OpenContentModalLikeImg
-          src={target.length ? heartImgPurple : heartImgWhite}
+          src={target?.length ? heartImgPurple : heartImgWhite}
           onClick={onClickLikeHandler}
         ></St.OpenContentModalLikeImg>
         <St.OpenContentModalLikeCountP>{targetPost?.like}</St.OpenContentModalLikeCountP>

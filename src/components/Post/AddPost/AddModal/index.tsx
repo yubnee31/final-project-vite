@@ -4,10 +4,9 @@ import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {addPost, getPosts} from '../../../../api/post';
 import postPhotoImg from '../../../../assets/images/post-photo.png';
-import {supabase} from '../../../../api/supabase';
 import {useParams} from 'react-router-dom';
 
-const AddPostModal = ({handleModal}) => {
+const AddPostModal = ({handleModal, setOpenModal}) => {
   const queryClient = useQueryClient();
   const param = useParams();
   const [content, setContent] = useState('');
@@ -31,7 +30,7 @@ const AddPostModal = ({handleModal}) => {
   const addMutation = useMutation({
     mutationFn: addPost,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['posts']});
+      queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
 
@@ -51,6 +50,7 @@ const AddPostModal = ({handleModal}) => {
     };
     addMutation.mutate(newPost);
     setContent('');
+    setOpenModal(false);
   };
   // ----------------------------------------------------------------
 
@@ -153,7 +153,7 @@ const AddPostModal = ({handleModal}) => {
             <St.ModalBtnDiv>
               {/* <label type='file' accept='image/*' onChange={handleImgChange}/> */}
               <img src={postPhotoImg} />
-              <St.ModalAddPostBtn onClick={updatePhoto}>등록</St.ModalAddPostBtn>
+              <St.ModalAddPostBtn>등록</St.ModalAddPostBtn>
             </St.ModalBtnDiv>
           </St.ModalContent>
         </St.ModalBox>
