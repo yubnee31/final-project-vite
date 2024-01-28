@@ -1,14 +1,9 @@
-import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
-import React, {useState} from 'react';
-import {getCurrentUser} from '../../../api/currentUser';
+import {useInfiniteQuery} from '@tanstack/react-query';
+import React from 'react';
 import St from './style';
-import PortalModal from '../../Common/portalModal';
 import {useParams} from 'react-router-dom';
-import EditPostModal from './EditModal';
 import Spinner from '../../Common/Spinner';
-import OpenPostModal from './OpenModal';
 import {morePosts} from '../../../api/scrollerapi';
-import {toast} from 'react-toastify';
 import PostItem from './PostItem';
 
 const PostList = () => {
@@ -33,27 +28,10 @@ const PostList = () => {
   };
   window.addEventListener('scroll', handleScroll);
 
-  const handlecommentModal = (id: React.SetStateAction<string>) => {
-    setModalCommentData(id);
-    setOpenCommentModal(!openCommentModal);
-  };
-  // toggle
-  const [openToggle, setOpenToggle] = useState(false);
-  const handleToggle = () => {
-    setOpenToggle(!openToggle);
-  };
-
-  const param = useParams();
-
-  // current UserInfo
-  const {data: currentUser} = useQuery({
-    queryKey: ['getCurrentUser'],
-    queryFn: getCurrentUser,
-  });
-  const {data: userInfo} = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: getTargetUserInfo,
-  });
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   // post list
   const {
