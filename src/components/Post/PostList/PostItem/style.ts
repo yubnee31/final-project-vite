@@ -1,19 +1,6 @@
 import styled from 'styled-components';
 
 // PostList
-const PostDiv = styled.div`
-  width: 800px;
-  margin-top: 40px;
-  margin-bottom: 80px;
-`;
-const PostUl = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr;
-<<<<<<< HEAD
-  grid-auto-rows: 180px;
-=======
-  grid-auto-rows: 150px;
-`;
 const PostLi = styled.li`
   margin-bottom: 20px;
   position: relative;
@@ -75,7 +62,6 @@ const CommentImg = styled.img`
 const PostBtnDiv = styled.div`
   margin-top: 85px;
   margin-left: 810px;
-  margin-bottom: 30px;
   /* margin-right: 30px; */
   position: absolute;
 `;
@@ -90,10 +76,16 @@ const PostBtn = styled.button`
     background-color: white;
     color: black;
   }
->>>>>>> 2a9dd092e0b04cba1381c1fc924bc48cb086f8f3
 `;
 
 export default {
-  PostDiv,
-  PostUl,
+  PostLi,
+  PostNameP,
+  PostUploadImg,
+  PostBtnDiv,
+  PostBtn,
+  PostContentsP,
+  PostTimeP,
+  PostImg,
+  CommentImg,
 };

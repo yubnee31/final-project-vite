@@ -35,7 +35,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
   const handleSubmitAddComment: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     const newComment = {
-      postid: modalData,
+      postid: modalData.id,
       userid: currentUser?.id,
       comment: comment,
     };
@@ -60,7 +60,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
   return (
     <St.CommentContent>
       {comments
-        ?.filter(e => e.postid === modalData)
+        ?.filter(e => e.postid === modalData.id)
         ?.sort((a, b) => {
           const aDate: any = new Date(a.created_at);
           const bDate: any = new Date(b.created_at);
@@ -71,6 +71,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
             <div key={el.id}>
               <p>{nameFilterHandler(el.userid)}</p>
               <p>{el.comment}</p>
+              <p $right={'14%'}>{dayjs(el.created_at).format('HH:mm')}</p>
               <p>{dayjs(el.created_at).format('YYYY.MM.DD')}</p>
               <button
                 onClick={() => {

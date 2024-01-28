@@ -13,7 +13,7 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
           }}
         >
           <St.OpenPostModalContent>
-            <OpenContent currentUser={currentUser} />
+            <OpenContent currentUser={currentUser} modalData={modalData} />
             <OpenComment currentUser={currentUser} modalData={modalData} />
           </St.OpenPostModalContent>
         </St.OpenPostModalBox>

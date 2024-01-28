@@ -16,7 +16,9 @@ const AddPost = () => {
         <St.InputDiv>
           <St.InputImg src={profileImg} />
           <St.Input onClick={handleModal} />
-          <PortalModal>{openModal && <AddPostModal handleModal={handleModal} />}</PortalModal>
+          <PortalModal>
+            {openModal && <AddPostModal handleModal={handleModal} setOpenModal={setOpenModal} />}
+          </PortalModal>
         </St.InputDiv>
       </div>
     </>
