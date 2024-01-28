@@ -16,7 +16,7 @@ const Home = () => {
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
   const [followAt, setFollowAt] = useState([]);
   const [login, setLogin] = useRecoilState(loginState);
-  console.log(login);
+
   const {data: artistList, isLoading: artistLoading} = useQuery({
     queryKey: ['artist'],
     queryFn: getArtistList,

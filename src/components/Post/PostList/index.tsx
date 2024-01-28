@@ -34,10 +34,6 @@ const PostList = () => {
     const {scrollHeight} = document.documentElement; // 전체 높이
     // hasNextPage 이거 왜 계속 ture 나옴?
     if (Math.ceil(scrollY) + clientHeight === scrollHeight && hasNextPage && !isFetchingNextPage) {
-      console.log('hasNextPage', hasNextPage);
-      console.log('isFetchingNextPage', isFetchingNextPage);
-
-      console.log('next page');
       fetchNextPage();
     }
   };
@@ -79,7 +75,7 @@ const PostList = () => {
       lastPage.nextCursor ? {start: lastPage.nextCursor, end: lastPage.nextCursor + 4} : null,
   });
   const currentArtistPost = morePostList?.pages.map(e => e.data).flat();
-  console.log('morePostList', morePostList);
+
   if (!hasNextPage) {
     window.removeEventListener('scroll', handleScroll);
   }

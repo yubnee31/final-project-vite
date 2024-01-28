@@ -237,7 +237,6 @@ const StFollowArtistList = styled.div`
   margin-top: 20px;
   overflow: hidden;
   white-space: nowrap;
-  display: flex;
   max-width: 85%;
 `;
 const StFwAtistContainer = styled.div`
