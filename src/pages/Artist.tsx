@@ -19,6 +19,9 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState<boolean>(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
@@ -35,6 +38,14 @@ const Artist = () => {
     userInfo();
   }, []);
 
+  // const nextSlide = () => {
+  //   setCurrentIndex(prevIndex => (prevIndex + 1) % (detailTargetData?.photo?.length || 1));
+  // };
+
+  // const prevSlide = () => {
+  //   setCurrentIndex(prevIndex => (prevIndex - 1) % (detailTargetData?.photo?.length || 1));
+  // };
+  console.log(currentIndex);
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
     if (title.length > maxLength) {
@@ -146,13 +157,25 @@ const Artist = () => {
           <StWrapper>
             <StTitle>사진</StTitle>
             <StPhotoDiv>
-              {detailTargetData?.photo?.map(el => {
-                return (
-                  <StPhotoImgDiv>
-                    <StPhotoImg src={el.imgUrl}></StPhotoImg>
-                  </StPhotoImgDiv>
-                );
-              })}
+              {detailTargetData?.photo?.map(el => (
+                <StPhotoImgDiv
+                  key={el.imgUrl}
+                  onClick={() => {
+                    setSelectedPhoto(el.imgUrl);
+                    setIsPhotoModalOpen(true);
+                  }}
+                >
+                  <StPhotoImg src={el.imgUrl} />
+                </StPhotoImgDiv>
+              ))}
+              {isPhotoModalOpen && (
+                <StModalContainer>
+                  <StCloseButton onClick={() => setIsPhotoModalOpen(false)}>Close</StCloseButton>
+                  <StModalContent src={selectedPhoto} />
+                  {/* <button onClick={prevSlide}>이전</button>
+                  <button onClick={nextSlide}>다음</button> */}
+                </StModalContainer>
+              )}
             </StPhotoDiv>
           </StWrapper>
           <StWrapper>
@@ -426,6 +449,7 @@ const StPhotoDiv = styled.div`
 const StPhotoImgDiv = styled.div`
   width: 220px;
   height: 220px;
+  cursor: pointer;
 `;
 const StPhotoImg = styled.img`
   border-radius: 15px;
@@ -460,5 +484,35 @@ const StFloatBtn = styled.button`
     transition: 0.7s;
   }
 `;
+const StModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+const StModalContent = styled.img`
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+`;
+const StCloseButton = styled.button`
+  position: absolute;
+  top: 13%;
+  right: 27%;
+  background: gray;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+`;
 export default Artist;
