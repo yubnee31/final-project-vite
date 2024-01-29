@@ -110,7 +110,7 @@ const Artist = () => {
                               <StPfDetailP>{`본명 : ${ele.realName}`}</StPfDetailP>
                               <StPfDetailP>{`생년월일 : ${ele.birthday}`}</StPfDetailP>
                               <StPfDetailP>{`데뷔일 : ${ele.debutDate}`}</StPfDetailP>
-                              <StPfDetailP>{`데뷔일 : ${ele.debutSong}`}</StPfDetailP>
+                              <StPfDetailP>{`데뷔곡 : ${ele.debutSong}`}</StPfDetailP>
                             </StPfDetailDiv>
                           );
                         })}
@@ -397,7 +397,6 @@ const StAlbumsDiv = styled.div`
 const StAbWrapper = styled.div`
   width: 200px;
   height: 250px;
-  cursor: pointer;
 `;
 const StAbImgDiv = styled.div`
   width: 200px;

@@ -65,21 +65,25 @@ const Home = () => {
           <StListWrapper>
             <StSpan>검색결과</StSpan>
             <StListDiv>
-              {artistList
-                ?.filter(el => el.artist.includes(searchInput))
-                .map(el => {
-                  return (
-                    <StListTargetDiv
-                      key={el.id}
-                      onClick={() => {
-                        artistNavigateHandler(el.artist);
-                      }}
-                    >
-                      <StArtistTargetImg src={el.photo_url} />
-                      <StListTargetP>{el.artist}</StListTargetP>
-                    </StListTargetDiv>
-                  );
-                })}
+              {artistList?.filter(ele => ele.artist.includes(searchInput)).length === 0 ? (
+                <p>검색결과가 없습니다.</p>
+              ) : (
+                artistList
+                  ?.filter(el => el.artist.includes(searchInput))
+                  .map(el => {
+                    return (
+                      <StListTargetDiv
+                        key={el.id}
+                        onClick={() => {
+                          artistNavigateHandler(el.artist);
+                        }}
+                      >
+                        <StArtistTargetImg src={el.photo_url} />
+                        <StListTargetP>{el.artist}</StListTargetP>
+                      </StListTargetDiv>
+                    );
+                  })
+              )}
             </StListDiv>
           </StListWrapper>
         ) : (
