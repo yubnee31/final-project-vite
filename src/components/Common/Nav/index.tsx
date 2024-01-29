@@ -121,6 +121,7 @@ const Nav = () => {
                 </StSearchButton>
               </StForm>
               <StButton
+                ref={alarmBtRef}
                 onClick={() => {
                   setAlarmToggle(!alarmToggle);
                 }}
@@ -128,7 +129,7 @@ const Nav = () => {
                 <StImg src={alarmIcon}></StImg>
                 {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
               </StButton>
-              <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
+              <StAlarmListDiv className={alarmToggle ? 'On' : 'OFF'}>
                 <StAlarmDiv>
                   <StAlarmP>알림</StAlarmP>
                 </StAlarmDiv>
