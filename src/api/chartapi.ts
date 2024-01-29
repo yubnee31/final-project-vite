@@ -80,7 +80,7 @@ export const artistFollowList = async (targetData: any) => {
   try {
     // 로그인 된 사용자 정보 확인
     const user = await supabase.auth.getUser();
-    //console.log(targetData);
+
     const initialLikes = await getInitialLikes(targetData);
 
     // console.log(initialLikes);

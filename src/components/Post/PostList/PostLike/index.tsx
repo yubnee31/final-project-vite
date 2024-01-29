@@ -28,8 +28,9 @@ const PostLike = ({postId, currentUser}: any) => {
   });
   const targetPost = postLike?.find(e => e.postid === postId);
   const userInfo = {id: currentUser.id};
-  const target = targetPost?.userid?.filter(e => e.id === currentUser.id);
 
+  const target = targetPost?.userid?.filter(e => e.id === currentUser.id);
+  console.log(target);
   const onClickLikeHandler = () => {
     if (targetPost === undefined) {
       const param = {postid: postId, userid: [userInfo]};

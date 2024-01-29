@@ -22,7 +22,7 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   const [displayNickname, setDisplayNickname] = useState('');
   const [profileImage, setProfileImage] = useState(nomalimage);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-
+  console.log(profileImage);
   //에러
   const [nicknameError, setNicknameError] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);

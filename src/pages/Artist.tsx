@@ -70,7 +70,7 @@ const Artist = () => {
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
           <FollowArtistBt
-            postId={login ? currentuser?.id : null}
+            postId={login ? currentuser.id : null}
             artistId={param.artistName}
             // fwcount={targetData.artist_fw_count}
           ></FollowArtistBt>
