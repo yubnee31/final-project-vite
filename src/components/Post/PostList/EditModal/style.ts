@@ -30,7 +30,7 @@ const EditPosModalArtistName = styled.p`
   font-size: 14px;
   margin: 6px 380px 0 390px;
 `;
-const EditPostModalInput = styled.input`
+const EditPostModalInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
   width: 772px;

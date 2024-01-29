@@ -19,8 +19,8 @@ const PostItem = ({id, userid, content, created_at}) => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
   const [modalCommentData, setModalCommentData] = useState('');
 
-  const handlecommentModal = (id, userid, content) => {
-    setModalCommentData({id, userid, content});
+  const handlecommentModal = (id, userid, content, created_at) => {
+    setModalCommentData({id, userid, content, created_at});
     setOpenCommentModal(!openCommentModal);
   };
 
@@ -70,7 +70,7 @@ const PostItem = ({id, userid, content, created_at}) => {
             src={commentImg}
             $left={'6.5%'}
             onClick={() => {
-              handlecommentModal(id, userid);
+              handlecommentModal(id, userid, content, created_at);
             }}
           />
         </div>
