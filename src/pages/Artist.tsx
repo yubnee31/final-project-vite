@@ -45,7 +45,7 @@ const Artist = () => {
   // const prevSlide = () => {
   //   setCurrentIndex(prevIndex => (prevIndex - 1) % (detailTargetData?.photo?.length || 1));
   // };
-  console.log(currentIndex);
+
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
     if (title.length > maxLength) {
