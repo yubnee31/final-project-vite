@@ -190,7 +190,6 @@ const StDiv = styled.div`
   margin-top: 30px;
   margin-bottom: 60px;
   width: 1920px;
-  height: 300px;
   padding-left: 240px;
   padding-right: 240px;
 `;
@@ -200,30 +199,14 @@ const StArtistDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
-  height: 250px;
+  grid-auto-rows: 214px;
 `;
-const StArtistTargetDiv = styled.div`
-  width: 264px;
-  height: 292px;
-`;
-const StArtistTargetImgDiv = styled.div`
-  width: 264px;
-  height: 214px;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: pink;
-`;
+
 const StArtistTargetImg = styled.img`
   width: 264px;
   height: 214px;
   object-fit: cover;
   border-radius: 10px;
-`;
-const StArtistTargetP = styled.p`
-  color: white;
-  text-align: center;
-  margin-top: 15px;
-  font-size: 18px;
 `;
 
 // Artist List
@@ -257,40 +240,11 @@ const StListTargetDiv = styled.div`
   }
 `;
 
-const StListTargetImgDiv = styled.div`
-  height: 214px;
-  border-radius: 10px;
-`;
 const StListTargetP = styled.p`
   color: white;
   text-align: center;
   margin-top: 20px;
   font-size: 18px;
 `;
-const StFwAtistContainer = styled.div`
-  margin-right: 40px;
-  cursor: pointer;
-  img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    transition: filter 0.3s ease;
 
-    &:hover {
-      filter: brightness(80%);
-    }
-  }
-
-  &:hover::after {
-    position: absolute;
-    padding: 10px;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::after {
-    opacity: 1;
-  }
-`;
 export default Home;
