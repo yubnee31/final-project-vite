@@ -56,6 +56,11 @@ const Artist = () => {
     }
   };
 
+  const handleModalClose = () => {
+    // 사진 모달 바깥을 클릭하면 모달을 닫도록 설정
+    setIsPhotoModalOpen(false);
+  };
+
   const handleFloatBtn = () => {
     login ? navigate(`/community/${param.artistName}`) : setIsModalOpen(true);
   };
@@ -169,8 +174,8 @@ const Artist = () => {
                 </StPhotoImgDiv>
               ))}
               {isPhotoModalOpen && (
-                <StModalContainer>
-                  <StCloseButton onClick={() => setIsPhotoModalOpen(false)}>Close</StCloseButton>
+                <StModalContainer onClick={handleModalClose}>
+                  {/* <StCloseButton onClick={() => setIsPhotoModalOpen(false)}>Close</StCloseButton> */}
                   <StModalContent src={selectedPhoto} />
                   {/* <button onClick={prevSlide}>이전</button>
                   <button onClick={nextSlide}>다음</button> */}
