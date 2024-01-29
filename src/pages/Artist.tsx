@@ -79,7 +79,7 @@ const Artist = () => {
         <StContentsWrapper>
           {/* Profile */}
           <StWrapper>
-            <StTitle>Profile</StTitle>
+            <StTitle>프로필</StTitle>
             <StProfileDiv>
               {detailTargetData?.profile?.map(e => {
                 return (
@@ -108,7 +108,7 @@ const Artist = () => {
 
           {/* Albums  */}
           <StWrapper>
-            <StTitle>Albums</StTitle>
+            <StTitle>앨범</StTitle>
             <StAlbumsDiv>
               {detailTargetData?.album?.map(el => {
                 return (
@@ -128,7 +128,7 @@ const Artist = () => {
 
           {/* Music Video */}
           <StWrapper>
-            <StTitle>Music Video</StTitle>
+            <StTitle>뮤직비디오</StTitle>
             <StVideoDiv>
               <ReactPlayer
                 url={detailTargetData?.musicVideo}
@@ -144,7 +144,7 @@ const Artist = () => {
 
           {/* Photo */}
           <StWrapper>
-            <StTitle>Photo</StTitle>
+            <StTitle>사진</StTitle>
             <StPhotoDiv>
               {detailTargetData?.photo?.map(el => {
                 return (
@@ -156,11 +156,11 @@ const Artist = () => {
             </StPhotoDiv>
           </StWrapper>
           <StWrapper>
-            <StTitle>Schedule</StTitle>
+            <StTitle>스케줄</StTitle>
             <Checker param={param.artistName} />
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
         {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
         {isArtistModalOpen && (
           <StModalBackDrop onClick={openModalHandler}>

@@ -36,7 +36,6 @@ const OpenContent = ({currentUser, modalData}: any) => {
 
   const targetPost = postLike?.find(e => e.postid === modalData.id);
 
-  console.log('modalData', modalData.id);
   const target = targetPost?.userid?.filter(e => e.id === currentUser.id);
 
   const onClickLikeHandler = () => {
