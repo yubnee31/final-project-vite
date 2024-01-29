@@ -1,5 +1,4 @@
 import {useInfiniteQuery} from '@tanstack/react-query';
-import React from 'react';
 import St from './style';
 import {useParams} from 'react-router-dom';
 import Spinner from '../../Common/Spinner';

@@ -28,11 +28,11 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
     queryKey: ['userinfo', postId],
     queryFn: () => (postId ? getUsers(postId) : null),
   });
-
   const {data: artistList} = useQuery({
     queryKey: ['artists'],
     queryFn: getArtistList,
   });
+
   const targetData = artistList?.find(el => el.artist === artistId);
 
   //팔로우 된 인원을 보여주는 데이터를 가지고 온다.

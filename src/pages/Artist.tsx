@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
 import {getArtistDetail} from '../api/artistapi';
 import styled from 'styled-components';
@@ -70,7 +70,7 @@ const Artist = () => {
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
           <FollowArtistBt
-            postId={login ? currentuser?.id : null}
+            postId={login ? currentuser.id : null}
             artistId={param.artistName}
             // fwcount={targetData.artist_fw_count}
           ></FollowArtistBt>

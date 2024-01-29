@@ -58,18 +58,19 @@ const Mypage = () => {
       logOut();
     }
   };
-
   const handleUpdateNickname = newNickname => {
     // 업데이트된 닉네임을 사용자 정보에 반영
     setUser(prevUser => {
+      // Check if user_metadata exists, if not, create it
+      const newUserMetadata = prevUser.user_metadata
+        ? {...prevUser.user_metadata, nickname: newNickname}
+        : {nickname: newNickname};
+
       if (prevUser.user_metadata?.nickname !== newNickname) {
         // 아직 업데이트 되지 않았다면 업데이트
         const updatedUser = {
           ...prevUser,
-          user_metadata: {
-            ...prevUser.user_metadata,
-            nickname: newNickname,
-          },
+          user_metadata: newUserMetadata,
         };
 
         // username 업데이트
@@ -125,8 +126,9 @@ const Mypage = () => {
 const StMypageContainer = styled.div`
   display: flex;
   justify-content: center;
+  width: 100vw;
   height: 900px;
-  margin-top: 100px;
+  margin-top: 150px;
 `;
 const StWrapper = styled.div`
   width: 1200px;
@@ -143,7 +145,7 @@ const Staccount = styled.div`
   height: 700px;
 
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: center;
 `;
 const StMenuBtn = styled.button`
