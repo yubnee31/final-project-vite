@@ -44,7 +44,6 @@ export const artistFollowList = async (targetData: any) => {
 
     const initialLikes = await getInitialLikes(targetData);
 
-    // console.log(initialLikes);
     // userinfo에서 현재 유저의 팔로우 리스트 가져오기
     const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
 

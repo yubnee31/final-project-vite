@@ -8,6 +8,7 @@ import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
 import {loginState} from '../shared/recoil/authAtom';
 import {useRecoilState} from 'recoil';
+import {Helmet} from 'react-helmet-async';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -117,6 +118,7 @@ const Home = () => {
               {/* // Artist List */}
               <StListWrapper>
                 <StSpan>아티스트 만나보기</StSpan>
+
                 <StListDiv>
                   {artistList?.map(el => {
                     return (
