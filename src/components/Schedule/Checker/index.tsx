@@ -6,6 +6,7 @@ import St from './style';
 import {Schedule} from '../../../types/global.d';
 import alarmIcon from '../../../assets/images/alarm-icon-white.png';
 import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png';
+import {toast} from 'react-toastify';
 
 const Checker = ({param}: string) => {
   const queryClient = useQueryClient();
@@ -107,7 +108,7 @@ const Checker = ({param}: string) => {
                           if (currentUser && currentUser.id) {
                             onClickIsOnHandler(ele, currentUser.id);
                           } else {
-                            alert('로그인이 필요합니다.');
+                            toast.error('로그인이 필요합니다.');
                           }
                         }}
                         src={
