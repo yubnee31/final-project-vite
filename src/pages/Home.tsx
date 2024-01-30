@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg2.webp';
 import {getArtistList} from '../api/artistapi';
@@ -57,7 +57,7 @@ const Home = () => {
       <StMainWrapper>
         {/* // Banner */}
         <StBannerDiv>
-          <StBannerImg src={bannerImg}></StBannerImg>
+          <StBannerImg src={bannerImg} alt="bannerimg"></StBannerImg>
         </StBannerDiv>
 
         {searchInput && searchInput.length > 0 ? (
@@ -77,7 +77,7 @@ const Home = () => {
                           artistNavigateHandler(el.artist);
                         }}
                       >
-                        <StArtistTargetImg src={el.photo_url} />
+                        <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
                         <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );
@@ -89,21 +89,19 @@ const Home = () => {
           <>
             {/* // My Artist */}
             <StSideWrapper>
-              {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
-
               {login ? (
                 <StDiv>
                   <StSpan>나의 아티스트</StSpan>
                   <StArtistDiv>
                     {followAt?.length > 0 ? (
-                      followAt?.map((followAt, index) => {
+                      followAt?.map(followAt => {
                         return (
                           <StListTargetDiv
                             key={followAt.artistId.id}
                             onClick={() => artistNavigateHandler(followAt.artistId.artist)}
                           >
                             <div>
-                              <StArtistTargetImg src={followAt.artistId.photo_url} />
+                              <StArtistTargetImg src={followAt.artistId.photo_url} alt="targetartistimg" />
                             </div>
                             <StListTargetP>{followAt.artistId.artist}</StListTargetP>
                           </StListTargetDiv>
@@ -128,7 +126,7 @@ const Home = () => {
                           artistNavigateHandler(el.artist);
                         }}
                       >
-                        <StArtistTargetImg src={el.photo_url} />
+                        <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
                         <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );

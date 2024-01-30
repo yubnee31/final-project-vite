@@ -21,7 +21,6 @@ const Artist = () => {
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
@@ -37,14 +36,6 @@ const Artist = () => {
     };
     userInfo();
   }, []);
-
-  // const nextSlide = () => {
-  //   setCurrentIndex(prevIndex => (prevIndex + 1) % (detailTargetData?.photo?.length || 1));
-  // };
-
-  // const prevSlide = () => {
-  //   setCurrentIndex(prevIndex => (prevIndex - 1) % (detailTargetData?.photo?.length || 1));
-  // };
 
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;

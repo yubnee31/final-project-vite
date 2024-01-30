@@ -1,4 +1,3 @@
-import React from 'react';
 import Join from '../components/Auth/Join';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';

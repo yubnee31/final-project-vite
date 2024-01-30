@@ -1,4 +1,3 @@
-import {toast} from 'react-toastify';
 import {supabase} from './supabase';
 
 // 추가 포스트를 가져오는 함수
