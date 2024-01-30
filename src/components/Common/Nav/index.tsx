@@ -45,6 +45,7 @@ const Nav = () => {
   const [alarm, setAlarm] = useState<Alarm[]>([]);
   const [alarmToggle, setAlarmToggle] = useState<boolean>(false);
   const alarmBtRef = useRef(null);
+
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
@@ -58,6 +59,7 @@ const Nav = () => {
     e.preventDefault();
     navigate('/', {state: searchInput});
   };
+
   useEffect(() => {
     const handleClickOutside = e => {
       if (alarmBtRef.current && !alarmBtRef.current.contains(e.target)) {
@@ -121,7 +123,6 @@ const Nav = () => {
                 </StSearchButton>
               </StForm>
               <StButton
-                ref={alarmBtRef}
                 onClick={() => {
                   setAlarmToggle(!alarmToggle);
                 }}
@@ -129,7 +130,7 @@ const Nav = () => {
                 <StImg src={alarmIcon}></StImg>
                 {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
               </StButton>
-              <StAlarmListDiv className={alarmToggle ? 'On' : 'OFF'}>
+              <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
                 <StAlarmDiv>
                   <StAlarmP>알림</StAlarmP>
                 </StAlarmDiv>
