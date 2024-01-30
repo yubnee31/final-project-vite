@@ -454,6 +454,11 @@ const StPhotoImgDiv = styled.div`
   width: 220px;
   height: 220px;
   cursor: pointer;
+
+  :hover {
+    transform: scale(1.1);
+    transition: all 1s;
+  }
 `;
 const StPhotoImg = styled.img`
   border-radius: 15px;

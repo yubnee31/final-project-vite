@@ -238,6 +238,7 @@ const StListTargetDiv = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  transition: all 1s;
   &:hover {
     transform: scale(1.1);
   }
