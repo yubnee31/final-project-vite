@@ -45,6 +45,7 @@ const Nav = () => {
   const [alarm, setAlarm] = useState<Alarm[]>([]);
   const [alarmToggle, setAlarmToggle] = useState<boolean>(false);
   const alarmBtRef = useRef(null);
+
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
@@ -58,6 +59,7 @@ const Nav = () => {
     e.preventDefault();
     navigate('/', {state: searchInput});
   };
+
   useEffect(() => {
     const handleClickOutside = e => {
       if (alarmBtRef.current && !alarmBtRef.current.contains(e.target)) {
