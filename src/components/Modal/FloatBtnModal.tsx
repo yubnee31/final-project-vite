@@ -2,7 +2,7 @@ import React from 'react';
 import {StCancelBtn, StDiv, StInfo, StLoginBtn, StModalDiv, StTitle, StWholeDiv} from './style';
 import {useNavigate} from 'react-router-dom';
 
-const Modal = ({setIsModalOpen}: {setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const FloatBtnModal = ({setIsModalOpen}: {setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const navigate = useNavigate();
 
   return (
@@ -20,4 +20,4 @@ const Modal = ({setIsModalOpen}: {setIsModalOpen: React.Dispatch<React.SetStateA
   );
 };
 
-export default Modal;
+export default FloatBtnModal;

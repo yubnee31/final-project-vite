@@ -6,11 +6,12 @@ import ReactPlayer from 'react-player';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
-import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
 import {useQuery} from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
 import Spinner from '../components/Common/Spinner';
+import PortalModal from '../components/Common/portalModal';
+import FloatBtnModal from '../components/Modal/FloatBtnModal';
 
 const Artist = () => {
   const navigate = useNavigate();
@@ -21,7 +22,6 @@ const Artist = () => {
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
@@ -37,14 +37,6 @@ const Artist = () => {
     };
     userInfo();
   }, []);
-
-  // const nextSlide = () => {
-  //   setCurrentIndex(prevIndex => (prevIndex + 1) % (detailTargetData?.photo?.length || 1));
-  // };
-
-  // const prevSlide = () => {
-  //   setCurrentIndex(prevIndex => (prevIndex - 1) % (detailTargetData?.photo?.length || 1));
-  // };
 
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
@@ -77,7 +69,6 @@ const Artist = () => {
     );
   }
 
-  // git merge test
   return (
     <>
       <StWrapper>
@@ -189,7 +180,7 @@ const Artist = () => {
           </StWrapper>
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
-        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+        <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
         {isArtistModalOpen && (
           <StModalBackDrop onClick={openModalHandler}>
             <StModalView

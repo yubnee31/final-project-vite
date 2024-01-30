@@ -13,8 +13,6 @@ export const StModalDiv = styled.div`
   // 모달창크기
   width: 300px;
   height: 150px;
-  // 최상단에 위치
-  z-index: 999;
   // 중앙배치
   position: fixed;
   top: 50%;
