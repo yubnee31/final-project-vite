@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import bannerImg from '../assets/images/bannerImg2.webp';
+import bannerImg from '../assets/images/bannerImg.png';
 import {getArtistList} from '../api/artistapi';
 import {useQuery} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
