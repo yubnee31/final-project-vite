@@ -170,7 +170,7 @@ const Artist = () => {
                     setIsPhotoModalOpen(true);
                   }}
                 >
-                  <StPhotoImg src={el.imgUrl} />
+                  <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/450/')} />
                 </StPhotoImgDiv>
               ))}
               {isPhotoModalOpen && (
