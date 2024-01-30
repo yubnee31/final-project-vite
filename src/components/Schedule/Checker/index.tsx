@@ -9,7 +9,6 @@ import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png'
 
 const Checker = ({param}: string) => {
   const queryClient = useQueryClient();
-
   const {data: schedule} = useQuery({
     queryKey: ['schedule'],
     queryFn: getArtistSchedule,
@@ -65,6 +64,12 @@ const Checker = ({param}: string) => {
   weekCalculator();
 
   const onClickIsOnHandler = (info, userid) => {
+    if (!userid) {
+      // currentUser가 null 또는 currentUser.id가 null일 때 로그인 알림 처리
+      alert('로그인이 필요합니다.'); // 또는 원하는 형태로 알림을 표시
+      return;
+    }
+
     const isOn = userTargetSchedule?.filter(el => el.scheduleId === info.id)[0];
     if (!isOn) {
       const schedule: Schedule = {
@@ -99,7 +104,11 @@ const Checker = ({param}: string) => {
                       </St.ScheduleListSection>
                       <St.ScheduleListImg
                         onClick={() => {
-                          onClickIsOnHandler(ele, currentUser.id);
+                          if (currentUser && currentUser.id) {
+                            onClickIsOnHandler(ele, currentUser.id);
+                          } else {
+                            alert('로그인이 필요합니다.');
+                          }
                         }}
                         src={
                           userTargetSchedule?.filter(el => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon
