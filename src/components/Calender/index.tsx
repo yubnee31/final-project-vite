@@ -1,5 +1,4 @@
 import {useQuery} from '@tanstack/react-query';
-import React from 'react';
 import {getUserSchedule} from '../../api/artistapi';
 import {getCurrentUser} from '../../api/currentUser';
 import Spinner from '../Common/Spinner';

@@ -66,10 +66,6 @@ const FollowArtistBt = ({postId, artistId}: FollowArtistProps) => {
     mutationFn: async () => {
       // 팔로우 또는 언팔로우 시 artistFollowList 호출하도록 수정
       await artistFollowList({artistId: targetData});
-
-      // // //팔로우 카운트에서 다시 팔로우 수를 가져오려고할떄  artist 오류가 생긴다.
-      // const updatedFollowCount = await getInitialLikes(postId);
-      // setFollowCount(updatedFollowCount);
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({queryKey: ['artists']});

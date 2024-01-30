@@ -1,4 +1,3 @@
-import React from 'react';
 import Signin from '../components/Auth/Signin';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
