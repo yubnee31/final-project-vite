@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {supabase} from '../api/supabase';
 import {getArtistDetail} from '../api/artistapi';
 import styled from 'styled-components';
@@ -19,6 +19,9 @@ const Artist = () => {
   const [login] = useRecoilState(loginState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isArtistModalOpen, setIsArtistModalOpen] = useState<boolean>(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState<boolean>(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const {data: artistDetail, isLoading: artistDetailLoading} = useQuery({
     queryKey: [''],
@@ -35,6 +38,14 @@ const Artist = () => {
     userInfo();
   }, []);
 
+  // const nextSlide = () => {
+  //   setCurrentIndex(prevIndex => (prevIndex + 1) % (detailTargetData?.photo?.length || 1));
+  // };
+
+  // const prevSlide = () => {
+  //   setCurrentIndex(prevIndex => (prevIndex - 1) % (detailTargetData?.photo?.length || 1));
+  // };
+
   const albumVaildationHandler = (title: string) => {
     const maxLength = 23;
     if (title.length > maxLength) {
@@ -43,6 +54,11 @@ const Artist = () => {
     } else {
       return title;
     }
+  };
+
+  const handleModalClose = () => {
+    // 사진 모달 바깥을 클릭하면 모달을 닫도록 설정
+    setIsPhotoModalOpen(false);
   };
 
   const handleFloatBtn = () => {
@@ -70,7 +86,7 @@ const Artist = () => {
           {/* <StBannerImg src={artistBannerImg}></StBannerImg> */}
           <StNameSpan>{param.artistName}</StNameSpan>
           <FollowArtistBt
-            postId={login ? currentuser?.id : null}
+            postId={login ? currentuser.id : null}
             artistId={param.artistName}
             // fwcount={targetData.artist_fw_count}
           ></FollowArtistBt>
@@ -79,7 +95,7 @@ const Artist = () => {
         <StContentsWrapper>
           {/* Profile */}
           <StWrapper>
-            <StTitle>Profile</StTitle>
+            <StTitle>프로필</StTitle>
             <StProfileDiv>
               {detailTargetData?.profile?.map(e => {
                 return (
@@ -94,7 +110,7 @@ const Artist = () => {
                               <StPfDetailP>{`본명 : ${ele.realName}`}</StPfDetailP>
                               <StPfDetailP>{`생년월일 : ${ele.birthday}`}</StPfDetailP>
                               <StPfDetailP>{`데뷔일 : ${ele.debutDate}`}</StPfDetailP>
-                              <StPfDetailP>{`데뷔일 : ${ele.debutSong}`}</StPfDetailP>
+                              <StPfDetailP>{`데뷔곡 : ${ele.debutSong}`}</StPfDetailP>
                             </StPfDetailDiv>
                           );
                         })}
@@ -108,7 +124,7 @@ const Artist = () => {
 
           {/* Albums  */}
           <StWrapper>
-            <StTitle>Albums</StTitle>
+            <StTitle>앨범</StTitle>
             <StAlbumsDiv>
               {detailTargetData?.album?.map(el => {
                 return (
@@ -128,7 +144,7 @@ const Artist = () => {
 
           {/* Music Video */}
           <StWrapper>
-            <StTitle>Music Video</StTitle>
+            <StTitle>뮤직비디오</StTitle>
             <StVideoDiv>
               <ReactPlayer
                 url={detailTargetData?.musicVideo}
@@ -144,23 +160,35 @@ const Artist = () => {
 
           {/* Photo */}
           <StWrapper>
-            <StTitle>Photo</StTitle>
+            <StTitle>사진</StTitle>
             <StPhotoDiv>
-              {detailTargetData?.photo?.map(el => {
-                return (
-                  <StPhotoImgDiv>
-                    <StPhotoImg src={el.imgUrl}></StPhotoImg>
-                  </StPhotoImgDiv>
-                );
-              })}
+              {detailTargetData?.photo?.map(el => (
+                <StPhotoImgDiv
+                  key={el.imgUrl}
+                  onClick={() => {
+                    setSelectedPhoto(el.imgUrl);
+                    setIsPhotoModalOpen(true);
+                  }}
+                >
+                  <StPhotoImg src={el.imgUrl} />
+                </StPhotoImgDiv>
+              ))}
+              {isPhotoModalOpen && (
+                <StModalContainer onClick={handleModalClose}>
+                  {/* <StCloseButton onClick={() => setIsPhotoModalOpen(false)}>Close</StCloseButton> */}
+                  <StModalContent src={selectedPhoto} />
+                  {/* <button onClick={prevSlide}>이전</button>
+                  <button onClick={nextSlide}>다음</button> */}
+                </StModalContainer>
+              )}
             </StPhotoDiv>
           </StWrapper>
           <StWrapper>
-            <StTitle>Schedule</StTitle>
+            <StTitle>스케줄</StTitle>
             <Checker param={param.artistName} />
           </StWrapper>
         </StContentsWrapper>
-        <StFloatBtn onClick={handleFloatBtn}>Go to Community ➜</StFloatBtn>
+        <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
         {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
         {isArtistModalOpen && (
           <StModalBackDrop onClick={openModalHandler}>
@@ -369,7 +397,6 @@ const StAlbumsDiv = styled.div`
 const StAbWrapper = styled.div`
   width: 200px;
   height: 250px;
-  cursor: pointer;
 `;
 const StAbImgDiv = styled.div`
   width: 200px;
@@ -426,6 +453,7 @@ const StPhotoDiv = styled.div`
 const StPhotoImgDiv = styled.div`
   width: 220px;
   height: 220px;
+  cursor: pointer;
 `;
 const StPhotoImg = styled.img`
   border-radius: 15px;
@@ -460,5 +488,35 @@ const StFloatBtn = styled.button`
     transition: 0.7s;
   }
 `;
+const StModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+const StModalContent = styled.img`
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+`;
+const StCloseButton = styled.button`
+  position: absolute;
+  top: 13%;
+  right: 27%;
+  background: gray;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+`;
 export default Artist;

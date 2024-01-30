@@ -1,4 +1,3 @@
-import React from 'react';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Artist from '../pages/Artist';
 import Community from '../pages/Community';

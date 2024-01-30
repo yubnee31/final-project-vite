@@ -38,6 +38,7 @@ export const StBtnDiv = styled.div`
   background-color: transparent;
   padding-right: 15px;
   gap: 10px;
+  cursor: pointer;
 `;
 
 export const StFollowingP = styled.p`
