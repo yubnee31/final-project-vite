@@ -94,7 +94,7 @@ const Signin = () => {
 
   // google 로그인
   const googleLogin = async () => {
-    const {data, error} = await supabase.auth.signInWithOAuth({
+    const {datarror} = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         queryParams: {
@@ -108,7 +108,7 @@ const Signin = () => {
 
   // kakao 로그인
   const kakaoLogin = async () => {
-    const {data, error} = await supabase.auth.signInWithOAuth({
+    const {data} = await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
         queryParams: {

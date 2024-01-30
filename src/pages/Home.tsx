@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import bannerImg from '../assets/images/bannerImg.png';
+import bannerImg from '../assets/images/bannerImg2.webp';
 import {getArtistList} from '../api/artistapi';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
 import {loginState} from '../shared/recoil/authAtom';
 import {useRecoilState} from 'recoil';
 
 const Home = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
