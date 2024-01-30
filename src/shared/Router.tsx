@@ -4,6 +4,7 @@ import ScrollToTop from '../components/Common/ScrollToTop';
 import ProtectedRoute from '../components/Common/ProtectedRoute';
 import {Suspense, lazy} from 'react';
 import Spinner from '../components/Common/Spinner';
+import {Helmet} from 'react-helmet-async';
 
 const Home = lazy(() => import('../pages/Home'));
 const Artist = lazy(() => import('../pages/Artist'));
