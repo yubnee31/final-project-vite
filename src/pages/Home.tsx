@@ -8,7 +8,7 @@ import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
 import {loginState} from '../shared/recoil/authAtom';
 import {useRecoilState} from 'recoil';
-import {Helmet} from 'react-helmet-async';
+import {homepageMatas} from '../components/Common/SeoHelmet';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -55,6 +55,7 @@ const Home = () => {
 
   return (
     <>
+      {homepageMatas()}
       <StMainWrapper>
         {/* // Banner */}
         <StBannerDiv>
@@ -63,7 +64,6 @@ const Home = () => {
 
         {searchInput && searchInput.length > 0 ? (
           <StListWrapper>
-            <StSpan>검색결과</StSpan>
             <StListDiv>
               {artistList?.filter(ele => ele.artist.includes(searchInput)).length === 0 ? (
                 <p>검색결과가 없습니다.</p>
@@ -118,7 +118,6 @@ const Home = () => {
               {/* // Artist List */}
               <StListWrapper>
                 <StSpan>아티스트 만나보기</StSpan>
-
                 <StListDiv>
                   {artistList?.map(el => {
                     return (
