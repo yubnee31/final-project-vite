@@ -10,7 +10,7 @@ const FloatBtnModal = ({setIsModalOpen}: {setIsModalOpen: React.Dispatch<React.S
       <StModalDiv>
         <StDiv>
           <StTitle>알림</StTitle>
-          <StInfo>로그인 이후 커뮤니티에 입장하실 수 있습니다.</StInfo>
+          <StInfo>로그인 이후 알림을 설정하실 수 있습니다.</StInfo>
           <StInfo>로그인을 하시겠습니까?</StInfo>
           <StCancelBtn onClick={() => setIsModalOpen(false)}>취소</StCancelBtn>
           <StLoginBtn onClick={() => navigate('/login')}>로그인</StLoginBtn>

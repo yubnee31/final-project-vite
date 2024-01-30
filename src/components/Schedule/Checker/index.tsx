@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import {getArtistSchedule, getUserSchedule, addSchedule, deleteSchedule} from '../../../api/artistapi';
 import {getCurrentUser} from '../../../api/currentUser';
@@ -6,10 +6,12 @@ import St from './style';
 import {Schedule} from '../../../types/global.d';
 import alarmIcon from '../../../assets/images/alarm-icon-white.png';
 import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png';
-import {toast} from 'react-toastify';
+import FloatBtnModal from '../../Modal/FloatBtnModal';
+import PortalModal from '../../Common/portalModal';
 
 const Checker = ({param}: string) => {
   const queryClient = useQueryClient();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {data: schedule} = useQuery({
     queryKey: ['schedule'],
     queryFn: getArtistSchedule,
@@ -108,7 +110,7 @@ const Checker = ({param}: string) => {
                           if (currentUser && currentUser.id) {
                             onClickIsOnHandler(ele, currentUser.id);
                           } else {
-                            toast.error('로그인이 필요합니다.');
+                            setIsModalOpen(true);
                           }
                         }}
                         src={
@@ -122,6 +124,7 @@ const Checker = ({param}: string) => {
           );
         })}
       </St.ScheduleUl>
+      <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
     </St.ScheduleDiv>
   );
 };
