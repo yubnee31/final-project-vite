@@ -1,5 +1,5 @@
 import {useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import St from './style';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {deletePost} from '../../../../api/post';
@@ -7,11 +7,13 @@ import PostLike from '../PostLike';
 import dayjs from 'dayjs';
 import commentImg from '../../../../assets/images/chat.svg';
 import seeMoreImg from '../../../../assets/images/meatballs-v.svg';
+import profileImg from '../../../../assets/images/profile-white.png';
 import PortalModal from '../../../Common/portalModal';
 import OpenPostModal from '../OpenModal';
 import EditPostModal from '../EditModal';
+import {supabase} from '../../../../api/supabase';
 
-const PostItem = ({id, userid, content, created_at}) => {
+const PostItem = ({id, userid, content, photo_url, created_at}) => {
   // modal
   const [openEditModal, setOpenEditModal] = useState(false);
   const [modalEditData, setModalEditData] = useState('');
@@ -19,8 +21,8 @@ const PostItem = ({id, userid, content, created_at}) => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
   const [modalCommentData, setModalCommentData] = useState('');
 
-  const handlecommentModal = (id, userid, content, created_at) => {
-    setModalCommentData({id, userid, content, created_at});
+  const handlecommentModal = (id, userid, content, photo_url, created_at) => {
+    setModalCommentData({id, userid, content, photo_url, created_at});
     setOpenCommentModal(!openCommentModal);
   };
 
@@ -39,6 +41,7 @@ const PostItem = ({id, userid, content, created_at}) => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
+  console.log('currentUser', currentUser);
   const {data: userInfo} = useQuery({
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
@@ -56,11 +59,56 @@ const PostItem = ({id, userid, content, created_at}) => {
       queryClient.invalidateQueries({queryKey: ['postList']});
     },
   });
+
+  // 유저 프로필 서버에서 불러오기
+  const [profileImage, setProfileImage] = useState(profileImg);
+  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
+  console.log('targetUser', targetUser);
+
+  const fetchImageData = async () => {
+    try {
+      const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', currentUser?.id).single();
+
+      if (data?.profile_image) {
+        // 이미지 파일명이나 경로를 가져옴
+        const imageFileName = data.profile_image;
+
+        // Supabase 스토리지에서 직접 이미지를 가져오기
+        const {data: imageData, error: imageError} = await supabase.storage
+          .from('profile-images') // 스토리지 버킷 이름
+          .download(imageFileName);
+
+        // 다운로드된 이미지를 Blob URL로 변환
+        const imageUrl = URL.createObjectURL(imageData);
+
+        // 상태 업데이트
+        setProfileImage(imageUrl);
+      }
+    } catch (error) {
+      // console.error('프로필 이미지 가져오기 오류', error);
+    }
+  };
+
+  useEffect(() => {
+    if (!targetUser) {
+      setProfileImage(profileImg);
+    } else {
+      fetchImageData();
+      setProfileImage(profileImage);
+    }
+  }, []);
+
   return (
     <>
       <St.PostLi key={id}>
+        <St.PostUserImg src={profileImage} />
         <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
         <St.PostContentsP>{content}</St.PostContentsP>
+        {photo_url.length && (
+          <St.PostContentImgDiv>
+            <St.PostContentImg src={photo_url} />
+          </St.PostContentImgDiv>
+        )}
         {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
         <St.PostTimeP $right={'14%'}>{dayjs(created_at).format('HH:mm')}</St.PostTimeP>
         <St.PostTimeP $right={'1%'}>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
@@ -70,7 +118,7 @@ const PostItem = ({id, userid, content, created_at}) => {
             src={commentImg}
             $left={'6.5%'}
             onClick={() => {
-              handlecommentModal(id, userid, content, created_at);
+              handlecommentModal(id, userid, content, photo_url, created_at);
             }}
           />
         </div>

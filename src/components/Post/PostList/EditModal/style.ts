@@ -13,8 +13,8 @@ const EditPostModalContainer = styled.div`
 `;
 const EditPostModalBox = styled.div`
   background-color: #2a2a2a;
-  width: 852px;
-  height: 550px;
+  width: 992px;
+  height: 700px;
   color: white;
 `;
 const EditPostModalContent = styled.form`
@@ -22,25 +22,31 @@ const EditPostModalContent = styled.form`
 `;
 const EditPostModalTitle = styled.p`
   background-color: #2a2a2a;
+  text-align: center;
   font-size: 20px;
-  margin: 20px 326px 0 370px;
+  height: 24px;
+  width: 300px;
+  margin: 20px 306px 0 306px;
 `;
 const EditPosModalArtistName = styled.p`
   background-color: #2a2a2a;
+  text-align: center;
   font-size: 14px;
-  margin: 6px 380px 0 390px;
+  height: 18px;
+  width: 300px;
+  margin: 6px 306px 20px 306px;
 `;
 const EditPostModalInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
-  width: 772px;
-  height: 334px;
-  margin: 20px 40px;
+
+  width: 912px;
+  height: 343px;
+  margin: 0 40px 20px 40px;
 `;
 const EditPostModalBtnDiv = styled.div`
   background-color: #2a2a2a;
   display: flex;
-  /* justify-content: space-between; */
   margin-left: 560px;
   margin-right: 40px;
 `;

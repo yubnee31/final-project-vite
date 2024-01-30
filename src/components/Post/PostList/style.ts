@@ -9,7 +9,7 @@ const PostDiv = styled.div`
 const PostUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 180px;
+  grid-auto-rows: 300px;
 `;
 
 export default {

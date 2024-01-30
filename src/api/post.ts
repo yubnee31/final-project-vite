@@ -1,3 +1,4 @@
+import {Json} from '../types/supabase';
 import {supabase} from './supabase';
 
 type POST = {
@@ -5,7 +6,7 @@ type POST = {
   userid?: string;
   username?: string;
   content?: string;
-  photo_url?: string;
+  photo_url?: Json;
   isEditing?: boolean;
   created_at?: string;
   artist?: string;
@@ -51,9 +52,9 @@ const deletePost = async (id: string) => {
 };
 
 // storage에 이미지 업로드
-const uploadStorage = async ({uniqueKey, uploadFile}) => {
+const uploadStorage = async ({uniqueKey, selectedImage}) => {
   try {
-    const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, uploadFile, {
+    const {data, error} = await supabase.storage.from('upload_posts').upload(uniqueKey, selectedImage, {
       cacheControl: '3600',
       upsert: false,
     });

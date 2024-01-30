@@ -6,10 +6,18 @@ const PostLi = styled.li`
   position: relative;
   border-bottom: 1px solid gray;
 `;
+const PostUserImg = styled.img`
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
+  border-radius: 50px;
+  object-fit: cover;
+  background-size: cover;
+`;
 const PostNameP = styled.p`
   position: absolute;
-  left: 1%;
-  top: 1%;
+  left: 10%;
+  top: 10%;
 `;
 const PostUploadImg = styled.img`
   background-color: green;
@@ -21,16 +29,33 @@ const PostUploadImg = styled.img`
 `;
 const PostContentsP = styled.p`
   position: absolute;
-  left: 1%;
-  top: 25%;
+  left: 2%;
+  top: 45%;
 
   width: 750px;
   height: 50px;
+
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 20px;
+  height: 40px;
+`;
+const PostContentImgDiv = styled.div`
+  display: flex;
+`;
+const PostContentImg = styled.img`
+  margin-top: 40px;
+  width: 100px;
+  height: 120px;
 `;
 const PostTimeP = styled.p`
   position: absolute;
   right: ${props => props.$right};
-  top: 1%;
+  top: 10%;
   color: gray;
 `;
 const PostImg = styled.img`
@@ -80,11 +105,14 @@ const PostBtn = styled.button`
 
 export default {
   PostLi,
+  PostUserImg,
   PostNameP,
+  PostContentImgDiv,
   PostUploadImg,
   PostBtnDiv,
   PostBtn,
   PostContentsP,
+  PostContentImg,
   PostTimeP,
   PostImg,
   CommentImg,

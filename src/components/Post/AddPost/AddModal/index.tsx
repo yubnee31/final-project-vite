@@ -2,14 +2,19 @@ import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
-import {addPost, getPosts} from '../../../../api/post';
+import {addPost} from '../../../../api/post';
 import postPhotoImg from '../../../../assets/images/post-photo.png';
 import {useParams} from 'react-router-dom';
+import {supabase} from '../../../../api/supabase';
 
 const AddPostModal = ({handleModal, setOpenModal}) => {
   const queryClient = useQueryClient();
   const param = useParams();
   const [content, setContent] = useState('');
+
+  // 이미지 파일을 담을 수 있는 배열 만들기
+  const [uploadFileUrl, setUploadFileUrl]: any = useState([]);
+  const [files, setFiles] = useState<File[]>([]);
 
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
@@ -22,11 +27,6 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
 
   const targetUser = userInfo?.find(user => user.id === currentUser?.id);
 
-  const {data: posts} = useQuery({
-    queryKey: ['posts'],
-    queryFn: getPosts,
-  });
-
   const addMutation = useMutation({
     mutationFn: addPost,
     onSuccess: () => {
@@ -34,101 +34,83 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
     },
   });
 
+  // 사진 업로드 순서
+  // 이미지 파일을 담을 수 있는 배열 있어야 함 / 사진을 선택하고 등록버튼을 눌렀을 때 table 안에 배열로 넣고 배열 안에 스트링형식으로 사진 url 담기 => 잘 저장되는지 확인
+  // 저장이 되는 것을 img tag로 받아오기
+
   const handleChangeAddPost: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     setContent(e.target.value);
   };
 
+  // 웹페이지에 파일을 올려주는 함수
+  const handleuploadFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+
+    if (fileList) {
+      const filesArray = Array.from(fileList);
+      filesArray.forEach(file => {
+        handleAddImages(file);
+      });
+    }
+  };
+
+  const handleAddImages = async (file: File) => {
+    try {
+      const newFileName = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
+
+      const {data, error} = await supabase.storage.from('upload_posts').upload(newFileName, file);
+
+      if (error) {
+        console.log('파일이 업로드 되지 않습니다.', error);
+        return;
+      }
+
+      const res = supabase.storage.from('upload_posts').getPublicUrl(data.path);
+      setFiles(prevFiles => [file, ...prevFiles]);
+      setUploadFileUrl((prev: any) => [res.data.publicUrl, ...prev]);
+    } catch (error) {
+      console.log('알 수 없는 문제가 발생했습니다. 다시 시도해주세요', error);
+    }
+  };
+
+  // 업로드된 파일이 4개 넘으면 그 뒤에 들어오는 파일은 없앰
+  if (uploadFileUrl.length > 4 && files.length > 4) uploadFileUrl.pop() && files.pop();
+
   const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
+
+    const image_url = uploadFileUrl;
+
     const newPost = {
       userid: currentUser?.id,
       username: targetUser.username,
-      photo_url: posts?.photo_url,
+      photo_url: image_url,
       content: content,
       artist: param.artistName,
     };
+
     addMutation.mutate(newPost);
     setContent('');
     setOpenModal(false);
   };
-  // ----------------------------------------------------------------
 
-  // const supabaseUrl = 'https://dmfvylsldcremnnbzjuo.supabase.co';
-  // const bucketName = 'upload_posts';
-  // const [postPhotoImg, setPostPhotoImg] = useState(posts?.photo_url);
-  // const [selectedPhotoImg, setSelectedPhotoImg] = useState<File | null>(null);
+  const orderImage = (e: MouseEvent<HTMLElement>) => {
+    const url = e.currentTarget.id;
 
-  // const getImgData = async id => {
-  //   try {
-  //     const {data, error} = await supabase.from('posts').select('photo_url').eq('id', id);
+    const clickedItem = uploadFileUrl.indexOf(url);
 
-  //     if (error) {
-  //       console.log('posts img 가져오기 실패', error);
-  //     } else {
-  //       if (data?.photo_url) {
-  //         // 이미지 파일먕이나 경로 가져옴
-  //         const imgFileName = data.photo_url;
+    const updateArr = uploadFileUrl.filter((item: any) => {
+      item !== uploadFileUrl[clickedItem];
+    });
 
-  //         // supabase storage에서 직접 이미지 가져오기
-  //         const {data: imgData, error: imgError} = await supabase.storage.from(bucketName).download(imgFileName);
+    setUploadFileUrl([uploadFileUrl[clickedItem], ...updateArr]);
+  };
 
-  //         if (imgError) {
-  //           console.log('post photo image 다운로드 실패', imgError);
-  //         } else {
-  //           // download image => 변환: Blob URL
-  //           const imgUrl = URL.createObjectURL(imgData);
-
-  //           // 상태 업데이트
-  //           setPostPhotoImg(imgUrl);
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log('post photo image 가져오기 오류', error);
-  //   }
-  // };
-
-  // const handleImgChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setSelectedPhotoImg(file);
-
-  //     const imgUrl = URL.createObjectURL(file);
-  //     setPostPhotoImg(imgUrl);
-  //   }
-  // };
-
-  // const updatePhoto = async () => {
-  //   if (!selectedPhotoImg) return;
-
-  //   // post photo img upload
-  //   const uniqueKey = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
-  //   const {data: uploadData, error: uploadError} = await supabase.storage
-  //     .from(bucketName)
-  //     .upload(uniqueKey, selectedPhotoImg, {contentType: 'image/png'});
-
-  //   if (uploadError) {
-  //     console.log('post photo upload fail', uploadError);
-  //     return;
-  //   }
-
-  //   const {data: postPhotoData, error: postPhotoError} = await supabase
-  //     .from('posts')
-  //     .update({upload_posts: uniqueKey})
-  //     .eq('id', id)
-  //     .select();
-
-  //   if (postPhotoError) {
-  //     console.log('post photo update fail', postPhotoError);
-  //   } else {
-  //     console.log('post photo update success');
-  //     const uploadUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${uniqueKey}`;
-
-  //     setPostPhotoImg(uploadUrl);
-  //     alert('사진 업로드 완료');
-  //   }
-  // };
+  const deleteImage = (id: any) => {
+    setUploadFileUrl(uploadFileUrl.filter((_, index: any) => index !== id));
+    setFiles(files.filter((_, index: any) => index !== id));
+  };
 
   return (
     <>
@@ -140,20 +122,39 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
         >
           <St.ModalContent onSubmit={handleSubmitAddPost}>
             <St.ModalHeader>
-              <St.ModalTitle>포스트 쓰기</St.ModalTitle>
-              <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
+              <St.ModalTitleDiv>
+                <St.ModalTitle>포스트 쓰기</St.ModalTitle>
+                <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
+              </St.ModalTitleDiv>
+              <St.CloseBtn onClick={handleModal}>x</St.CloseBtn>
             </St.ModalHeader>
             <St.ModalContentInput
               type="text"
               placeholder="당신의 이야기를 공유해주세요"
               value={content}
               name="content"
+              maxlength="200"
               onChange={handleChangeAddPost}
             />
+            <St.SelectImgDiv>
+              {uploadFileUrl &&
+                uploadFileUrl?.map((img: string, idx: number) => (
+                  <St.imgMapDiv id={img} key={idx}>
+                    <St.SelectImg src={img} id={img} alt={`${img}-${idx}`} />
+                    <div onClick={() => deleteImage(idx)}>x</div>
+                  </St.imgMapDiv>
+                ))}
+            </St.SelectImgDiv>
             <St.ModalBtnDiv>
-              {/* <label type='file' accept='image/*' onChange={handleImgChange}/> */}
-              <img src={postPhotoImg} />
-              <St.ModalAddPostBtn>등록</St.ModalAddPostBtn>
+              {uploadFileUrl.length >= 4 ? (
+                <></>
+              ) : (
+                <St.ModalAddBtnLabel htmlFor="file">
+                  <St.ModalAddImg src={postPhotoImg} />
+                  <input type="file" name="file" id="file" multiple hidden onChange={handleuploadFiles} />
+                </St.ModalAddBtnLabel>
+              )}
+              <St.ModalAddPostBtn disabled={!content}>등록</St.ModalAddPostBtn>
             </St.ModalBtnDiv>
           </St.ModalContent>
         </St.ModalBox>

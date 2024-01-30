@@ -61,7 +61,13 @@ const PostList = () => {
         {currentArtistPost?.map(post => {
           return (
             <>
-              <PostItem id={post.id} userid={post.userid} content={post.content} created_at={post.created_at} />
+              <PostItem
+                id={post.id}
+                userid={post.userid}
+                content={post.content}
+                photo_url={post.photo_url}
+                created_at={post.created_at}
+              />
             </>
           );
         })}

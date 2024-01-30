@@ -10,16 +10,17 @@ const OpenPostModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
+
+  z-index: 10000;
 `;
 const OpenPostModalBox = styled.div`
   background-color: #2a2a2a;
-  width: 852px;
-  height: 510px;
+  width: 992px;
+  height: 700px;
   color: white;
 `;
 const OpenPostModalContent = styled.div`
   background-color: #2a2a2a;
-  /* column-count: 2; */
   flex: 1;
   display: flex;
 `;
