@@ -6,11 +6,12 @@ import ReactPlayer from 'react-player';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
-import Modal from '../components/Modal';
 import Checker from '../components/Schedule/Checker';
 import {useQuery} from '@tanstack/react-query';
 import FollowArtistBt from '../components/follow/FollowArtistBt';
 import Spinner from '../components/Common/Spinner';
+import PortalModal from '../components/Common/portalModal';
+import FloatBtnModal from '../components/Modal/FloatBtnModal';
 
 const Artist = () => {
   const navigate = useNavigate();
@@ -68,7 +69,6 @@ const Artist = () => {
     );
   }
 
-  // git merge test
   return (
     <>
       <StWrapper>
@@ -161,7 +161,7 @@ const Artist = () => {
                     setIsPhotoModalOpen(true);
                   }}
                 >
-                  <StPhotoImg src={el.imgUrl} />
+                  <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/450/')} />
                 </StPhotoImgDiv>
               ))}
               {isPhotoModalOpen && (
@@ -180,7 +180,7 @@ const Artist = () => {
           </StWrapper>
         </StContentsWrapper>
         <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
-        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+        <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
         {isArtistModalOpen && (
           <StModalBackDrop onClick={openModalHandler}>
             <StModalView
