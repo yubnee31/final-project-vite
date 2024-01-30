@@ -23,6 +23,7 @@ export const StMonthDiv = styled.div`
 // Day Columns
 export const StDayColumnUl = styled.ul`
   display: flex;
+  padding-left: 1px;
 `;
 
 export const StDayColumnLi = styled.li`
@@ -45,6 +46,8 @@ export const StDayUl = styled.ul`
   grid-template-rows: repeat(5, 140px);
   grid-auto-columns: 125px;
   grid-auto-rows: 140px;
+
+  padding-left: 1px;
 `;
 
 export const StDayli = styled.li`
