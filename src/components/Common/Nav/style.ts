@@ -122,6 +122,10 @@ export const StAlarmP = styled.p`
   font-weight: bold;
   letter-spacing: 1.5px;
 `;
+export const StInfoP = styled.p`
+  font-size: 12px;
+  margin-left: 10px;
+`;
 export const StAlarmCounterP = styled.p`
   width: 15px;
   height: 15px;
