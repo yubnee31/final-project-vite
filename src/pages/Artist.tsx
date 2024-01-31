@@ -63,7 +63,7 @@ const Artist = () => {
       </div>
     );
   }
-  console.log(detailTargetData);
+
   return (
     <>
       <MetaTag
