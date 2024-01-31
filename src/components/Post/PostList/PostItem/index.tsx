@@ -12,6 +12,7 @@ import PortalModal from '../../../Common/portalModal';
 import OpenPostModal from '../OpenModal';
 import EditPostModal from '../EditModal';
 import {supabase} from '../../../../api/supabase';
+import {Json} from '../../../../types/supabase';
 
 const PostItem = ({id, userid, content, photo_url, created_at}) => {
   // modal
@@ -41,7 +42,7 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
     queryKey: ['getCurrentUser'],
     queryFn: getCurrentUser,
   });
-  console.log('currentUser', currentUser);
+
   const {data: userInfo} = useQuery({
     queryKey: ['userInfo'],
     queryFn: getTargetUserInfo,
@@ -63,7 +64,6 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
   // 유저 프로필 서버에서 불러오기
   const [profileImage, setProfileImage] = useState(profileImg);
   const targetUser = userInfo?.find(e => e.id === currentUser?.id);
-  console.log('targetUser', targetUser);
 
   const fetchImageData = async () => {
     try {
@@ -104,11 +104,12 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
         <St.PostUserImg src={profileImage} />
         <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
         <St.PostContentsP>{content}</St.PostContentsP>
-        {photo_url.length && (
-          <St.PostContentImgDiv>
-            <St.PostContentImg src={photo_url} />
-          </St.PostContentImgDiv>
-        )}
+        <St.PostContentImgDiv>
+          {photo_url.length &&
+            photo_url.map((url, index) => {
+              return <St.PostContentImg key={index} src={url} />;
+            })}
+        </St.PostContentImgDiv>
         {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
         <St.PostTimeP $right={'14%'}>{dayjs(created_at).format('HH:mm')}</St.PostTimeP>
         <St.PostTimeP $right={'1%'}>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>

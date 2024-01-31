@@ -47,6 +47,7 @@ const PostList = () => {
       lastPage.nextCursor ? {start: lastPage.nextCursor, end: lastPage.nextCursor + 4} : null,
   });
   const currentArtistPost = morePostList?.pages.map(e => e.data).flat();
+  console.log('currentArtistPost', currentArtistPost);
   if (!hasNextPage) {
     window.removeEventListener('scroll', handleScroll);
   }
@@ -60,7 +61,7 @@ const PostList = () => {
       <St.PostUl>
         {currentArtistPost?.map(post => {
           return (
-            <>
+            <div key={post.id}>
               <PostItem
                 id={post.id}
                 userid={post.userid}
@@ -68,7 +69,7 @@ const PostList = () => {
                 photo_url={post.photo_url}
                 created_at={post.created_at}
               />
-            </>
+            </div>
           );
         })}
       </St.PostUl>

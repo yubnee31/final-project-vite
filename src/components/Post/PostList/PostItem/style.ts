@@ -46,11 +46,13 @@ const PostContentsP = styled.p`
 `;
 const PostContentImgDiv = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  width: 800px;
 `;
 const PostContentImg = styled.img`
   margin-top: 40px;
-  width: 100px;
-  height: 120px;
+  height: 220px;
 `;
 const PostTimeP = styled.p`
   position: absolute;

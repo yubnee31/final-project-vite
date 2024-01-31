@@ -34,10 +34,6 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
     },
   });
 
-  // 사진 업로드 순서
-  // 이미지 파일을 담을 수 있는 배열 있어야 함 / 사진을 선택하고 등록버튼을 눌렀을 때 table 안에 배열로 넣고 배열 안에 스트링형식으로 사진 url 담기 => 잘 저장되는지 확인
-  // 저장이 되는 것을 img tag로 받아오기
-
   const handleChangeAddPost: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     setContent(e.target.value);
@@ -77,6 +73,13 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
   // 업로드된 파일이 4개 넘으면 그 뒤에 들어오는 파일은 없앰
   if (uploadFileUrl.length > 4 && files.length > 4) uploadFileUrl.pop() && files.pop();
 
+  // x 누르면 이미지 삭제
+  const deleteImage = (id: any) => {
+    setUploadFileUrl(uploadFileUrl.filter((_, index: any) => index !== id));
+    setFiles(files.filter((_, index: any) => index !== id));
+  };
+
+  // 게시글 추가
   const handleSubmitAddPost: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
 
@@ -93,23 +96,6 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
     addMutation.mutate(newPost);
     setContent('');
     setOpenModal(false);
-  };
-
-  const orderImage = (e: MouseEvent<HTMLElement>) => {
-    const url = e.currentTarget.id;
-
-    const clickedItem = uploadFileUrl.indexOf(url);
-
-    const updateArr = uploadFileUrl.filter((item: any) => {
-      item !== uploadFileUrl[clickedItem];
-    });
-
-    setUploadFileUrl([uploadFileUrl[clickedItem], ...updateArr]);
-  };
-
-  const deleteImage = (id: any) => {
-    setUploadFileUrl(uploadFileUrl.filter((_, index: any) => index !== id));
-    setFiles(files.filter((_, index: any) => index !== id));
   };
 
   return (
