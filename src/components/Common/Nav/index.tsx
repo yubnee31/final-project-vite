@@ -36,6 +36,7 @@ import {
   StAlarmContentsDiv,
   StAlarmDiv,
   StAlarmP,
+  StInfoP,
 } from './style';
 
 const Nav = () => {
@@ -133,6 +134,7 @@ const Nav = () => {
               <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
                 <StAlarmDiv>
                   <StAlarmP>알림</StAlarmP>
+                  <StInfoP>추가한 스케줄은 마이페이지에서 확인 가능합니다.</StInfoP>
                 </StAlarmDiv>
                 <StAlarmListUl>
                   {alarm

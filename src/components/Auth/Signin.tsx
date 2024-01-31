@@ -94,7 +94,7 @@ const Signin = () => {
 
   // google 로그인
   const googleLogin = async () => {
-    const {datarror} = await supabase.auth.signInWithOAuth({
+    const {data} = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         queryParams: {
