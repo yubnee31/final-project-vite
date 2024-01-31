@@ -12,6 +12,7 @@ import FollowArtistBt from '../components/follow/FollowArtistBt';
 import Spinner from '../components/Common/Spinner';
 import PortalModal from '../components/Common/portalModal';
 import FloatBtnModal from '../components/Modal/FloatBtnModal';
+import MetaTag from '../shared/seohelmet/metaTag';
 
 const Artist = () => {
   const navigate = useNavigate();
@@ -62,9 +63,15 @@ const Artist = () => {
       </div>
     );
   }
-
+  console.log(detailTargetData);
   return (
     <>
+      <MetaTag
+        title={detailTargetData.artist}
+        description={`해당 아티스트는  ${detailTargetData.artist} 입니다.`}
+        image={detailTargetData.profile[0].memberImg}
+        url={`https:/aidol.life/artist/${param.artistName}`}
+      />
       <StWrapper>
         <StBannerImgDiv url={detailTargetData?.cover}>
           <StNameSpan>{param.artistName}</StNameSpan>
