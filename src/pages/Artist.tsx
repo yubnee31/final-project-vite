@@ -400,18 +400,4 @@ const StModalContent = styled.img`
   max-height: 80%;
   border-radius: 8px;
 `;
-const StCloseButton = styled.button`
-  position: absolute;
-  top: 13%;
-  right: 27%;
-  background: gray;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-
-  &:hover {
-    color: red;
-  }
-`;
 export default Artist;
