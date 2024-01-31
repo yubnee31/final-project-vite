@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <meta property="og:site_name" content="Aidol" />
         <meta property="og:title" content="Aidol 메인페이지"></meta>
         <meta property="og:description" content="아이돌 관련 커뮤니티"></meta>
@@ -68,7 +68,7 @@ const Home = () => {
         <meta name="twitter:title" content="Aidol 메인페이지" />
         <meta name="twitter:description" content="아이돌 관련 커뮤니티" />
         <meta name="twitter:image" content="	https://aidol.life/assets/bannerImg-elwE6_LD.png" />
-      </Helmet>
+      </Helmet> */}
       <StMainWrapper>
         {/* // Banner */}
         <StBannerDiv>

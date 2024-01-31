@@ -13,11 +13,13 @@ export const StNav = styled.nav`
   justify-content: center;
   align-items: center;
 `;
+
 export const StNavWrapper = styled.div`
   width: 1920px;
   height: inherit;
   background-color: transparent;
 `;
+
 export const StNavDiv = styled.div`
   width: inherit;
   height: inherit;
