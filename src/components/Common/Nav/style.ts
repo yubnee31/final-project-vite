@@ -235,7 +235,6 @@ export const StSignInBtn = styled.button`
 `;
 
 export const StBtnP = styled.p`
-  color: black;
   font-size: 16px;
   text-align: center;
   font-weight: bold;

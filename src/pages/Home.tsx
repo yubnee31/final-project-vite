@@ -21,7 +21,7 @@ const Home = () => {
     queryKey: ['artist'],
     queryFn: getArtistList,
   });
-  console.log(login);
+
   //로그인 하면 팔로우된 유저 정보를 불러온다.
   const fetchFollowArtist = async () => {
     try {
