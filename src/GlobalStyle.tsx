@@ -23,7 +23,6 @@ License: none (public domain)
    color: white;
    box-sizing: border-box;
    font-family: 'Pretendard-Regular';
-  
 
 }
 
