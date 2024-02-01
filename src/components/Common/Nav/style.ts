@@ -12,15 +12,15 @@ export const StNav = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    height: 64px;
+  }
 `;
 
 export const StNavWrapper = styled.div`
   width: 100%;
   height: inherit;
   background-color: transparent;
-  /* @media screen and (max-width: 768px) {
-    width: 767px;
-  } */
 `;
 
 export const StNavDiv = styled.div`
@@ -32,7 +32,7 @@ export const StNavDiv = styled.div`
   background-color: transparent;
   padding: 0px 240px 0px 240px;
   @media screen and (max-width: 768px) {
-    padding: 0px;
+    padding: 0px 20px 0px 20px;
   }
 `;
 
@@ -48,6 +48,9 @@ export const StLogoSpan = styled.span`
   background-color: transparent;
 
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    font-size: 22px;
+  }
 `;
 
 // Input
@@ -63,6 +66,7 @@ export const StForm = styled.form`
   @media screen and (max-width: 768px) {
     width: 150px;
     margin-right: 10px;
+    margin-left: 5px;
   }
 `;
 
@@ -76,6 +80,7 @@ export const StInput = styled.input`
   margin-left: 20px;
   @media screen and (max-width: 768px) {
     width: 70px;
+    font-size: 12px;
   }
 `;
 
@@ -91,6 +96,10 @@ export const StSearchButton = styled.button`
   :hover {
     opacity: 0.5;
     transition: 0.5s;
+  }
+  @media screen and (max-width: 768px) {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -120,6 +129,8 @@ export const StButton = styled.button`
   position: relative;
   @media screen and (max-width: 768px) {
     margin-right: 10px;
+    width: 30px;
+    height: 30px;
   }
 `;
 // Alarm
@@ -279,6 +290,9 @@ export const StSignInBtn = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 70px;
+  }
 `;
 
 export const StBtnP = styled.p`
@@ -286,6 +300,9 @@ export const StBtnP = styled.p`
   text-align: center;
   font-weight: bold;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const StImg = styled.img`
