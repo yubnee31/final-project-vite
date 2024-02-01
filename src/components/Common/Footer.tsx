@@ -37,12 +37,16 @@ const StDiv = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const StUl = styled.ul`
   width: 1440px;
 
   border-top: 2px solid gray;
   border-bottom: 2px solid #1d1d1d;
   display: flex;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 const StLi = styled.li`
   margin-top: 25px;
@@ -50,6 +54,13 @@ const StLi = styled.li`
   padding-right: 50px;
   cursor: pointer;
   color: #bdbdbd;
+  @media screen and (max-width: 768px) {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    float: left;
+  }
 `;
 // Info
 
@@ -61,10 +72,17 @@ const StInfoWrapper = styled.div`
 const StInfoDiv = styled.div`
   width: 1440px;
   margin-top: 30px;
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const StInfoSpan = styled.span`
   color: #bdbdbd;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    margin-left: 20px;
+  }
 `;
 
 export default Footer;
