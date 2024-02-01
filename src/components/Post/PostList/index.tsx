@@ -1,5 +1,4 @@
 import {useInfiniteQuery} from '@tanstack/react-query';
-import React from 'react';
 import St from './style';
 import {useParams} from 'react-router-dom';
 import Spinner from '../../Common/Spinner';
@@ -16,10 +15,6 @@ const PostList = () => {
     const {scrollHeight} = document.documentElement; // 전체 높이
     // hasNextPage 이거 왜 계속 ture 나옴?
     if (Math.ceil(scrollY) + clientHeight === scrollHeight && hasNextPage && !isFetchingNextPage) {
-      console.log('hasNextPage', hasNextPage);
-      console.log('isFetchingNextPage', isFetchingNextPage);
-
-      console.log('next page');
       fetchNextPage();
       // if (isBottom) {
       //   toast.error('마지막 페이지입니다.');

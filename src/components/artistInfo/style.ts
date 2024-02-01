@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Banner
 const BannerDiv = styled.div`
-  width: 1200px;
+  width: 1440px;
   height: 400px;
 
   border-radius: 15px;
@@ -17,16 +17,16 @@ const BannerImg = styled.img`
 
 // Info
 const InfoDiv = styled.div`
-  width: 800px;
-  height: 100px;
+  width: 952px;
+  height: 130px;
 
   display: flex;
 
-  margin-top: 50px;
+  margin-top: 40px;
 `;
 const InfoNameDiv = styled.div`
   border: 1px solid gray;
-  width: 200px;
+  width: 220px;
 
   display: flex;
   justify-content: center;
@@ -34,10 +34,10 @@ const InfoNameDiv = styled.div`
   flex-direction: column;
 
   border-radius: 10px;
-  margin-right: 15px;
+  margin-right: 24px;
 `;
 const InfoNameP = styled.p`
-  font-size: 16px;
+  font-size: 18px;
 `;
 const InfoNameBtn = styled.button`
   border: none;
@@ -48,7 +48,7 @@ const InfoNameBtn = styled.button`
   font-size: 12px;
 `;
 const InfoFollowerDiv = styled.div`
-  width: 150px;
+  width: 171px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,7 +59,7 @@ const InfoFollowerDiv = styled.div`
   border-radius: 10px 0px 0px 10px;
 `;
 const InfoFollowingDiv = styled.div`
-  width: 150px;
+  width: 171px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,17 +68,18 @@ const InfoFollowingDiv = styled.div`
   border-radius: 0px 10px 10px 0px;
 `;
 const InfoFollowP = styled.p`
-  font-size: 17px;
+  font-size: 18px;
 `;
 const FollowP = styled.p`
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 13px;
   color: gray;
 `;
 const InfoArtistDiv = styled.div<{url: string}>`
-  width: 300px;
+  width: 342px;
+  height: 130px;
   border-radius: 10px;
-  margin-left: 15px;
+  margin-left: 24px;
 
   display: flex;
   justify-content: end;

@@ -1,4 +1,3 @@
-import {number} from 'prop-types';
 import {supabase} from './supabase';
 
 //아티스트 조회
@@ -36,54 +35,15 @@ export const getInitialLikes = async (postId: number) => {
   }
 };
 
-// 좋아요 추가 API
-export const addLikeartist = async (postId: number) => {
-  try {
-    // 로그인된 사용자 정보 확인
-    const user = await supabase.auth.getUser();
-
-    // 좋아요 증가 요청
-    const initialLikes = await getInitialLikes(postId);
-
-    // 존재하는 데이터 인지 확인
-    const checkData = await supabase.from('artists').select('*').eq('id', postId);
-
-    if (checkData.data && checkData.data.length > 0) {
-      const existingData = checkData.data[0];
-      const userLikes = existingData.user_likes || [];
-
-      // 이미 존재하는 경우, 해당 데이터를 업데이트
-      if (userLikes.some(likedUser => likedUser.id === user.id)) {
-        // 좋아요 취소
-        const updatedLikes = initialLikes - 1 < 0 ? 0 : initialLikes - 1;
-        const updatedUserLikes = userLikes.filter(likedUser => likedUser.id !== user.id);
-
-        const {data, error} = await supabase
-          .from('artists')
-          .update({like: updatedLikes, user_likes: updatedUserLikes})
-          .eq('id', postId);
-      } else {
-        // 중복된 데이터가 없는 경우에만 좋아요 추가
-        const {data, error} = await supabase
-          .from('artists')
-          .update({like: initialLikes + 1, user_likes: [...userLikes, user]})
-          .eq('id', postId);
-      }
-    }
-  } catch (error) {
-    // console.log('좋아요 처리 실패', error);
-  }
-};
-
 //팔로우 버튼클릭시 수파베이스 테이블에 해당 타입의 데이터가 삽입됨
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const artistFollowList = async (targetData: any) => {
   try {
     // 로그인 된 사용자 정보 확인
     const user = await supabase.auth.getUser();
-    //console.log(targetData);
+
     const initialLikes = await getInitialLikes(targetData);
 
-    // console.log(initialLikes);
     // userinfo에서 현재 유저의 팔로우 리스트 가져오기
     const {data: userinfoData} = await supabase.from('userinfo').select('artist_follow').eq('id', user.data.user.id);
 

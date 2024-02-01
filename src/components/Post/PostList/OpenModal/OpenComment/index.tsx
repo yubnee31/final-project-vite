@@ -2,22 +2,16 @@ import React, {useState} from 'react';
 import St from './style';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {addComment, deleteComment, getComments} from '../../../../../api/postComment';
-import {getTargetUserInfo} from '../../../../../api/currentUser';
 import seeMoreImg from '../../../../../assets/images/meatballs-v.svg';
 import profileImg from '../../../../../assets/images/profile-white.png';
 import commentImg from '../../../../../assets/images/comment-white.png';
 import heartImgPurple from '../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../assets/images/heart-white.png';
 import dayjs from 'dayjs';
-import {addLikes, getLikes, updateLikes} from '../../../../../api/like';
 
-const OpenComment = ({currentUser, modalData}: any) => {
+const OpenComment = ({currentUser, modalData, nameFilterHandler, target, targetPost, onClickLikeHandler}: any) => {
   const queryClient = useQueryClient();
   const [comment, setComment] = useState('');
-  const {data: userInfo} = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: getTargetUserInfo,
-  });
 
   // 댓글 list
   const {data: comments} = useQuery({
@@ -33,7 +27,7 @@ const OpenComment = ({currentUser, modalData}: any) => {
     },
   });
 
-  const handleChangeAddComment: React.ChangeEventHandler<HTMLInputElement> = e => {
+  const handleChangeAddComment: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
     e.preventDefault();
     setComment(e.target.value);
   };
@@ -57,51 +51,6 @@ const OpenComment = ({currentUser, modalData}: any) => {
       queryClient.invalidateQueries({queryKey: ['postComments']});
     },
   });
-
-  const nameFilterHandler = id => {
-    const target = userInfo?.find(e => e.id === id);
-    return target?.username;
-  };
-
-  //좋아요
-  const {data: postLike} = useQuery({
-    queryKey: ['postLike'],
-    queryFn: getLikes,
-  });
-
-  const addLikeMutation = useMutation({
-    mutationFn: addLikes,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['postLike']});
-    },
-  });
-
-  const likeMutation = useMutation({
-    mutationFn: updateLikes,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['postLike']});
-    },
-  });
-
-  const targetPost = postLike?.find(e => e.postid === modalData.id);
-  const target = targetPost?.userid?.filter(e => e.id === currentUser.id);
-
-  const onClickLikeHandler = () => {
-    if (targetPost === undefined) {
-      const param = {postid: modalData.id, userid: [{id: currentUser.id}]};
-      addLikeMutation.mutate(param);
-    } else if (target?.length) {
-      const likeCounter = targetPost.like - 1;
-      const postInfoData = targetPost.userid.filter(e => e.id !== currentUser.id);
-      const param = {postid: modalData.id, userid: postInfoData, likeCount: likeCounter};
-      likeMutation.mutate(param);
-    } else {
-      const likeCounter = targetPost.like + 1;
-      targetPost.userid.push({id: currentUser.id});
-      const param = {postid: modalData.id, userid: targetPost.userid, likeCount: likeCounter};
-      likeMutation.mutate(param);
-    }
-  };
 
   return (
     <St.CommentWrap>
@@ -171,7 +120,6 @@ const OpenComment = ({currentUser, modalData}: any) => {
       <St.CommentAddForm>
         <St.CommenAddProfile src={profileImg} />
         <St.CommentInput
-          type="text"
           value={comment}
           placeholder="댓글을 입력해주세요"
           maxlength="60"

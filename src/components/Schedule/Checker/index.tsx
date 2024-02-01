@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import {getArtistSchedule, getUserSchedule, addSchedule, deleteSchedule} from '../../../api/artistapi';
 import {getCurrentUser} from '../../../api/currentUser';
@@ -6,10 +6,12 @@ import St from './style';
 import {Schedule} from '../../../types/global.d';
 import alarmIcon from '../../../assets/images/alarm-icon-white.png';
 import activeAlarmIcon from '../../../assets/images/alarm-icon-active-white.png';
+import FloatBtnModal from '../../Modal/FloatBtnModal';
+import PortalModal from '../../Common/portalModal';
 
 const Checker = ({param}: string) => {
   const queryClient = useQueryClient();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {data: schedule} = useQuery({
     queryKey: ['schedule'],
     queryFn: getArtistSchedule,
@@ -65,6 +67,12 @@ const Checker = ({param}: string) => {
   weekCalculator();
 
   const onClickIsOnHandler = (info, userid) => {
+    if (!userid) {
+      // currentUser가 null 또는 currentUser.id가 null일 때 로그인 알림 처리
+      alert('로그인이 필요합니다.'); // 또는 원하는 형태로 알림을 표시
+      return;
+    }
+
     const isOn = userTargetSchedule?.filter(el => el.scheduleId === info.id)[0];
     if (!isOn) {
       const schedule: Schedule = {
@@ -99,7 +107,11 @@ const Checker = ({param}: string) => {
                       </St.ScheduleListSection>
                       <St.ScheduleListImg
                         onClick={() => {
-                          onClickIsOnHandler(ele, currentUser.id);
+                          if (currentUser && currentUser.id) {
+                            onClickIsOnHandler(ele, currentUser.id);
+                          } else {
+                            setIsModalOpen(true);
+                          }
                         }}
                         src={
                           userTargetSchedule?.filter(el => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon
@@ -112,6 +124,7 @@ const Checker = ({param}: string) => {
           );
         })}
       </St.ScheduleUl>
+      <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
     </St.ScheduleDiv>
   );
 };

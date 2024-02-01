@@ -1,22 +1,22 @@
 import styled from 'styled-components';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import bannerImg from '../assets/images/bannerImg.png';
 import {getArtistList} from '../api/artistapi';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import Spinner from '../components/Common/Spinner';
 import {supabase} from '../api/supabase';
 import {loginState} from '../shared/recoil/authAtom';
 import {useRecoilState} from 'recoil';
+import {homepageMatas} from '../components/Common/SeoHelmet';
+import {Helmet} from 'react-helmet-async';
 
 const Home = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {state: searchInput} = useLocation();
   const [searchedResults, setSearchedResults] = useState<string[]>([]);
   const [followAt, setFollowAt] = useState([]);
   const [login, setLogin] = useRecoilState(loginState);
-  console.log(login);
   const {data: artistList, isLoading: artistLoading} = useQuery({
     queryKey: ['artist'],
     queryFn: getArtistList,
@@ -56,52 +56,66 @@ const Home = () => {
 
   return (
     <>
+      {/* <Helmet>
+        <meta property="og:site_name" content="Aidol" />
+        <meta property="og:title" content="Aidol 메인페이지"></meta>
+        <meta property="og:description" content="아이돌 관련 커뮤니티"></meta>
+        <meta property="og:url" content="https://aidol.life/"></meta>
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="	https://aidol.life/assets/bannerImg-elwE6_LD.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Aidol 메인페이지" />
+        <meta name="twitter:description" content="아이돌 관련 커뮤니티" />
+        <meta name="twitter:image" content="	https://aidol.life/assets/bannerImg-elwE6_LD.png" />
+      </Helmet> */}
       <StMainWrapper>
         {/* // Banner */}
         <StBannerDiv>
-          <StBannerImg src={bannerImg}></StBannerImg>
+          <StBannerImg src={bannerImg} alt="bannerimg"></StBannerImg>
         </StBannerDiv>
 
         {searchInput && searchInput.length > 0 ? (
           <StListWrapper>
-            <StSpan>검색결과</StSpan>
             <StListDiv>
-              {artistList
-                ?.filter(el => el.artist.includes(searchInput))
-                .map(el => {
-                  return (
-                    <StListTargetDiv
-                      key={el.id}
-                      onClick={() => {
-                        artistNavigateHandler(el.artist);
-                      }}
-                    >
-                      <StArtistTargetImg src={el.photo_url} />
-                      <StListTargetP>{el.artist}</StListTargetP>
-                    </StListTargetDiv>
-                  );
-                })}
+              {artistList?.filter(ele => ele.artist.includes(searchInput)).length === 0 ? (
+                <p>검색결과가 없습니다.</p>
+              ) : (
+                artistList
+                  ?.filter(el => el.artist.includes(searchInput))
+                  .map(el => {
+                    return (
+                      <StListTargetDiv
+                        key={el.id}
+                        onClick={() => {
+                          artistNavigateHandler(el.artist);
+                        }}
+                      >
+                        <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
+                        <StListTargetP>{el.artist}</StListTargetP>
+                      </StListTargetDiv>
+                    );
+                  })
+              )}
             </StListDiv>
           </StListWrapper>
         ) : (
           <>
             {/* // My Artist */}
             <StSideWrapper>
-              {/* 아티스트 팔로우 기능 생기면 주석 풀기!!! */}
-
               {login ? (
                 <StDiv>
                   <StSpan>나의 아티스트</StSpan>
                   <StArtistDiv>
                     {followAt?.length > 0 ? (
-                      followAt?.map((followAt, index) => {
+                      followAt?.map(followAt => {
                         return (
                           <StListTargetDiv
                             key={followAt.artistId.id}
                             onClick={() => artistNavigateHandler(followAt.artistId.artist)}
                           >
                             <div>
-                              <StArtistTargetImg src={followAt.artistId.photo_url} />
+                              <StArtistTargetImg src={followAt.artistId.photo_url} alt="targetartistimg" />
                             </div>
                             <StListTargetP>{followAt.artistId.artist}</StListTargetP>
                           </StListTargetDiv>
@@ -126,7 +140,7 @@ const Home = () => {
                           artistNavigateHandler(el.artist);
                         }}
                       >
-                        <StArtistTargetImg src={el.photo_url} />
+                        <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
                         <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );
@@ -235,6 +249,7 @@ const StListTargetDiv = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  transition: all 1s;
   &:hover {
     transform: scale(1.1);
   }

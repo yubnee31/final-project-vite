@@ -13,7 +13,7 @@ type newComment = Omit<COMMENT, 'id' | 'createdAt'>;
 //등록된 댓글 목록 가져오기
 const getComments = async () => {
   try {
-    const {data, error} = await supabase.from('postComments').select('*');
+    const {data} = await supabase.from('postComments').select('*');
     return data;
   } catch (error) {
     // console.log('가져오기Error', error);

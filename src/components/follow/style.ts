@@ -19,13 +19,12 @@ export const StButton = styled.button`
   height: 42px;
   border: 1px solid #aeaeb2;
   border-radius: 5px;
+  &:hover {
+    border: 2px solid #aeaeb2;
+  }
   &.following {
     color: #9747ff;
     border: 1px solid #9747ff;
-    transition: 0.3s;
-  }
-  &.follow {
-    transition: 0.3s;
   }
 `;
 
@@ -38,6 +37,7 @@ export const StBtnDiv = styled.div`
   background-color: transparent;
   padding-right: 15px;
   gap: 10px;
+  cursor: pointer;
 `;
 
 export const StFollowingP = styled.p`

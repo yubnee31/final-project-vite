@@ -3,6 +3,8 @@ import styled from 'styled-components';
 // PostList
 const PostLi = styled.li`
   margin-bottom: 20px;
+  min-height: 170px;
+  max-height: 656px;
   position: relative;
   border-bottom: 1px solid gray;
 `;
@@ -28,11 +30,10 @@ const PostUploadImg = styled.img`
   background-color: transparent;
 `;
 const PostContentsP = styled.p`
-  position: absolute;
-  left: 2%;
-  top: 45%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
-  width: 750px;
+  width: 952px;
   height: 50px;
 
   display: -webkit-box;
@@ -42,7 +43,7 @@ const PostContentsP = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   line-height: 20px;
-  height: 40px;
+  height: 38px;
 `;
 const PostContentImgDiv = styled.div`
   display: flex;
@@ -88,8 +89,7 @@ const CommentImg = styled.img`
 `;
 const PostBtnDiv = styled.div`
   margin-top: 85px;
-  margin-left: 810px;
-  /* margin-right: 30px; */
+  margin-left: 960px;
   position: absolute;
 `;
 const PostBtn = styled.button`

@@ -13,11 +13,13 @@ export const StNav = styled.nav`
   justify-content: center;
   align-items: center;
 `;
+
 export const StNavWrapper = styled.div`
   width: 1920px;
   height: inherit;
   background-color: transparent;
 `;
+
 export const StNavDiv = styled.div`
   width: inherit;
   height: inherit;
@@ -121,6 +123,10 @@ export const StAlarmP = styled.p`
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1.5px;
+`;
+export const StInfoP = styled.p`
+  font-size: 12px;
+  margin-left: 10px;
 `;
 export const StAlarmCounterP = styled.p`
   width: 15px;

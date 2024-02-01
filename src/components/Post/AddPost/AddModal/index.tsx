@@ -119,7 +119,7 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
               placeholder="당신의 이야기를 공유해주세요"
               value={content}
               name="content"
-              maxlength="200"
+              maxlength="250"
               onChange={handleChangeAddPost}
             />
             <St.SelectImgDiv>

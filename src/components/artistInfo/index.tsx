@@ -1,4 +1,3 @@
-import React from 'react';
 import St from './style';
 import {getCurrentUser} from '../../api/currentUser';
 import {useQuery} from '@tanstack/react-query';

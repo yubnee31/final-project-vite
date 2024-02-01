@@ -21,8 +21,8 @@ License: none (public domain)
 * {
    background-color: black;
    color: white;
- box-sizing: border-box;
- font-family: 'Pretendard-Regular';
+   box-sizing: border-box;
+   font-family: 'Pretendard-Regular';
 
 }
 

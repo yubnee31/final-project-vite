@@ -12,9 +12,10 @@ import PortalModal from '../../../Common/portalModal';
 import OpenPostModal from '../OpenModal';
 import EditPostModal from '../EditModal';
 import {supabase} from '../../../../api/supabase';
-import {Json} from '../../../../types/supabase';
 
 const PostItem = ({id, userid, content, photo_url, created_at}) => {
+  const queryClient = useQueryClient();
+
   // modal
   const [openEditModal, setOpenEditModal] = useState(false);
   const [modalEditData, setModalEditData] = useState('');
@@ -53,7 +54,6 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
     return target?.username;
   };
 
-  const queryClient = useQueryClient();
   const deleteMutation = useMutation({
     mutationFn: deletePost,
     onSuccess: () => {
@@ -105,12 +105,11 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
         <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
         <St.PostContentsP>{content}</St.PostContentsP>
         <St.PostContentImgDiv>
-          {photo_url.length &&
+          {photo_url &&
             photo_url.map((url, index) => {
               return <St.PostContentImg key={index} src={url} />;
             })}
         </St.PostContentImgDiv>
-        {/* <St.PostUploadImg src={postPhotoImg} alt='upload photo'/> */}
         <St.PostTimeP $right={'14%'}>{dayjs(created_at).format('HH:mm')}</St.PostTimeP>
         <St.PostTimeP $right={'1%'}>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
         <PostLike postId={id} currentUser={currentUser} />
