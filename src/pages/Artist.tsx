@@ -66,6 +66,7 @@ const Artist = () => {
 
   return (
     <>
+      <meta name="google-site-verification" content="7Mb9db4L5eHnUORCsjuV5zKMR7mjYaY_-8-iVpbvI9A" />
       <MetaTag
         title={detailTargetData.artist}
         description={`해당 아티스트는  ${detailTargetData.artist} 입니다.`}
