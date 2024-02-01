@@ -120,7 +120,7 @@ const Nav = () => {
               <StForm onSubmit={handleSearchBtn}>
                 <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></StInput>
                 <StSearchButton>
-                  <StImg src={searchIcon}></StImg>
+                  <StImg src={searchIcon} alt="검색어 아이콘"></StImg>
                 </StSearchButton>
               </StForm>
               <StButton
@@ -128,7 +128,7 @@ const Nav = () => {
                   setAlarmToggle(!alarmToggle);
                 }}
               >
-                <StImg src={alarmIcon}></StImg>
+                <StImg src={alarmIcon} alt="알람 아이콘"></StImg>
                 {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
               </StButton>
               <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
@@ -158,7 +158,7 @@ const Nav = () => {
                               alarmDeleteHandler(e.id);
                             }}
                           >
-                            <StImg src={escape} />
+                            <StImg src={escape} alt="profile icon" />
                           </StAlarmDeleteBtn>
                         </StAlarmListLi>
                       );
