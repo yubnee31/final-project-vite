@@ -110,7 +110,7 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
             e.stopPropagation();
           }}
         >
-          {modalData.photo_url ? (
+          {modalData.photo_url?.length ? (
             <St.OpenPostModalContent>
               <OpenImage currentUser={currentUser} modalData={modalData} />
               <OpenText

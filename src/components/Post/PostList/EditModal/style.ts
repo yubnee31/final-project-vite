@@ -100,6 +100,7 @@ const SelectedImgDeleteBtn = styled.p`
 `;
 const EditModalImgBtnLabel = styled.label`
   background-color: #2a2a2a;
+  cursor: pointer;
 `;
 const EditModalImg = styled.img`
   background-color: #2a2a2a;
