@@ -8,9 +8,14 @@ const OpenContentModalContainer = styled.div`
   align-items: center;
   height: 800px;
 `;
+const OpenContentSliderImgDiv = styled.div`
+  width: 596px;
+  height: 800px;
+`;
 const OpenContentSliderModalImg = styled.img`
   width: 596px;
   height: 800px;
+  object-fit: contain;
 `;
 const OpenContentModalImg = styled.img`
   width: 596px;
@@ -18,6 +23,7 @@ const OpenContentModalImg = styled.img`
 
 export default {
   OpenContentModalContainer,
+  OpenContentSliderImgDiv,
   OpenContentSliderModalImg,
   OpenContentModalImg,
 };
