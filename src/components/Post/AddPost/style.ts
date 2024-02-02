@@ -1,26 +1,30 @@
 import styled from 'styled-components';
 
-const InputDiv = styled.form`
-  width: 800px;
-  height: 60px;
+const AddPostDiv = styled.div`
+  width: 954px;
+  height: 62px;
   border-bottom: 2px solid gray;
   display: flex;
 
-  margin-top: 50px;
+  margin-top: 40px;
 `;
-const InputImg = styled.img`
-  height: 50px;
-  width: 50px;
+const AddPostUerImg = styled.img`
+  height: 45px;
+  width: 45px;
+  border-radius: 50px;
   object-fit: cover;
   background-size: cover;
 `;
-const Input = styled.div`
+const AddPostMovdBox = styled.div`
   width: 735px;
   height: 50px;
   border: none;
-  margin-left: 15px;
-  font-size: 15px;
+  padding-top: 20px;
+  padding-left: 10px;
+  margin-left: 20px;
+  color: gray;
+  font-size: 16px;
   cursor: pointer;
 `;
 
-export default {InputDiv, InputImg, Input};
+export default {AddPostDiv, AddPostUerImg, AddPostMovdBox};
