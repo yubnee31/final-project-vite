@@ -145,6 +145,9 @@ const Home = () => {
 const StMainWrapper = styled.div`
   background-color: black;
   padding-bottom: 100px;
+  @media screen and (max-width: 768px) {
+    padding-bottom: 50px;
+  }
 `;
 const StSideWrapper = styled.div`
   display: flex;
@@ -152,16 +155,27 @@ const StSideWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   margin-top: 100px;
+  @media screen and (max-width: 768px) {
+    /* width: 100vw; */
+    margin-top: 20px;
+  }
 `;
 
 // Common
 const StP = styled.p`
   margin-top: 50px;
   color: white;
+  @media screen and (max-width: 768px) {
+    margin-top: 30px;
+    font-size: 12px;
+  }
 `;
 const StSpan = styled.span`
   color: white;
   font-size: 24px;
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 // Banner
@@ -175,6 +189,10 @@ const StBannerDiv = styled.div`
   align-items: center;
 
   margin-top: 80px;
+  @media screen and (max-width: 768px) {
+    height: 180px;
+    margin-top: 64px;
+  }
 `;
 const StBannerImg = styled.img`
   width: 1000px;
@@ -182,6 +200,9 @@ const StBannerImg = styled.img`
   background-size: cover;
   background-color: transparent;
   object-fit: cover;
+  @media screen and (max-width: 768px) {
+    height: 180px;
+  }
 `;
 
 // My Artist
@@ -191,6 +212,13 @@ const StDiv = styled.div`
   width: 1920px;
   padding-left: 240px;
   padding-right: 240px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 
 const StArtistDiv = styled.div`
@@ -199,6 +227,11 @@ const StArtistDiv = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
   grid-auto-rows: 214px;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 172px;
+  }
 `;
 
 const StArtistTargetImg = styled.img`
@@ -206,6 +239,10 @@ const StArtistTargetImg = styled.img`
   height: 214px;
   object-fit: cover;
   border-radius: 10px;
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 114px;
+  }
 `;
 
 // Artist List
@@ -215,6 +252,13 @@ const StListWrapper = styled.div`
   padding-left: 240px;
   padding-right: 240px;
   margin-top: 100px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 const StListDiv = styled.div`
   margin-top: 50px;
@@ -223,6 +267,11 @@ const StListDiv = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
   justify-content: space-around;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 172px;
+  }
 `;
 
 const StListTargetDiv = styled.div`
@@ -234,9 +283,14 @@ const StListTargetDiv = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  transition: all 1s;
+
   &:hover {
     transform: scale(1.1);
+    transition: all 1s;
+  }
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 172px;
   }
 `;
 
@@ -245,6 +299,10 @@ const StListTargetP = styled.p`
   text-align: center;
   margin-top: 20px;
   font-size: 18px;
+  @media screen and (max-width: 768px) {
+    margin-top: 5px;
+    font-size: 14px;
+  }
 `;
 
 export default Home;
