@@ -103,6 +103,7 @@ const ModalBtnDiv = styled.div`
 `;
 const ModalAddBtnLabel = styled.label`
   background-color: #2a2a2a;
+  cursor: pointer;
 `;
 const ModalAddImg = styled.img`
   background-color: #2a2a2a;
