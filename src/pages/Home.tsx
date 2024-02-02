@@ -64,7 +64,7 @@ const Home = () => {
           <StListWrapper>
             <StListDiv>
               {artistList?.filter(ele => ele.artist.includes(searchInput)).length === 0 ? (
-                <p>검색결과가 없습니다.</p>
+                <StInfoP>검색결과가 없습니다.</StInfoP>
               ) : (
                 artistList
                   ?.filter(el => el.artist.includes(searchInput))
@@ -107,7 +107,7 @@ const Home = () => {
                         );
                       })
                     ) : (
-                      <p>팔로우한 아티스트가 없습니다.</p>
+                      <StInfoP>팔로우한 아티스트가 없습니다.</StInfoP>
                     )}
                   </StArtistDiv>
                 </StDiv>
@@ -302,6 +302,12 @@ const StListTargetP = styled.p`
   @media screen and (max-width: 768px) {
     margin-top: 5px;
     font-size: 14px;
+  }
+`;
+
+const StInfoP = styled.p`
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
   }
 `;
 
