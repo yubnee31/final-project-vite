@@ -1,7 +1,7 @@
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import React from 'react';
 import St from './style';
-import {updateLikes, getLikes, addLikes} from '../../../../api/like';
+import {addPostLikes, getPostLikes, updatePostLikes} from '../../../../api/like';
 import heartImgWhite from '../../../../assets/images/heart-white.png';
 import heartImgPurple from '../../../../assets/images/heart-purple.png';
 
@@ -10,18 +10,18 @@ const PostLike = ({postId, currentUser}: any) => {
 
   const {data: postLike} = useQuery({
     queryKey: ['postLike'],
-    queryFn: getLikes,
+    queryFn: getPostLikes,
   });
 
   const addLikeMutation = useMutation({
-    mutationFn: addLikes,
+    mutationFn: addPostLikes,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['postLike']});
     },
   });
 
   const likeMutation = useMutation({
-    mutationFn: updateLikes,
+    mutationFn: updatePostLikes,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['postLike']});
     },

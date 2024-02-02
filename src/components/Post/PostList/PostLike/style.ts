@@ -1,30 +1,22 @@
 import styled from 'styled-components';
 
-const LikeBtnImg = styled.img`
-  width: inherit;
-  height: inherit;
-  object-fit: cover;
-  background-size: cover;
+const LikeBtnDiv = styled.div`
   background-color: transparent;
-
-  position: absolute;
-  left: ${props => props.$left};
-  bottom: 8%;
+  display: flex;
+`;
+const LikeBtnImg = styled.img`
+  background-color: transparent;
+  height: 28px;
 
   cursor: pointer;
 `;
-
-const LikeBtnDiv = styled.div`
-  width: 25px;
-  height: 25px;
-`;
-
 const LikeCountP = styled.p`
-  position: absolute;
-  left: 3%;
-  bottom: 10%;
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 18px;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 2px;
+  margin: 5px 0 5px 4px;
 `;
 
 export default {LikeBtnImg, LikeBtnDiv, LikeCountP};
