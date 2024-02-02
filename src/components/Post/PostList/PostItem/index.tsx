@@ -28,8 +28,8 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
     setOpenCommentModal(!openCommentModal);
   };
 
-  const handleEditModal = (id, content) => {
-    setModalEditData({id, content});
+  const handleEditModal = (id, content, photo_url) => {
+    setModalEditData({id, content, photo_url});
     setOpenEditModal(!openEditModal);
   };
   // toggle
@@ -157,7 +157,7 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
               </St.PostBtn>
               <St.PostBtn
                 onClick={() => {
-                  handleEditModal(id, content);
+                  handleEditModal(id, content, photo_url);
                   setOpenToggle(false);
                 }}
               >

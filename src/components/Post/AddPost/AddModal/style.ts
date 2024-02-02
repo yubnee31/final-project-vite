@@ -15,12 +15,16 @@ const ModalContainer = styled.div`
 `;
 const ModalBox = styled.div`
   background-color: #2a2a2a;
-  width: 992px;
-  height: 700px;
+  width: 952px;
+  height: 650px;
   color: white;
 `;
 const ModalContent = styled.form`
   background-color: #2a2a2a;
+`;
+const ModalHeaderBodyDiv = styled.div`
+  background-color: #2a2a2a;
+  height: 503px;
 `;
 const ModalHeader = styled.div`
   background-color: #2a2a2a;
@@ -41,26 +45,26 @@ const ModalTitle = styled.p`
   background-color: #2a2a2a;
   text-align: center;
   font-size: 20px;
-  height: 24px;
+  line-height: 24px;
   width: 300px;
-  margin: 20px 346px 0 300px;
+  margin: 20px 240px 0 326px;
 `;
 const ModalArtistName = styled.p`
   background-color: #2a2a2a;
   text-align: center;
   font-size: 14px;
-  height: 18px;
+  line-height: 18px;
   width: 300px;
-  margin: 6px 306px 20px 306px;
+  margin: 6px 240px 20px 326px;
 `;
 const ModalContentInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
   resize: none;
 
-  width: 912px;
-  height: 343px;
-  margin: 0 40px 20px 40px;
+  width: 100%;
+  height: 303px;
+  padding: 0 40px 20px 40px;
 `;
 const SelectImgDiv = styled.div`
   background-color: #2a2a2a;
@@ -72,9 +76,22 @@ const imgMapDiv = styled.div`
   background-color: #2a2a2a;
 `;
 const SelectImg = styled.img`
+  position: relative;
   height: 90px;
   width: 90px;
   margin-right: 20px;
+  border-radius: 5%;
+`;
+const SelectImgDeleteBtn = styled.p`
+  position: relative;
+  background-color: #2a2a2a;
+  border-radius: 10%;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  margin-left: 40px;
+
+  cursor: pointer;
 `;
 const ModalBtnDiv = styled.div`
   background-color: #2a2a2a;
@@ -110,6 +127,7 @@ export default {
   ModalContainer,
   ModalBox,
   ModalContent,
+  ModalHeaderBodyDiv,
   ModalHeader,
   ModalTitleDiv,
   ModalTitle,
@@ -119,6 +137,7 @@ export default {
   SelectImgDiv,
   imgMapDiv,
   SelectImg,
+  SelectImgDeleteBtn,
   ModalAddImg,
   ModalBtnDiv,
   ModalAddBtnLabel,

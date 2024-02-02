@@ -9,11 +9,15 @@ const OpenContentModalContainer = styled.div`
   height: 800px;
   width: 596px;
 `;
+const OpenContentSliderModalImg = styled.img`
+  width: 600px;
+`;
 const OpenContentModalImg = styled.img`
-  margin-top: 28px;
   width: 596px;
 `;
+
 export default {
   OpenContentModalContainer,
+  OpenContentSliderModalImg,
   OpenContentModalImg,
 };

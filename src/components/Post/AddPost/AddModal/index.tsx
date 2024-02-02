@@ -108,39 +108,37 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
           }}
         >
           <St.ModalContent onSubmit={handleSubmitAddPost}>
-            <St.ModalHeader>
-              <St.ModalTitleDiv>
-                <St.ModalTitle>포스트 쓰기</St.ModalTitle>
-                <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
-              </St.ModalTitleDiv>
-              <St.CloseBtn src={closeImg} onClick={handleModal} />
-            </St.ModalHeader>
-            <St.ModalContentInput
-              type="text"
-              placeholder="당신의 이야기를 공유해주세요. 최대 250글자까지 입력 가능합니다."
-              value={content}
-              name="content"
-              maxlength="250"
-              onChange={handleChangeAddPost}
-            />
-            <St.SelectImgDiv>
-              {uploadFileUrl &&
-                uploadFileUrl?.map((img: string, idx: number) => (
-                  <St.imgMapDiv id={img} key={idx}>
-                    <St.SelectImg src={img} id={img} alt={`${img}-${idx}`} />
-                    <div onClick={() => deleteImage(idx)}>x</div>
-                  </St.imgMapDiv>
-                ))}
-            </St.SelectImgDiv>
+            <St.ModalHeaderBodyDiv>
+              <St.ModalHeader>
+                <St.ModalTitleDiv>
+                  <St.ModalTitle>포스트 쓰기</St.ModalTitle>
+                  <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
+                </St.ModalTitleDiv>
+                <St.CloseBtn src={closeImg} onClick={handleModal} />
+              </St.ModalHeader>
+              <St.ModalContentInput
+                type="text"
+                placeholder="당신의 이야기를 공유해주세요. 최대 250글자까지 입력 가능합니다."
+                value={content}
+                name="content"
+                maxlength="250"
+                onChange={handleChangeAddPost}
+              />
+              <St.SelectImgDiv>
+                {uploadFileUrl &&
+                  uploadFileUrl?.map((img: string, idx: number) => (
+                    <St.imgMapDiv id={img} key={idx}>
+                      <St.SelectImg src={img} id={img} alt={`${img}-${idx}`} />
+                      <St.SelectImgDeleteBtn onClick={() => deleteImage(idx)}>x</St.SelectImgDeleteBtn>
+                    </St.imgMapDiv>
+                  ))}
+              </St.SelectImgDiv>
+            </St.ModalHeaderBodyDiv>
             <St.ModalBtnDiv>
-              {uploadFileUrl.length >= 4 ? (
-                <></>
-              ) : (
-                <St.ModalAddBtnLabel htmlFor="file">
-                  <St.ModalAddImg src={postPhotoImg} />
-                  <input type="file" name="file" id="file" multiple hidden onChange={handleuploadFiles} />
-                </St.ModalAddBtnLabel>
-              )}
+              <St.ModalAddBtnLabel htmlFor="file">
+                <St.ModalAddImg src={postPhotoImg} />
+                <input type="file" name="file" id="file" multiple hidden onChange={handleuploadFiles} />
+              </St.ModalAddBtnLabel>
               <St.ModalAddPostBtn disabled={!content}>등록</St.ModalAddPostBtn>
             </St.ModalBtnDiv>
           </St.ModalContent>

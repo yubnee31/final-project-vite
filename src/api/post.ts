@@ -34,9 +34,9 @@ const addPost = async (newPost: newPost) => {
 };
 
 // 게시글 수정
-const updatePost = async ({id, content}: POST) => {
+const updatePost = async ({id, content, photo_url}: POST) => {
   try {
-    const {error} = await supabase.from('posts').update({content: content}).eq('id', id);
+    const {error} = await supabase.from('posts').update({content: content, photo_url: photo_url}).eq('id', id);
   } catch (error) {
     // console.log('Error', error);
   }
