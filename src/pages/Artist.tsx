@@ -72,127 +72,143 @@ const Artist = () => {
         image={detailTargetData.profile[0].memberImg}
         url={`https:/aidol.life/artist/${param.artistName}`}
       />
-      <StWrapper>
-        <StBannerImgDiv url={detailTargetData?.cover}>
-          <StNameSpan>{param.artistName}</StNameSpan>
-          <FollowArtistBt
-            postId={login ? currentuser.id : null}
-            artistId={param.artistName}
-            // fwcount={targetData.artist_fw_count}
-          ></FollowArtistBt>
-        </StBannerImgDiv>
 
-        <StContentsWrapper>
-          <StWrapper>
-            <StTitle>프로필</StTitle>
-            <StProfileDiv>
-              {detailTargetData?.profile?.map(e => {
-                return (
-                  <StPfWrapper>
-                    <StPfMemberDiv>
-                      <StPfMemberImg src={e.memberImg}></StPfMemberImg>
-                      {detailTargetData?.info
-                        ?.filter((el: {name: string}) => el.name === e.memberName)
-                        ?.map(ele => {
-                          return (
-                            <StPfDetailDiv>
-                              <StPfDetailP>{`본명 : ${ele.realName}`}</StPfDetailP>
-                              <StPfDetailP>{`생년월일 : ${ele.birthday}`}</StPfDetailP>
-                              <StPfDetailP>{`데뷔일 : ${ele.debutDate}`}</StPfDetailP>
-                              <StPfDetailP>{`데뷔곡 : ${ele.debutSong}`}</StPfDetailP>
-                            </StPfDetailDiv>
-                          );
-                        })}
-                    </StPfMemberDiv>
-                    <StPfSpan>{e.memberName}</StPfSpan>
-                  </StPfWrapper>
-                );
-              })}
-            </StProfileDiv>
-          </StWrapper>
+      <StBannerImgDiv url={detailTargetData?.cover}>
+        <StNameSpan>{param.artistName}</StNameSpan>
+        <FollowArtistBt
+          postId={login ? currentuser.id : null}
+          artistId={param.artistName}
+          // fwcount={targetData.artist_fw_count}
+        ></FollowArtistBt>
+      </StBannerImgDiv>
 
-          <StWrapper>
-            <StTitle>앨범</StTitle>
-            <StAlbumsDiv>
-              {detailTargetData?.album?.map(el => {
-                return (
-                  <StAbWrapper>
-                    <StAbImgDiv>
-                      <StAbImg src={el.albumImg}></StAbImg>
-                    </StAbImgDiv>
-                    <StAbContentsSectiion>
-                      <StAbTitleP>{albumVaildationHandler(el.title)}</StAbTitleP>
-                      <StAbdateP>{el.date}</StAbdateP>
-                    </StAbContentsSectiion>
-                  </StAbWrapper>
-                );
-              })}
-            </StAlbumsDiv>
-          </StWrapper>
+      <StContentsWrapper>
+        <StWrapper>
+          <StTitle>프로필</StTitle>
+          <StProfileDiv>
+            {detailTargetData?.profile?.map(e => {
+              return (
+                <StPfWrapper>
+                  <StPfMemberDiv>
+                    <StPfMemberImg src={e.memberImg}></StPfMemberImg>
+                    {detailTargetData?.info
+                      ?.filter((el: {name: string}) => el.name === e.memberName)
+                      ?.map(ele => {
+                        return (
+                          <StPfDetailDiv>
+                            <StPfDetailP>{`본명 : ${ele.realName}`}</StPfDetailP>
+                            <StPfDetailP>{`생년월일 : ${ele.birthday}`}</StPfDetailP>
+                            <StPfDetailP>{`데뷔일 : ${ele.debutDate}`}</StPfDetailP>
+                            <StPfDetailP>{`데뷔곡 : ${ele.debutSong}`}</StPfDetailP>
+                          </StPfDetailDiv>
+                        );
+                      })}
+                  </StPfMemberDiv>
+                  <StPfSpan>{e.memberName}</StPfSpan>
+                </StPfWrapper>
+              );
+            })}
+          </StProfileDiv>
+        </StWrapper>
 
-          <StWrapper>
-            <StTitle>뮤직비디오</StTitle>
-            <StVideoDiv>
-              <ReactPlayer
-                url={detailTargetData?.musicVideo}
-                width="1200px"
-                height="675px"
-                playing={true}
-                muted={true}
-                controls={true}
-                loop={true}
-              />
-            </StVideoDiv>
-          </StWrapper>
+        <StWrapper>
+          <StTitle>앨범</StTitle>
+          <StAlbumsDiv>
+            {detailTargetData?.album?.map(el => {
+              return (
+                <StAbWrapper>
+                  <StAbImgDiv>
+                    <StAbImg src={el.albumImg}></StAbImg>
+                  </StAbImgDiv>
+                  <StAbContentsSectiion>
+                    <StAbTitleP>{albumVaildationHandler(el.title)}</StAbTitleP>
+                    <StAbdateP>{el.date}</StAbdateP>
+                  </StAbContentsSectiion>
+                </StAbWrapper>
+              );
+            })}
+          </StAlbumsDiv>
+        </StWrapper>
 
-          <StWrapper>
-            <StTitle>사진</StTitle>
-            <StPhotoDiv>
-              {detailTargetData?.photo?.map(el => (
-                <StPhotoImgDiv
-                  key={el.imgUrl}
-                  onClick={() => {
-                    setSelectedPhoto(el.imgUrl);
-                    setIsPhotoModalOpen(true);
-                  }}
-                >
-                  <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/450/')} />
-                </StPhotoImgDiv>
-              ))}
-              {isPhotoModalOpen && (
-                <StModalContainer onClick={handleModalClose}>
-                  <StModalContent src={selectedPhoto} />
-                </StModalContainer>
-              )}
-            </StPhotoDiv>
-          </StWrapper>
-          <StWrapper>
-            <StTitle>스케줄</StTitle>
-            <Checker param={param.artistName} />
-          </StWrapper>
-        </StContentsWrapper>
-        <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
-        <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
-      </StWrapper>
+        <StWrapper>
+          <StTitle>뮤직비디오</StTitle>
+          <StVideoDiv>
+            <ReactPlayer
+              url={detailTargetData?.musicVideo}
+              width="1200px"
+              height="675px"
+              playing={true}
+              muted={true}
+              controls={true}
+              loop={true}
+            />
+          </StVideoDiv>
+        </StWrapper>
+
+        <StWrapper>
+          <StTitle>사진</StTitle>
+          <StPhotoDiv>
+            {detailTargetData?.photo?.map(el => (
+              <StPhotoImgDiv
+                key={el.imgUrl}
+                onClick={() => {
+                  setSelectedPhoto(el.imgUrl);
+                  setIsPhotoModalOpen(true);
+                }}
+              >
+                <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/450/')} />
+              </StPhotoImgDiv>
+            ))}
+            {isPhotoModalOpen && (
+              <StModalContainer onClick={handleModalClose}>
+                <StModalContent src={selectedPhoto} />
+              </StModalContainer>
+            )}
+          </StPhotoDiv>
+        </StWrapper>
+        <StWrapper>
+          <StTitle>스케줄</StTitle>
+          <Checker param={param.artistName} />
+        </StWrapper>
+      </StContentsWrapper>
+      <StFloatBtn onClick={handleFloatBtn}>커뮤니티 가기 ➜</StFloatBtn>
+      <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
     </>
   );
 };
 
 // Wrapper
-const StWrapper = styled.div``;
+const StWrapper = styled.div`
+  width: 100%;
+  padding-left: 240px;
+  padding-right: 240px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+`;
 const StContentsWrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 // Common
 const StTitle = styled.p`
   margin-top: 80px;
   margin-bottom: 15px;
-  font-family: Pretendard-Regular;
   font-size: 20px;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
 `;
 
 // Banner
@@ -210,36 +226,55 @@ const StBannerImgDiv = styled.div<{url: string}>`
   background-size: cover;
   object-fit: cover;
   margin-bottom: 30px;
+  @media screen and (max-width: 768px) {
+    height: 320px;
+  }
 `;
 
 // Name
 const StNameSpan = styled.span`
-  font-family: Pretendard-Regular;
   font-size: 50px;
   font-weight: 800;
   letter-spacing: 5px;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    font-size: 42px;
+    letter-spacing: 3px;
+  }
 `;
 
 // Profile
 const StProfileDiv = styled.div`
-  width: 1200px;
-
   display: grid;
   grid-template-columns: repeat(5, 250px);
   grid-auto-rows: 250px;
 
   row-gap: 30px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 210px;
+    row-gap: 0px;
+  }
 `;
 const StPfWrapper = styled.div`
   width: 200px;
   height: 250px;
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 152px;
+  }
 `;
 const StPfMemberDiv = styled.div`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;
   position: relative;
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 152px;
+    margin-bottom: 5px;
+  }
 `;
 const StPfMemberImg = styled.img`
   width: inherit;
@@ -249,15 +284,21 @@ const StPfMemberImg = styled.img`
   border-radius: 15px;
 `;
 const StPfSpan = styled.span`
-  font-family: Pretendard-Regular;
   letter-spacing: 2px;
   margin-left: 5px;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
 `;
 const StPfDetailP = styled.p`
   background-color: transparent;
   color: transparent;
   margin-top: 15px;
   font-size: 14px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 const StPfDetailDiv = styled.div`
   width: 200px;
@@ -278,6 +319,10 @@ const StPfDetailDiv = styled.div`
   &:hover ${StPfDetailP} {
     transition: 0.5s;
     color: #ececec;
+  }
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 152px;
   }
 `;
 
@@ -378,8 +423,6 @@ const StFloatBtn = styled.button`
   border: none;
   background-image: linear-gradient(45deg, #d651d6, #5a68e8, #e1b1ff);
   border-radius: 5px;
-
-  font-family: Pretendard-Regular;
 
   margin-bottom: 30px;
   margin-right: 30px;
