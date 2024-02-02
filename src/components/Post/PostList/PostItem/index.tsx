@@ -99,60 +99,79 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
   }, []);
 
   return (
-    <>
+    <St.PostLiAndToggleDiv>
       <St.PostLi key={id}>
-        <St.PostUserImg src={profileImage} />
-        <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
-        <St.PostContentsP>{content}</St.PostContentsP>
-        <St.PostContentImgDiv>
-          {photo_url &&
-            photo_url.map((url, index) => {
-              return <St.PostContentImg key={index} src={url} />;
-            })}
-        </St.PostContentImgDiv>
-        <St.PostTimeP $right={'14%'}>{dayjs(created_at).format('HH:mm')}</St.PostTimeP>
-        <St.PostTimeP $right={'1%'}>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
-        <PostLike postId={id} currentUser={currentUser} />
-        <div>
-          <St.CommentImg
-            src={commentImg}
-            $left={'6.5%'}
-            onClick={() => {
-              handlecommentModal(id, userid, content, photo_url, created_at);
-            }}
-          />
-        </div>
-        <St.PostImg src={seeMoreImg} $left={'95%'} onClick={handleToggle} />
-        {openToggle && (
-          <>
-            {userid === currentUser?.id ? (
-              <St.PostBtnDiv>
-                <St.PostBtn
-                  onClick={() => {
-                    deleteMutation.mutate(id);
-                    setOpenToggle(false);
-                  }}
-                >
-                  삭제
-                </St.PostBtn>
-                <St.PostBtn
-                  onClick={() => {
-                    handleEditModal(id, content);
-                    setOpenToggle(false);
-                  }}
-                >
-                  수정
-                </St.PostBtn>
-              </St.PostBtnDiv>
-            ) : (
-              <St.PostBtnDiv>
-                <St.PostBtn>차단</St.PostBtn>
-                <St.PostBtn>신고</St.PostBtn>
-              </St.PostBtnDiv>
-            )}
-          </>
-        )}
+        <St.PostHeader>
+          <St.PostUserInfoDiv>
+            <St.PostUserImg src={profileImage} />
+            <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
+          </St.PostUserInfoDiv>
+          <St.PostTimeDiv>
+            <St.PostTimeP>{dayjs(created_at).format('HH:mm')}</St.PostTimeP>
+            <St.PostTimeP>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
+          </St.PostTimeDiv>
+        </St.PostHeader>
+        <St.PostContentsP
+          onClick={() => {
+            handlecommentModal(id, userid, content, photo_url, created_at);
+          }}
+        >
+          {content}
+        </St.PostContentsP>
+        {photo_url &&
+          photo_url.map((url, index) => {
+            return (
+              <St.PostContentImgDiv
+                onClick={() => {
+                  handlecommentModal(id, userid, content, photo_url, created_at);
+                }}
+              >
+                <St.PostContentImg key={index} src={url} />
+              </St.PostContentImgDiv>
+            );
+          })}
+        <St.PostLikeCommentMoreDiv>
+          <St.PostLikeCommentDiv>
+            <PostLike postId={id} currentUser={currentUser} />
+            <St.CommentImg
+              src={commentImg}
+              onClick={() => {
+                handlecommentModal(id, userid, content, photo_url, created_at);
+              }}
+            />
+          </St.PostLikeCommentDiv>
+          <St.PostMoreImg src={seeMoreImg} onClick={handleToggle} />
+        </St.PostLikeCommentMoreDiv>
       </St.PostLi>
+      {openToggle && (
+        <>
+          {userid === currentUser?.id ? (
+            <St.PostBtnDiv>
+              <St.PostBtn
+                onClick={() => {
+                  deleteMutation.mutate(id);
+                  setOpenToggle(false);
+                }}
+              >
+                삭제하기
+              </St.PostBtn>
+              <St.PostBtn
+                onClick={() => {
+                  handleEditModal(id, content);
+                  setOpenToggle(false);
+                }}
+              >
+                수정하기
+              </St.PostBtn>
+            </St.PostBtnDiv>
+          ) : (
+            <St.PostBtnDiv>
+              <St.PostBtn>차단</St.PostBtn>
+              <St.PostBtn>신고</St.PostBtn>
+            </St.PostBtnDiv>
+          )}
+        </>
+      )}
       <PortalModal>
         {openCommentModal && (
           <OpenPostModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
@@ -163,7 +182,7 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
           <EditPostModal handleModal={handleEditModal} modalData={modalEditData} setOpenEditModal={setOpenEditModal} />
         )}
       </PortalModal>
-    </>
+    </St.PostLiAndToggleDiv>
   );
 };
 

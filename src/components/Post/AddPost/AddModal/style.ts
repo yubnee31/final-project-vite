@@ -26,12 +26,11 @@ const ModalHeader = styled.div`
   background-color: #2a2a2a;
   display: flex;
 `;
-const CloseBtn = styled.p`
+const CloseBtn = styled.img`
   background-color: #2a2a2a;
   text-align: center;
   width: 46px;
   height: 46px;
-  font-size: 40px;
   margin: 20px 40px 20px 0;
   cursor: pointer;
 `;
@@ -44,7 +43,7 @@ const ModalTitle = styled.p`
   font-size: 20px;
   height: 24px;
   width: 300px;
-  margin: 20px 306px 0 306px;
+  margin: 20px 346px 0 300px;
 `;
 const ModalArtistName = styled.p`
   background-color: #2a2a2a;
@@ -57,6 +56,7 @@ const ModalArtistName = styled.p`
 const ModalContentInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
+  resize: none;
 
   width: 912px;
   height: 343px;

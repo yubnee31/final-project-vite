@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
 const OpenContentModalContainer = styled.div`
-  background-color: #2a2a2a;
-  flex-basis: 53%;
+  background-color: black;
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+  width: 596px;
 `;
 const OpenContentModalImg = styled.img`
-  height: 100%;
-  width: 100%;
-  size: 80%;
+  margin-top: 28px;
+  width: 596px;
 `;
-
 export default {
   OpenContentModalContainer,
   OpenContentModalImg,

@@ -1,6 +1,7 @@
 import {supabase} from './supabase';
 
-const getLikes = async () => {
+// post
+const getPostLikes = async () => {
   try {
     const {data, error} = await supabase.from('postLike').select('*');
     return data;
@@ -9,7 +10,7 @@ const getLikes = async () => {
   }
 };
 
-const addLikes = async ({postid, userid}) => {
+const addPostLikes = async ({postid, userid}: any) => {
   try {
     const {error} = await supabase.from('postLike').insert({postid: postid, like: 1, userid: userid});
   } catch (error) {
@@ -17,7 +18,7 @@ const addLikes = async ({postid, userid}) => {
   }
 };
 
-const updateLikes = async ({postid, userid, likeCount}: any) => {
+const updatePostLikes = async ({postid, userid, likeCount}: any) => {
   try {
     const {error} = await supabase
       .from('postLike')
@@ -28,4 +29,32 @@ const updateLikes = async ({postid, userid, likeCount}: any) => {
   }
 };
 
-export {getLikes, addLikes, updateLikes};
+// comment
+const getCommentLikes = async () => {
+  try {
+    const {data, error} = await supabase.from('commentLike').select('*');
+    return data;
+  } catch (error) {
+    console.log('list 가져오기 error', error);
+  }
+};
+
+const addCommentLikes = async ({commentid, userid}: any) => {
+  try {
+    const {error} = await supabase.from('commentLike').insert({commentid: commentid, like: 1, userid: userid});
+  } catch (error) {
+    console.log('좋아요 더하기 error', error);
+  }
+};
+
+const updateCommentLikes = async ({commentid, likeCount, userid}: any) => {
+  try {
+    const {error} = await supabase
+      .from('commentLike')
+      .update({commentid: commentid, like: likeCount, userid: userid})
+      .eq('commentid', commentid);
+  } catch (error) {
+    console.log('좋아요 업데이트 error', error);
+  }
+};
+export {getPostLikes, addPostLikes, updatePostLikes, getCommentLikes, addCommentLikes, updateCommentLikes};

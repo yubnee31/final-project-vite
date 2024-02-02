@@ -39,6 +39,7 @@ const EditPosModalArtistName = styled.p`
 const EditPostModalInput = styled.textarea`
   background-color: #2a2a2a;
   border: none;
+  resize: none;
 
   width: 912px;
   height: 343px;

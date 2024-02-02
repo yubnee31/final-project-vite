@@ -4,6 +4,7 @@ import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {addPost} from '../../../../api/post';
 import postPhotoImg from '../../../../assets/images/post-photo.png';
+import closeImg from '../../../../assets/images/close.png';
 import {useParams} from 'react-router-dom';
 import {supabase} from '../../../../api/supabase';
 
@@ -87,7 +88,7 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
 
     const newPost = {
       userid: currentUser?.id,
-      username: targetUser.username,
+      username: targetUser?.username,
       photo_url: image_url,
       content: content,
       artist: param.artistName,
@@ -112,11 +113,11 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
                 <St.ModalTitle>포스트 쓰기</St.ModalTitle>
                 <St.ModalArtistName>{param.artistName}</St.ModalArtistName>
               </St.ModalTitleDiv>
-              <St.CloseBtn onClick={handleModal}>x</St.CloseBtn>
+              <St.CloseBtn src={closeImg} onClick={handleModal} />
             </St.ModalHeader>
             <St.ModalContentInput
               type="text"
-              placeholder="당신의 이야기를 공유해주세요"
+              placeholder="당신의 이야기를 공유해주세요. 최대 250글자까지 입력 가능합니다."
               value={content}
               name="content"
               maxlength="250"

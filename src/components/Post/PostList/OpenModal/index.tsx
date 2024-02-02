@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import St from './style';
-import OpenContent from './OpenContent';
-import OpenComment from './OpenComment';
 import {getTargetUserInfo} from '../../../../api/currentUser';
-import dayjs from 'dayjs';
-import heartImgPurple from '../../../../assets/images/heart-purple.png';
-import heartImgWhite from '../../../../assets/images/heart-white.png';
-import profileImg from '../../../../assets/images/profile-white.png';
-import commentImg from '../../../../assets/images/comment-white.png';
-import {addLikes, getLikes, updateLikes} from '../../../../api/like';
-import {addComment} from '../../../../api/postComment';
+import {addPostLikes, getPostLikes, updatePostLikes} from '../../../../api/like';
+import {addComment, deleteComment, getComments} from '../../../../api/postComment';
+import OnlyTextOpenPost from './OnlyTextOpen';
+import OpenImage from './ImagePostOpen/OpenImage';
+import OpenText from './ImagePostOpen/OpenText';
 
 const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
   const queryClient = useQueryClient();
@@ -27,21 +23,21 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
     return target?.username;
   };
 
-  //좋아요
+  // like
   const {data: postLike} = useQuery({
     queryKey: ['postLike'],
-    queryFn: getLikes,
+    queryFn: getPostLikes,
   });
 
   const addLikeMutation = useMutation({
-    mutationFn: addLikes,
+    mutationFn: addPostLikes,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['postLike']});
     },
   });
 
   const likeMutation = useMutation({
-    mutationFn: updateLikes,
+    mutationFn: updatePostLikes,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['postLike']});
     },
@@ -67,6 +63,12 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
     }
   };
 
+  // comments list
+  const {data: comments} = useQuery({
+    queryKey: ['postComments'],
+    queryFn: getComments,
+  });
+
   // add comment
   const addMutation = useMutation({
     mutationFn: addComment,
@@ -75,12 +77,12 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
     },
   });
 
-  const handleChangeAddComment: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
+  const handleChangeAddComment: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     setComment(e.target.value);
   };
 
-  const handleSubmitAddComment: React.MouseEventHandler<HTMLFormElement> = e => {
+  const handleSubmitAddComment: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     const newComment = {
       postid: modalData.id,
@@ -92,6 +94,14 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
     setComment('');
   };
 
+  // delete comment
+  const deleteMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['postComments']});
+    },
+  });
+
   return (
     <>
       <St.OpenPostModalContainer onClick={handleModal}>
@@ -100,62 +110,37 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
             e.stopPropagation();
           }}
         >
-          {modalData.photo_url.length ? (
+          {modalData.photo_url ? (
             <St.OpenPostModalContent>
-              <OpenContent currentUser={currentUser} modalData={modalData} />
-              <OpenComment
+              <OpenImage currentUser={currentUser} modalData={modalData} />
+              <OpenText
                 currentUser={currentUser}
                 modalData={modalData}
                 nameFilterHandler={nameFilterHandler}
                 target={target}
                 targetPost={targetPost}
                 onClickLikeHandler={onClickLikeHandler}
+                comments={comments}
+                deleteMutation={deleteMutation}
+                comment={comment}
+                handleChangeAddComment={handleChangeAddComment}
+                handleSubmitAddComment={handleSubmitAddComment}
               />
             </St.OpenPostModalContent>
           ) : (
-            <>
-              <St.OnlyTextTitle>게시된 글</St.OnlyTextTitle>
-              <St.OnlyTextContentDiv>
-                <St.OnlyTextContentHeader>
-                  <St.OnlyTextContentUserInfo>
-                    <St.OnlyTextContentUserImg src={profileImg} />
-                    <St.OnlyTextContentUserName>{nameFilterHandler(modalData.userid)}</St.OnlyTextContentUserName>
-                  </St.OnlyTextContentUserInfo>
-                  <St.OnlyTextContentDateTimeDiv>
-                    <St.OnlyTextContentTime>{dayjs(modalData.created_at).format('HH:mm')}</St.OnlyTextContentTime>
-                    <St.OnlyTextContentDate>{dayjs(modalData.created_at).format('YYYY.MM.DD')}</St.OnlyTextContentDate>
-                  </St.OnlyTextContentDateTimeDiv>
-                </St.OnlyTextContentHeader>
-                <St.OnlyTextContentP>{modalData.content}</St.OnlyTextContentP>
-                <St.OnlyTextContentBtnImgDiv>
-                  <St.OnlyTextContentHeartImgDiv>
-                    <St.OnlyTextContentHeartImg
-                      src={target?.length ? heartImgPurple : heartImgWhite}
-                      onClick={onClickLikeHandler}
-                    />
-                    <St.OnlyTextContentHeartCountP>{targetPost?.like}</St.OnlyTextContentHeartCountP>
-                  </St.OnlyTextContentHeartImgDiv>
-                  <St.OnlyTextContentCommentImg src={commentImg} />
-                </St.OnlyTextContentBtnImgDiv>
-              </St.OnlyTextContentDiv>
-              <St.CommentDiv>
-                <>유저 이미지</>
-                <p>닉네임</p>
-                <p>시간</p>
-                <p>날짜</p>
-                <p>내용</p>
-              </St.CommentDiv>
-              <St.AddCommentDiv onSubmit={handleSubmitAddComment}>
-                <St.AddCommentImg src={profileImg} />
-                <St.AddCommentTextArea
-                  value={comment}
-                  placeholder="댓글을 입력해주세요"
-                  maxlength="60"
-                  onChange={handleChangeAddComment}
-                />
-              </St.AddCommentDiv>
-              <button>게시</button>
-            </>
+            <OnlyTextOpenPost
+              currentUser={currentUser}
+              modalData={modalData}
+              nameFilterHandler={nameFilterHandler}
+              target={target}
+              targetPost={targetPost}
+              onClickLikeHandler={onClickLikeHandler}
+              comments={comments}
+              deleteMutation={deleteMutation}
+              comment={comment}
+              handleChangeAddComment={handleChangeAddComment}
+              handleSubmitAddComment={handleSubmitAddComment}
+            />
           )}
         </St.OpenPostModalBox>
       </St.OpenPostModalContainer>
