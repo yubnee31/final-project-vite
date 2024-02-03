@@ -10,6 +10,7 @@ const PostLi = styled.li`
   padding: 20px 0;
   min-height: 170px;
   max-height: 676px;
+  width: 952px;
   position: relative;
   border-bottom: 1px solid gray;
 `;
@@ -39,13 +40,14 @@ const PostTimeP = styled.p`
   margin-left: 10px;
   margin: 10px 0 10px 10px;
 `;
+const PostClickOpenModal = styled.div`
+  cursor: pointer;
+`;
 const PostContentsP = styled.p`
   margin-top: 20px;
   margin-bottom: 20px;
   width: 952px;
   height: 50px;
-
-  cursor: pointer;
 
   display: -webkit-box;
   word-wrap: break-word;
@@ -56,30 +58,55 @@ const PostContentsP = styled.p`
   line-height: 20px;
   height: 39.5px;
 `;
-const PostContentImgDiv = styled.div`
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  object-fit: cover;
-  background-size: cover;
-  margin-bottom: 20px;
-  width: 952px;
-  height: 476px;
 
-  cursor: pointer;
-`;
-const PostContentImg = styled.img`
+// post Img
+const PostContentOneImg = styled.img`
   width: 952px;
   height: 476px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  object-fit: cover;
 `;
+const PostContentTwoImg = styled.img`
+  width: 476px;
+  height: 476px;
+  object-fit: cover;
+`;
+const PostContentFourImg = styled.img`
+  width: 476px;
+  height: 238px;
+  object-fit: cover;
+`;
+const PostContentThreeImgDiv = styled.div`
+  width: 952px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'a b'
+    'a c';
+`;
+const PostContentThreeImgA = styled.img`
+  width: 476px;
+  height: 476px;
+  grid-area: a;
+  object-fit: cover;
+`;
+
+const PostContentThreeImgB = styled.img`
+  width: 476px;
+  height: 238px;
+  grid-area: b;
+  object-fit: cover;
+`;
+const PostContentThreeImgC = styled.img`
+  width: 476px;
+  height: 238px;
+  grid-area: c;
+  object-fit: cover;
+`;
+
 const PostLikeCommentMoreDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 const PostLikeCommentDiv = styled.div`
   background-color: transparent;
@@ -126,13 +153,22 @@ export default {
   PostNameP,
   PostTimeP,
   PostTimeDiv,
-  PostContentImgDiv,
+
+  PostClickOpenModal,
+  PostContentsP,
+
+  PostContentOneImg,
+  PostContentTwoImg,
+  PostContentThreeImgDiv,
+  PostContentThreeImgA,
+  PostContentThreeImgB,
+  PostContentThreeImgC,
+  PostContentFourImg,
+
   PostBtnDiv,
   PostLikeCommentMoreDiv,
   PostLikeCommentDiv,
   PostBtn,
-  PostContentsP,
-  PostContentImg,
   PostMoreImg,
   CommentImg,
 };

@@ -10,7 +10,7 @@ import {supabase} from '../../../../api/supabase';
 const EditPostModal = ({handleModal, modalData, setOpenEditModal}) => {
   // upload image
   // 이미지 파일을 담을 수 있는 배열 만들기
-  const [uploadFileUrl, setUploadFileUrl]: any = useState([modalData.photo_url]);
+  const [uploadFileUrl, setUploadFileUrl]: any = useState(modalData.photo_url);
   const [files, setFiles] = useState<File[]>([]);
 
   // 웹페이지에 파일을 올려주는 함수

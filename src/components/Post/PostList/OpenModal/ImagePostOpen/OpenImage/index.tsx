@@ -20,11 +20,7 @@ const OpenImage = ({modalData}: any) => {
         <Slider {...settings}>
           {modalData.photo_url &&
             modalData.photo_url.map((url, index) => {
-              return (
-                // <St.OpenContentSliderImgDiv>
-                <St.OpenContentSliderModalImg key={index} src={url} />
-                // </St.OpenContentSliderImgDiv>
-              );
+              return <St.OpenContentSliderModalImg key={index} src={url} />;
             })}
         </Slider>
       ) : (

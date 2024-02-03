@@ -111,25 +111,30 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
             <St.PostTimeP>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
           </St.PostTimeDiv>
         </St.PostHeader>
-        <St.PostContentsP
+        <St.PostClickOpenModal
           onClick={() => {
             handlecommentModal(id, userid, content, photo_url, created_at);
           }}
         >
-          {content}
-        </St.PostContentsP>
-        {photo_url &&
-          photo_url.map((url, index) => {
-            return (
-              <St.PostContentImgDiv
-                onClick={() => {
-                  handlecommentModal(id, userid, content, photo_url, created_at);
-                }}
-              >
-                <St.PostContentImg key={index} src={url} />
-              </St.PostContentImgDiv>
-            );
-          })}
+          <St.PostContentsP>{content}</St.PostContentsP>
+          {photo_url &&
+            photo_url.map((url, index) => {
+              if (photo_url.length === 1) {
+                return <St.PostContentOneImg src={url} key={index} />;
+              } else if (photo_url.length === 2) {
+                return <St.PostContentTwoImg src={url} key={index} />;
+              } else if (photo_url.length === 4) {
+                return <St.PostContentFourImg src={url} key={index} />;
+              }
+            })}
+          {photo_url && photo_url.length === 3 && (
+            <St.PostContentThreeImgDiv>
+              <St.PostContentThreeImgA src={photo_url[0]} />
+              <St.PostContentThreeImgB src={photo_url[1]} />
+              <St.PostContentThreeImgC src={photo_url[2]} />
+            </St.PostContentThreeImgDiv>
+          )}
+        </St.PostClickOpenModal>
         <St.PostLikeCommentMoreDiv>
           <St.PostLikeCommentDiv>
             <PostLike postId={id} currentUser={currentUser} />
