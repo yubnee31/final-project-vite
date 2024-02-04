@@ -25,11 +25,18 @@ const Footer = () => {
 };
 
 const StWrapper = styled.div`
-  height: 200px;
-  width: 1885px;
+  height: 258px;
+  width: 1920px;
+  padding-left: 240px;
+  padding-right: 240px;
   background-color: black;
-
   color: gray;
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    height: 200px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 // Policy
 const StDiv = styled.div`
@@ -39,12 +46,13 @@ const StDiv = styled.div`
 `;
 
 const StUl = styled.ul`
-  width: 100vw;
+  width: 1440px;
 
   border-top: 2px solid gray;
   border-bottom: 2px solid #1d1d1d;
   display: flex;
   @media screen and (max-width: 768px) {
+    width: 360px;
     display: block;
   }
 `;
@@ -70,9 +78,10 @@ const StInfoWrapper = styled.div`
   justify-content: center;
 `;
 const StInfoDiv = styled.div`
-  width: 100vw;
+  width: 1440px;
   margin-top: 30px;
   @media screen and (max-width: 768px) {
+    width: 360px;
     margin-top: 10px;
   }
 `;
