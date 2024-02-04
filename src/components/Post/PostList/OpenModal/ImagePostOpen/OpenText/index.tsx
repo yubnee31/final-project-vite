@@ -93,11 +93,13 @@ const OpenText = ({
         <St.OpenTextAddCommentUserImg src={profileImg} />
         <St.OpenTextAddCommentTextarea
           value={comment}
-          placeholder="댓글을 입력해주세요"
+          placeholder="댓글을 입력해주세요. 최대 60글자까지 입력 가능합니다."
           maxlength="60"
           onChange={handleChangeAddComment}
         />
-        <St.OpenTextAddCommentBtn onClick={handleSubmitAddComment}>게시</St.OpenTextAddCommentBtn>
+        <St.OpenTextAddCommentBtn disabled={!comment} onClick={handleSubmitAddComment}>
+          게시
+        </St.OpenTextAddCommentBtn>
       </St.OpenTextAddCommentForm>
     </St.OpenTextWrap>
   );

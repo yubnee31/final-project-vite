@@ -147,9 +147,10 @@ const AddCommentBtn = styled.button`
   font-size: 16px;
   font-weight: bold;
   color: #b746ec;
-
-  &:hover {
+  &:disabled {
     color: white;
+  }
+  &:hover {
     cursor: pointer;
   }
 `;
