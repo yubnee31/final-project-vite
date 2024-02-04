@@ -26,7 +26,7 @@ const Footer = () => {
 
 const StWrapper = styled.div`
   height: 200px;
-  width: 100vw;
+  width: 1885px;
   background-color: black;
 
   color: gray;
@@ -39,7 +39,7 @@ const StDiv = styled.div`
 `;
 
 const StUl = styled.ul`
-  width: 1440px;
+  width: 100vw;
 
   border-top: 2px solid gray;
   border-bottom: 2px solid #1d1d1d;
@@ -70,7 +70,7 @@ const StInfoWrapper = styled.div`
   justify-content: center;
 `;
 const StInfoDiv = styled.div`
-  width: 1440px;
+  width: 100vw;
   margin-top: 30px;
   @media screen and (max-width: 768px) {
     margin-top: 10px;
