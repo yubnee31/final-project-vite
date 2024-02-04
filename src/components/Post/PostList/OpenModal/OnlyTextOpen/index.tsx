@@ -90,11 +90,11 @@ const OnlyTextOpenPost = ({
         <St.AddCommentInput
           type="text"
           value={comment}
-          placeholder="댓글을 입력해주세요"
+          placeholder="댓글을 입력해주세요. 최대 60글자까지 입력 가능합니다."
           maxlength="60"
           onChange={handleChangeAddComment}
         />
-        <St.AddCommentBtn>게시</St.AddCommentBtn>
+        <St.AddCommentBtn disabled={!comment}>게시</St.AddCommentBtn>
       </St.AddCommentDiv>
     </>
   );

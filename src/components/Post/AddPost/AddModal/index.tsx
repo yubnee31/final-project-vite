@@ -56,18 +56,13 @@ const AddPostModal = ({handleModal, setOpenModal}) => {
     try {
       const newFileName = `upload_posts/${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
 
-      const {data, error} = await supabase.storage.from('upload_posts').upload(newFileName, file);
-
-      if (error) {
-        console.log('파일이 업로드 되지 않습니다.', error);
-        return;
-      }
+      const {data} = await supabase.storage.from('upload_posts').upload(newFileName, file);
 
       const res = supabase.storage.from('upload_posts').getPublicUrl(data.path);
       setFiles(prevFiles => [file, ...prevFiles]);
       setUploadFileUrl((prev: any) => [res.data.publicUrl, ...prev]);
     } catch (error) {
-      console.log('알 수 없는 문제가 발생했습니다. 다시 시도해주세요', error);
+      // console.log('알 수 없는 문제가 발생했습니다. 다시 시도해주세요', error);
     }
   };
 

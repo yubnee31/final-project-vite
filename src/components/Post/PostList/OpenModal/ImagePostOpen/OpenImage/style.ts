@@ -7,15 +7,16 @@ const OpenContentModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 800px;
+  width: 596px;
 `;
 const OpenContentSliderModalImg = styled.img`
   width: 596px;
   height: 800px;
+  object-fit: contain;
 `;
 const OpenContentModalImg = styled.img`
   width: 596px;
 `;
-
 export default {
   OpenContentModalContainer,
   OpenContentSliderModalImg,

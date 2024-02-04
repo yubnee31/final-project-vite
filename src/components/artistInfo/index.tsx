@@ -45,17 +45,19 @@ const Info = ({param}: string) => {
         <St.BannerImg src={detailTargetData?.community_banner} />
       </St.BannerDiv>
       <St.InfoDiv>
-        <St.InfoNameDiv>
-          <St.InfoNameP>{targetUser?.username}</St.InfoNameP>
-        </St.InfoNameDiv>
-        <St.InfoFollowerDiv>
-          <St.InfoFollowP>109</St.InfoFollowP>
-          <St.FollowP>팔로워</St.FollowP>
-        </St.InfoFollowerDiv>
-        <St.InfoFollowingDiv>
-          <St.InfoFollowP>20</St.InfoFollowP>
-          <St.FollowP>팔로잉</St.FollowP>
-        </St.InfoFollowingDiv>
+        <St.InfoNameFollowDiv>
+          <St.InfoNameDiv>
+            <St.InfoNameP>{targetUser?.username}</St.InfoNameP>
+          </St.InfoNameDiv>
+          <St.InfoFollowerDiv>
+            <St.InfoFollowP>109</St.InfoFollowP>
+            <St.FollowP>팔로워</St.FollowP>
+          </St.InfoFollowerDiv>
+          <St.InfoFollowingDiv>
+            <St.InfoFollowP>20</St.InfoFollowP>
+            <St.FollowP>팔로잉</St.FollowP>
+          </St.InfoFollowingDiv>
+        </St.InfoNameFollowDiv>
         <St.InfoArtistDiv onClick={onClickNavigateHandler} url={detailTargetData?.community_button}>
           {/* <StInfoArtistImg src={toArtistTestImg}/> */}
           <St.InfoArtistP>아티스트 보러가기</St.InfoArtistP>

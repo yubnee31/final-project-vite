@@ -61,49 +61,12 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
     },
   });
 
-  // 유저 프로필 서버에서 불러오기
-  const [profileImage, setProfileImage] = useState(profileImg);
-  const targetUser = userInfo?.find(e => e.id === currentUser?.id);
-
-  const fetchImageData = async () => {
-    try {
-      const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', currentUser?.id).single();
-
-      if (data?.profile_image) {
-        // 이미지 파일명이나 경로를 가져옴
-        const imageFileName = data.profile_image;
-
-        // Supabase 스토리지에서 직접 이미지를 가져오기
-        const {data: imageData, error: imageError} = await supabase.storage
-          .from('profile-images') // 스토리지 버킷 이름
-          .download(imageFileName);
-
-        // 다운로드된 이미지를 Blob URL로 변환
-        const imageUrl = URL.createObjectURL(imageData);
-
-        // 상태 업데이트
-        setProfileImage(imageUrl);
-      }
-    } catch (error) {
-      // console.error('프로필 이미지 가져오기 오류', error);
-    }
-  };
-
-  useEffect(() => {
-    if (!targetUser) {
-      setProfileImage(profileImg);
-    } else {
-      fetchImageData();
-      setProfileImage(profileImage);
-    }
-  }, []);
-
   return (
     <St.PostLiAndToggleDiv>
       <St.PostLi key={id}>
         <St.PostHeader>
           <St.PostUserInfoDiv>
-            <St.PostUserImg src={profileImage} />
+            <St.PostUserImg src={profileImg} />
             <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
           </St.PostUserInfoDiv>
           <St.PostTimeDiv>
@@ -111,25 +74,30 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
             <St.PostTimeP>{dayjs(created_at).format('YYYY.MM.DD')}</St.PostTimeP>
           </St.PostTimeDiv>
         </St.PostHeader>
-        <St.PostContentsP
+        <St.PostClickOpenModal
           onClick={() => {
             handlecommentModal(id, userid, content, photo_url, created_at);
           }}
         >
-          {content}
-        </St.PostContentsP>
-        {photo_url &&
-          photo_url.map((url, index) => {
-            return (
-              <St.PostContentImgDiv
-                onClick={() => {
-                  handlecommentModal(id, userid, content, photo_url, created_at);
-                }}
-              >
-                <St.PostContentImg key={index} src={url} />
-              </St.PostContentImgDiv>
-            );
-          })}
+          <St.PostContentsP>{content}</St.PostContentsP>
+          {photo_url &&
+            photo_url.map((url, index) => {
+              if (photo_url.length === 1) {
+                return <St.PostContentOneImg src={url} key={index} />;
+              } else if (photo_url.length === 2) {
+                return <St.PostContentTwoImg src={url} key={index} />;
+              } else if (photo_url.length === 4) {
+                return <St.PostContentFourImg src={url} key={index} />;
+              }
+            })}
+          {photo_url && photo_url.length === 3 && (
+            <St.PostContentThreeImgDiv>
+              <St.PostContentThreeImgA src={photo_url[0]} />
+              <St.PostContentThreeImgB src={photo_url[1]} />
+              <St.PostContentThreeImgC src={photo_url[2]} />
+            </St.PostContentThreeImgDiv>
+          )}
+        </St.PostClickOpenModal>
         <St.PostLikeCommentMoreDiv>
           <St.PostLikeCommentDiv>
             <PostLike postId={id} currentUser={currentUser} />
@@ -166,8 +134,8 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
             </St.PostBtnDiv>
           ) : (
             <St.PostBtnDiv>
-              <St.PostBtn>차단</St.PostBtn>
-              <St.PostBtn>신고</St.PostBtn>
+              <St.PostBtn>차단하기</St.PostBtn>
+              <St.PostBtn>신고하기</St.PostBtn>
             </St.PostBtnDiv>
           )}
         </>

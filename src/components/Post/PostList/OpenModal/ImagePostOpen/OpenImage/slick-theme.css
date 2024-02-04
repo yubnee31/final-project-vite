@@ -48,6 +48,7 @@
   list-style: none;
   text-align: center;
   background-color: transparent;
+  bottom: 5%;
 }
 .slick-dots li {
   background-color: white;

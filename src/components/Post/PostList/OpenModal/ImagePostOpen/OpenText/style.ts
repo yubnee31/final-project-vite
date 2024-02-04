@@ -160,15 +160,17 @@ const OpenTextAddCommentTextarea = styled.textarea`
 `;
 const OpenTextAddCommentBtn = styled.button`
   background-color: #2a2a2a;
-  color: white;
+  color: #9747ff;
   border: none;
   font-size: 16px;
   font-weight: bold;
   height: 40px;
   width: 43px;
   position: fixed;
+  &:disabled {
+    color: white;
+  }
   &:hover {
-    color: #9747ff;
     cursor: pointer;
   }
 `;
