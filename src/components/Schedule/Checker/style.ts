@@ -1,15 +1,37 @@
 import styled from 'styled-components';
 
+const ScheduleWrapper = styled.div`
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    overflow: auto;
+    margin-bottom: 20px;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      background-color: #232323;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #84898c3a;
+      border-radius: 30px;
+    }
+  }
+`;
+
 const ScheduleDiv = styled.div`
   width: 1200px;
   /* height: 300px; */
   margin-bottom: 100px;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 30px;
+  }
 `;
 const ScheduleUl = styled.ul`
   display: flex;
   justify-content: space-around;
   height: inherit;
   margin-top: 40px;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 const ScheduleLi = styled.li`
   text-align: left;
@@ -20,6 +42,9 @@ const ScheduleDayP = styled.p`
   font-size: 15px;
   border-bottom: 2px solid gray;
   height: 25px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const ScheduleListDiv = styled.div`
@@ -54,6 +79,7 @@ const ScheduleListImg = styled.img`
   cursor: pointer;
 `;
 export default {
+  ScheduleWrapper,
   ScheduleDiv,
   ScheduleUl,
   ScheduleLi,

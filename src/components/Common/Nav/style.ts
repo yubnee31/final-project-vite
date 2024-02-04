@@ -301,7 +301,7 @@ export const StBtnP = styled.p`
   font-weight: bold;
   background-color: transparent;
   @media screen and (max-width: 768px) {
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
