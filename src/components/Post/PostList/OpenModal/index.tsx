@@ -115,8 +115,8 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
               <OpenImage currentUser={currentUser} modalData={modalData} />
               <OpenText
                 currentUser={currentUser}
-                modalData={modalData}
                 nameFilterHandler={nameFilterHandler}
+                modalData={modalData}
                 target={target}
                 targetPost={targetPost}
                 onClickLikeHandler={onClickLikeHandler}
@@ -130,8 +130,8 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
           ) : (
             <OnlyTextOpenPost
               currentUser={currentUser}
-              modalData={modalData}
               nameFilterHandler={nameFilterHandler}
+              modalData={modalData}
               target={target}
               targetPost={targetPost}
               onClickLikeHandler={onClickLikeHandler}

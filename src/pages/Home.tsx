@@ -181,7 +181,7 @@ const StSpan = styled.span`
 // Banner
 const StBannerDiv = styled.div`
   width: 100vw;
-  height: 500px;
+  height: 400px;
   background-color: #9747ff;
 
   display: flex;
@@ -195,8 +195,8 @@ const StBannerDiv = styled.div`
   }
 `;
 const StBannerImg = styled.img`
-  width: 1000px;
-  height: 500px;
+  width: 1919px;
+  height: 400px;
   background-size: cover;
   background-color: transparent;
   object-fit: cover;
