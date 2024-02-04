@@ -90,42 +90,44 @@ const Checker = ({param}: string) => {
   };
 
   return (
-    <St.ScheduleDiv>
-      <St.ScheduleUl>
-        {scheduleChecker.map(e => {
-          return (
-            <St.ScheduleLi>
-              <St.ScheduleDayP>{e.dayString}</St.ScheduleDayP>
-              {targetData
-                ?.filter((el: {date: string}) => el.date === e.day)
-                .map(ele => {
-                  return (
-                    <St.ScheduleListDiv>
-                      <St.ScheduleListSection>
-                        <St.ScheduleListTimeP>{ele.place}</St.ScheduleListTimeP>
-                        <St.ScheduleListTitleP>{ele.title}</St.ScheduleListTitleP>
-                      </St.ScheduleListSection>
-                      <St.ScheduleListImg
-                        onClick={() => {
-                          if (currentUser && currentUser.id) {
-                            onClickIsOnHandler(ele, currentUser.id);
-                          } else {
-                            setIsModalOpen(true);
+    <St.ScheduleWrapper>
+      <St.ScheduleDiv>
+        <St.ScheduleUl>
+          {scheduleChecker.map(e => {
+            return (
+              <St.ScheduleLi>
+                <St.ScheduleDayP>{e.dayString}</St.ScheduleDayP>
+                {targetData
+                  ?.filter((el: {date: string}) => el.date === e.day)
+                  .map(ele => {
+                    return (
+                      <St.ScheduleListDiv>
+                        <St.ScheduleListSection>
+                          <St.ScheduleListTimeP>{ele.place}</St.ScheduleListTimeP>
+                          <St.ScheduleListTitleP>{ele.title}</St.ScheduleListTitleP>
+                        </St.ScheduleListSection>
+                        <St.ScheduleListImg
+                          onClick={() => {
+                            if (currentUser && currentUser.id) {
+                              onClickIsOnHandler(ele, currentUser.id);
+                            } else {
+                              setIsModalOpen(true);
+                            }
+                          }}
+                          src={
+                            userTargetSchedule?.filter(el => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon
                           }
-                        }}
-                        src={
-                          userTargetSchedule?.filter(el => el.scheduleId === ele.id)[0] ? activeAlarmIcon : alarmIcon
-                        }
-                      />
-                    </St.ScheduleListDiv>
-                  );
-                })}
-            </St.ScheduleLi>
-          );
-        })}
-      </St.ScheduleUl>
-      <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
-    </St.ScheduleDiv>
+                        />
+                      </St.ScheduleListDiv>
+                    );
+                  })}
+              </St.ScheduleLi>
+            );
+          })}
+        </St.ScheduleUl>
+        <PortalModal>{isModalOpen && <FloatBtnModal setIsModalOpen={setIsModalOpen} />}</PortalModal>
+      </St.ScheduleDiv>
+    </St.ScheduleWrapper>
   );
 };
 

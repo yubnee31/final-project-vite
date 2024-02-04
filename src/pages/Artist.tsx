@@ -135,8 +135,8 @@ const Artist = () => {
           <StVideoDiv>
             <ReactPlayer
               url={detailTargetData?.musicVideo}
-              width="1200px"
-              height="675px"
+              width="inherit"
+              height="inherit"
               playing={true}
               muted={true}
               controls={true}
@@ -205,7 +205,7 @@ const StTitle = styled.p`
   margin-bottom: 15px;
   font-size: 20px;
   @media screen and (max-width: 768px) {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 10px;
     font-size: 18px;
   }
@@ -238,8 +238,8 @@ const StNameSpan = styled.span`
   letter-spacing: 5px;
   background-color: transparent;
   @media screen and (max-width: 768px) {
-    font-size: 42px;
-    letter-spacing: 3px;
+    font-size: 35px;
+    letter-spacing: 0px;
   }
 `;
 
@@ -247,7 +247,7 @@ const StNameSpan = styled.span`
 const StProfileDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 250px);
-  grid-auto-rows: 250px;
+  grid-auto-rows: 266px;
 
   row-gap: 30px;
   @media screen and (max-width: 768px) {
@@ -258,16 +258,16 @@ const StProfileDiv = styled.div`
   }
 `;
 const StPfWrapper = styled.div`
-  width: 200px;
-  height: 250px;
+  width: 220px;
+  height: 266px;
   @media screen and (max-width: 768px) {
     width: 152px;
-    height: 152px;
+    height: 210px;
   }
 `;
 const StPfMemberDiv = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   margin-bottom: 10px;
   position: relative;
   @media screen and (max-width: 768px) {
@@ -301,8 +301,8 @@ const StPfDetailP = styled.p`
   }
 `;
 const StPfDetailDiv = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   position: absolute;
   top: 0;
   left: 0;
@@ -328,22 +328,46 @@ const StPfDetailDiv = styled.div`
 
 // Album
 const StAlbumsDiv = styled.div`
-  width: 1200px;
-  height: 300px;
+  /* width: 1200px;
+  height: 300px; */
 
   display: grid;
-  grid-template-columns: repeat(5, 250px);
-  grid-auto-rows: 250px;
-  row-gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 266px;
+  grid-gap: 20px;
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    overflow: auto;
+    overflow-x: auto;
+    grid-auto-rows: 210px;
+    row-gap: 30px;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      background-color: #232323;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #84898c3a;
+      border-radius: 30px;
+    }
+  }
 `;
 const StAbWrapper = styled.div`
-  width: 200px;
-  height: 250px;
+  width: 220px;
+  height: 286px;
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 210px;
+  }
 `;
 const StAbImgDiv = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   margin-bottom: 10px;
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 152px;
+    margin-bottom: 7px;
+  }
 `;
 const StAbImg = styled.img`
   width: inherit;
@@ -357,18 +381,28 @@ const StAbContentsSectiion = styled.section`
   margin-left: 5px;
 `;
 const StAbTitleP = styled.p`
-  font-size: 13px;
+  font-size: 16px;
   margin-bottom: 10px;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 const StAbdateP = styled.p`
-  font-size: 10px;
+  font-size: 13px;
   color: gray;
+  @media screen and (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 // Music Video
 const StVideoDiv = styled.div`
   width: 1200px;
   height: 800px;
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    height: 240px;
+  }
 `;
 
 // Photo
@@ -391,6 +425,14 @@ const StPhotoDiv = styled.div`
     background-color: #84898c3a;
     border-radius: 30px;
   }
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    height: 350px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+    overflow-x: auto;
+  }
 `;
 const StPhotoImgDiv = styled.div`
   width: 220px;
@@ -400,6 +442,10 @@ const StPhotoImgDiv = styled.div`
   :hover {
     transform: scale(1.1);
     transition: all 1s;
+  }
+  @media screen and (max-width: 768px) {
+    width: 152px;
+    height: 152px;
   }
 `;
 const StPhotoImg = styled.img`
@@ -431,6 +477,10 @@ const StFloatBtn = styled.button`
   &:hover {
     opacity: 0.8;
     transition: 0.7s;
+  }
+  @media screen and (max-width: 768px) {
+    width: 160px;
+    height: 46px;
   }
 `;
 const StModalContainer = styled.div`

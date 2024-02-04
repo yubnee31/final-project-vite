@@ -4,6 +4,10 @@ export const StFollowNumDiv = styled.div`
   display: flex;
   gap: 10px;
   font-size: 18px;
+  @media screen and (max-width: 768px) {
+    gap: 4px;
+    font-size: 12px;
+  }
 `;
 
 export const StDiv = styled.div`
@@ -26,6 +30,10 @@ export const StButton = styled.button`
     color: #9747ff;
     border: 1px solid #9747ff;
   }
+  @media screen and (max-width: 768px) {
+    width: 80px;
+    height: 32px;
+  }
 `;
 
 export const StBtnDiv = styled.div`
@@ -38,13 +46,24 @@ export const StBtnDiv = styled.div`
   padding-right: 15px;
   gap: 10px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 80px;
+    height: 32px;
+    gap: 5px;
+  }
 `;
 
 export const StFollowingP = styled.p`
   color: #9747ff;
   font-size: 16px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const StFollowP = styled.p`
   font-size: 16px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
