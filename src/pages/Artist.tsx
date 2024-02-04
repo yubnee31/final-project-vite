@@ -238,8 +238,8 @@ const StNameSpan = styled.span`
   letter-spacing: 5px;
   background-color: transparent;
   @media screen and (max-width: 768px) {
-    font-size: 42px;
-    letter-spacing: 3px;
+    font-size: 35px;
+    letter-spacing: 0px;
   }
 `;
 
