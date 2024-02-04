@@ -328,19 +328,20 @@ const StPfDetailDiv = styled.div`
 
 // Album
 const StAlbumsDiv = styled.div`
-  /* width: 1200px;
-  height: 300px; */
+  /* width: 100%; */
+  /* height: 300px; */
 
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 250px);
   grid-auto-rows: 266px;
   grid-gap: 20px;
   @media screen and (max-width: 768px) {
     width: 320px;
+    grid-template-columns: repeat(5, 168px);
     overflow: auto;
     overflow-x: auto;
     grid-auto-rows: 210px;
-    row-gap: 30px;
+    grid-gap: 0px;
     scroll-behavior: smooth;
     &::-webkit-scrollbar {
       background-color: #232323;
@@ -397,8 +398,8 @@ const StAbdateP = styled.p`
 
 // Music Video
 const StVideoDiv = styled.div`
-  width: 1200px;
-  height: 800px;
+  width: 100%;
+  height: 640px;
   @media screen and (max-width: 768px) {
     width: 320px;
     height: 240px;
@@ -407,11 +408,12 @@ const StVideoDiv = styled.div`
 
 // Photo
 const StPhotoDiv = styled.div`
-  width: 1200px;
-  height: 500px;
+  width: 100%;
+  height: 640px;
 
   display: grid;
-  grid-template-columns: repeat(5, 220px);
+  grid-template-columns: repeat(6, 1fr);
+  /* grid-template-rows: 220px; */
   grid-auto-rows: 220px;
   gap: 20px;
 
@@ -435,8 +437,8 @@ const StPhotoDiv = styled.div`
   }
 `;
 const StPhotoImgDiv = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 230px;
+  height: 230px;
   cursor: pointer;
 
   :hover {
