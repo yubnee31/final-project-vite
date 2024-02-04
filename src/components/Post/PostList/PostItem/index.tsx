@@ -134,8 +134,8 @@ const PostItem = ({id, userid, content, photo_url, created_at}) => {
             </St.PostBtnDiv>
           ) : (
             <St.PostBtnDiv>
-              <St.PostBtn>차단</St.PostBtn>
-              <St.PostBtn>신고</St.PostBtn>
+              <St.PostBtn>차단하기</St.PostBtn>
+              <St.PostBtn>신고하기</St.PostBtn>
             </St.PostBtnDiv>
           )}
         </>

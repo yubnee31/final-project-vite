@@ -18,6 +18,11 @@ const ModalBox = styled.div`
   width: 952px;
   height: 650px;
   color: white;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 494px;
+  }
 `;
 const ModalContent = styled.form`
   background-color: #2a2a2a;
@@ -25,10 +30,18 @@ const ModalContent = styled.form`
 const ModalHeaderBodyDiv = styled.div`
   background-color: #2a2a2a;
   height: 503px;
+
+  @media screen and (max-width: 650px) {
+    height: 362px;
+  }
 `;
 const ModalHeader = styled.div`
   background-color: #2a2a2a;
   display: flex;
+
+  @media screen and (max-width: 650px) {
+    border-bottom: 1px solid #636366;
+  }
 `;
 const CloseBtn = styled.img`
   background-color: #2a2a2a;
@@ -37,6 +50,12 @@ const CloseBtn = styled.img`
   height: 46px;
   margin: 20px 40px 20px 0;
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 24px;
+    height: 24px;
+    margin: 30px 20px 30px 0;
+  }
 `;
 const ModalTitleDiv = styled.div`
   background-color: #2a2a2a;
@@ -48,6 +67,12 @@ const ModalTitle = styled.p`
   line-height: 24px;
   width: 300px;
   margin: 20px 240px 0 326px;
+
+  @media screen and (max-width: 650px) {
+    margin: 20px 51px 0 95px;
+    width: 130px;
+    font-size: 16px;
+  }
 `;
 const ModalArtistName = styled.p`
   background-color: #2a2a2a;
@@ -55,7 +80,13 @@ const ModalArtistName = styled.p`
   font-size: 14px;
   line-height: 18px;
   width: 300px;
-  margin: 6px 240px 20px 326px;
+  margin: 3px 240px 20px 326px;
+
+  @media screen and (max-width: 650px) {
+    margin: 6px 51px 20px 95px;
+    width: 130px;
+    font-size: 14px;
+  }
 `;
 const ModalContentInput = styled.textarea`
   background-color: #2a2a2a;
@@ -65,12 +96,23 @@ const ModalContentInput = styled.textarea`
   width: 100%;
   height: 303px;
   padding: 0 40px 20px 40px;
+
+  @media screen and (max-width: 650px) {
+    padding: 20px;
+    height: 235px;
+  }
 `;
 const SelectImgDiv = styled.div`
   background-color: #2a2a2a;
   margin-bottom: 60px;
   margin-left: 40px;
   display: flex;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
 `;
 const imgMapDiv = styled.div`
   background-color: #2a2a2a;
@@ -81,6 +123,12 @@ const SelectImg = styled.img`
   width: 90px;
   margin-right: 20px;
   border-radius: 5%;
+  object-fit: contain;
+
+  @media screen and (max-width: 650px) {
+    height: 40px;
+    width: 40px;
+  }
 `;
 const SelectImgDeleteBtn = styled.p`
   position: relative;
@@ -92,14 +140,26 @@ const SelectImgDeleteBtn = styled.p`
   margin-left: 40px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 13px;
+    height: 13px;
+    font-size: 13px;
+    margin-left: 15px;
+  }
 `;
 const ModalBtnDiv = styled.div`
   background-color: #2a2a2a;
   display: flex;
   justify-content: space-between;
-  margin-left: 40px;
-  margin-right: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
   margin-top: 60px;
+
+  @media screen and (max-width: 650px) {
+    padding: 20px;
+    border-top: 1px solid #636366;
+  }
 `;
 const ModalAddBtnLabel = styled.label`
   background-color: #2a2a2a;
@@ -109,7 +169,12 @@ const ModalAddImg = styled.img`
   background-color: #2a2a2a;
   height: 44px;
   width: 50px;
-  margin-right: 20px;
+
+  @media screen and (max-width: 650px) {
+    height: 24px;
+    width: 24px;
+    margin-top: 4px;
+  }
 `;
 const ModalAddPostBtn = styled.button`
   background-color: #7d37df;
@@ -121,6 +186,12 @@ const ModalAddPostBtn = styled.button`
 
   &:disabled {
     background-color: #636366;
+  }
+
+  @media screen and (max-width: 650px) {
+    height: 32px;
+    width: 45px;
+    font-size: 12px;
   }
 `;
 

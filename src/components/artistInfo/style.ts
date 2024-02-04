@@ -6,6 +6,11 @@ const BannerDiv = styled.div`
   height: 400px;
 
   border-radius: 15px;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 200px;
+  }
 `;
 const BannerImg = styled.img`
   width: inherit;
@@ -23,6 +28,24 @@ const InfoDiv = styled.div`
   display: flex;
 
   margin-top: 40px;
+
+  @media screen and (max-width: 650px) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 217px;
+    margin-top: 20px;
+  }
+`;
+const InfoNameFollowDiv = styled.div`
+  display: flex;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 96px;
+    margin-top: 20px;
+    margin-left: 0;
+  }
 `;
 const InfoNameDiv = styled.div`
   border: 1px solid gray;
@@ -38,6 +61,10 @@ const InfoNameDiv = styled.div`
 `;
 const InfoNameP = styled.p`
   font-size: 18px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 14px;
+  }
 `;
 const InfoNameBtn = styled.button`
   border: none;
@@ -69,11 +96,19 @@ const InfoFollowingDiv = styled.div`
 `;
 const InfoFollowP = styled.p`
   font-size: 18px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 14px;
+  }
 `;
 const FollowP = styled.p`
   margin-top: 10px;
   font-size: 13px;
   color: gray;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+  }
 `;
 const InfoArtistDiv = styled.div<{url: string}>`
   width: 342px;
@@ -91,16 +126,28 @@ const InfoArtistDiv = styled.div<{url: string}>`
   background-size: cover;
 
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 100px;
+
+    margin-left: 0;
+  }
 `;
 const InfoArtistP = styled.p`
   background-color: transparent;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+  }
 `;
 
 export default {
   BannerDiv,
   BannerImg,
   InfoDiv,
+  InfoNameFollowDiv,
   InfoNameDiv,
   InfoNameP,
   InfoNameBtn,

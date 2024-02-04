@@ -13,6 +13,13 @@ const PostLi = styled.li`
   width: 952px;
   position: relative;
   border-bottom: 1px solid gray;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    min-height: 107px;
+    max-height: 435px;
+    padding: 10px 0;
+  }
 `;
 const PostHeader = styled.div`
   display: flex;
@@ -24,12 +31,23 @@ const PostUserInfoDiv = styled.div`
 const PostUserImg = styled.img`
   height: 36px;
   border-radius: 40px;
+
+  @media screen and (max-width: 650px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 const PostNameP = styled.p`
   height: 18px;
   width: 300px;
   font-size: 14px;
   margin: 9px 0 9px 10px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+    width: 90px;
+    margin: 6px 0 6px 8px;
+  }
 `;
 const PostTimeDiv = styled.div`
   display: flex;
@@ -39,6 +57,11 @@ const PostTimeP = styled.p`
   color: #aeaeb2;
   margin-left: 10px;
   margin: 10px 0 10px 10px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+    margin: 6px 0 6px 8px;
+  }
 `;
 const PostClickOpenModal = styled.div`
   cursor: pointer;
@@ -57,6 +80,15 @@ const PostContentsP = styled.p`
   overflow: hidden;
   line-height: 20px;
   height: 39.5px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 14px;
+    width: 320px;
+    height: 30px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 `;
 
 // post Img
@@ -64,16 +96,31 @@ const PostContentOneImg = styled.img`
   width: 952px;
   height: 476px;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 240px;
+  }
 `;
 const PostContentTwoImg = styled.img`
   width: 476px;
   height: 476px;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 240px;
+  }
 `;
 const PostContentFourImg = styled.img`
   width: 476px;
   height: 238px;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
 `;
 const PostContentThreeImgDiv = styled.div`
   width: 952px;
@@ -82,12 +129,21 @@ const PostContentThreeImgDiv = styled.div`
   grid-template-areas:
     'a b'
     'a c';
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+  }
 `;
 const PostContentThreeImgA = styled.img`
   width: 476px;
   height: 476px;
   grid-area: a;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 240px;
+  }
 `;
 
 const PostContentThreeImgB = styled.img`
@@ -95,18 +151,33 @@ const PostContentThreeImgB = styled.img`
   height: 238px;
   grid-area: b;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
 `;
 const PostContentThreeImgC = styled.img`
   width: 476px;
   height: 238px;
   grid-area: c;
   object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
 `;
 
+//이모지
 const PostLikeCommentMoreDiv = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 10px;
+  }
 `;
 const PostLikeCommentDiv = styled.div`
   background-color: transparent;
@@ -119,17 +190,33 @@ const CommentImg = styled.img`
   margin-left: 40px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+  }
 `;
 const PostMoreImg = styled.img`
   background-color: transparent;
   width: 28px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 const PostBtnDiv = styled.div`
   width: 200px;
   height: 93px;
   margin-left: 10px;
+
+  @media screen and (max-width: 650px) {
+    width: 142px;
+    height: 80px;
+  }
 `;
 const PostBtn = styled.button`
   width: 200px;
@@ -141,6 +228,11 @@ const PostBtn = styled.button`
   &:hover {
     background-color: white;
     color: black;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 142px;
+    height: 40px;
   }
 `;
 
