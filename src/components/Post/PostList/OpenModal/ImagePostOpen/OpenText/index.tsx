@@ -6,11 +6,13 @@ import heartImgPurple from '../../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../../assets/images/heart-white.png';
 import dayjs from 'dayjs';
 import CommentLike from '../../CommentLike';
+import {useQuery} from '@tanstack/react-query';
+import {getTargetUserInfo} from '../../../../../../api/currentUser';
 
 const OpenText = ({
   currentUser,
-  modalData,
   nameFilterHandler,
+  modalData,
   target,
   targetPost,
   onClickLikeHandler,
@@ -20,6 +22,16 @@ const OpenText = ({
   handleChangeAddComment,
   handleSubmitAddComment,
 }: any) => {
+  const {data: userInfo} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getTargetUserInfo,
+  });
+
+  const commentNameFilterHandler = id => {
+    const target = userInfo?.find(e => e.id === id);
+    return target?.username;
+  };
+
   return (
     <St.OpenTextWrap>
       <St.OpenTextTitle>게시된 글</St.OpenTextTitle>
@@ -65,7 +77,7 @@ const OpenText = ({
                 <St.OpenTextContentHeader>
                   <St.OpenTextUserInfo>
                     <St.OpenTextUserImg src={profileImg} />
-                    <St.OpenTextUserName>{nameFilterHandler(el.userid)}</St.OpenTextUserName>
+                    <St.OpenTextUserName>{commentNameFilterHandler(el.userid)}</St.OpenTextUserName>
                   </St.OpenTextUserInfo>
                   <St.OpenTextTimeDateDiv>
                     <St.OpenTextTimeP>{dayjs(el.created_at).format('HH:mm')}</St.OpenTextTimeP>

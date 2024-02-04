@@ -16,6 +16,8 @@ const OpenContentSliderModalImg = styled.img`
 `;
 const OpenContentModalImg = styled.img`
   width: 596px;
+  height: 800px;
+  object-fit: contain;
 `;
 export default {
   OpenContentModalContainer,
