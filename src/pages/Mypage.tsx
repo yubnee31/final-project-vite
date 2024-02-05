@@ -126,6 +126,11 @@ const StMypageContainer = styled.div`
   padding-top: 140px;
   width: 100vw;
   height: 1000px;
+
+  @media screen and (max-width: 1267px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 const StMenuDiv = styled.div`
   background-color: #121212;
@@ -135,6 +140,10 @@ const StMenuDiv = styled.div`
   display: flex;
   flex-direction: column;
   border-right: 1px solid #636366;
+
+  @media screen and (max-width: 1267px) {
+    width: 120px;
+  }
 `;
 const StMenuBtn = styled.button`
   background-color: #121212;
@@ -149,6 +158,11 @@ const StMenuBtn = styled.button`
   &:hover {
     color: white;
     transition: 0.3s;
+  }
+
+  @media screen and (max-width: 1267px) {
+    font-size: 14px;
+    width: 100px;
   }
 `;
 const StLogoutMenuBtn = styled.button`
@@ -168,6 +182,11 @@ const StLogoutMenuBtn = styled.button`
     color: white;
     transition: 0.3s;
   }
+
+  @media screen and (max-width: 1267px) {
+    font-size: 14px;
+    width: 90px;
+  }
 `;
 const Staccount = styled.div`
   background-color: #121212;
@@ -175,6 +194,10 @@ const Staccount = styled.div`
 
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 1267px) {
+    width: 600px;
+  }
 `;
 
 export default Mypage;

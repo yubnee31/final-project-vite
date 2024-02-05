@@ -227,6 +227,10 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
 
 const StSettingDiv = styled.div`
   background-color: #121212;
+
+  @media screen and (max-width: 1267px) {
+    width: 590px;
+  }
 `;
 
 const StMyAccountName = styled.div`
@@ -281,6 +285,11 @@ const StcheckButton = styled.button`
     color: #9747ff;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 1267px) {
+    width: 40px;
+    margin-right: 30px;
+  }
 `;
 const StProfileSaveBtnDiv = styled.div`
   background-color: #121212;
@@ -288,7 +297,7 @@ const StProfileSaveBtnDiv = styled.div`
   flex-direction: row-reverse;
 `;
 const StProfileSaveBtn = styled.button`
-  margin-top: 290px;
+  margin-top: 250px;
   width: 120px;
   height: 40px;
   font-size: 16px;
@@ -299,17 +308,21 @@ const StNicknameInput = styled.input`
   background-color: #121212;
   font-size: 14px;
   font-weight: bold;
-  width: 820px;
+  width: 870px;
   height: 34px;
   border: none;
   border-bottom: 1px solid #636366;
+
+  @media screen and (max-width: 1267px) {
+    width: 530px;
+  }
 `;
 const StProfileSettingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 38.5%;
+  top: 41%;
 `;
 const StEditProfileLabel = styled.label`
   display: flex;

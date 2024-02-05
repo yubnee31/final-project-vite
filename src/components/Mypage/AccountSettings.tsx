@@ -178,6 +178,10 @@ const StMyAccount = styled.div`
   height: 75px;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 1267px) {
+    width: 585px;
+  }
 `;
 const StMyAccountUser = styled.div`
   background-color: #121212;
@@ -216,6 +220,10 @@ const StLine = styled.div`
   margin-top: 20px;
   border-bottom: 1px solid #636366;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 1267px) {
+    width: 585px;
+  }
 `;
 
 const StProfileImage = styled.img`
@@ -278,6 +286,13 @@ const StFwAtistContainer = styled.div`
 
   &:hover::after {
     opacity: 1;
+  }
+
+  @media screen and (max-width: 1267px) {
+    img {
+      width: 176px;
+      height: 150px;
+    }
   }
 `;
 

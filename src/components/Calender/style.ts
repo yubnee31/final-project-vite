@@ -10,6 +10,11 @@ export const StWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 1267px) {
+    width: 650px;
+    margin-left: 0;
+  }
 `;
 
 // Year-Month
@@ -28,6 +33,10 @@ export const StMonthDiv = styled.div`
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1.5px;
+
+  @media screen and (max-width: 1267px) {
+    width: 650px;
+  }
 `;
 
 // Day Columns
@@ -36,6 +45,10 @@ export const StDayColumnUl = styled.ul`
   display: flex;
   width: 975px;
   padding-left: 1px;
+
+  @media screen and (max-width: 1267px) {
+    width: 650px;
+  }
 `;
 
 export const StDayColumnLi = styled.li`
@@ -62,6 +75,10 @@ export const StDayUl = styled.ul`
   grid-auto-rows: 140px;
 
   padding-left: 1px;
+
+  @media screen and (max-width: 1267px) {
+    grid-template-columns: repeat(7, 92.7px);
+  }
 `;
 
 export const StDayli = styled.li`
@@ -96,10 +113,24 @@ export const StScheduleDiv = styled.div`
 
   margin-bottom: 5px;
   border-bottom: 1px solid #434343;
+
+  @media screen and (max-width: 1267px) {
+    width: 80px;
+    height: 28px;
+  }
 `;
 
+export const StScheduleContentP = styled.div`
+  @media screen and (max-width: 1267px) {
+    font-size: 9.5px;
+  }
+`;
 export const StScheduleArtistP = styled.div`
   background-color: #121212;
   margin-bottom: 5px;
   color: #aaaaaa;
+
+  @media screen and (max-width: 1267px) {
+    font-size: 10px;
+  }
 `;
