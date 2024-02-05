@@ -88,7 +88,7 @@ const Home = () => {
           <>
             {/* // My Artist */}
             <StSideWrapper>
-              {login ? (
+              {/* {login ? (
                 <StDiv>
                   <StSpan>나의 아티스트</StSpan>
                   <StArtistDiv>
@@ -111,7 +111,7 @@ const Home = () => {
                     )}
                   </StArtistDiv>
                 </StDiv>
-              ) : null}
+              ) : null} */}
 
               {/* // Artist List */}
               <StListWrapper>
@@ -224,14 +224,15 @@ const StDiv = styled.div`
 const StArtistDiv = styled.div`
   margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  grid-auto-rows: 214px;
-  @media screen and (max-width: 768px) {
+  grid-template-columns: repeat(auto-fill, 200px);
+  /* grid-template-rows: repeat(1, 1fr); */
+  /* grid-auto-rows: 214px; */
+  grid-gap: 30px;
+  /* @media screen and (max-width: 768px) {
     margin-top: 20px;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 172px;
-  }
+  } */
 `;
 
 const StArtistTargetImg = styled.img`
@@ -239,44 +240,46 @@ const StArtistTargetImg = styled.img`
   height: 214px;
   object-fit: cover;
   border-radius: 10px;
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     width: 152px;
     height: 114px;
-  }
+  } */
 `;
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 1920px;
-  height: 1400px;
+  width: 100%;
+  /* height: 1400px; */
   padding-left: 240px;
   padding-right: 240px;
   margin-top: 100px;
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     width: 100%;
     height: auto;
     margin-top: 24px;
     padding-left: 20px;
     padding-right: 20px;
-  }
+  } */
 `;
 const StListDiv = styled.div`
   margin-top: 50px;
   height: inherit;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, 264px);
+  grid-auto-rows: 292px;
+  /* grid-gap: 30px; */
+  /* grid-template-rows: repeat(4, 1fr); */
   justify-content: space-around;
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     margin-top: 20px;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 172px;
-  }
+  } */
 `;
 
 const StListTargetDiv = styled.div`
-  width: 264px;
-  height: 292px;
+  width: 100%;
+  height: 100%;
   color: white;
   display: flex;
   justify-content: center;
