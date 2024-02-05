@@ -180,8 +180,8 @@ const Artist = () => {
 // Wrapper
 const StWrapper = styled.div`
   width: 100%;
-  padding-left: 240px;
-  padding-right: 240px;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
   @media screen and (max-width: 768px) {
     width: 100%;
     padding-left: 20px;
@@ -214,7 +214,7 @@ const StTitle = styled.p`
 // Banner
 const StBannerImgDiv = styled.div<{url: string}>`
   width: 100vw;
-  height: 770px;
+  height: 700px;
 
   display: flex;
   align-items: center;
