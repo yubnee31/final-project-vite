@@ -174,7 +174,7 @@ const StWrapper = styled.div`
 `;
 const StMyAccount = styled.div`
   background-color: #121212;
-  width: 858px;
+  width: 910px;
   height: 75px;
   display: flex;
   justify-content: space-between;
@@ -210,7 +210,7 @@ const StSettingButton = styled.button`
 `;
 const StLine = styled.div`
   background-color: #121212;
-  width: 858px;
+  width: 910px;
   display: flex;
   align-items: center;
   margin-top: 20px;

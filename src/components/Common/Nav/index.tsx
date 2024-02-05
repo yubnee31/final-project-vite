@@ -14,17 +14,18 @@ import profileImg from '../../../assets/images/profile-white.png';
 import {
   StBtnDiv,
   StBtnP,
-  StButton,
   StForm,
   StImg,
   StInput,
+  StSearchOpenToggleImg,
   StLogoDiv,
   StLogoSpan,
   StNav,
   StNavDiv,
   StNavWrapper,
-  StSearchButton,
   StSignInBtn,
+  StButton,
+  StAlarmImg,
   StAlarmCounterP,
   StAlarmListDiv,
   StAlarmListUl,
@@ -46,6 +47,12 @@ const Nav = () => {
   const [alarm, setAlarm] = useState<Alarm[]>([]);
   const [alarmToggle, setAlarmToggle] = useState<boolean>(false);
   const alarmBtRef = useRef(null);
+
+  // toggle
+  const [openToggle, setOpenToggle] = useState(false);
+  const handleToggle = () => {
+    setOpenToggle(!openToggle);
+  };
 
   const {data: currentUser} = useQuery({
     queryKey: ['getCurrentUser'],
@@ -102,93 +109,91 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <StNav>
-        <StNavWrapper>
-          <StNavDiv>
-            <StLogoDiv>
-              <StLogoSpan
-                onClick={() => {
-                  navigate('/');
-                }}
-              >
-                AIdol
-              </StLogoSpan>
-            </StLogoDiv>
-
-            <StBtnDiv>
+    <StNav>
+      <StNavWrapper>
+        <StNavDiv>
+          <StLogoDiv>
+            <StLogoSpan
+              onClick={() => {
+                navigate('/');
+              }}
+            >
+              AIdol
+            </StLogoSpan>
+          </StLogoDiv>
+          <StBtnDiv>
+            {openToggle && (
               <StForm onSubmit={handleSearchBtn}>
-                <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)}></StInput>
-                <StSearchButton>
-                  <StImg src={searchIcon} alt="검색어 아이콘"></StImg>
-                </StSearchButton>
+                <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)} />
               </StForm>
-              <StButton
+            )}
+            <StSearchOpenToggleImg src={searchIcon} alt="검색어 아이콘" onClick={handleToggle} />
+            <StButton>
+              <StAlarmImg
+                src={alarmIcon}
+                alt="알람 아이콘"
                 onClick={() => {
                   setAlarmToggle(!alarmToggle);
                 }}
-              >
-                <StImg src={alarmIcon} alt="알람 아이콘"></StImg>
-                {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
-              </StButton>
-              <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
-                <StAlarmDiv>
-                  <StAlarmP>알림</StAlarmP>
-                  <StInfoP>추가한 스케줄은 마이페이지에서 확인 가능합니다.</StInfoP>
-                </StAlarmDiv>
-                <StAlarmListUl>
-                  {alarm
-                    .sort((a, b) => {
-                      const aDate: any = new Date(a.created_at);
-                      const bDate: any = new Date(b.created_at);
-                      return bDate - aDate;
-                    })
-                    .map(e => {
-                      return (
-                        <StAlarmListLi>
-                          <StAlarmContentsDiv>
-                            <StAlarmTitleP>{e.artist} 스케줄이 추가되었습니다.</StAlarmTitleP>
-                            <StAlarmListP>
-                              {e.title} / {e.date}
-                            </StAlarmListP>
-                          </StAlarmContentsDiv>
-                          <StAlarmTimeP>{e.created_at}</StAlarmTimeP>
-                          <StAlarmDeleteBtn
-                            onClick={() => {
-                              alarmDeleteHandler(e.id);
-                            }}
-                          >
-                            <StImg src={escape} alt="profile icon" />
-                          </StAlarmDeleteBtn>
-                        </StAlarmListLi>
-                      );
-                    })}
-                </StAlarmListUl>
-              </StAlarmListDiv>
-              {login ? (
-                <>
-                  <StButton
-                    onClick={() => {
-                      navigate('/mypage');
-                    }}
-                  >
-                    <StImg src={profileImg} />
-                  </StButton>
-                </>
-              ) : (
-                <StSignInBtn
+              />
+              {alarm.length === 0 ? null : <StAlarmCounterP>{alarm.length}</StAlarmCounterP>}
+            </StButton>
+            <StAlarmListDiv ref={alarmBtRef} className={alarmToggle ? 'On' : 'OFF'}>
+              <StAlarmDiv>
+                <StAlarmP>알림</StAlarmP>
+                <StInfoP>추가한 스케줄은 마이페이지에서 확인 가능합니다.</StInfoP>
+              </StAlarmDiv>
+              <StAlarmListUl>
+                {alarm
+                  .sort((a, b) => {
+                    const aDate: any = new Date(a.created_at);
+                    const bDate: any = new Date(b.created_at);
+                    return bDate - aDate;
+                  })
+                  .map(e => {
+                    return (
+                      <StAlarmListLi>
+                        <StAlarmContentsDiv>
+                          <StAlarmTitleP>{e.artist} 스케줄이 추가되었습니다.</StAlarmTitleP>
+                          <StAlarmListP>
+                            {e.title} / {e.date}
+                          </StAlarmListP>
+                        </StAlarmContentsDiv>
+                        <StAlarmTimeP>{e.created_at}</StAlarmTimeP>
+                        <StAlarmDeleteBtn
+                          onClick={() => {
+                            alarmDeleteHandler(e.id);
+                          }}
+                        >
+                          <StImg src={escape} alt="profile icon" />
+                        </StAlarmDeleteBtn>
+                      </StAlarmListLi>
+                    );
+                  })}
+              </StAlarmListUl>
+            </StAlarmListDiv>
+            {login ? (
+              <>
+                <StImg
+                  src={profileImg}
                   onClick={() => {
-                    navigate('/login');
+                    navigate('/mypage');
                   }}
-                >
-                  <StBtnP>Sign In</StBtnP>
-                </StSignInBtn>
-              )}
-            </StBtnDiv>
-          </StNavDiv>
-        </StNavWrapper>
-      </StNav>
-    </>
+                />
+              </>
+            ) : (
+              <StSignInBtn
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                <StBtnP>Sign In</StBtnP>
+              </StSignInBtn>
+            )}
+          </StBtnDiv>
+        </StNavDiv>
+      </StNavWrapper>
+    </StNav>
   );
 };
 

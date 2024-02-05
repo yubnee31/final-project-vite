@@ -5,6 +5,7 @@ export const StWrapper = styled.div`
   background-color: #121212;
   width: 975px;
   height: 700px;
+  margin-left: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
