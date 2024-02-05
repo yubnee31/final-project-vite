@@ -42,6 +42,7 @@ const PostList = () => {
       lastPage.nextCursor ? {start: lastPage.nextCursor, end: lastPage.nextCursor + 4} : null,
   });
   const currentArtistPost = morePostList?.pages.map(e => e.data).flat();
+
   if (!hasNextPage) {
     window.removeEventListener('scroll', handleScroll);
   }

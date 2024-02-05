@@ -13,7 +13,6 @@ const MetaTag = ({title, image, url, description}: metaTagProps) => {
       <meta name="og:url" content={url} />
       <meta name="og:image" content={image} />
       <meta name="og:type" content="wepsite" />
-      <meta name="google-site-verification" content="7Mb9db4L5eHnUORCsjuV5zKMR7mjYaY_-8-iVpbvI9A" />
     </Helmet>
   );
 };
