@@ -131,6 +131,7 @@ const StMenuDiv = styled.div`
   background-color: #121212;
   width: 170px;
   margin-right: 100px;
+  margin-bottom: 70px;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #636366;
@@ -170,7 +171,7 @@ const StLogoutMenuBtn = styled.button`
 `;
 const Staccount = styled.div`
   background-color: #121212;
-  width: 975px;
+  width: 935px;
 
   display: flex;
   justify-content: center;
