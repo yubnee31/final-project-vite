@@ -2,14 +2,23 @@ import styled from 'styled-components';
 
 // Wrapper
 export const StWrapper = styled.div`
-  width: 900px;
+  background-color: #121212;
+  width: 975px;
   height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 // Year-Month
 export const StMonthDiv = styled.div`
-  width: 875px;
+  background-color: #121212;
+  width: 975px;
   height: 50px;
+  margin-right: 100px;
+  margin-top: 80px;
+  margin-bottom: 40px;
 
   display: flex;
   justify-content: center;
@@ -22,11 +31,14 @@ export const StMonthDiv = styled.div`
 
 // Day Columns
 export const StDayColumnUl = styled.ul`
+  background-color: #121212;
   display: flex;
+  width: 975px;
   padding-left: 1px;
 `;
 
 export const StDayColumnLi = styled.li`
+  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +50,7 @@ export const StDayColumnLi = styled.li`
 
 // Day List
 export const StDayUl = styled.ul`
+  background-color: #121212;
   width: inherit;
   height: inherit;
 
@@ -51,10 +64,12 @@ export const StDayUl = styled.ul`
 `;
 
 export const StDayli = styled.li`
+  background-color: #121212;
   outline: 1px solid gray;
 `;
 
 export const StDayP = styled.p`
+  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,6 +87,7 @@ export const StDayP = styled.p`
 `;
 
 export const StScheduleDiv = styled.div`
+  background-color: #121212;
   width: 100px;
   height: 35px;
   font-size: 12px;
@@ -82,6 +98,7 @@ export const StScheduleDiv = styled.div`
 `;
 
 export const StScheduleArtistP = styled.div`
+  background-color: #121212;
   margin-bottom: 5px;
   color: #aaaaaa;
 `;

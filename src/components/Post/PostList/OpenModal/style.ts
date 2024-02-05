@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const OpenPostModalContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 99%;
   position: fixed;
   top: 0;
   left: 0;

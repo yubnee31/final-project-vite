@@ -12,13 +12,14 @@ export const StNav = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 240px;
   @media screen and (max-width: 768px) {
     height: 64px;
   }
 `;
 
 export const StNavWrapper = styled.div`
-  width: 100%;
+  width: 99%;
   height: inherit;
   background-color: transparent;
 `;
@@ -30,7 +31,6 @@ export const StNavDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  padding: 0px 240px 0px 240px;
   @media screen and (max-width: 768px) {
     padding: 0px 20px 0px 20px;
   }

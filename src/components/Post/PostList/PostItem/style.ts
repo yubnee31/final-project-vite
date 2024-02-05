@@ -14,7 +14,11 @@ const PostLi = styled.li`
   position: relative;
   border-bottom: 1px solid gray;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     min-height: 107px;
     max-height: 435px;
@@ -32,7 +36,7 @@ const PostUserImg = styled.img`
   height: 36px;
   border-radius: 40px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 24px;
     height: 24px;
   }
@@ -43,7 +47,7 @@ const PostNameP = styled.p`
   font-size: 14px;
   margin: 9px 0 9px 10px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 12px;
     width: 90px;
     margin: 6px 0 6px 8px;
@@ -58,7 +62,7 @@ const PostTimeP = styled.p`
   margin-left: 10px;
   margin: 10px 0 10px 10px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 12px;
     margin: 6px 0 6px 8px;
   }
@@ -81,7 +85,7 @@ const PostContentsP = styled.p`
   line-height: 20px;
   height: 39.5px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 14px;
     width: 320px;
     height: 30px;
@@ -97,7 +101,12 @@ const PostContentOneImg = styled.img`
   height: 476px;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+    height: 380px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 240px;
   }
@@ -107,7 +116,12 @@ const PostContentTwoImg = styled.img`
   height: 476px;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+    height: 380px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 160px;
     height: 240px;
   }
@@ -117,7 +131,12 @@ const PostContentFourImg = styled.img`
   height: 238px;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+    height: 190px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 160px;
     height: 120px;
   }
@@ -130,7 +149,11 @@ const PostContentThreeImgDiv = styled.div`
     'a b'
     'a c';
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
   }
 `;
@@ -140,7 +163,12 @@ const PostContentThreeImgA = styled.img`
   grid-area: a;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+    height: 380px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 160px;
     height: 240px;
   }
@@ -152,7 +180,12 @@ const PostContentThreeImgB = styled.img`
   grid-area: b;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+    height: 190px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 160px;
     height: 120px;
   }
@@ -163,7 +196,12 @@ const PostContentThreeImgC = styled.img`
   grid-area: c;
   object-fit: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+    height: 190px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 160px;
     height: 120px;
   }
@@ -175,7 +213,7 @@ const PostLikeCommentMoreDiv = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     margin-top: 10px;
   }
 `;
@@ -191,7 +229,7 @@ const CommentImg = styled.img`
 
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 20px;
     height: 20px;
     margin-left: 15px;
@@ -203,7 +241,7 @@ const PostMoreImg = styled.img`
 
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 20px;
     height: 20px;
   }
@@ -213,9 +251,19 @@ const PostBtnDiv = styled.div`
   height: 93px;
   margin-left: 10px;
 
-  @media screen and (max-width: 650px) {
-    width: 142px;
-    height: 80px;
+  @media screen and (max-width: 1420px) {
+    width: 102px;
+    height: 60px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 102px;
+    height: 60px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 102px;
+    height: 60px;
   }
 `;
 const PostBtn = styled.button`
@@ -230,9 +278,19 @@ const PostBtn = styled.button`
     color: black;
   }
 
-  @media screen and (max-width: 650px) {
-    width: 142px;
-    height: 40px;
+  @media screen and (max-width: 1420px) {
+    width: 102px;
+    height: 30px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 102px;
+    height: 30px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 102px;
+    height: 30px;
   }
 `;
 

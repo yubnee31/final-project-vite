@@ -14,32 +14,49 @@ const Footer = () => {
           <StLi>쿠키 설정</StLi>
         </StUl>
       </StDiv>
-      <StInfoWrapper>
-        <StInfoDiv>
-          <StInfoSpan>©AIdol COMPANY Inc.Ver.1.0.0</StInfoSpan>
-        </StInfoDiv>
-      </StInfoWrapper>
+      <StInfoDiv>
+        {/* <div>
+          <p>상호</p> <p>AIDOL COMPANY Inc.</p>
+        </div>
+        <div>
+          <p>리더</p>
+        </div>
+        <p>전화번호</p>
+        <p>FAX</p>
+        <p>FAX</p>
+        <p>주소</p>
+        <p>개인정보관리책임자</p>
+        <p>사업자등록번호</p> */}
+      </StInfoDiv>
+      <div>
+        <StInfoSpan>©AIdol COMPANY Inc.Ver.1.0.0</StInfoSpan>
+      </div>
       {/* Info */}
     </StWrapper>
   );
 };
 
 const StWrapper = styled.div`
+  width: 100vw;
   height: 200px;
-  width: 1885px;
   background-color: black;
+  padding: 0 120px;
 
   color: gray;
+
+  @media screen and (max-width: 700px) {
+    width: 700px;
+  }
 `;
 // Policy
 const StDiv = styled.div`
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 `;
 
 const StUl = styled.ul`
-  width: 100vw;
+  width: 100%;
 
   border-top: 2px solid gray;
   border-bottom: 2px solid #1d1d1d;
@@ -65,9 +82,9 @@ const StLi = styled.li`
 // Info
 
 const StInfoWrapper = styled.div`
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 `;
 const StInfoDiv = styled.div`
   width: 100vw;

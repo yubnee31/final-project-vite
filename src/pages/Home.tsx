@@ -180,7 +180,7 @@ const StSpan = styled.span`
 
 // Banner
 const StBannerDiv = styled.div`
-  width: 100vw;
+  width: 99vw;
   height: 500px;
   background-color: #9747ff;
 

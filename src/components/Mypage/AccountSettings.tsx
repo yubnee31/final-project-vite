@@ -126,14 +126,14 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
         <MyAccount user={user} onUpdateNickname={onUpdateNickname} onCompleteSettings={handleCompleteSettings} />
       ) : (
         <>
-          <StMyAccountName></StMyAccountName>
           <StMyAccount>
-            <StProfileImage src={profileImage} alt="아바타 이미지" />
-            <StNickName>
-              <h1>{displayNickname || editNickname}</h1>
-              <h2>{user.email}</h2>
-            </StNickName>
-
+            <StMyAccountUser>
+              <StProfileImage src={profileImage} alt="아바타 이미지" />
+              <StNickName>
+                <h1>{displayNickname || editNickname}</h1>
+                <h2>{user.email}</h2>
+              </StNickName>
+            </StMyAccountUser>
             <StSettingButton onClick={handleShowMyAccount}>설정</StSettingButton>
           </StMyAccount>
           <StLine></StLine>
@@ -169,40 +169,48 @@ const AccountSettings = ({user, onUpdateNickname}: AccountSettingProps) => {
   );
 };
 const StWrapper = styled.div`
-  width: 1000px;
+  background-color: #121212;
+  width: 100%;
 `;
-
-const StMyAccountName = styled.div`
-  margin-bottom: 20px;
+const StMyAccount = styled.div`
+  background-color: #121212;
+  width: 878px;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+`;
+const StMyAccountUser = styled.div`
+  background-color: #121212;
+  display: flex;
+`;
+const StNickName = styled.div`
+  background-color: #121212;
+  margin-left: 20px;
+  h1 {
+    background-color: #121212;
+    margin-top: 6px;
+    font-size: 20px;
+  }
+  h2 {
+    background-color: #121212;
+    margin-top: 10px;
+    font-size: 16px;
+  }
 `;
 const StSettingButton = styled.button`
+  background-color: #121212;
   display: inline-block;
-  width: 80px;
-  height: 30px;
+  width: 98px;
+  height: 36px;
+  font-size: 16px;
+  margin-top: 6px;
   border: 1px solid white;
   border-radius: 5px;
   cursor: pointer;
 `;
-const StNickName = styled.div`
-  margin-right: 65%;
-  h2 {
-    margin-top: 15px;
-  }
-`;
-const StMyAccount = styled.div`
-  width: 976px;
-  display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
-  align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
-  justify-content: space-between; /* 자식 요소들을 가로로 정렬 */
-  h1 {
-    font-size: 25px;
-  }
-  h2 {
-    font-size: 15px;
-  }
-`;
 const StLine = styled.div`
-  width: 976px;
+  background-color: #121212;
+  width: 878px;
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -211,32 +219,39 @@ const StLine = styled.div`
 `;
 
 const StProfileImage = styled.img`
-  width: 100px;
-  height: 100px;
+  background-color: #121212;
+  width: 80px;
+  height: 80px;
   border-radius: 100%;
   object-fit: cover;
 `;
 const StMyFollowContainer = styled.div`
+  background-color: #121212;
   margin-top: 20px;
 `;
 
 const StFollowP = styled.p`
-  margin-top: 50px;
+  background-color: #121212;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 40px;
 `;
 
 const StFollowArtistList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 24px;
+  background-color: #121212;
   margin-top: 20px;
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const StFwAtistContainer = styled.div`
+  background-color: #121212;
+  margin-right: 24px;
   cursor: pointer;
   img {
-    width: 226px;
-    height: 200px;
+    background-color: #121212;
+    width: 206px;
+    height: 180px;
     border-radius: 10px;
     object-fit: cover;
     transition: filter 0.3s ease;
@@ -246,7 +261,11 @@ const StFwAtistContainer = styled.div`
     }
   }
   p {
+    background-color: #121212;
+    font-size: 16px;
+    font-weight: bold;
     margin-top: 10px;
+    margin-left: 12px;
   }
 
   &:hover::after {
@@ -260,13 +279,6 @@ const StFwAtistContainer = styled.div`
   &:hover::after {
     opacity: 1;
   }
-`;
-
-const StArtistImg = styled.img`
-  width: 264px;
-  height: 214px;
-  object-fit: cover;
-  border-radius: 10px;
 `;
 
 export default AccountSettings;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const EditPostModalContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 99%;
   position: fixed;
   top: 0;
   left: 0;
@@ -19,7 +19,11 @@ const EditPostModalBox = styled.div`
   height: 650px;
   color: white;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 494px;
   }
@@ -31,7 +35,7 @@ const EditModalHeaderBody = styled.div`
   background-color: #2a2a2a;
   height: 503px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     height: 362px;
   }
 `;
@@ -39,7 +43,7 @@ const EditPostModalHeader = styled.div`
   background-color: #2a2a2a;
   display: flex;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     border-bottom: 1px solid #636366;
   }
 `;
@@ -54,7 +58,11 @@ const EditPostModalTitle = styled.p`
   width: 300px;
   margin: 20px 240px 0 326px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    margin: 20px 114px 0 200px;
+  }
+
+  @media screen and (max-width: 700px) {
     margin: 20px 51px 0 95px;
     width: 130px;
     font-size: 16px;
@@ -68,7 +76,11 @@ const EditPosModalArtistName = styled.p`
   width: 300px;
   margin: 6px 240px 20px 326px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    margin: 6px 114px 20px 200px;
+  }
+
+  @media screen and (max-width: 700px) {
     margin: 6px 51px 20px 95px;
     width: 130px;
     font-size: 14px;
@@ -82,7 +94,7 @@ const EditPostModalCloseBtn = styled.img`
   margin: 20px 40px 20px 0;
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 24px;
     height: 24px;
     margin: 30px 20px 30px 0;
@@ -97,7 +109,7 @@ const EditPostModalInput = styled.textarea`
   height: 303px;
   padding: 0 40px 20px 40px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     padding: 20px;
     height: 235px;
   }
@@ -109,7 +121,7 @@ const EditPostLegsDiv = styled.div`
   margin-top: 60px;
   padding: 0 40px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     padding: 20px;
     border-top: 1px solid #636366;
   }
@@ -120,7 +132,7 @@ const EditModalSelectedImgDiv = styled.div`
   margin-left: 40px;
   display: flex;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
@@ -137,7 +149,7 @@ const SelectedImg = styled.img`
   border-radius: 5%;
   object-fit: contain;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     height: 40px;
     width: 40px;
   }
@@ -153,7 +165,7 @@ const SelectedImgDeleteBtn = styled.p`
 
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 13px;
     height: 13px;
     font-size: 13px;
@@ -170,7 +182,7 @@ const EditModalImg = styled.img`
   width: 50px;
   margin-right: 20px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     height: 24px;
     width: 24px;
     margin-top: 4px;
@@ -191,7 +203,7 @@ const EditPostModalBtn = styled.button`
     background-color: #7d37df;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     height: 32px;
     width: 45px;
     font-size: 12px;

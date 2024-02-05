@@ -6,7 +6,11 @@ const PostDiv = styled.div`
   margin-top: 20px;
   margin-bottom: 80px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
   }
 `;

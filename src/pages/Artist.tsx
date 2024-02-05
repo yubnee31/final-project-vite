@@ -179,9 +179,12 @@ const Artist = () => {
 
 // Wrapper
 const StWrapper = styled.div`
-  width: 100%;
-  padding-left: 240px;
-  padding-right: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     padding-left: 20px;
@@ -246,10 +249,11 @@ const StNameSpan = styled.span`
 // Profile
 const StProfileDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 250px);
+  grid-template-columns: repeat(6, 170px);
   grid-auto-rows: 266px;
 
-  row-gap: 30px;
+  grid-gap: 24px;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
@@ -258,7 +262,7 @@ const StProfileDiv = styled.div`
   }
 `;
 const StPfWrapper = styled.div`
-  width: 220px;
+  width: 170px;
   height: 266px;
   @media screen and (max-width: 768px) {
     width: 152px;
@@ -266,10 +270,11 @@ const StPfWrapper = styled.div`
   }
 `;
 const StPfMemberDiv = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 170px;
+  height: 170px;
   margin-bottom: 10px;
   position: relative;
+
   @media screen and (max-width: 768px) {
     width: 152px;
     height: 152px;
@@ -301,8 +306,8 @@ const StPfDetailP = styled.p`
   }
 `;
 const StPfDetailDiv = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 238px;
+  height: 238px;
   position: absolute;
   top: 0;
   left: 0;
@@ -332,9 +337,9 @@ const StAlbumsDiv = styled.div`
   /* height: 300px; */
 
   display: grid;
-  grid-template-columns: repeat(5, 250px);
-  grid-auto-rows: 266px;
-  grid-gap: 20px;
+  grid-template-columns: repeat(5, 220px);
+  grid-auto-rows: 286px;
+  grid-gap: 24px;
   @media screen and (max-width: 768px) {
     width: 320px;
     grid-template-columns: repeat(5, 168px);
@@ -398,7 +403,7 @@ const StAbdateP = styled.p`
 
 // Music Video
 const StVideoDiv = styled.div`
-  width: 100%;
+  width: 1440px;
   height: 640px;
   @media screen and (max-width: 768px) {
     width: 320px;
