@@ -10,31 +10,22 @@ const OpenPostModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
+
+  z-index: 10000;
 `;
 const OpenPostModalBox = styled.div`
   background-color: #2a2a2a;
-  width: 852px;
-  height: 510px;
+  width: 1192px;
+  height: 800px;
   color: white;
 `;
 const OpenPostModalContent = styled.div`
   background-color: #2a2a2a;
-  /* column-count: 2; */
-  flex: 1;
   display: flex;
 `;
-const OpenPostModalTitle = styled.div``;
-const OpenPosModalArtistName = styled.div``;
-const OpenPostModalInput = styled.input``;
-const OpenPostModalBtnDiv = styled.div``;
-const OpenPostModalBtn = styled.button``;
+
 export default {
   OpenPostModalContainer,
   OpenPostModalBox,
   OpenPostModalContent,
-  OpenPostModalTitle,
-  OpenPosModalArtistName,
-  OpenPostModalInput,
-  OpenPostModalBtnDiv,
-  OpenPostModalBtn,
 };

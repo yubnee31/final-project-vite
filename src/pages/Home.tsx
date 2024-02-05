@@ -62,9 +62,10 @@ const Home = () => {
 
         {searchInput && searchInput.length > 0 ? (
           <StListWrapper>
+            <StSpan>검색결과</StSpan>
             <StListDiv>
               {artistList?.filter(ele => ele.artist.includes(searchInput)).length === 0 ? (
-                <p>검색결과가 없습니다.</p>
+                <StInfoP>검색결과가 없습니다.</StInfoP>
               ) : (
                 artistList
                   ?.filter(el => el.artist.includes(searchInput))
@@ -107,14 +108,14 @@ const Home = () => {
                         );
                       })
                     ) : (
-                      <p>팔로우한 아티스트가 없습니다.</p>
+                      <StInfoP>팔로우한 아티스트가 없습니다.</StInfoP>
                     )}
                   </StArtistDiv>
                 </StDiv>
               ) : null}
 
               {/* // Artist List */}
-              <StListWrapper>
+              <StDiv>
                 <StSpan>아티스트 만나보기</StSpan>
                 <StListDiv>
                   {artistList?.map(el => {
@@ -125,13 +126,16 @@ const Home = () => {
                           artistNavigateHandler(el.artist);
                         }}
                       >
-                        <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
+                        <div>
+                          <StArtistTargetImg src={el.photo_url} alt="targetartistimg" />
+                        </div>
+
                         <StListTargetP>{el.artist}</StListTargetP>
                       </StListTargetDiv>
                     );
                   })}
                 </StListDiv>
-              </StListWrapper>
+              </StDiv>
               <StP>더 많은 아티스트 준비 중</StP>
             </StSideWrapper>
           </>
@@ -145,98 +149,182 @@ const Home = () => {
 const StMainWrapper = styled.div`
   background-color: black;
   padding-bottom: 100px;
+  @media screen and (max-width: 1279px) {
+    padding-bottom: 70px;
+  }
+  @media screen and (max-width: 768px) {
+    padding-bottom: 50px;
+  }
 `;
+
 const StSideWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin-top: 100px;
+  @media screen and (max-width: 1279px) {
+    margin-top: 50px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 
 // Common
 const StP = styled.p`
   margin-top: 50px;
   color: white;
+  @media screen and (max-width: 1279px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 30px;
+    font-size: 12px;
+  }
 `;
+
 const StSpan = styled.span`
   color: white;
   font-size: 24px;
+  @media screen and (max-width: 1279px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 // Banner
 const StBannerDiv = styled.div`
   width: 100vw;
-  height: 500px;
+  height: 400px;
   background-color: #9747ff;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-top: 80px;
+  @media screen and (max-width: 1279px) {
+    height: 300px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 180px;
+    margin-top: 64px;
+  }
 `;
+
 const StBannerImg = styled.img`
   width: 1000px;
-  height: 500px;
+  height: 400px;
   background-size: cover;
   background-color: transparent;
   object-fit: cover;
+  @media screen and (max-width: 1279px) {
+    height: 300px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 180px;
+  }
 `;
 
 // My Artist
 const StDiv = styled.div`
+  width: 100%;
   margin-top: 30px;
   margin-bottom: 60px;
-  width: 1920px;
-  padding-left: 240px;
-  padding-right: 240px;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
+  @media screen and (max-width: 1279px) {
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-top: 25px;
+    margin-bottom: 40px;
+  }
+  @media screen and (max-width: 768px) {
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
 `;
 
 const StArtistDiv = styled.div`
   margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  grid-auto-rows: 214px;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 18.5%);
+  grid-auto-rows: auto;
+  @media screen and (max-width: 1279px) {
+    margin-top: 35px;
+    grid-template-columns: repeat(auto-fill, 20%);
+    grid-auto-rows: auto;
+    gap: 18px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, 152px);
+    grid-auto-rows: 172px;
+  }
 `;
 
 const StArtistTargetImg = styled.img`
-  width: 264px;
-  height: 214px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
 `;
 
 // Artist List
 const StListWrapper = styled.div`
-  width: 1920px;
-  height: 1400px;
-  padding-left: 240px;
-  padding-right: 240px;
-  margin-top: 100px;
+  width: 100%;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
+  margin-top: 50px;
+  @media screen and (max-width: 1279px) {
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-top: 30px;
+  }
+  @media screen and (max-width: 768px) {
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 24px;
+  }
 `;
+
 const StListDiv = styled.div`
   margin-top: 50px;
-  height: inherit;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  justify-content: space-around;
+  grid-template-columns: repeat(auto-fill, 18.5%);
+  grid-auto-rows: auto;
+  gap: 20px;
+  grid-row-gap: 35px;
+  @media screen and (max-width: 1279px) {
+    margin-top: 35px;
+    grid-template-columns: repeat(auto-fill, 20%);
+    grid-auto-rows: auto;
+    gap: 18px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, 152px);
+    grid-auto-rows: 172px;
+  }
 `;
 
 const StListTargetDiv = styled.div`
-  width: 264px;
-  height: 292px;
+  width: 100%;
+  height: 100%;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 20px;
   cursor: pointer;
-  transition: all 1s;
   &:hover {
     transform: scale(1.1);
+    transition: all 1s;
   }
 `;
 
@@ -245,6 +333,20 @@ const StListTargetP = styled.p`
   text-align: center;
   margin-top: 20px;
   font-size: 18px;
+  @media screen and (max-width: 1279px) {
+    margin-top: 12px;
+    font-size: 16px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+`;
+
+const StInfoP = styled.p`
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export default Home;

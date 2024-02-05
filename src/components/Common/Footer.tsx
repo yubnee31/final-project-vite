@@ -25,11 +25,18 @@ const Footer = () => {
 };
 
 const StWrapper = styled.div`
-  height: 200px;
-  width: 100vw;
+  height: 258px;
+  width: 1920px;
+  padding-left: 240px;
+  padding-right: 240px;
   background-color: black;
-
   color: gray;
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    height: 200px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 // Policy
 const StDiv = styled.div`
@@ -37,12 +44,17 @@ const StDiv = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const StUl = styled.ul`
   width: 1440px;
 
   border-top: 2px solid gray;
   border-bottom: 2px solid #1d1d1d;
   display: flex;
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    display: block;
+  }
 `;
 const StLi = styled.li`
   margin-top: 25px;
@@ -50,6 +62,13 @@ const StLi = styled.li`
   padding-right: 50px;
   cursor: pointer;
   color: #bdbdbd;
+  @media screen and (max-width: 768px) {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    float: left;
+  }
 `;
 // Info
 
@@ -61,10 +80,18 @@ const StInfoWrapper = styled.div`
 const StInfoDiv = styled.div`
   width: 1440px;
   margin-top: 30px;
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    margin-top: 10px;
+  }
 `;
 
 const StInfoSpan = styled.span`
   color: #bdbdbd;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    margin-left: 20px;
+  }
 `;
 
 export default Footer;

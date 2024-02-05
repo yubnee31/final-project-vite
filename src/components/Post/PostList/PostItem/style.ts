@@ -1,91 +1,266 @@
 import styled from 'styled-components';
 
+const PostLiAndToggleDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
 // PostList
 const PostLi = styled.li`
-  margin-bottom: 20px;
+  padding: 20px 0;
+  min-height: 170px;
+  max-height: 676px;
+  width: 952px;
   position: relative;
   border-bottom: 1px solid gray;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    min-height: 107px;
+    max-height: 435px;
+    padding: 10px 0;
+  }
+`;
+const PostHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const PostUserInfoDiv = styled.div`
+  display: flex;
+`;
+const PostUserImg = styled.img`
+  height: 36px;
+  border-radius: 40px;
+
+  @media screen and (max-width: 650px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 const PostNameP = styled.p`
-  position: absolute;
-  left: 1%;
-  top: 1%;
-`;
-const PostUploadImg = styled.img`
-  background-color: green;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  background-size: cover;
-  background-color: transparent;
-`;
-const PostContentsP = styled.p`
-  position: absolute;
-  left: 1%;
-  top: 25%;
+  height: 18px;
+  width: 300px;
+  font-size: 14px;
+  margin: 9px 0 9px 10px;
 
-  width: 750px;
-  height: 50px;
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+    width: 90px;
+    margin: 6px 0 6px 8px;
+  }
+`;
+const PostTimeDiv = styled.div`
+  display: flex;
 `;
 const PostTimeP = styled.p`
-  position: absolute;
-  right: ${props => props.$right};
-  top: 1%;
-  color: gray;
+  font-size: 13px;
+  color: #aeaeb2;
+  margin-left: 10px;
+  margin: 10px 0 10px 10px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 12px;
+    margin: 6px 0 6px 8px;
+  }
 `;
-const PostImg = styled.img`
-  width: 25px;
-  height: 25px;
-  object-fit: cover;
-  background-size: cover;
-  background-color: transparent;
-
-  position: absolute;
-  left: ${props => props.$left};
-  bottom: 8%;
-
+const PostClickOpenModal = styled.div`
   cursor: pointer;
+`;
+const PostContentsP = styled.p`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 952px;
+  height: 50px;
+
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 20px;
+  height: 39.5px;
+
+  @media screen and (max-width: 650px) {
+    font-size: 14px;
+    width: 320px;
+    height: 30px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`;
+
+// post Img
+const PostContentOneImg = styled.img`
+  width: 952px;
+  height: 476px;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+    height: 240px;
+  }
+`;
+const PostContentTwoImg = styled.img`
+  width: 476px;
+  height: 476px;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 240px;
+  }
+`;
+const PostContentFourImg = styled.img`
+  width: 476px;
+  height: 238px;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
+`;
+const PostContentThreeImgDiv = styled.div`
+  width: 952px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'a b'
+    'a c';
+
+  @media screen and (max-width: 650px) {
+    width: 320px;
+  }
+`;
+const PostContentThreeImgA = styled.img`
+  width: 476px;
+  height: 476px;
+  grid-area: a;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 240px;
+  }
+`;
+
+const PostContentThreeImgB = styled.img`
+  width: 476px;
+  height: 238px;
+  grid-area: b;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
+`;
+const PostContentThreeImgC = styled.img`
+  width: 476px;
+  height: 238px;
+  grid-area: c;
+  object-fit: cover;
+
+  @media screen and (max-width: 650px) {
+    width: 160px;
+    height: 120px;
+  }
+`;
+
+//이모지
+const PostLikeCommentMoreDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 10px;
+  }
+`;
+const PostLikeCommentDiv = styled.div`
+  background-color: transparent;
+  display: flex;
 `;
 const CommentImg = styled.img`
+  background-color: transparent;
   width: 27px;
   height: 27px;
-  object-fit: cover;
-  background-size: cover;
-  background-color: transparent;
-
-  position: absolute;
-  left: ${props => props.$left};
-  bottom: 8%;
+  margin-left: 40px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+  }
+`;
+const PostMoreImg = styled.img`
+  background-color: transparent;
+  width: 28px;
+
+  cursor: pointer;
+
+  @media screen and (max-width: 650px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 const PostBtnDiv = styled.div`
-  margin-top: 85px;
-  margin-left: 810px;
-  /* margin-right: 30px; */
-  position: absolute;
+  width: 200px;
+  height: 93px;
+  margin-left: 10px;
+
+  @media screen and (max-width: 650px) {
+    width: 142px;
+    height: 80px;
+  }
 `;
 const PostBtn = styled.button`
-  width: 120px;
-  height: 30px;
+  width: 200px;
+  height: 46px;
+  font-size: 14px;
   border: 1px solid white;
-  margin-right: 10px;
 
   cursor: pointer;
   &:hover {
     background-color: white;
     color: black;
   }
+
+  @media screen and (max-width: 650px) {
+    width: 142px;
+    height: 40px;
+  }
 `;
 
 export default {
+  PostLiAndToggleDiv,
   PostLi,
+  PostHeader,
+  PostUserInfoDiv,
+  PostUserImg,
   PostNameP,
-  PostUploadImg,
-  PostBtnDiv,
-  PostBtn,
-  PostContentsP,
   PostTimeP,
-  PostImg,
+  PostTimeDiv,
+
+  PostClickOpenModal,
+  PostContentsP,
+
+  PostContentOneImg,
+  PostContentTwoImg,
+  PostContentThreeImgDiv,
+  PostContentThreeImgA,
+  PostContentThreeImgB,
+  PostContentThreeImgC,
+  PostContentFourImg,
+
+  PostBtnDiv,
+  PostLikeCommentMoreDiv,
+  PostLikeCommentDiv,
+  PostBtn,
+  PostMoreImg,
   CommentImg,
 };

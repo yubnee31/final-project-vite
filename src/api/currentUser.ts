@@ -9,10 +9,8 @@ const getCurrentUser = async () => {
 };
 
 const getTargetUserInfo = async () => {
-  try {
-    const {data: idData} = await supabase.from('userinfo').select('id,username');
-    return idData;
-  } catch (error) {}
+  const {data: idData} = await supabase.from('userinfo').select('id, username');
+  return idData;
 };
 
 export {getCurrentUser, getTargetUserInfo};
