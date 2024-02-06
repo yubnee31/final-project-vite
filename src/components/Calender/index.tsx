@@ -10,6 +10,7 @@ import {
   StDayli,
   StMonthDiv,
   StScheduleArtistP,
+  StScheduleContentP,
   StScheduleDiv,
   StWrapper,
 } from './style';
@@ -119,7 +120,7 @@ const Calender = () => {
                   return (
                     <StScheduleDiv>
                       <StScheduleArtistP>{ele.artist}</StScheduleArtistP>
-                      <p>{textLengthHandler(ele.title)}</p>
+                      <StScheduleContentP>{textLengthHandler(ele.title)}</StScheduleContentP>
                     </StScheduleDiv>
                   );
                 })}

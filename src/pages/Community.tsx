@@ -16,6 +16,7 @@ const Community = () => {
   );
 };
 const StWrapper = styled.div`
+  width: 99vw;
   margin-top: 80px;
   display: flex;
   justify-content: center;

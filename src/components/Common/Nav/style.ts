@@ -6,14 +6,25 @@ export const StNav = styled.nav`
   left: 0;
   right: 0;
   height: 80px;
+  width: 100vw;
+  padding: 0 240px;
+
+  display: flex;
+  justify-content: space-between;
+
   background-color: #00000080;
   z-index: 100;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @media screen and (max-width: 1267px) {
+    padding-left: 150px;
+  }
+
   @media screen and (max-width: 768px) {
     height: 64px;
+    padding-left: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -30,7 +41,6 @@ export const StNavDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  padding: 0px 240px 0px 240px;
   @media screen and (max-width: 768px) {
     padding: 0px 20px 0px 20px;
   }
@@ -47,6 +57,10 @@ export const StLogoSpan = styled.span`
   font-weight: bold;
   background-color: transparent;
 
+  @media screen and (max-width: 1267px) {
+    /* margin-right: 380px; */
+  }
+
   cursor: pointer;
   @media screen and (max-width: 768px) {
     font-size: 22px;
@@ -59,7 +73,6 @@ export const StForm = styled.form`
   height: 43px;
   background-color: #2d2d2d;
   border-radius: 50px;
-  margin-right: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,28 +91,20 @@ export const StInput = styled.input`
   border: none;
   font-size: 15px;
   margin-left: 20px;
+  transition: 0.5s;
   @media screen and (max-width: 768px) {
     width: 70px;
     font-size: 12px;
   }
 `;
-
-export const StSearchButton = styled.button`
-  width: 25px;
-  height: 25px;
+export const StSearchOpenToggleImg = styled.img`
   background-color: transparent;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 15px;
-  :hover {
-    opacity: 0.5;
-    transition: 0.5s;
-  }
+  width: 30px;
+  margin-right: 73px;
+  margin-left: 5px;
+
   @media screen and (max-width: 768px) {
-    width: 20px;
-    height: 20px;
+    margin-right: 10px;
   }
 `;
 
@@ -112,16 +117,13 @@ export const StBtnDiv = styled.div`
 `;
 
 export const StButton = styled.button`
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   border: 0;
   padding: 0;
   background-color: transparent;
   cursor: pointer;
-  margin-right: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-right: 60px;
   :hover {
     opacity: 0.5;
     transition: 0.5s;
@@ -144,6 +146,20 @@ export const StAlarmDiv = styled.div`
 
   border-radius: 10px 10px 0px 0px;
   border-bottom: 1px solid #2c2c2c;
+`;
+export const StAlarmImg = styled.img`
+  background-color: transparent;
+  width: 38px;
+  margin-right: 73px;
+  margin-bottom: 4.5px;
+
+  @media screen and (max-width: 768px) {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    padding-bottom: 10px;
+    margin-right: 10px;
+  }
 `;
 export const StAlarmP = styled.p`
   margin-left: 25px;
@@ -172,6 +188,8 @@ export const StAlarmCounterP = styled.p`
   position: absolute;
   top: 0;
   right: 0;
+
+  z-index: 1000;
 `;
 export const StAlarmListDiv = styled.div`
   position: absolute;
@@ -285,10 +303,6 @@ export const StSignInBtn = styled.button`
   width: 110px;
   height: 36px;
   border-radius: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
   @media screen and (max-width: 768px) {
     width: 70px;
@@ -306,8 +320,7 @@ export const StBtnP = styled.p`
 `;
 
 export const StImg = styled.img`
-  width: inherit;
-  height: inherit;
+  width: 35px;
   background-color: transparent;
   &:hover {
     cursor: pointer;

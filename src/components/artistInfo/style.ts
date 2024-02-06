@@ -7,7 +7,12 @@ const BannerDiv = styled.div`
 
   border-radius: 15px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+    height: 300px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 200px;
   }
@@ -29,7 +34,12 @@ const InfoDiv = styled.div`
 
   margin-top: 40px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+    height: 100px;
+  }
+
+  @media screen and (max-width: 700px) {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -40,7 +50,11 @@ const InfoDiv = styled.div`
 const InfoNameFollowDiv = styled.div`
   display: flex;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 400px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 96px;
     margin-top: 20px;
@@ -62,7 +76,7 @@ const InfoNameDiv = styled.div`
 const InfoNameP = styled.p`
   font-size: 18px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 14px;
   }
 `;
@@ -97,7 +111,7 @@ const InfoFollowingDiv = styled.div`
 const InfoFollowP = styled.p`
   font-size: 18px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 14px;
   }
 `;
@@ -106,7 +120,7 @@ const FollowP = styled.p`
   font-size: 13px;
   color: gray;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 12px;
   }
 `;
@@ -127,7 +141,11 @@ const InfoArtistDiv = styled.div<{url: string}>`
 
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    height: 100px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 100px;
 
@@ -138,7 +156,7 @@ const InfoArtistP = styled.p`
   background-color: transparent;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     font-size: 12px;
   }
 `;
