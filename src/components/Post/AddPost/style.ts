@@ -8,7 +8,12 @@ const AddPostDiv = styled.div`
 
   margin-top: 40px;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+    height: 57px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 320px;
     height: 40px;
   }
@@ -20,7 +25,13 @@ const AddPostUerImg = styled.img`
   object-fit: cover;
   background-size: cover;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    width: 40px;
+    height: 40px;
+    margin-left: 1px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 32px;
     height: 32px;
     margin-left: 1px;
@@ -37,7 +48,11 @@ const AddPostMovdBox = styled.div`
   font-size: 16px;
   cursor: pointer;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1000px) {
+    padding-top: 13px;
+  }
+
+  @media screen and (max-width: 700px) {
     width: 268px;
     height: 32px;
     font-size: 12px;

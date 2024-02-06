@@ -250,7 +250,7 @@ const StNameSpan = styled.span`
 // Profile
 const StProfileDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 250px);
+  grid-template-columns: repeat(6, 170px);
   grid-auto-rows: 266px;
   /* justify-content: center;
   align-items: center; */
@@ -270,7 +270,7 @@ const StProfileDiv = styled.div`
   }
 `;
 const StPfWrapper = styled.div`
-  width: 220px;
+  width: 170px;
   height: 266px;
   @media screen and (max-width: 768px) {
     width: 152px;
@@ -278,10 +278,11 @@ const StPfWrapper = styled.div`
   }
 `;
 const StPfMemberDiv = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 170px;
+  height: 170px;
   margin-bottom: 10px;
   position: relative;
+
   @media screen and (max-width: 768px) {
     width: 152px;
     height: 152px;
@@ -313,8 +314,8 @@ const StPfDetailP = styled.p`
   }
 `;
 const StPfDetailDiv = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 238px;
+  height: 238px;
   position: absolute;
   top: 0;
   left: 0;
@@ -419,7 +420,7 @@ const StAbdateP = styled.p`
 
 // Music Video
 const StVideoDiv = styled.div`
-  width: 100%;
+  width: 1440px;
   height: 640px;
   display: flex;
   justify-content: center;

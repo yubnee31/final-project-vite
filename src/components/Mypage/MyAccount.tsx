@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState, useEffect} from 'react';
 import {supabase} from '../../api/supabase';
 import styled from 'styled-components';
 import nomalimage from '../../assets/images/normalimage.jpg';
+import editProfileImg from '../../assets/images/compose.png';
 import {toast} from 'react-toastify';
 
 interface AccountSettingProps {
@@ -177,41 +178,46 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   return (
     <>
       <StSettingDiv>
-        <StMyAccountName>
-          <p>나의 정보 {'>'} 계정 설정 </p>
-        </StMyAccountName>
-        <h1>{displayNickname || editNickname} 님, 안녕하세요!</h1>
+        <StMyAccountName>나의 정보 {'>'} 프로필 편집</StMyAccountName>
         <StMyAccount>
           <StProfileImage src={profileImage} alt="아바타 이미지" />
+          <StProfileSettingContainer>
+            <StEditProfileLabel htmlFor="profileImg">
+              <StEditProfileImg src={editProfileImg} />
+              <input
+                id="profileImg"
+                name="profileImg"
+                type="file"
+                accept="image/*"
+                style={{display: 'none'}}
+                onChange={handleImageChange}
+                hidden
+              />
+            </StEditProfileLabel>
+          </StProfileSettingContainer>
         </StMyAccount>
-        <StProfileSettingContainer>
-          <input id="profileImg" type="file" accept="image/*" style={{display: 'none'}} onChange={handleImageChange} />
-          {/* 요 라벨 프로필이미지위에 아이콘처리,,! */}
-          <label htmlFor="profileImg">프로필사진 수정</label>
-        </StProfileSettingContainer>
-        <StNickName></StNickName>
         {user.provider !== 'google' && (
           <StUpdateContainer>
-            <p>닉네임</p>
-            <StNicknameInput
-              type="text"
-              defaultValue={displayNickname}
-              placeholder="변경할 닉네임 입력"
-              onChange={handleNicknameChange}
-            />
-            {/* 요 피태그 회원가입 오류메시지 뜨는것처럼 작게 빨간색,,! */}
+            <StUpdateTitle>닉네임</StUpdateTitle>
+            <StUpdateNicknameDiv>
+              <StNicknameInput
+                type="text"
+                defaultValue={displayNickname}
+                placeholder="변경할 닉네임 입력"
+                onChange={handleNicknameChange}
+              />
+              <StcheckButton onClick={handleValidateNickname}>중복확인</StcheckButton>
+            </StUpdateNicknameDiv>
             <StErrorP>{nicknameError}</StErrorP>
-
-            <StcheckButton onClick={handleValidateNickname}>중복확인</StcheckButton>
-            <div>
-              <button
+            <StProfileSaveBtnDiv>
+              <StProfileSaveBtn
                 disabled={isValid ? false : true}
                 onClick={handleCompleteSettings}
-                style={{background: isValid ? 'linear-gradient(45deg, #cc51d6, #5a68e8)' : '#aeaeb2'}}
+                style={{background: isValid ? 'linear-gradient(45deg, #c477b2, #7d37df)' : '#636366'}}
               >
                 저장
-              </button>
-            </div>
+              </StProfileSaveBtn>
+            </StProfileSaveBtnDiv>
           </StUpdateContainer>
         )}
       </StSettingDiv>
@@ -219,86 +225,118 @@ const MyAccount = ({user, onUpdateNickname, onCompleteSettings}: AccountSettingP
   );
 };
 
-const StSettingDiv = styled.div``;
+const StSettingDiv = styled.div`
+  background-color: #121212;
+
+  @media screen and (max-width: 1267px) {
+    width: 590px;
+  }
+`;
 
 const StMyAccountName = styled.div`
-  margin-bottom: 20px;
-`;
-
-const StNickName = styled.div`
-  margin-right: 65%;
-
-  h1 {
-    margin-top: 20px;
-  }
-  h2 {
-    margin-top: 40px;
-  }
+  background-color: #121212;
+  font-size: 20px;
+  margin-bottom: 76px;
 `;
 const StMyAccount = styled.div`
-  width: 1000px;
-  display: flex; /* 가로 정렬을 위한 flex 설정 추가 */
-  align-items: center; /* 수직 가운데 정렬을 위한 설정 (선택적으로 사용) */
-  justify-content: space-between; /* 자식 요소들을 가로로 정렬 */
-  h1 {
-    font-size: 25px;
-  }
-  h2 {
-    font-size: 15px;
-  }
+  background-color: #121212;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StProfileImage = styled.img`
+  background-color: #121212;
   width: 100px;
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
-  margin-top: 50px;
+  position: relative;
 `;
 const StUpdateContainer = styled.div`
-  margin-top: 15px;
-
-  button {
-    border: 1px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 25px;
-  }
-  p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  h1 {
-    font-size: 13px;
-    margin-top: 20px;
-  }
-  h2 {
-    margin-top: 25px;
-    margin-bottom: 10px;
-  }
+  background-color: #121212;
+  margin-top: 60px;
 `;
 
+const StUpdateTitle = styled.p`
+  background-color: #121212;
+  color: #aeaeb2;
+  font-size: 16px;
+  margin-bottom: 10px;
+`;
+const StUpdateNicknameDiv = styled.div`
+  background-color: #121212;
+  display: flex;
+  justify-content: space-between;
+`;
 const StErrorP = styled.p`
-  font-size: x-small;
+  background-color: #121212;
+  margin-top: 10px;
+  font-size: 14px;
   color: red;
 `;
-
 const StcheckButton = styled.button`
-  margin-bottom: 50px;
-`;
-
-const StNicknameInput = styled.input`
+  background-color: #121212;
+  color: #aeaeb2;
   border: none;
-  border-bottom: 1px solid #636366;
-`;
-const StProfileSettingContainer = styled.div`
-  margin-bottom: 30px;
-  margin-top: 30px;
-  label {
-    font-size: small;
-    text-decoration: underline;
+
+  &:hover {
+    color: #9747ff;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 1267px) {
+    width: 40px;
+    margin-right: 30px;
+  }
+`;
+const StProfileSaveBtnDiv = styled.div`
+  background-color: #121212;
+  display: flex;
+  flex-direction: row-reverse;
+`;
+const StProfileSaveBtn = styled.button`
+  margin-top: 250px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+`;
+const StNicknameInput = styled.input`
+  background-color: #121212;
+  font-size: 14px;
+  font-weight: bold;
+  width: 870px;
+  height: 34px;
+  border: none;
+  border-bottom: 1px solid #636366;
+
+  @media screen and (max-width: 1267px) {
+    width: 530px;
+  }
+`;
+const StProfileSettingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 41%;
+`;
+const StEditProfileLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9747ff;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+`;
+const StEditProfileImg = styled.img`
+  width: 17px;
+  border-radius: 50%;
+  background-color: #9747ff;
 `;
 
 export default MyAccount;
