@@ -295,23 +295,43 @@ const StListWrapper = styled.div`
 const StListDiv = styled.div`
   margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 18.5%);
-  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 18%));
   gap: 20px;
   grid-row-gap: 35px;
+  justify-content: center;
+  & > * {
+    transition: transform 1s ease;
+  }
   @media screen and (max-width: 1279px) {
     margin-top: 35px;
-    grid-template-columns: repeat(auto-fill, 20%);
-    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 190px));
     gap: 18px;
+    grid-template-rows: repeat(4, auto);
+
+    & > * {
+      transition: transform 0.5s ease;
+    }
   }
+
+  @media screen and (max-width: 1024px) {
+    grid-template-rows: repeat(4, auto);
+  }
+
   @media screen and (max-width: 768px) {
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fill, 152px);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 152px));
     grid-auto-rows: 172px;
+    grid-template-rows: repeat(3, auto);
+
+    & > * {
+      transition: transform 1s ease;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-rows: repeat(2, auto);
   }
 `;
-
 const StListTargetDiv = styled.div`
   width: 100%;
   height: 100%;

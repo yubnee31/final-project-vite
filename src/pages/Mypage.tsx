@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
 import Calender from '../components/Calender';
+import Inquiry from '../components/inquiry';
 
 const Mypage = () => {
   const [user, setUser] = useState({});
@@ -115,7 +116,7 @@ const Mypage = () => {
         <Staccount>
           {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
           {selectedMenu === '스케줄' && <Calender />}
-          {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
+          {selectedMenu === '1:1문의 하기' && <Inquiry username={username} />}
           {selectedMenu === '로그아웃'}
         </Staccount>
       </StWrapper>
@@ -145,7 +146,7 @@ const Staccount = styled.div`
   height: 700px;
 
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 `;
 const StMenuBtn = styled.button`
