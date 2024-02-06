@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {loginState} from '../shared/recoil/authAtom';
 import Calender from '../components/Calender';
+import Inquiry from '../components/inquiry';
 
 const Mypage = () => {
   const [user, setUser] = useState({});

@@ -66,6 +66,7 @@ const Artist = () => {
 
   return (
     <>
+      <meta name="google-site-verification" content="7Mb9db4L5eHnUORCsjuV5zKMR7mjYaY_-8-iVpbvI9A" />
       <MetaTag
         title={detailTargetData.artist}
         description={`해당 아티스트는  ${detailTargetData.artist} 입니다.`}
@@ -179,16 +180,14 @@ const Artist = () => {
 
 // Wrapper
 const StWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-
+  width: 100%;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
   @media screen and (max-width: 768px) {
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    justify-content: center;
+    align-items: center;
+    /* padding-left: 20px; */
   }
 `;
 const StContentsWrapper = styled.div`
@@ -199,6 +198,8 @@ const StContentsWrapper = styled.div`
   flex-direction: column;
   @media screen and (max-width: 768px) {
     width: 100%;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -217,7 +218,7 @@ const StTitle = styled.p`
 // Banner
 const StBannerImgDiv = styled.div<{url: string}>`
   width: 100vw;
-  height: 770px;
+  height: 700px;
 
   display: flex;
   align-items: center;
@@ -251,14 +252,21 @@ const StProfileDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 170px);
   grid-auto-rows: 266px;
-
-  grid-gap: 24px;
+  /* justify-content: center;
+  align-items: center; */
+  row-gap: 30px;
+  @media screen and (max-width: 1279px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 49%));
+    grid-template-rows: repeat(2, auto);
+  }
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 200px);
     grid-auto-rows: 210px;
     row-gap: 0px;
+    justify-content: center;
+    align-items: center;
   }
 `;
 const StPfWrapper = styled.div`
@@ -333,16 +341,20 @@ const StPfDetailDiv = styled.div`
 
 // Album
 const StAlbumsDiv = styled.div`
-  /* width: 100%; */
-  /* height: 300px; */
-
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 220px);
-  grid-auto-rows: 286px;
-  grid-gap: 24px;
+  grid-template-columns: repeat(5, 250px);
+  grid-auto-rows: 266px;
+  grid-gap: 20px;
+  /* justify-content: center; */
+
+  @media screen and (max-width: 1279px) {
+    grid-template-rows: repeat(5, auto);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 45%));
+  }
+
   @media screen and (max-width: 768px) {
-    width: 320px;
-    grid-template-columns: repeat(5, 168px);
+    grid-template-columns: repeat(5, minmax(184px, 45%));
     overflow: auto;
     overflow-x: auto;
     grid-auto-rows: 210px;
@@ -355,14 +367,19 @@ const StAlbumsDiv = styled.div`
       background-color: #84898c3a;
       border-radius: 30px;
     }
+    width: 100%; /* Change to 100% */
+    margin: 0 auto; /* Add this line for centering */
   }
 `;
 const StAbWrapper = styled.div`
   width: 220px;
   height: 286px;
+
   @media screen and (max-width: 768px) {
     width: 152px;
     height: 210px;
+    justify-content: center;
+    align-items: center;
   }
 `;
 const StAbImgDiv = styled.div`
@@ -405,8 +422,11 @@ const StAbdateP = styled.p`
 const StVideoDiv = styled.div`
   width: 1440px;
   height: 640px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 768px) {
-    width: 320px;
+    width: auto;
     height: 240px;
   }
 `;
@@ -417,23 +437,37 @@ const StPhotoDiv = styled.div`
   height: 640px;
 
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  /* grid-template-rows: 220px; */
+  grid-template-columns: repeat(6, 15%);
   grid-auto-rows: 220px;
   gap: 20px;
 
   overflow: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+
   &::-webkit-scrollbar {
     background-color: #232323;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: #84898c3a;
     border-radius: 30px;
   }
+  @media screen and (max-width: 1827px) {
+    width: auto;
+    grid-template-columns: repeat(5, 20%);
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+
+  @media screen and (max-width: 1279px) {
+    width: auto;
+    grid-template-columns: repeat(3, 40%);
+    overflow-y: auto;
+  }
+
   @media screen and (max-width: 768px) {
-    width: 320px;
+    width: auto;
     height: 350px;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -442,14 +476,19 @@ const StPhotoDiv = styled.div`
   }
 `;
 const StPhotoImgDiv = styled.div`
-  width: 230px;
-  height: 230px;
+  width: 220px;
+  height: 220px;
   cursor: pointer;
 
   :hover {
     transform: scale(1.1);
     transition: all 1s;
   }
+  @media screen and (max-width: 1279px) {
+    width: 202px;
+    height: 202px;
+  }
+
   @media screen and (max-width: 768px) {
     width: 152px;
     height: 152px;
@@ -457,9 +496,8 @@ const StPhotoImgDiv = styled.div`
 `;
 const StPhotoImg = styled.img`
   border-radius: 15px;
-
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   object-fit: cover;
 `;

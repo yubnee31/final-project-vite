@@ -5,22 +5,6 @@ export const GlobalStyle = createGlobalStyle`
 v2.0 | 20110126
 License: none (public domain)
 */
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url("/src/assets/fonts/subset-Pretendard-Regular.woff2") format('woff2'),
-    url("/src/assets/fonts/subset-Pretendard-Regular.woff") format('woff'),
-    url("/src/assets/fonts/subset-Pretendard-Regular.ttf") format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-
-* {
-   background-color: black;
-   color: white;
-   box-sizing: border-box;
-   font-family: 'Pretendard-Regular';
-
-}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -75,4 +59,5 @@ div.swal2-icon { margin: 0 auto; } .swal2-popup { padding: 1.25em 0 1.25em }
 a {
  text-decoration: none;
 }
+
 `;
