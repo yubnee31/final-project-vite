@@ -122,11 +122,9 @@ const Nav = () => {
             </StLogoSpan>
           </StLogoDiv>
           <StBtnDiv>
-            {openToggle && (
-              <StForm onSubmit={handleSearchBtn}>
-                <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)} />
-              </StForm>
-            )}
+            <StForm onSubmit={handleSearchBtn}>
+              <StInput placeholder="검색어입력" value={searchInput} onChange={e => handleSearchInput(e)} />
+            </StForm>
             <StSearchOpenToggleImg src={searchIcon} alt="검색어 아이콘" onClick={handleToggle} />
             <StButton>
               <StAlarmImg

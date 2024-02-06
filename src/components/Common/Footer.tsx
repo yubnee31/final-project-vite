@@ -19,7 +19,7 @@ const Footer = () => {
           <StInfoP>상호 AIDOL COMPANY Inc.</StInfoP>
         </StInfoDiv>
         <StInfoDiv>
-          <StInfoP>팀이름 3조의봄</StInfoP>
+          <StInfoP>대표자 천민정</StInfoP>
         </StInfoDiv>
         <StInfoDiv>
           <StInfoP>전화번호 02{')'}0000-0000</StInfoP>
@@ -28,10 +28,10 @@ const Footer = () => {
           <StInfoP>FAX +{')'}82-0-0000-0000</StInfoP>
         </StInfoDiv>
         <StInfoDiv>
-          <StInfoP>주소 서울특별시 강남구 테헤란로44길 8</StInfoP>
+          <StInfoP>주소 서울특별시 강남구</StInfoP>
         </StInfoDiv>
         <StInfoDiv>
-          <StInfoP>개인정보관리책임자 3조의봄 팀 전원</StInfoP>
+          <StInfoP>개인정보관리책임자 천민정, 권영준, 윤유빈</StInfoP>
         </StInfoDiv>
         <StInfoDiv>
           <StInfoP>사업자등록번호 000-00-00000</StInfoP>
@@ -45,13 +45,20 @@ const Footer = () => {
 
 const StWrapper = styled.div`
   width: 100vw;
-  height: 258px;
-  padding: 0 240px;
+  height: 250px;
+  padding: 0 14%;
   background-color: black;
   color: #aeaeb2;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 1267px) {
+    width: 1070px;
+    padding: 0 90px;
+  }
 
   @media screen and (max-width: 700px) {
-    width: 700px;
+    width: 515px;
   }
 `;
 // Policy
@@ -66,8 +73,13 @@ const StUl = styled.ul`
   border-top: 2px solid gray;
   border-bottom: 1px solid #aeaeb2;
   display: flex;
-  @media screen and (max-width: 768px) {
-    display: block;
+
+  @media screen and (max-width: 700px) {
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 `;
 const StLi = styled.li`
@@ -77,7 +89,12 @@ const StLi = styled.li`
 
   cursor: pointer;
   color: #aeaeb2;
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: 1267px) {
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 700px) {
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -93,7 +110,8 @@ const StInfoWrap = styled.div`
 
   display: flex;
   flex-wrap: wrap;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 700px) {
+    width: 400px;
     margin-top: 10px;
   }
 `;
@@ -105,12 +123,16 @@ const StInfoDiv = styled.div`
 const StInfoP = styled.p`
   font-size: 13px;
   color: #aeaeb2;
+
+  @media screen and (max-width: 700px) {
+    font-size: 10px;
+  }
 `;
 
 const StCompanyNameP = styled.p`
   color: #aeaeb2;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 700px) {
     font-size: 12px;
     margin-left: 20px;
   }

@@ -34,6 +34,7 @@ const PostUserInfoDiv = styled.div`
 `;
 const PostUserImg = styled.img`
   height: 36px;
+  width: 36px;
   border-radius: 40px;
 
   @media screen and (max-width: 700px) {

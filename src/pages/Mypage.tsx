@@ -190,7 +190,7 @@ const StLogoutMenuBtn = styled.button`
 `;
 const Staccount = styled.div`
   background-color: #121212;
-  width: 945px;
+  width: 915px;
 
   display: flex;
   justify-content: center;

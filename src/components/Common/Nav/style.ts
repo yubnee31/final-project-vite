@@ -14,13 +14,22 @@ export const StNav = styled.nav`
 
   background-color: #00000080;
   z-index: 100;
+
+  @media screen and (max-width: 1267px) {
+    padding-left: 150px;
+  }
+
   @media screen and (max-width: 768px) {
     height: 64px;
+    padding-left: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
 export const StNavWrapper = styled.div`
-  width: 99%;
+  width: 100%;
   height: inherit;
   background-color: transparent;
 `;
@@ -47,6 +56,10 @@ export const StLogoSpan = styled.span`
   font-size: 30px;
   font-weight: bold;
   background-color: transparent;
+
+  @media screen and (max-width: 1267px) {
+    /* margin-right: 380px; */
+  }
 
   cursor: pointer;
   @media screen and (max-width: 768px) {
@@ -89,6 +102,10 @@ export const StSearchOpenToggleImg = styled.img`
   width: 30px;
   margin-right: 73px;
   margin-left: 5px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 10px;
+  }
 `;
 
 // Button
@@ -134,7 +151,15 @@ export const StAlarmImg = styled.img`
   background-color: transparent;
   width: 38px;
   margin-right: 73px;
-  margin-bottom: 3.5px;
+  margin-bottom: 4.5px;
+
+  @media screen and (max-width: 768px) {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    padding-bottom: 10px;
+    margin-right: 10px;
+  }
 `;
 export const StAlarmP = styled.p`
   margin-left: 25px;

@@ -56,7 +56,7 @@ export const StDayColumnLi = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 125px;
+  width: 130px;
   height: 30px;
   outline: 1px solid gray;
   color: #b2b2b2;
@@ -69,7 +69,7 @@ export const StDayUl = styled.ul`
   height: inherit;
 
   display: grid;
-  grid-template-columns: repeat(7, 125px);
+  grid-template-columns: repeat(7, 130px);
   grid-template-rows: repeat(5, 140px);
   grid-auto-columns: 125px;
   grid-auto-rows: 140px;
