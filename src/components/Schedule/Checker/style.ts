@@ -1,8 +1,18 @@
 import styled from 'styled-components';
 
 const ScheduleWrapper = styled.div`
+  overflow: auto;
+  margin-bottom: 20px;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    background-color: #232323;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #84898c3a;
+    border-radius: 30px;
+  }
   @media screen and (max-width: 768px) {
-    width: 320px;
+    width: auto;
     overflow: auto;
     margin-bottom: 20px;
     scroll-behavior: smooth;
@@ -17,7 +27,7 @@ const ScheduleWrapper = styled.div`
 `;
 
 const ScheduleDiv = styled.div`
-  width: 1200px;
+  width: 1420px;
   /* height: 300px; */
   margin-bottom: 100px;
   @media screen and (max-width: 768px) {
