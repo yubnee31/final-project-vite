@@ -87,89 +87,118 @@ const Mypage = () => {
 
   return (
     <StMypageContainer>
-      <StWrapper>
-        <StFormWrapper>
-          <StMenuDiv>
-            <StMenuBtn
-              className={selectedMenu === '계정 정보' ? 'target' : ''}
-              onClick={() => handleMenuClick('계정 정보')}
-            >
-              나의 정보
-            </StMenuBtn>
-            <StMenuBtn className={selectedMenu === '스케줄' ? 'target' : ''} onClick={() => handleMenuClick('스케줄')}>
-              나의 스케줄
-            </StMenuBtn>
-            <StMenuBtn
-              className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
-              onClick={() => handleMenuClick('1:1문의 하기')}
-            >
-              1:1문의 하기
-            </StMenuBtn>
-            <StMenuBtn
-              className={selectedMenu === '로그아웃' ? 'target' : ''}
-              onClick={() => handleMenuClick('로그아웃')}
-            >
-              로그아웃 하기
-            </StMenuBtn>
-          </StMenuDiv>
-        </StFormWrapper>
-        <Staccount>
-          {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
-          {selectedMenu === '스케줄' && <Calender />}
-          {selectedMenu === '1:1문의 하기' && <Inquiry username={username} />}
-          {selectedMenu === '로그아웃'}
-        </Staccount>
-      </StWrapper>
+      <StMenuDiv>
+        <StMenuBtn
+          className={selectedMenu === '계정 정보' ? 'target' : ''}
+          onClick={() => handleMenuClick('계정 정보')}
+        >
+          나의 정보
+        </StMenuBtn>
+        <StMenuBtn className={selectedMenu === '스케줄' ? 'target' : ''} onClick={() => handleMenuClick('스케줄')}>
+          나의 스케줄
+        </StMenuBtn>
+        <StMenuBtn
+          className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
+          onClick={() => handleMenuClick('1:1문의 하기')}
+        >
+          1:1문의 하기
+        </StMenuBtn>
+        <StLogoutMenuBtn
+          className={selectedMenu === '로그아웃' ? 'target' : ''}
+          onClick={() => handleMenuClick('로그아웃')}
+        >
+          로그아웃 하기
+        </StLogoutMenuBtn>
+      </StMenuDiv>
+      <Staccount>
+        {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
+        {selectedMenu === '스케줄' && <Calender />}
+        {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
+        {selectedMenu === '로그아웃'}
+      </Staccount>
     </StMypageContainer>
   );
 };
 
 const StMypageContainer = styled.div`
+  background-color: #121212;
   display: flex;
   justify-content: center;
+  padding-top: 140px;
   width: 100vw;
-  height: 900px;
-  margin-top: 150px;
-`;
-const StWrapper = styled.div`
-  width: 1200px;
-  height: inherit;
-  display: flex;
-  justify-content: center;
-`;
-const StFormWrapper = styled.div`
-  width: 200px;
-  height: 700px;
-`;
-const Staccount = styled.div`
-  width: 1000px;
-  height: 700px;
+  height: 1000px;
 
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-`;
-const StMenuBtn = styled.button`
-  font-size: 17px;
-  color: gray;
-  cursor: pointer;
-  border: none;
-  margin-bottom: 45px;
-  &:hover {
-    text-decoration: underline;
-  }
-  &.target {
-    color: white;
-    transition: 0.3s;
+  @media screen and (max-width: 1267px) {
+    display: flex;
+    justify-content: center;
   }
 `;
 const StMenuDiv = styled.div`
-  height: inherit;
+  background-color: #121212;
+  width: 170px;
+  margin-right: 100px;
+  margin-bottom: 70px;
   display: flex;
-  align-items: start;
-  justify-content: start;
   flex-direction: column;
-  text-align: start;
+  border-right: 1px solid #636366;
+
+  @media screen and (max-width: 1267px) {
+    width: 120px;
+  }
+`;
+const StMenuBtn = styled.button`
+  background-color: #121212;
+  width: 125px;
+  line-height: 24px;
+  font-size: 16px;
+  color: #aeaeb2;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 60px;
+  text-align: left;
+  &:hover {
+    color: white;
+    transition: 0.3s;
+  }
+
+  @media screen and (max-width: 1267px) {
+    font-size: 14px;
+    width: 100px;
+  }
+`;
+const StLogoutMenuBtn = styled.button`
+  background-color: #121212;
+  width: 100px;
+  line-height: 24px;
+  font-size: 16px;
+  text-align: left;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #aeaeb2;
+  color: #aeaeb2;
+  cursor: pointer;
+  margin-bottom: 45px;
+  &:hover {
+    color: white;
+    transition: 0.3s;
+  }
+
+  @media screen and (max-width: 1267px) {
+    font-size: 14px;
+    width: 90px;
+  }
+`;
+const Staccount = styled.div`
+  background-color: #121212;
+  width: 915px;
+
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 1267px) {
+    width: 600px;
+  }
 `;
 
 export default Mypage;

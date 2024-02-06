@@ -73,6 +73,7 @@ const Join = () => {
         setIsCheckedNickname(false);
       } else if (newNickname.length < 2) {
         setNicknameError('닉네임은 2자 이상이어야 합니다.');
+        setIsCheckedNickname(false);
       } else if (newNickname) {
         setIsCheckedNickname(false);
         setNicknameError('');
@@ -170,6 +171,7 @@ const Join = () => {
               onChange={handleNicknameInput}
               required
               minLength={2}
+              maxLength={8}
             ></StInput>
             <StInputButton className={isCheckedNickname ? 'success' : 'failed'} onClick={handleValidateNickname}>
               중복확인
