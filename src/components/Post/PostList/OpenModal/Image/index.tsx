@@ -1,10 +1,10 @@
-import React from 'react';
+import react from 'react';
 import St from './style';
 import Slider from 'react-slick';
 import './slick-theme.css';
 import './slick.css';
 
-const OpenImage = ({modalData}: any) => {
+const ModalImage = ({modalData}: any) => {
   // option
   const settings = {
     dots: true,
@@ -20,19 +20,19 @@ const OpenImage = ({modalData}: any) => {
         <Slider {...settings}>
           {modalData.photo_url &&
             modalData.photo_url.map((url, index) => {
-              return <St.OpenContentSliderModalImg key={index} src={url} />;
+              return <St.SliderImg key={index} src={url} />;
             })}
         </Slider>
       ) : (
-        <St.OpenContentModalContainer>
+        <St.OneImageDiv>
           {modalData.photo_url &&
             modalData.photo_url.map((url, index) => {
-              return <St.OpenContentModalImg key={index} src={url} />;
+              return <St.OneImage key={index} src={url} />;
             })}
-        </St.OpenContentModalContainer>
+        </St.OneImageDiv>
       )}
     </>
   );
 };
 
-export default OpenImage;
+export default ModalImage;

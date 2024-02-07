@@ -1,5 +1,5 @@
 import {useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
-import React, {useState, useEffect} from 'react';
+import {useState} from 'react';
 import St from './style';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {deletePost} from '../../../../api/post';
@@ -9,8 +9,8 @@ import commentImg from '../../../../assets/images/chat.svg';
 import seeMoreImg from '../../../../assets/images/meatballs-v.svg';
 import profileImg from '../../../../assets/images/profile-white.png';
 import PortalModal from '../../../Common/portalModal';
-import OpenPostModal from '../OpenModal';
 import EditPostModal from '../EditModal';
+import PostOpenModal from '../OpenModal';
 
 const PostItem = ({id, userid, content, photo_url, created_at}: any) => {
   const queryClient = useQueryClient();
@@ -112,35 +112,43 @@ const PostItem = ({id, userid, content, photo_url, created_at}: any) => {
       {openToggle && (
         <>
           {userid === currentUser?.id ? (
-            <St.PostBtnDiv>
-              <St.PostBtn
-                onClick={() => {
-                  deleteMutation.mutate(id);
-                  setOpenToggle(false);
-                }}
-              >
-                삭제하기
-              </St.PostBtn>
-              <St.PostBtn
-                onClick={() => {
-                  handleEditModal(id, content, photo_url);
-                  setOpenToggle(false);
-                }}
-              >
-                수정하기
-              </St.PostBtn>
-            </St.PostBtnDiv>
+            <St.PostBtnsWrap>
+              <St.PostBtnsBox>
+                <St.PostBtnDiv>
+                  <St.PostBtn
+                    onClick={() => {
+                      deleteMutation.mutate(id);
+                      setOpenToggle(false);
+                    }}
+                  >
+                    삭제하기
+                  </St.PostBtn>
+                  <St.PostBtn
+                    onClick={() => {
+                      handleEditModal(id, content, photo_url);
+                      setOpenToggle(false);
+                    }}
+                  >
+                    수정하기
+                  </St.PostBtn>
+                </St.PostBtnDiv>
+              </St.PostBtnsBox>
+            </St.PostBtnsWrap>
           ) : (
-            <St.PostBtnDiv>
-              <St.PostBtn>차단하기</St.PostBtn>
-              <St.PostBtn>신고하기</St.PostBtn>
-            </St.PostBtnDiv>
+            <St.PostBtnsWrap>
+              <St.PostBtnsBox>
+                <St.PostBtnDiv>
+                  <St.PostBtn>차단하기</St.PostBtn>
+                  <St.PostBtn>신고하기</St.PostBtn>
+                </St.PostBtnDiv>
+              </St.PostBtnsBox>
+            </St.PostBtnsWrap>
           )}
         </>
       )}
       <PortalModal>
         {openCommentModal && (
-          <OpenPostModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
+          <PostOpenModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
         )}
       </PortalModal>
       <PortalModal>
