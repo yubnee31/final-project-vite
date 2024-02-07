@@ -34,6 +34,20 @@ const AlarmListDiv = styled.div`
     margin-top: 70px;
     left: 40%;
   }
+
+  @media screen and (max-width: 480px) {
+    width: 280px;
+    height: 200px;
+    margin-top: 70px;
+    left: 30%;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 280px;
+    height: 200px;
+    margin-top: 70px;
+    left: 15%;
+  }
 `;
 const AlarmDiv = styled.div`
   width: inherit;
