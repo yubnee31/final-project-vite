@@ -1,0 +1,10 @@
+diff a/src/pages/Artist.tsx b/src/pages/Artist.tsx	(rejected hunks)
+@@ -250,7 +250,7 @@
+ // Profile
+ const StProfileDiv = styled.div`
+   display: grid;
+-  grid-template-columns: repeat(5, 250px);
++  grid-template-columns: repeat(6, 170px);
+   grid-auto-rows: 266px;
+   /* justify-content: center;
+   align-items: center; */
