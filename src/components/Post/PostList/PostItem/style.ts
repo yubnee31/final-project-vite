@@ -255,6 +255,8 @@ const PostBtnDiv = styled.div`
   position: absolute;
   padding: 10px;
   right: 0%;
+
+  z-index: 1000;
   @media screen and (max-width: 1420px) {
     width: 102px;
     height: 60px;

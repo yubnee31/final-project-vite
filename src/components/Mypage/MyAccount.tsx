@@ -327,9 +327,9 @@ const StcheckButton = styled.button`
   }
 
   @media screen and (max-width: 768px) {
-    width: 58px;
+    width: 65px;
     font-size: 13px;
-    margin-right: 0px;
+    margin-right: 15px;
   }
 `;
 const StProfileSaveBtnDiv = styled.div`
@@ -353,7 +353,7 @@ const StProfileSaveBtn = styled.button`
   }
 
   @media screen and (max-width: 768px) {
-    margin-top: 200px;
+    margin-top: 160px;
     margin-bottom: 50px;
     width: 80px;
   }
@@ -372,7 +372,7 @@ const StNicknameInput = styled.input`
   }
 
   @media screen and (max-width: 768px) {
-    width: 280px;
+    width: 270px;
   }
 `;
 const StProfileSettingContainer = styled.div`

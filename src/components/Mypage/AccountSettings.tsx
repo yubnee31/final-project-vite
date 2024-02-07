@@ -237,7 +237,7 @@ const StSettingButton = styled.button`
   cursor: pointer;
 
   @media screen and (max-width: 768px) {
-    width: 45px;
+    width: 50px;
     height: 32px;
     font-size: 12px;
     border-radius: 6px;
@@ -365,6 +365,10 @@ const StFwAtistContainer = styled.div`
   @media screen and (max-width: 768px) {
     margin-left: 8px;
     margin-right: 8px;
+    p {
+      margin-left: 10px;
+      font-size: 13px;
+    }
     img {
       width: 152px;
       height: 114px;
