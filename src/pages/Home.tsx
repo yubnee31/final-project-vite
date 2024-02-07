@@ -264,12 +264,12 @@ const StArtistDiv = styled.div`
   }
 
   @media screen and (max-width: 1024px) {
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(3, auto);
   }
 
   @media screen and (max-width: 768px) {
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 152px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
     grid-auto-rows: 172px;
     grid-template-rows: repeat(3, auto);
 
@@ -335,7 +335,7 @@ const StListDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 152px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
     grid-auto-rows: 172px;
     grid-template-rows: repeat(3, auto);
 
