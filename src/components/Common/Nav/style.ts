@@ -44,6 +44,14 @@ const LogoImg = styled.img`
   @media screen and (max-width: 768px) {
     margin-right: 108px;
   }
+
+  @media screen and (max-width: 470px) {
+    margin-right: 48px;
+  }
+
+  @media screen and (max-width: 400px) {
+    margin-right: 18px;
+  }
 `;
 
 const NavImgsDiv = styled.div`
@@ -52,25 +60,29 @@ const NavImgsDiv = styled.div`
   align-items: center;
 `;
 const AlramDiv = styled.div`
+  background-color: transparent;
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   margin-right: 60px;
 
   @media screen and (max-width: 768px) {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     margin-right: 24px;
   }
 `;
+const AlramCounterDiv = styled.div`
+  background-color: transparent;
+`;
 const AlramImg = styled.img`
   background-color: transparent;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 
   @media screen and (max-width: 768px) {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 `;
 const StAlarmCounterP = styled.p`
@@ -126,6 +138,7 @@ export default {
   LogNImgsDiv,
   LogoImg,
   NavImgsDiv,
+  AlramCounterDiv,
   AlramDiv,
   AlramImg,
   StAlarmCounterP,

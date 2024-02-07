@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import St from './style';
 import Logo from '../../../assets/images/Logo_black_remove.png';
-import AlramImg from '../../../assets/images/alarm-icon-white.png';
+import AlramImg from '../../../assets/images/alarm.svg';
 import MypageImg from '../../../assets/images/profile-white.png';
 import ArtistSearch from './Search';
 import Alram from './Alram';
@@ -46,16 +46,22 @@ const Nav = () => {
             </>
           ) : (
             <>
-              <St.SigninBtn>Sign In</St.SigninBtn>
+              <St.SigninBtn
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                Sign In
+              </St.SigninBtn>
             </>
           )}
         </St.NavImgsDiv>
       </St.LogNImgsDiv>
-      <div>
+      <St.AlramCounterDiv>
         {alarmToggle && (
           <Alram setAlarmToggle={setAlarmToggle} alarmToggle={alarmToggle} alarm={alarm} setAlarm={setAlarm} />
         )}
-      </div>
+      </St.AlramCounterDiv>
     </St.Nav>
   );
 };
