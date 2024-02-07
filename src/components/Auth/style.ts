@@ -13,6 +13,10 @@ export const StForm = styled.form`
   width: 400px;
   height: 500px;
   border-radius: 10px;
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    height: 420px;
+  }
 `;
 
 export const StFormDiv = styled.div`
@@ -21,6 +25,11 @@ export const StFormDiv = styled.div`
   margin: 35px auto;
   text-align: left;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 360px;
+    margin: 30px auto;
+  }
 `;
 
 export const StTitleP = styled.p`
@@ -28,21 +37,36 @@ export const StTitleP = styled.p`
   font-size: x-large;
   background-color: transparent;
   user-select: none;
+  @media screen and (max-width: 768px) {
+    height: 30px;
+    font-size: 22px;
+  }
 `;
 
 export const StInfoP = styled.p`
   height: 30px;
   font-size: small;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    height: 22px;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
 `;
+
 export const StInputDiv = styled.div`
   width: 300px;
   height: 50px;
-  border-bottom: 1px solid gray;
   background-color: transparent;
-
   position: relative;
+  margin-bottom: 10px;
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 35px;
+    margin-bottom: 8px;
+  }
 `;
+
 export const StInputButton = styled.button`
   width: 70px;
   height: 25px;
@@ -66,13 +90,26 @@ export const StInputButton = styled.button`
     background-color: #5a68e8;
     transition: 0.5s;
   }
+  @media screen and (max-width: 768px) {
+    width: 60px;
+    height: 22px;
+    font-size: 11px;
+    top: 12%;
+  }
 `;
+
 export const StInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
   border-width: 0 0 1px;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 36px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
 `;
 
 export const StErrorMessage = styled.span`
@@ -92,6 +129,10 @@ export const StSigninBtn = styled.button`
     cursor: pointer;
     font-weight: bold;
   }
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 35px;
+  }
 `;
 
 export const StSignupBtnDiv = styled.div`
@@ -101,6 +142,9 @@ export const StSignupBtnDiv = styled.div`
   font-size: x-small;
   gap: 5px;
   margin-top: 15px;
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 export const StSpan = styled.span`
@@ -109,11 +153,11 @@ export const StSpan = styled.span`
 `;
 
 export const StCreateAccountSpan = styled.span`
+  text-decoration: underline;
   border: none;
   background-color: transparent;
   &:hover {
     cursor: pointer;
-    text-decoration: underline;
   }
 `;
 export const StDivisionDiv = styled.div`
@@ -135,6 +179,9 @@ export const StDivisionDiv = styled.div`
     line-height: 0px;
     margin: 0px 7px;
   }
+  @media screen and (max-width: 768px) {
+    margin: 22px 0px;
+  }
 `;
 
 export const StGoogleLoginBtn = styled.button`
@@ -149,11 +196,18 @@ export const StGoogleLoginBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 35px;
+  }
 `;
 
 export const StGoogleIcon = styled.img`
   height: 18px;
   background-color: transparent;
+  @media screen and (max-width: 768px) {
+    height: 15px;
+  }
 `;
 
 export const StGoogleDiv = styled.div`
@@ -164,6 +218,10 @@ export const StGoogleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    width: 160px;
+    height: 32px;
+  }
 `;
 
 export const StGoogleP = styled.p`
@@ -177,6 +235,10 @@ export const StKakaoImg = styled.img`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 36px;
+  }
 `;
 
 export const StSignupBtn = styled.button`
@@ -189,5 +251,10 @@ export const StSignupBtn = styled.button`
   &:hover {
     cursor: pointer;
     font-weight: bold;
+  }
+  @media screen and (max-width: 768px) {
+    width: 260px;
+    height: 35px;
+    margin-top: 30px;
   }
 `;
