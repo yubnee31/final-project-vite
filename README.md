@@ -24,18 +24,17 @@ This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 
 ## 기술 스택 및 사용 라이브러리
 
-- react
+![Web App Reference Architecture (3)](https://github.com/makeit80/final-project-vite/assets/147115140/df1e50d7-06d8-4683-94ec-21ea78dd6f9c)
+
+- react (Vite)
 - typescript
-- Vite
 - dayjs
 - styled-components
-- styled-reset
 - react-toastify
 - react-spinners
 - recoil
 
 - tanstack/react-query
-- tanstack/react-query-devtools
 
 - supabase
 - supabase - Authentication
