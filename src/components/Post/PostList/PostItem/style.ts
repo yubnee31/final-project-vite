@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const PostLiAndToggleDiv = styled.div`
-  display: flex;
-  align-items: flex-end;
+  display: inline-block;
 `;
 
 // PostList
@@ -86,10 +85,14 @@ const PostContentsP = styled.p`
   line-height: 20px;
   height: 39.5px;
 
+  @media screen and (max-width: 1000px) {
+    width: 700px;
+  }
+
   @media screen and (max-width: 700px) {
     font-size: 14px;
     width: 320px;
-    height: 30px;
+    height: 40px;
 
     margin-top: 10px;
     margin-bottom: 10px;
@@ -271,6 +274,7 @@ const PostBtn = styled.button`
   width: 200px;
   height: 46px;
   font-size: 14px;
+  color: white;
   border: 1px solid white;
 
   cursor: pointer;

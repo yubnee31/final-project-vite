@@ -5,6 +5,7 @@ import heartImgPurple from '../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../assets/images/heart-white.png';
 import profileImg from '../../../../../assets/images/profile-white.png';
 import commentImg from '../../../../../assets/images/comment-white.png';
+import closeImg from '../../../../../assets/images/close.png';
 import CommentLike from '../CommentLike';
 import {useQuery} from '@tanstack/react-query';
 import {getTargetUserInfo} from '../../../../../api/currentUser';
@@ -21,6 +22,7 @@ const OnlyTextOpenPost = ({
   comment,
   handleChangeAddComment,
   handleSubmitAddComment,
+  handleModal,
 }: any) => {
   const {data: userInfo} = useQuery({
     queryKey: ['userInfo'],
@@ -34,7 +36,10 @@ const OnlyTextOpenPost = ({
 
   return (
     <>
-      <St.OnlyTextTitle>게시된 글</St.OnlyTextTitle>
+      <St.OnlyTextTitleCloseDiv>
+        <St.OnlyTextTitle>게시된 글</St.OnlyTextTitle>
+        <St.OnlyTextCloseImg src={closeImg} onClick={handleModal} />
+      </St.OnlyTextTitleCloseDiv>
       <St.OnlyTextContentDiv>
         <St.OnlyTextHeader>
           <St.OnlyTextUserInfo>

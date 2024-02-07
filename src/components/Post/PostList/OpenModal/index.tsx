@@ -125,6 +125,7 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
                 comment={comment}
                 handleChangeAddComment={handleChangeAddComment}
                 handleSubmitAddComment={handleSubmitAddComment}
+                handleModal={handleModal}
               />
             </St.OpenPostModalContent>
           ) : (
@@ -140,6 +141,7 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
               comment={comment}
               handleChangeAddComment={handleChangeAddComment}
               handleSubmitAddComment={handleSubmitAddComment}
+              handleModal={handleModal}
             />
           )}
         </St.OpenPostModalBox>

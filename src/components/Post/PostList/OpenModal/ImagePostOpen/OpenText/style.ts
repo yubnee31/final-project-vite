@@ -3,18 +3,38 @@ import styled from 'styled-components';
 const OpenTextWrap = styled.div`
   background-color: #2a2a2a;
   flex-basis: 50%;
-  height: 800px;
-  width: 596px;
+  width: 476px;
+  height: 650px;
+
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+  }
 `;
 
 // content
+const OpenTextTitleCloseDiv = styled.div`
+  background-color: #2a2a2a;
+  display: flex;
+`;
 const OpenTextTitle = styled.div`
   background-color: #2a2a2a;
   font-size: 20px;
   text-align: center;
   width: 80px;
   height: 24px;
-  margin: 31px 258px 21px 258px;
+  margin: 30px 144px 20px 190px;
+
+  @media screen and (max-width: 1000px) {
+    margin: 30px 81px 20px 127px;
+  }
+`;
+const OpenTextCloseImg = styled.img`
+  background-color: #2a2a2a;
+  text-align: center;
+  width: 46px;
+  height: 46px;
+  margin: 15px 20px 10px 0;
+  cursor: pointer;
 `;
 const OpenTextBox = styled.div`
   background-color: #2a2a2a;
@@ -41,8 +61,12 @@ const OpenTextUserName = styled.p`
   background-color: #2a2a2a;
   font-size: 13px;
   height: 16px;
-  width: 300px;
+  width: 200px;
   margin: 6px 0 6px 10px;
+
+  @media screen and (max-width: 1000px) {
+    width: 100px;
+  }
 `;
 const OpenTextTimeDateDiv = styled.div`
   background-color: #2a2a2a;
@@ -62,6 +86,7 @@ const OpenTextContentP = styled.p`
   background-color: #2a2a2a;
   height: 100px;
   margin: 20px 0;
+  overflow-y: auto;
 `;
 const OpenTextImgsDiv = styled.div`
   background-color: #2a2a2a;
@@ -107,7 +132,7 @@ const OpenTextCommentImg = styled.img`
 const OpenTextCommentUl = styled.div`
   background-color: #2a2a2a;
   width: 100%;
-  height: 405px;
+  height: 285.5px;
   overflow-y: auto;
 `;
 const OpenTextCommentLi = styled.div`
@@ -142,7 +167,7 @@ const CommentDeleteaBtn = styled.button`
 // add comment
 const OpenTextAddCommentForm = styled.div`
   background-color: #2a2a2a;
-  padding: 20px 40px;
+  padding: 20px;
   height: 80px;
 `;
 const OpenTextAddCommentUserImg = styled.img`
@@ -152,11 +177,15 @@ const OpenTextAddCommentUserImg = styled.img`
 `;
 const OpenTextAddCommentTextarea = styled.textarea`
   background-color: #2a2a2a;
-  width: 440px;
+  width: 360px;
   height: 40px;
   border: none;
   resize: none;
   margin-left: 10px;
+
+  @media screen and (max-width: 1000px) {
+    width: 240px;
+  }
 `;
 const OpenTextAddCommentBtn = styled.button`
   background-color: #2a2a2a;
@@ -176,7 +205,9 @@ const OpenTextAddCommentBtn = styled.button`
 `;
 export default {
   OpenTextWrap,
+  OpenTextTitleCloseDiv,
   OpenTextTitle,
+  OpenTextCloseImg,
   OpenTextBox,
   OpenTextContentHeader,
   OpenTextUserInfo,

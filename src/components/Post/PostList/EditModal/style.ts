@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const EditPostModalContainer = styled.div`
-  width: 99%;
-  height: 99%;
+  width: 100%;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;

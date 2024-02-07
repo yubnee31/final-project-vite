@@ -7,6 +7,10 @@ const OnlyTextHeartImgDiv = styled.div`
 const OnlyTextHeartImg = styled.img`
   background-color: #2a2a2a;
   height: 20px;
+
+  @media screen and (max-width: 700px) {
+    height: 16px;
+  }
 `;
 const OnlyTextHeartCountP = styled.p`
   background-color: #2a2a2a;
@@ -14,6 +18,13 @@ const OnlyTextHeartCountP = styled.p`
   margin-top: 2px;
   margin-left: 4px;
   margin-right: 20px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+    margin-top: 2px;
+    margin-left: 4px;
+    margin-right: 15px;
+  }
 `;
 
 export default {
