@@ -20,7 +20,6 @@ export const morePosts = async (pageParam, artistName) => {
       prevCursor: pageParam.start,
     };
   } catch (error) {
-    console.error('Error fetching more posts', error);
-    throw error;
+    // console.error('Error fetching more posts', error);
   }
 };
