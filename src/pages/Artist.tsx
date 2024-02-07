@@ -250,7 +250,7 @@ const StNameSpan = styled.span`
 // Profile
 const StProfileDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 170px);
+  grid-template-columns: repeat(5, 250px);
   grid-auto-rows: 266px;
   /* justify-content: center;
   align-items: center; */
@@ -278,8 +278,8 @@ const StPfWrapper = styled.div`
   }
 `;
 const StPfMemberDiv = styled.div`
-  width: 170px;
-  height: 170px;
+  width: 220px;
+  height: 220px;
   margin-bottom: 10px;
   position: relative;
 
@@ -295,6 +295,7 @@ const StPfMemberImg = styled.img`
   background-size: cover;
   object-fit: cover;
   border-radius: 15px;
+  margin-left: 10%;
 `;
 const StPfSpan = styled.span`
   letter-spacing: 2px;
