@@ -250,17 +250,11 @@ const StNameSpan = styled.span`
 // Profile
 const StProfileDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 240px);
+  grid-template-columns: repeat(5, 250px);
   grid-auto-rows: 266px;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   row-gap: 30px;
-
-  @media screen and (max-width: 1589px) {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 29%));
-    grid-template-rows: repeat(3, auto);
-  }
-
   @media screen and (max-width: 1279px) {
     grid-template-columns: repeat(auto-fit, minmax(100px, 49%));
     grid-template-rows: repeat(2, auto);
@@ -268,16 +262,16 @@ const StProfileDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    grid-template-columns: repeat(2, 180px);
+    grid-template-columns: repeat(2, 169px);
     grid-auto-rows: 210px;
     row-gap: 0px;
     justify-content: center;
     align-items: center;
   }
-  @media screen and (max-width: 460px) {
+  @media screen and (max-width: 432px) {
     width: 100%;
-    grid-template-columns: repeat(2, 135px);
-    grid-auto-rows: 210px;
+    grid-template-columns: repeat(2, 125px);
+    grid-auto-rows: 170px;
     row-gap: 0px;
     justify-content: center;
     align-items: center;
@@ -298,13 +292,13 @@ const StPfMemberDiv = styled.div`
   position: relative;
 
   @media screen and (max-width: 768px) {
-    width: 152px;
-    height: 152px;
+    width: 142px;
+    height: 142px;
     margin-bottom: 5px;
   }
-  @media screen and (max-width: 460px) {
-    width: 122px;
-    height: 122px;
+  @media screen and (max-width: 432px) {
+    width: 112px;
+    height: 112px;
     margin-bottom: 5px;
   }
 `;
@@ -366,6 +360,10 @@ const StAlbumsDiv = styled.div`
   grid-auto-rows: 266px;
   grid-gap: 20px;
   /* justify-content: center; */
+  @media screen and (max-width: 1709px) {
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
+  }
 
   @media screen and (max-width: 1279px) {
     grid-template-rows: repeat(5, auto);
@@ -445,12 +443,16 @@ const StVideoDiv = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 1278px) {
-    width: auto;
-    height: 240px;
+    width: 900px;
+    height: 480px;
   }
   @media screen and (max-width: 768px) {
-    width: auto;
+    width: 550px;
     height: 240px;
+  }
+  @media screen and (max-width: 432px) {
+    width: 272px;
+    height: 182px;
   }
 `;
 
