@@ -262,7 +262,7 @@ const StProfileDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 180px);
     grid-auto-rows: 210px;
     row-gap: 0px;
     justify-content: center;
