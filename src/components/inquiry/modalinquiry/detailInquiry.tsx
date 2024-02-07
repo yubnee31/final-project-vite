@@ -13,7 +13,6 @@ interface DetailInquiryProps {
   onClose: () => void;
 }
 const DetailInquiry = ({selectedInquiry, onClose}: DetailInquiryProps) => {
-  console.log('DetailInquiry', selectedInquiry);
   return (
     <>
       <st.modalContainer>
