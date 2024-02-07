@@ -46,19 +46,14 @@ const Footer = () => {
 const StWrapper = styled.div`
   width: 100vw;
   height: 250px;
-  padding: 0 14%;
+  padding: 0 12%;
   background-color: black;
   color: #aeaeb2;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 
-  @media screen and (max-width: 1267px) {
-    width: 1070px;
-    padding: 0 90px;
-  }
-
-  @media screen and (max-width: 700px) {
-    width: 515px;
+  @media screen and (max-width: 768px) {
   }
 `;
 // Policy
@@ -73,13 +68,9 @@ const StUl = styled.ul`
   border-top: 2px solid gray;
   border-bottom: 1px solid #aeaeb2;
   display: flex;
+  flex-wrap: wrap;
 
-  @media screen and (max-width: 700px) {
-    width: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+  @media screen and (max-width: 768px) {
   }
 `;
 const StLi = styled.li`
@@ -87,19 +78,23 @@ const StLi = styled.li`
   margin-bottom: 20px;
   margin-right: 65px;
 
-  cursor: pointer;
   color: #aeaeb2;
 
   @media screen and (max-width: 1267px) {
     font-size: 14px;
   }
 
-  @media screen and (max-width: 700px) {
-    margin-left: 20px;
+  @media screen and (max-width: 768px) {
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 10px;
-    float: left;
+    margin-right: 50px;
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 410px) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 50px;
   }
 `;
 // Info
@@ -110,9 +105,31 @@ const StInfoWrap = styled.div`
 
   display: flex;
   flex-wrap: wrap;
-  @media screen and (max-width: 700px) {
+
+  @media screen and (max-width: 1268px) {
+    margin-bottom: 25px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 650px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 550px;
+  }
+
+  @media screen and (max-width: 678px) {
+    width: 500px;
+  }
+
+  @media screen and (max-width: 540px) {
     width: 400px;
-    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  @media screen and (max-width: 490px) {
+    width: 300px;
   }
 `;
 const StInfoDiv = styled.div`
@@ -124,17 +141,20 @@ const StInfoP = styled.p`
   font-size: 13px;
   color: #aeaeb2;
 
-  @media screen and (max-width: 700px) {
-    font-size: 10px;
+  @media screen and (max-width: 540px) {
+    font-size: 12px;
   }
 `;
 
 const StCompanyNameP = styled.p`
   color: #aeaeb2;
 
-  @media screen and (max-width: 700px) {
-    font-size: 12px;
-    margin-left: 20px;
+  @media screen and (max-width: 678px) {
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 540px) {
+    font-size: 13px;
   }
 `;
 

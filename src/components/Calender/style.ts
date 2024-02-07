@@ -3,9 +3,8 @@ import styled from 'styled-components';
 // Wrapper
 export const StWrapper = styled.div`
   background-color: #121212;
-  width: 975px;
-  height: 700px;
-  margin-left: 100px;
+  width: 900px;
+  height: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,15 +14,26 @@ export const StWrapper = styled.div`
     width: 650px;
     margin-left: 0;
   }
+
+  @media screen and (max-width: 768px) {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      background-color: #232323;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #84898c3a;
+      border-radius: 30px;
+    }
+  }
 `;
 
 // Year-Month
 export const StMonthDiv = styled.div`
   background-color: #121212;
-  width: 975px;
+  width: 800px;
   height: 50px;
-  margin-right: 100px;
-  margin-top: 80px;
+  margin-right: 130px;
   margin-bottom: 40px;
 
   display: flex;
@@ -37,17 +47,31 @@ export const StMonthDiv = styled.div`
   @media screen and (max-width: 1267px) {
     width: 650px;
   }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 0;
+  }
 `;
 
 // Day Columns
 export const StDayColumnUl = styled.ul`
   background-color: #121212;
   display: flex;
-  width: 975px;
+  width: 800px;
   padding-left: 1px;
+  padding-right: 1px;
+  margin-right: 100px;
 
   @media screen and (max-width: 1267px) {
     width: 650px;
+    margin-left: 150px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 290px;
+    margin-right: 0;
   }
 `;
 
@@ -56,10 +80,14 @@ export const StDayColumnLi = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 130px;
+  width: 110px;
   height: 30px;
   outline: 1px solid gray;
   color: #b2b2b2;
+
+  @media screen and (max-width: 1267px) {
+    width: 85px;
+  }
 `;
 
 // Day List
@@ -69,7 +97,7 @@ export const StDayUl = styled.ul`
   height: inherit;
 
   display: grid;
-  grid-template-columns: repeat(7, 130px);
+  grid-template-columns: repeat(7, 110px);
   grid-template-rows: repeat(5, 140px);
   grid-auto-columns: 125px;
   grid-auto-rows: 140px;
@@ -77,7 +105,12 @@ export const StDayUl = styled.ul`
   padding-left: 1px;
 
   @media screen and (max-width: 1267px) {
-    grid-template-columns: repeat(7, 92.7px);
+    grid-template-columns: repeat(7, 85px);
+    margin-left: 50px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 290px;
   }
 `;
 
@@ -108,19 +141,20 @@ export const StScheduleDiv = styled.div`
   background-color: #121212;
   width: 100px;
   height: 35px;
-  font-size: 12px;
+  font-size: 11px;
   margin-left: 10px;
 
   margin-bottom: 5px;
   border-bottom: 1px solid #434343;
 
   @media screen and (max-width: 1267px) {
-    width: 80px;
+    width: 75px;
     height: 28px;
   }
 `;
 
 export const StScheduleContentP = styled.div`
+  background-color: #121212;
   @media screen and (max-width: 1267px) {
     font-size: 9.5px;
   }

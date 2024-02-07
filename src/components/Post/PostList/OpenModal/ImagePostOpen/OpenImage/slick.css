@@ -1,7 +1,7 @@
 /* Slider */
 .slick-slider {
-  height: 800px;
-  width: 596px;
+  width: 476px;
+  height: 650px;
 
   position: relative;
 
@@ -18,6 +18,14 @@
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
+
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+  }
+
+  @media screen and (max-width: 700p) {
+    display: none;
+  }
 }
 
 .slick-list {
