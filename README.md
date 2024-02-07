@@ -7,13 +7,9 @@ This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 ### 팀원
 
 - [makeit80](https://github.com/makeit80)
-  - 각자 할일 적기
 - [loveytheb](https://github.com/loveytheb)
-  - 각자 할일 적기
 - [joonyg](https://github.com/joonyg)
-  - 각자 할일 적기
 - [yubnee31](https://github.com/yubnee31)
-  - 각자 할일 적기
 
 ### 소개
 
@@ -24,7 +20,7 @@ This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 
 ![image](https://github.com/makeit80/final-project-vite/assets/146186897/c1e96a79-e084-4a0c-9a80-721a997c44dc)
 
-[프로젝트로 이동하기](배포 사이트 링크 게시)
+[프로젝트로 이동하기](https://aidol.life/)
 
 ## 기술 스택 및 사용 라이브러리
 
@@ -82,22 +78,37 @@ yarn dev
  ┃ ┃ ┣ 📂 Nav
  ┃ ┃ ┗ 📂 Spinner
  ┃ ┣ 📂 follow
- ┃ ┣ 📂 like
+ ┃ ┣ 📂 inquiry
+ ┃ ┃ ┣ 📂 addinquiry
+ ┃ ┃ ┣ 📂 inquiryList
+ ┃ ┃ ┗ 📂 modalinquiry
  ┃ ┣ 📂 Modal
  ┃ ┣ 📂 Mypage
  ┃ ┣ 📂 Post
  ┃ ┃ ┣ 📂 AddPost
- ┃ ┃ ┃ ┣ 📂 AddModal
- ┃ ┃ ┣ 📂 PostList
+ ┃ ┃ ┃ ┗ 📂 AddModal
+ ┃ ┃ ┗ 📂 PostList
  ┃ ┃ ┃ ┣ 📂 EditModal
  ┃ ┃ ┃ ┣ 📂 OpenModal
- ┃ ┃ ┃ ┃ ┣ 📂 OpenComment
- ┃ ┃ ┃ ┃ ┗ 📂 OpenContent
+ ┃ ┃ ┃ ┃ ┣ 📂 CommentLike
+ ┃ ┃ ┃ ┃ ┣ 📂 ImagePostOpen
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 OpenImage
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂 OpenText
+ ┃ ┃ ┃ ┃ ┗ 📂 OnlyTextOpen
+ ┃ ┃ ┃ ┣ 📂 PostItem
  ┃ ┃ ┃ ┗ 📂 PostLike
  ┃ ┗ 📂 Schedule
+ ┃ ┃ ┗ 📂 Checker
  ┣ 📂 pages
+ ┃ ┣ 📜 Artist.tsx
+ ┃ ┣ 📜 Community.tsx
+ ┃ ┣ 📜 Home.tsx
+ ┃ ┣ 📜 Login.tsx
+ ┃ ┣ 📜 Mypage.tsx
+ ┃ ┗ 📜 Signup.tsx
  ┣ 📂 shared
- ┃ ┗ 📂 recoil
+ ┃ ┣ 📂 recoil
+ ┃ ┗ 📂 seohelmet
  ┣ 📂 toast
  ┣ 📂 types
  ┣ 📜 App.tsx
@@ -116,6 +127,8 @@ yarn dev
 
 ### 팔로우, 팔로워 기능
 
+### 스케줄 알림 설정 기능
+
 ### 좋아요 기능
 
 ### 무한 스크롤
@@ -131,7 +144,7 @@ yarn dev
 
 ### 배포하기
 
-- aws라는 호스팅플랫폼을 이용하여 배포
+- aws 이용하여 배포
 - 배포에 적용될 브랜치는 main
 
 ### aws에 배포한 뒤 커스텀 도메인 적용
