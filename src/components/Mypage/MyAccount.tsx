@@ -308,7 +308,7 @@ const StNicknameInput = styled.input`
   background-color: #121212;
   font-size: 14px;
   font-weight: bold;
-  width: 870px;
+  width: 840px;
   height: 34px;
   border: none;
   border-bottom: 1px solid #636366;
@@ -322,7 +322,7 @@ const StProfileSettingContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 41%;
+  top: 40.5%;
 `;
 const StEditProfileLabel = styled.label`
   display: flex;

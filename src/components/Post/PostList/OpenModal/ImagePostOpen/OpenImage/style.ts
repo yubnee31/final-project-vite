@@ -6,18 +6,40 @@ const OpenContentModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 800px;
-  width: 596px;
+  width: 476px;
+  height: 650px;
+
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 320px;
+    flex-basis: 20%;
+  }
 `;
 const OpenContentSliderModalImg = styled.img`
-  width: 596px;
-  height: 800px;
+  width: 476px;
+  height: 650px;
   object-fit: contain;
+
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+  }
 `;
 const OpenContentModalImg = styled.img`
-  width: 596px;
-  height: 800px;
+  width: 476px;
+  height: 650px;
   object-fit: contain;
+
+  @media screen and (max-width: 1000px) {
+    width: 350px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 320px;
+    height: 100px;
+  }
 `;
 export default {
   OpenContentModalContainer,

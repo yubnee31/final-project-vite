@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const EditPostModalContainer = styled.div`
-  width: 99%;
-  height: 99%;
+  width: 100%;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -206,7 +206,7 @@ const EditPostModalBtn = styled.button`
   @media screen and (max-width: 700px) {
     height: 32px;
     width: 45px;
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 

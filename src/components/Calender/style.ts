@@ -3,9 +3,8 @@ import styled from 'styled-components';
 // Wrapper
 export const StWrapper = styled.div`
   background-color: #121212;
-  width: 975px;
+  width: 900px;
   height: 700px;
-  margin-left: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,9 +19,9 @@ export const StWrapper = styled.div`
 // Year-Month
 export const StMonthDiv = styled.div`
   background-color: #121212;
-  width: 975px;
+  width: 800px;
   height: 50px;
-  margin-right: 100px;
+  margin-right: 130px;
   margin-top: 80px;
   margin-bottom: 40px;
 
@@ -43,8 +42,10 @@ export const StMonthDiv = styled.div`
 export const StDayColumnUl = styled.ul`
   background-color: #121212;
   display: flex;
-  width: 975px;
+  width: 800px;
   padding-left: 1px;
+  padding-right: 1px;
+  margin-right: 100px;
 
   @media screen and (max-width: 1267px) {
     width: 650px;
@@ -56,7 +57,7 @@ export const StDayColumnLi = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 130px;
+  width: 110px;
   height: 30px;
   outline: 1px solid gray;
   color: #b2b2b2;
@@ -69,7 +70,7 @@ export const StDayUl = styled.ul`
   height: inherit;
 
   display: grid;
-  grid-template-columns: repeat(7, 130px);
+  grid-template-columns: repeat(7, 110px);
   grid-template-rows: repeat(5, 140px);
   grid-auto-columns: 125px;
   grid-auto-rows: 140px;
@@ -108,7 +109,7 @@ export const StScheduleDiv = styled.div`
   background-color: #121212;
   width: 100px;
   height: 35px;
-  font-size: 12px;
+  font-size: 11px;
   margin-left: 10px;
 
   margin-bottom: 5px;

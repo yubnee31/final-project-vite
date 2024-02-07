@@ -4,6 +4,7 @@ import profileImg from '../../../../../../assets/images/profile-white.png';
 import commentImg from '../../../../../../assets/images/comment-white.png';
 import heartImgPurple from '../../../../../../assets/images/heart-purple.png';
 import heartImgWhite from '../../../../../../assets/images/heart-white.png';
+import closeImg from '../../../../../../assets/images/close.png';
 import dayjs from 'dayjs';
 import CommentLike from '../../CommentLike';
 import {useQuery} from '@tanstack/react-query';
@@ -21,6 +22,7 @@ const OpenText = ({
   comment,
   handleChangeAddComment,
   handleSubmitAddComment,
+  handleModal,
 }: any) => {
   const {data: userInfo} = useQuery({
     queryKey: ['userInfo'],
@@ -34,7 +36,10 @@ const OpenText = ({
 
   return (
     <St.OpenTextWrap>
-      <St.OpenTextTitle>게시된 글</St.OpenTextTitle>
+      <St.OpenTextTitleCloseDiv>
+        <St.OpenTextTitle>게시된 글</St.OpenTextTitle>
+        <St.OpenTextCloseImg src={closeImg} onClick={handleModal} />
+      </St.OpenTextTitleCloseDiv>
       {/* 게시글 */}
       <St.OpenTextBox>
         <St.OpenTextContentHeader>
