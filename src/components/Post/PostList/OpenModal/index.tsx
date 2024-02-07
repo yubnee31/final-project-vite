@@ -110,7 +110,7 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
             e.stopPropagation();
           }}
         >
-          {modalData.photo_url?.length ? (
+          {/* {modalData.photo_url?.length ? (
             <St.OpenPostModalContent>
               <OpenImage currentUser={currentUser} modalData={modalData} />
               <OpenText
@@ -128,22 +128,22 @@ const OpenPostModal = ({handleModal, currentUser, modalData}: any) => {
                 handleModal={handleModal}
               />
             </St.OpenPostModalContent>
-          ) : (
-            <OnlyTextOpenPost
-              currentUser={currentUser}
-              nameFilterHandler={nameFilterHandler}
-              modalData={modalData}
-              target={target}
-              targetPost={targetPost}
-              onClickLikeHandler={onClickLikeHandler}
-              comments={comments}
-              deleteMutation={deleteMutation}
-              comment={comment}
-              handleChangeAddComment={handleChangeAddComment}
-              handleSubmitAddComment={handleSubmitAddComment}
-              handleModal={handleModal}
-            />
-          )}
+          ) : ( */}
+          <OnlyTextOpenPost
+            currentUser={currentUser}
+            nameFilterHandler={nameFilterHandler}
+            modalData={modalData}
+            target={target}
+            targetPost={targetPost}
+            onClickLikeHandler={onClickLikeHandler}
+            comments={comments}
+            deleteMutation={deleteMutation}
+            comment={comment}
+            handleChangeAddComment={handleChangeAddComment}
+            handleSubmitAddComment={handleSubmitAddComment}
+            handleModal={handleModal}
+          />
+          {/* )} */}
         </St.OpenPostModalBox>
       </St.OpenPostModalContainer>
     </>

@@ -174,7 +174,7 @@ const StWrapper = styled.div`
 `;
 const StMyAccount = styled.div`
   background-color: #121212;
-  width: 935px;
+  width: 905px;
   height: 75px;
   display: flex;
   justify-content: space-between;
@@ -214,7 +214,7 @@ const StSettingButton = styled.button`
 `;
 const StLine = styled.div`
   background-color: #121212;
-  width: 935px;
+  width: 905px;
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -255,10 +255,11 @@ const StFollowArtistList = styled.div`
 const StFwAtistContainer = styled.div`
   background-color: #121212;
   margin-right: 24px;
+  margin-bottom: 24px;
   cursor: pointer;
   img {
     background-color: #121212;
-    width: 206px;
+    width: 204px;
     height: 180px;
     border-radius: 10px;
     object-fit: cover;

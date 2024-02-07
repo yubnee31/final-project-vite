@@ -9,6 +9,10 @@ const OpenTextWrap = styled.div`
   @media screen and (max-width: 1000px) {
     width: 350px;
   }
+
+  @media screen and (max-width: 700px) {
+    width: 320px;
+  }
 `;
 
 // content
@@ -27,6 +31,13 @@ const OpenTextTitle = styled.div`
   @media screen and (max-width: 1000px) {
     margin: 30px 81px 20px 127px;
   }
+
+  @media screen and (max-width: 700px) {
+    font-size: 16px;
+    width: 65px;
+    margin: 14px 83px 14px 128px;
+    padding-top: 4px;
+  }
 `;
 const OpenTextCloseImg = styled.img`
   background-color: #2a2a2a;
@@ -35,6 +46,12 @@ const OpenTextCloseImg = styled.img`
   height: 46px;
   margin: 15px 20px 10px 0;
   cursor: pointer;
+
+  @media screen and (max-width: 700px) {
+    width: 24px;
+    height: 24px;
+    margin: 14px 20px 14px 0;
+  }
 `;
 const OpenTextBox = styled.div`
   background-color: #2a2a2a;
@@ -42,6 +59,10 @@ const OpenTextBox = styled.div`
   height: 230px;
   padding: 20px;
   border-bottom: 1px solid rgba(99, 99, 102, 0.5);
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    height: 180px;
+  }
 `;
 const OpenTextContentHeader = styled.div`
   background-color: #2a2a2a;
@@ -56,6 +77,11 @@ const OpenTextUserInfo = styled.div`
 const OpenTextUserImg = styled.img`
   background-color: #2a2a2a;
   height: 28px;
+
+  @media screen and (max-width: 700px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 const OpenTextUserName = styled.p`
   background-color: #2a2a2a;
@@ -67,6 +93,12 @@ const OpenTextUserName = styled.p`
   @media screen and (max-width: 1000px) {
     width: 100px;
   }
+
+  @media screen and (max-width: 700px) {
+    font-size: 10px;
+    width: 100px;
+    margin-top: 6px;
+  }
 `;
 const OpenTextTimeDateDiv = styled.div`
   background-color: #2a2a2a;
@@ -76,17 +108,33 @@ const OpenTextTimeP = styled.p`
   background-color: #2a2a2a;
   font-size: 13px;
   margin: 6px 0;
+
+  @media screen and (max-width: 700px) {
+    font-size: 10px;
+    margin-top: 4px;
+  }
 `;
 const OpenTextDateP = styled.p`
   background-color: #2a2a2a;
   font-size: 13px;
   margin: 6px 0 6px 10px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 10px;
+    margin-top: 4px;
+  }
 `;
 const OpenTextContentP = styled.p`
   background-color: #2a2a2a;
   height: 100px;
   margin: 20px 0;
   overflow-y: auto;
+
+  @media screen and (max-width: 700px) {
+    font-size: 13px;
+    overflow-y: auto;
+    height: 50px;
+  }
 `;
 const OpenTextImgsDiv = styled.div`
   background-color: #2a2a2a;
@@ -108,6 +156,10 @@ const OpenTextLikeImg = styled.img`
   margin-right: 4px;
 
   cursor: pointer;
+
+  @media screen and (max-width: 700px) {
+    height: 16px;
+  }
 `;
 const OpenTextLikeCountP = styled.p`
   background-color: #2a2a2a;

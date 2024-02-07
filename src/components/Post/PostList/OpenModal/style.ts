@@ -31,6 +31,10 @@ const OpenPostModalBox = styled.div`
 const OpenPostModalContent = styled.div`
   background-color: #2a2a2a;
   display: flex;
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 export default {

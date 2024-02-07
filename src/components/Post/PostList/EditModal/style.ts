@@ -206,7 +206,7 @@ const EditPostModalBtn = styled.button`
   @media screen and (max-width: 700px) {
     height: 32px;
     width: 45px;
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 

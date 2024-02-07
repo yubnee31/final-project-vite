@@ -14,8 +14,8 @@ const OpenContentModalContainer = styled.div`
   }
 
   @media screen and (max-width: 700px) {
-    flex-direction: column;
     width: 320px;
+    flex-basis: 20%;
   }
 `;
 const OpenContentSliderModalImg = styled.img`
@@ -34,6 +34,11 @@ const OpenContentModalImg = styled.img`
 
   @media screen and (max-width: 1000px) {
     width: 350px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 320px;
+    height: 100px;
   }
 `;
 export default {
