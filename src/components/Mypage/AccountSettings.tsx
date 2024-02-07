@@ -182,10 +182,22 @@ const StMyAccount = styled.div`
   @media screen and (max-width: 1267px) {
     width: 585px;
   }
+
+  @media screen and (max-width: 820px) {
+    width: 540px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    padding: 0 20px;
+  }
 `;
 const StMyAccountUser = styled.div`
   background-color: #121212;
   display: flex;
+
+  @media screen and (max-width: 768px) {
+  }
 `;
 const StNickName = styled.div`
   background-color: #121212;
@@ -200,6 +212,18 @@ const StNickName = styled.div`
     margin-top: 10px;
     font-size: 16px;
   }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 10px;
+    h1 {
+      margin-top: 3px;
+      font-size: 16px;
+    }
+    h2 {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+  }
 `;
 const StSettingButton = styled.button`
   background-color: #121212;
@@ -211,6 +235,13 @@ const StSettingButton = styled.button`
   border: 1px solid white;
   border-radius: 5px;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    width: 45px;
+    height: 32px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
 `;
 const StLine = styled.div`
   background-color: #121212;
@@ -224,6 +255,16 @@ const StLine = styled.div`
   @media screen and (max-width: 1267px) {
     width: 585px;
   }
+
+  @media screen and (max-width: 820px) {
+    width: 540px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 360px;
+    padding: 0 20px;
+    margin-top: 10px;
+  }
 `;
 
 const StProfileImage = styled.img`
@@ -232,10 +273,19 @@ const StProfileImage = styled.img`
   height: 80px;
   border-radius: 100%;
   object-fit: cover;
+
+  @media screen and (max-width: 768px) {
+    width: 42px;
+    height: 42px;
+  }
 `;
 const StMyFollowContainer = styled.div`
   background-color: #121212;
   margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 12px;
+  }
 `;
 
 const StFollowP = styled.p`
@@ -243,6 +293,11 @@ const StFollowP = styled.p`
   font-size: 18px;
   font-weight: bold;
   margin-top: 40px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    margin-left: 8px;
+  }
 `;
 
 const StFollowArtistList = styled.div`
@@ -250,6 +305,10 @@ const StFollowArtistList = styled.div`
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 16px;
+  }
 `;
 
 const StFwAtistContainer = styled.div`
@@ -293,6 +352,22 @@ const StFwAtistContainer = styled.div`
     img {
       width: 176px;
       height: 150px;
+    }
+  }
+
+  @media screen and (max-width: 820px) {
+    img {
+      width: 161px;
+      height: 135px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 8px;
+    margin-right: 8px;
+    img {
+      width: 152px;
+      height: 114px;
     }
   }
 `;

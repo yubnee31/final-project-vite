@@ -101,19 +101,16 @@ const Mypage = () => {
           className={selectedMenu === '1:1문의 하기' ? 'target' : ''}
           onClick={() => handleMenuClick('1:1문의 하기')}
         >
-          1:1문의 하기
+          1:1 문의
         </StMenuBtn>
-        <StLogoutMenuBtn
-          className={selectedMenu === '로그아웃' ? 'target' : ''}
-          onClick={() => handleMenuClick('로그아웃')}
-        >
-          로그아웃 하기
-        </StLogoutMenuBtn>
+        <StMenuBtn className={selectedMenu === '로그아웃' ? 'target' : ''} onClick={() => handleMenuClick('로그아웃')}>
+          로그아웃
+        </StMenuBtn>
       </StMenuDiv>
       <Staccount>
         {selectedMenu === '계정 정보' && <AccountSettings user={user} onUpdateNickname={handleUpdateNickname} />}
         {selectedMenu === '스케줄' && <Calender />}
-        {selectedMenu === '1:1문의 하기' && <p>1:1문의 하기 컨텐츠</p>}
+        {selectedMenu === '1:1문의 하기' && <StQNAP>준비 중</StQNAP>}
         {selectedMenu === '로그아웃'}
       </Staccount>
     </StMypageContainer>
@@ -126,11 +123,16 @@ const StMypageContainer = styled.div`
   justify-content: center;
   padding-top: 140px;
   width: 100vw;
-  height: 1000px;
+  height: 100%;
+  margin: 0 auto;
 
-  @media screen and (max-width: 1267px) {
+  @media screen and (max-width: 768px) {
+    height: 100%;
+    padding-top: 90px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 `;
 const StMenuDiv = styled.div`
@@ -141,9 +143,22 @@ const StMenuDiv = styled.div`
   display: flex;
   flex-direction: column;
   border-right: 1px solid #636366;
+  text-align: center;
 
   @media screen and (max-width: 1267px) {
     width: 120px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 360px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid #636366;
   }
 `;
 const StMenuBtn = styled.button`
@@ -165,28 +180,16 @@ const StMenuBtn = styled.button`
     font-size: 14px;
     width: 100px;
   }
-`;
-const StLogoutMenuBtn = styled.button`
-  background-color: #121212;
-  width: 100px;
-  line-height: 24px;
-  font-size: 16px;
-  text-align: left;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #aeaeb2;
-  color: #aeaeb2;
-  cursor: pointer;
-  margin-bottom: 45px;
-  &:hover {
-    color: white;
-    transition: 0.3s;
-  }
 
-  @media screen and (max-width: 1267px) {
-    font-size: 14px;
-    width: 90px;
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    font-weight: bold;
+    width: 85.5px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 `;
 const Staccount = styled.div`
@@ -199,6 +202,14 @@ const Staccount = styled.div`
   @media screen and (max-width: 1267px) {
     width: 600px;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 360px;
+  }
+`;
+const StQNAP = styled.p`
+  background-color: #121212;
+  height: 600px;
 `;
 
 export default Mypage;
