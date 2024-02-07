@@ -19,12 +19,11 @@ export const getInquiry = async ({page, pageSize}: pageType) => {
       .from('inquiry')
       .select('*')
       .range((page - 1) * pageSize, page * pageSize - 1);
-    console.log('inquiryList', inquiryList);
+    // console.log('inquiryList', inquiryList);
 
     return inquiryList;
   } catch (error) {
-    console.log('문의 리스트 가져오기 실패', error);
-    throw error;
+    // console.log('문의 리스트 가져오기 실패', error);
   }
 };
 
@@ -52,14 +51,14 @@ export const addInquiry = async ({
 
     if (error) {
       // 에러 처리
-      console.error('문의 내용 보내기 실패', error);
+      // console.error('문의 내용 보내기 실패', error);
       return null;
     }
 
     // 성공한 경우 추가된 데이터를 반환
     return data;
   } catch (error) {
-    console.error('문의 내용 보내기 실패', error);
+    // console.error('문의 내용 보내기 실패', error);
     return null;
   }
 };
@@ -69,7 +68,7 @@ export const deleteInquiry = async (id: number) => {
   try {
     const {data} = await supabase.from('inquiry').delete().eq('id', id);
   } catch (error) {
-    console.log('문의 내용 삭제 실패', error);
+    // console.log('문의 내용 삭제 실패', error);
   }
 };
 

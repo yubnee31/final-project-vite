@@ -35,7 +35,7 @@ const getCommentLikes = async () => {
     const {data, error} = await supabase.from('commentLike').select('*');
     return data;
   } catch (error) {
-    console.log('list 가져오기 error', error);
+    // console.log('list 가져오기 error', error);
   }
 };
 
@@ -43,7 +43,7 @@ const addCommentLikes = async ({commentid, userid}: any) => {
   try {
     const {error} = await supabase.from('commentLike').insert({commentid: commentid, like: 1, userid: userid});
   } catch (error) {
-    console.log('좋아요 더하기 error', error);
+    // console.log('좋아요 더하기 error', error);
   }
 };
 
@@ -54,7 +54,7 @@ const updateCommentLikes = async ({commentid, likeCount, userid}: any) => {
       .update({commentid: commentid, like: likeCount, userid: userid})
       .eq('commentid', commentid);
   } catch (error) {
-    console.log('좋아요 업데이트 error', error);
+    // console.log('좋아요 업데이트 error', error);
   }
 };
 export {getPostLikes, addPostLikes, updatePostLikes, getCommentLikes, addCommentLikes, updateCommentLikes};

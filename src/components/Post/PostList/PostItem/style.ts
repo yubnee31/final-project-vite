@@ -12,7 +12,6 @@ const PostLi = styled.li`
   width: 952px;
   position: relative;
   border-bottom: 1px solid gray;
-
   @media screen and (max-width: 1000px) {
     width: 700px;
   }
@@ -73,7 +72,7 @@ const PostClickOpenModal = styled.div`
 const PostContentsP = styled.p`
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 952px;
+  max-width: 952px;
   height: 50px;
 
   display: -webkit-box;
@@ -253,29 +252,40 @@ const PostMoreImg = styled.img`
 const PostBtnDiv = styled.div`
   width: 200px;
   height: 93px;
-  margin-left: 10px;
-
+  position: absolute;
+  padding: 10px;
+  right: 0%;
   @media screen and (max-width: 1420px) {
     width: 102px;
     height: 60px;
+    right: 0%;
   }
 
   @media screen and (max-width: 1000px) {
     width: 102px;
     height: 60px;
+    right: 0%;
   }
 
   @media screen and (max-width: 700px) {
     width: 102px;
     height: 60px;
+    right: 0%;
+  }
+  @media screen and (max-width: 400px) {
+    width: 32px;
+    height: 10px;
+    padding: 20px;
+    position: absolute;
   }
 `;
 const PostBtn = styled.button`
-  width: 200px;
+  width: 100px;
   height: 46px;
   font-size: 14px;
   color: white;
   border: 1px solid white;
+  /* position: absolute; */
 
   cursor: pointer;
   &:hover {

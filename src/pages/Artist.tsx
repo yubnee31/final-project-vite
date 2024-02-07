@@ -157,7 +157,7 @@ const Artist = () => {
                   setIsPhotoModalOpen(true);
                 }}
               >
-                <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/450/')} />
+                <StPhotoImg src={el.imgUrl.replace('/melon/', '/melon/resize/440/')} />
               </StPhotoImgDiv>
             ))}
             {isPhotoModalOpen && (
@@ -262,7 +262,7 @@ const StProfileDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 180px);
     grid-auto-rows: 210px;
     row-gap: 0px;
     justify-content: center;
@@ -270,7 +270,7 @@ const StProfileDiv = styled.div`
   }
 `;
 const StPfWrapper = styled.div`
-  width: 170px;
+  width: 220px;
   height: 266px;
   @media screen and (max-width: 768px) {
     width: 152px;
@@ -295,7 +295,6 @@ const StPfMemberImg = styled.img`
   background-size: cover;
   object-fit: cover;
   border-radius: 15px;
-  margin-left: 10%;
 `;
 const StPfSpan = styled.span`
   letter-spacing: 2px;
@@ -315,8 +314,8 @@ const StPfDetailP = styled.p`
   }
 `;
 const StPfDetailDiv = styled.div`
-  width: 238px;
-  height: 238px;
+  width: 228px;
+  height: 225px;
   position: absolute;
   top: 0;
   left: 0;

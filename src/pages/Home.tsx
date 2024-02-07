@@ -235,6 +235,7 @@ const StDiv = styled.div`
   padding-left: 12.5%;
   padding-right: 12.5%;
   justify-content: center;
+
   @media screen and (max-width: 1279px) {
     padding-left: 8%;
     padding-right: 8%;
@@ -254,7 +255,7 @@ const StArtistDiv = styled.div`
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fill, 18%);
-  justify-content: center;
+  /* justify-content: center; */
   grid-auto-rows: auto;
   @media screen and (max-width: 1279px) {
     margin-top: 35px;
@@ -264,12 +265,12 @@ const StArtistDiv = styled.div`
   }
 
   @media screen and (max-width: 1024px) {
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(3, auto);
   }
 
   @media screen and (max-width: 768px) {
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 152px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
     grid-auto-rows: 172px;
     grid-template-rows: repeat(3, auto);
 
@@ -279,6 +280,7 @@ const StArtistDiv = styled.div`
   }
 
   @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
     grid-template-rows: repeat(2, auto);
   }
 `;
@@ -314,7 +316,7 @@ const StListDiv = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 18%));
   gap: 20px;
   grid-row-gap: 35px;
-  justify-content: center;
+  /* justify-content: center; */
   & > * {
     transition: transform 1s ease;
   }
@@ -335,8 +337,8 @@ const StListDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 152px));
-    grid-auto-rows: 172px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
+    grid-auto-rows: 225px;
     grid-template-rows: repeat(3, auto);
 
     & > * {
@@ -345,6 +347,7 @@ const StListDiv = styled.div`
   }
 
   @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
     grid-template-rows: repeat(2, auto);
   }
 `;
