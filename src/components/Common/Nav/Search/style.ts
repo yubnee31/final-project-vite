@@ -28,6 +28,11 @@ const SearchInput = styled.input`
     margin-top: 7px;
     width: 150px;
   }
+
+  @media screen and (max-width: 400px) {
+    font-size: 12px;
+    margin-left: 10px;
+  }
 `;
 
 export default {SearchForm, SearchInput};
