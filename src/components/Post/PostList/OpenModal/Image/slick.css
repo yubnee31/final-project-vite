@@ -1,11 +1,10 @@
 /* Slider */
 .slick-slider {
-  width: 476px;
-  height: 650px;
+  width: 871px;
+  height: 400px;
 
   position: relative;
 
-  /* display: block; */
   box-sizing: border-box;
 
   -webkit-user-select: none;
@@ -20,11 +19,12 @@
   -webkit-tap-highlight-color: transparent;
 
   @media screen and (max-width: 1000px) {
-    width: 350px;
+    width: 605px;
   }
 
-  @media screen and (max-width: 700p) {
-    display: none;
+  @media screen and (max-width: 700px) {
+    width: 265px;
+    height: 310px;
   }
 }
 

@@ -33,7 +33,15 @@ const Nav = () => {
                 setAlarmToggle(!alarmToggle);
               }}
             />
-            {alarm.length === 0 ? null : <St.StAlarmCounterP>{alarm.length}</St.StAlarmCounterP>}
+            {alarm.length === 0 ? null : (
+              <St.StAlarmCounterP
+                onClick={() => {
+                  setAlarmToggle(!alarmToggle);
+                }}
+              >
+                {alarm.length}
+              </St.StAlarmCounterP>
+            )}
           </St.AlramDiv>
           {login ? (
             <>

@@ -22,12 +22,12 @@ const NavContainer = styled.div`
 const LogNImgsDiv = styled.div`
   background-color: transparent;
   display: flex;
-  cursor: pointer;
 `;
 const LogoImg = styled.img`
   background-color: transparent;
   width: 105px;
   margin-right: 700px;
+  cursor: pointer;
 
   @media screen and (max-width: 1267px) {
     margin-right: 400px;
@@ -79,6 +79,7 @@ const AlramImg = styled.img`
   background-color: transparent;
   width: 36px;
   height: 36px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     width: 24px;
@@ -108,6 +109,7 @@ const MypageImg = styled.img`
   background-color: transparent;
   width: 36px;
   height: 36px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     width: 24px;

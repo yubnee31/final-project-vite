@@ -249,43 +249,39 @@ const PostMoreImg = styled.img`
     height: 20px;
   }
 `;
+
+const PostBtnsWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+const PostBtnsBox = styled.div`
+  position: relative;
+`;
 const PostBtnDiv = styled.div`
   width: 200px;
-  height: 93px;
+  height: 92px;
   position: absolute;
-  padding: 10px;
-  right: 0%;
-  @media screen and (max-width: 1420px) {
-    width: 102px;
-    height: 60px;
-    right: 0%;
-  }
+  bottom: 20%;
+  left: 75.5%;
+  margin-bottom: 20px;
 
   @media screen and (max-width: 1000px) {
-    width: 102px;
-    height: 60px;
-    right: 0%;
+    left: 67%;
   }
 
   @media screen and (max-width: 700px) {
-    width: 102px;
-    height: 60px;
-    right: 0%;
-  }
-  @media screen and (max-width: 400px) {
-    width: 32px;
-    height: 10px;
-    padding: 20px;
-    position: absolute;
+    width: 100px;
+    height: 70px;
+    left: 62%;
+    margin-bottom: 13px;
   }
 `;
 const PostBtn = styled.button`
-  width: 100px;
+  width: 200px;
   height: 46px;
   font-size: 14px;
   color: white;
   border: 1px solid white;
-  /* position: absolute; */
 
   cursor: pointer;
   &:hover {
@@ -293,19 +289,9 @@ const PostBtn = styled.button`
     color: black;
   }
 
-  @media screen and (max-width: 1420px) {
-    width: 102px;
-    height: 30px;
-  }
-
-  @media screen and (max-width: 1000px) {
-    width: 102px;
-    height: 30px;
-  }
-
   @media screen and (max-width: 700px) {
-    width: 102px;
-    height: 30px;
+    width: 100px;
+    height: 35px;
   }
 `;
 
@@ -330,6 +316,8 @@ export default {
   PostContentThreeImgC,
   PostContentFourImg,
 
+  PostBtnsWrap,
+  PostBtnsBox,
   PostBtnDiv,
   PostLikeCommentMoreDiv,
   PostLikeCommentDiv,

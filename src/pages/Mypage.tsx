@@ -184,7 +184,7 @@ const StMenuBtn = styled.button`
   @media screen and (max-width: 768px) {
     font-size: 16px;
     font-weight: bold;
-    width: 85.5px;
+    width: 100px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;

@@ -1,5 +1,5 @@
 import {useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
-import React, {useState, useEffect} from 'react';
+import {useState} from 'react';
 import St from './style';
 import {getCurrentUser, getTargetUserInfo} from '../../../../api/currentUser';
 import {deletePost} from '../../../../api/post';
@@ -9,9 +9,8 @@ import commentImg from '../../../../assets/images/chat.svg';
 import seeMoreImg from '../../../../assets/images/meatballs-v.svg';
 import profileImg from '../../../../assets/images/profile-white.png';
 import PortalModal from '../../../Common/portalModal';
-import OpenPostModal from '../OpenModal';
 import EditPostModal from '../EditModal';
-import {supabase} from '../../../../api/supabase';
+import PostOpenModal from '../OpenModal';
 
 const PostItem = ({id, userid, content, photo_url, created_at}: any) => {
   const queryClient = useQueryClient();
@@ -60,44 +59,12 @@ const PostItem = ({id, userid, content, photo_url, created_at}: any) => {
     },
   });
 
-  // user profile image
-  // 유저 프로필 서버에서 불러오기
-  const [profileImage, setProfileImage] = useState(profileImg);
-
-  const fetchImageData = async () => {
-    try {
-      const {data, error} = await supabase.from('userinfo').select('profile_image').eq('id', currentUser?.id).single();
-
-      if (data?.profile_image) {
-        // 이미지 파일명이나 경로를 가져옴
-        const imageFileName = data.profile_image;
-
-        // Supabase 스토리지에서 직접 이미지를 가져오기
-        const {data: imageData, error: imageError} = await supabase.storage
-          .from('profile-images') // 스토리지 버킷 이름
-          .download(imageFileName);
-
-        // 다운로드된 이미지를 Blob URL로 변환
-        const imageUrl = URL.createObjectURL(imageData);
-
-        // 상태 업데이트
-        setProfileImage(imageUrl);
-      }
-    } catch (error) {
-      // console.error('프로필 이미지 가져오기 오류', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchImageData();
-  }, []);
-
   return (
     <St.PostLiAndToggleDiv>
       <St.PostLi key={id}>
         <St.PostHeader>
           <St.PostUserInfoDiv>
-            <St.PostUserImg src={profileImage} />
+            <St.PostUserImg src={profileImg} />
             <St.PostNameP>{nameFilterHandler(userid)}</St.PostNameP>
           </St.PostUserInfoDiv>
           <St.PostTimeDiv>
@@ -145,35 +112,43 @@ const PostItem = ({id, userid, content, photo_url, created_at}: any) => {
       {openToggle && (
         <>
           {userid === currentUser?.id ? (
-            <St.PostBtnDiv>
-              <St.PostBtn
-                onClick={() => {
-                  deleteMutation.mutate(id);
-                  setOpenToggle(false);
-                }}
-              >
-                삭제하기
-              </St.PostBtn>
-              <St.PostBtn
-                onClick={() => {
-                  handleEditModal(id, content, photo_url);
-                  setOpenToggle(false);
-                }}
-              >
-                수정하기
-              </St.PostBtn>
-            </St.PostBtnDiv>
+            <St.PostBtnsWrap>
+              <St.PostBtnsBox>
+                <St.PostBtnDiv>
+                  <St.PostBtn
+                    onClick={() => {
+                      deleteMutation.mutate(id);
+                      setOpenToggle(false);
+                    }}
+                  >
+                    삭제하기
+                  </St.PostBtn>
+                  <St.PostBtn
+                    onClick={() => {
+                      handleEditModal(id, content, photo_url);
+                      setOpenToggle(false);
+                    }}
+                  >
+                    수정하기
+                  </St.PostBtn>
+                </St.PostBtnDiv>
+              </St.PostBtnsBox>
+            </St.PostBtnsWrap>
           ) : (
-            <St.PostBtnDiv>
-              <St.PostBtn>차단하기</St.PostBtn>
-              <St.PostBtn>신고하기</St.PostBtn>
-            </St.PostBtnDiv>
+            <St.PostBtnsWrap>
+              <St.PostBtnsBox>
+                <St.PostBtnDiv>
+                  <St.PostBtn>차단하기</St.PostBtn>
+                  <St.PostBtn>신고하기</St.PostBtn>
+                </St.PostBtnDiv>
+              </St.PostBtnsBox>
+            </St.PostBtnsWrap>
           )}
         </>
       )}
       <PortalModal>
         {openCommentModal && (
-          <OpenPostModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
+          <PostOpenModal handleModal={handlecommentModal} currentUser={currentUser} modalData={modalCommentData} />
         )}
       </PortalModal>
       <PortalModal>
